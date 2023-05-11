@@ -8,12 +8,12 @@ type Props = {
     className?: string
 }
 
-const Form = ({ label, icon, alt, className }: Props) => {
+const Input = ({ label, icon, alt, className }: Props) => {
     return (
         <div className={`relative ${className}`}>
             <label htmlFor="email" className='absolute left-3 top-1/2 -translate-y-1/2 opacity-50 text-neutral-900 font-normal'>{label}</label>
             <input
-                className="h-10 w-full border-0  bg-neutral-300 px-4 rounded-md"
+                className="h-12 w-full border-0  bg-neutral-400 px-4 rounded-lg"
                 type="email"
             // placeholder="Email"
             // {...register('email')}
@@ -23,11 +23,11 @@ const Form = ({ label, icon, alt, className }: Props) => {
                 alt={alt}
                 width={20}
                 height={20}
-                className='absolute right-4 top-1/2 -translate-y-1/2 opacity-60'
+                className='absolute right-4 top-1/2 -translate-y-1/2 opacity-30'
             />
 
         </div>
     )
 }
 
-export default Form
+export default Input

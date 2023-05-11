@@ -7,6 +7,8 @@ module.exports = {
   ],
   theme: {
     colors: {
+      white: "#FFF", 
+      black: "#000", 
       primary: {
         // 50: '#fdf8f6',
         // 100: '#f2e8e5',
@@ -24,11 +26,11 @@ module.exports = {
         900: '#E7B113',
       },
       neutral: {
-        300: '#DDEDEE',
-        400: '#D2E2E5',
-        500: '#B6CED4',
-        600: '#93B8C1',
-        700: '#51C2BE',
+        // 300: '#0C566D',
+        400: '#DDEDEE',
+        500: '#D2E2E5',
+        600: '#B6CED4',
+        700: '#93B8C1',
         800: '#427D8F',
         900: '#0C566D',
       }

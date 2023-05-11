@@ -26,3 +26,7 @@ p {
 .absolute-center {
   @apply absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2;
 }
+
+.web {
+  @apply opacity-20 w-[135rem] h-[135rem] bg-primary-800 rounded-full absolute -right-[65rem] -bottom-[60rem];
+}

@@ -9,14 +9,17 @@ type Props = {
 
 const Btn = ({ className, children, imgSrc, alt }: Props) => {
     return (
-        <a className={`w-full flex gap-2 items-center justify-center px-16 h-10 rounded-full border-neutral-500 ${className}`}
+        <a className={`w-full flex gap-2 items-center justify-center px-16 h-12 rounded-full ${className}`}
             href="">
-            <Image
-                src={imgSrc}
-                width={20}
-                height={20}
-                alt={alt}
-            />
+            {
+                imgSrc &&
+                <Image
+                    src={imgSrc}
+                    width={20}
+                    height={20}
+                    alt={alt}
+                />
+            }
             {children}
         </a>
     )
@@ -24,12 +27,12 @@ const Btn = ({ className, children, imgSrc, alt }: Props) => {
 
 export const BtnPrimary = ({ className, children, imgSrc, alt }: Props) => {
     return (
-        <Btn imgSrc={imgSrc} alt={alt} className="bg-secondary-800 text-white">{children}</Btn>
+        <Btn imgSrc={imgSrc} alt={alt} className="bg-secondary-800 font-semibold text-white">{children}</Btn>
     )
 }
 
 export const BtnSecondary = ({ className, children, imgSrc, alt }: Props) => {
     return (
-        <Btn imgSrc={imgSrc} alt={alt} className="border-[1px]">{children}</Btn>
+        <Btn imgSrc={imgSrc} alt={alt} className="border-[1.5px] border-neutral-600 box-s">{children}</Btn>
     )
 }
