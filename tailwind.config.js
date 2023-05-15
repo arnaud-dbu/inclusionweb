@@ -5,6 +5,7 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  
   theme: {
     colors: {
       white: "#FFF", 
@@ -39,7 +40,11 @@ module.exports = {
       primary: ['var(--font-antonio)'],
       secondary: ['var(--font-asap)'],
     },
+    
     extend: {
+      boxShadow: {
+        'lg': "0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05)",
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

@@ -5,6 +5,7 @@
 :root {
   --bg-light: #e9f5f5;
   --text-dark: #0c566d;
+  --primary-800: #1DB1AB;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -16,11 +17,27 @@
 }
 
 body {
-  @apply font-secondary bg-primary-300;
+  @apply bg-primary-300;
 }
 
 p {
-  @apply font-secondary italic text-base leading-6;
+  @apply italic text-base leading-6;
+}
+
+.layout-wrapper {
+  max-width: 120rem;
+  margin: 0 auto;
+}
+
+.title-underline {
+  &::after {
+    content: "";
+    display: block;
+    width: 3.5rem;
+    height: 0.5rem;
+    background-color: var(--primary-800);
+    margin-top: 1rem;
+  }
 }
 
 .absolute-center {
@@ -28,5 +45,37 @@ p {
 }
 
 .web {
+  @apply rounded-full relative;
+}
+
+.web-inner {
+  @apply absolute rounded-full top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-primary-800 w-full h-full;
+}
+
+/* .web {
   @apply opacity-20 w-[135rem] h-[135rem] bg-primary-800 rounded-full absolute -right-[65rem] -bottom-[60rem];
+} */
+
+.link {
+  @apply block text-neutral-800 font-light underline;
+}
+
+.form-input {
+  & input {
+    @apply h-12 w-full border-0 bg-neutral-400 px-4 rounded-lg;
+  }
+
+  &.active {
+    & label {
+      @apply top-0 left-3 text-neutral-800 bg-primary-300 z-10 text-xs opacity-100 px-1 font-medium;
+    }
+
+    & input {
+      @apply border-neutral-600 bg-[transparent] border;
+    }
+
+    & input:focus {
+      @apply outline-none;
+    }
+  }
 }

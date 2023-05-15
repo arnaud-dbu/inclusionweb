@@ -1,33 +1,54 @@
-import Image from 'next/image'
+'use client'
 
+import Image from "next/image";
+import React, { FC, InputHTMLAttributes, useState } from "react";
 
-type Props = {
-    label: string,
-    icon: 'string',
-    alt: string,
-    className?: string
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+    name: string;
+    label?: string;
+    error?: any;
+    register?: any;
+    wrapperClass?: string;
+    className?: string;
+    icon?: string,
+    alt?: string,
 }
 
-const Input = ({ label, icon, alt, className }: Props) => {
+const Input: FC<InputProps> = ({
+    register,
+    name,
+    error,
+    label,
+    wrapperClass,
+    className,
+    icon,
+    alt,
+    ...rest
+}) => {
+    const [isFocused, setIsFocused] = useState(false);
+    const handleFocus = () => {
+        setIsFocused(true);
+    }
+
     return (
-        <div className={`relative ${className}`}>
-            <label htmlFor="email" className='absolute left-3 top-1/2 -translate-y-1/2 opacity-50 text-neutral-900 font-normal'>{label}</label>
+        <div className={`form-input w-full relative ${className}  ${isFocused && "active"}`} onFocus={handleFocus}>
             <input
-                className="h-12 w-full border-0  bg-neutral-400 px-4 rounded-lg"
-                type="email"
-            // placeholder="Email"
-            // {...register('email')}
+                {...register(name)} {...rest}
             />
-            <Image
-                src={icon}
-                alt={alt}
-                width={20}
-                height={20}
-                className='absolute right-4 top-1/2 -translate-y-1/2 opacity-30'
-            />
-
+            <label className={`absolute pointer-events-none transition-all ease-out duration-300 left-3 top-1/2 -translate-y-1/2 opacity-50 text-neutral-900 font-normal`}>{label}</label>
+            {
+                icon && alt &&
+                <Image
+                    src={icon}
+                    alt={alt}
+                    width={20}
+                    height={20}
+                    className='absolute right-4 top-1/2 -translate-y-1/2 opacity-30'
+                />
+            }
+            {error && <span role="alert">{error}</span>}
         </div>
-    )
-}
+    );
+};
 
-export default Input
+export default Input;

@@ -1,13 +1,16 @@
-import React from 'react'
-
 type Props = {
-    children: string
+    children?: string,
+    underline?: boolean
 }
 
-const H1 = ({ children } : Props) => {
+export const H1 = ({ children, underline } : Props) => {
     return (
-        <h1 className='text-7xl font-primary font-bold uppercase text-neutral-900 mb-6'>{children}</h1>
+        <h1 className={`text-7xl whitespace-nowrap font-primary font-bold uppercase text-neutral-900 mb-6 relative ${underline && "title-underline"}`}>{children}</h1>
     )
 }
 
-export default H1
+export const H2 = ({ children } : Props) => {
+    return (
+        <h2 className={`text-3xl whitespace-nowrap font-primary font-bold uppercase text-neutral-900`}>{children}</h2>
+    )
+}
