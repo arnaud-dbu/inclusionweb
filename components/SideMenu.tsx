@@ -10,7 +10,7 @@ type Props = {}
 
 const SideMenu = (props: Props) => {
     return (
-        <aside className="bg-primary-800 fixed left-0 top-0 h-full px-4 py-6 flex flex-col items-center">
+        <aside className="bg-primary-700 fixed left-0 top-0 h-full px-4 py-6 flex flex-col items-center">
             <Link href="/">
                 <Image src={resokitIcon} alt="Logo" width={60} height={60} />
             </Link>

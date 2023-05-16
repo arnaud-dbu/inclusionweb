@@ -2,24 +2,27 @@ import Image, { StaticImageData } from "next/image"
 import Link from "next/link";
 
 type Props = {
-    children?: string,
+    children?: any,
     imgSrc?: string | StaticImageData,
     alt?: any,
     className?: string,
     primary?: boolean,
     secondary?: boolean,
+    tertiary?: boolean,
     submit?: boolean,
     href?: any,
+    label?: string
 }
 
-export const Btn = ({ className, children, imgSrc, alt, primary, secondary, submit, href="" }: Props) => {
+export const Btn = ({ className, children, imgSrc, alt, primary, secondary, tertiary, submit, href = "" }: Props) => {
     let btnVariant = "";
     primary && (btnVariant = "bg-secondary-900 font-semibold text-white");
     secondary && (btnVariant = "text-neutral-800 border-[1.5px] border-neutral-600");
+    tertiary && (btnVariant = "bg-primary-700 font-semibold text-white px-2");
 
     if (submit) {
         return (
-            <button type="submit" className={`w-full flex gap-2 items-center justify-center px-16 h-12 rounded-full ${className} ${btnVariant}`}>
+            <button type="submit" className={`${btnVariant} w-full flex gap-2 items-center justify-center h-12 rounded-full ${className} `}>
                 {
                     imgSrc &&
                     <Image
@@ -34,7 +37,7 @@ export const Btn = ({ className, children, imgSrc, alt, primary, secondary, subm
         )
     } else {
         return (
-            <Link href={href} className={`w-full text-lg flex gap-2 items-center justify-center px-16 h-12 rounded-full ${className} ${btnVariant}`}>
+            <Link href={href} className={`px-8 text-lg flex gap-2 items-center justify-center h-12 rounded-full ${className} ${btnVariant}`}>
                 {
                     imgSrc &&
                     <Image
@@ -48,4 +51,22 @@ export const Btn = ({ className, children, imgSrc, alt, primary, secondary, subm
             </Link>
         )
     }
+}
+
+export const BtnLarge = ({ className, children, imgSrc, alt, label, href = "" }: Props) => {
+    return (
+        <Link href={href} className={`shadow-lg w-[47.5%] h-[17.5rem] flex flex-col gap-2 justify-end px-6 py-6 rounded-2xl aspect-square ${className}`}>
+            {
+                imgSrc &&
+                <Image
+                    src={imgSrc}
+                    width={20}
+                    height={20}
+                    alt={alt}
+                />
+            }
+            {children}
+            <span className="font-primary text-white uppercase text-4xl font-bold">{label}</span>
+        </Link>
+    )
 }

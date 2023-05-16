@@ -1,6 +1,7 @@
 import './globals.css'
 import { Antonio, Asap } from 'next/font/google';
 import SupabaseProvider from './supabase-provider';
+import SideMenu from '@/components/SideMenu';
 
 const asap = Asap({
     subsets: ['latin'],

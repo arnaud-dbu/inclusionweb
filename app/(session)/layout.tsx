@@ -12,6 +12,5 @@ export default function mainLayout({
             <Header title="Mijn overzicht" />
             {children}
         </div>
-
     )
 }

@@ -1,21 +1,20 @@
 "use client"
 
+import Input from "@/components/form/Input"
+import emailIcon from "@/public/icons/email.svg"
+import keyIcon from "@/public/icons/key.svg"
+import Form from "@/components/form/Form"
+import { useSupabase } from "@/app/supabase-provider"
+import { useForm } from "react-hook-form"
 import * as yup from "yup";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import Form from "@/components/Form";
-import keyIcon from "@/public/icons/key.svg";
-import emailIcon from "@/public/icons/email.svg";
-import Input from "@/components/Input";
-import { useSupabase } from "@/app/supabase-provider";
-import { redirect } from "next/navigation";
+import { yupResolver } from "@hookform/resolvers/yup"
 
 // interface for form
 type EmailInterface = {
     email: string;
     password: string;
-    firstName: string;
-    lastName: string;
+    options: string;
+    emailRedirectTo: string;
 }
 
 // validation
@@ -30,48 +29,24 @@ const EmailSchema = yup.object().shape({
         .required("Password is required")
 });
 
-const RegisterForm = () => {
-
-    const { supabase } = useSupabase();
+const LoginForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(EmailSchema) });
+    const { supabase } = useSupabase()
 
     const onSubmit = async (data: EmailInterface) => {
-        await supabase.auth.signUp({
+        await supabase.auth.signInWithPassword({
             email: data.email,
             password: data.password,
-            options: {
-                data: {
-                    firstName: data.firstName,
-                    lastName: data.lastName
-                }
-            }
         });
-
     };
-
     return (
         <Form
-            btnLabel="Registreer"
+            btnLabel="Login"
             register={register}
             handleSubmit={handleSubmit}
             onSubmit={onSubmit}
             className="w-full"
         >
-            <Input
-                name="firstName"
-                label="Voornaam"
-                type="text"
-                error={errors.firstName?.message}
-                className="w-[48%] mb-3"
-            />
-            <Input
-                type="text"
-                name="lastName"
-                label="Naam"
-                error={errors.lastName?.message}
-                className="w-[48%] mb-3"
-
-            />
             <Input
                 name="email"
                 type="email"
@@ -93,4 +68,4 @@ const RegisterForm = () => {
     )
 }
 
-export default RegisterForm
+export default LoginForm

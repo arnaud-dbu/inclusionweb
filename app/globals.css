@@ -27,6 +27,7 @@ p {
 .layout-wrapper {
   max-width: 120rem;
   margin: 0 auto;
+  padding: 0 10rem;
 }
 
 .title-underline {
@@ -45,7 +46,7 @@ p {
 }
 
 .web {
-  @apply rounded-full relative;
+  @apply rounded-full relative aspect-square;
 }
 
 .web-inner {

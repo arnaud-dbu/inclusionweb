@@ -4,7 +4,7 @@ import { headers, cookies } from 'next/headers'
 import { redirect } from "next/navigation";
 import illustration from '@/public/images/illustration-1.png'
 import Image from "next/image";
-import H1 from "@/components/Headings";
+import { H1 } from "@/components/Headings";
 
 
 const WelcomePage = async () => {

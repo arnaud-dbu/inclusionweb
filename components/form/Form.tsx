@@ -2,7 +2,7 @@
 
 import React, { FC, createElement } from "react";
 import { ReactNode } from "react";
-import { Btn } from "./Buttons";
+import { Btn } from "../Buttons";
 
 export type classNameType = string;
 export type childrenType = ReactNode;

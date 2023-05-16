@@ -1,5 +1,5 @@
 
-import H1 from "@/components/Headings"
+import { H1 } from "@/components/Headings"
 import facebookLogo from "/public/images/facebook.png"
 import googleLogo from "/public/images/google.png"
 import DivisionLine from "@/components/DivisionLine"
