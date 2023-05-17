@@ -13,7 +13,6 @@ import { redirect } from "next/navigation"
 
 
 const LoginPage = async () => {
-
     const supabase = createServerComponentSupabaseClient({
         headers,
         cookies

@@ -43,7 +43,7 @@ const Form: FC<IFormProps> = ({
             })
           : children}
       </div>
-      <Btn primary submit>{btnLabel}</Btn>
+      <Btn primary submit className="w-full">{btnLabel}</Btn>
     </form>
   );
 };

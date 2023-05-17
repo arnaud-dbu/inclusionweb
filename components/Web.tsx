@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image";
 import Avatar from 'avataaars'
 
@@ -13,10 +15,11 @@ type Props = {
     eyebrowType: any;
     mouthType: any;
     topType: any;
+    showOnWeb: string;
 }
 
 
-const Web = ({ className, image, skinColor, topType, accessoriesType, hairColor, facialHairType, clotheType, eyeType, eyebrowType, mouthType }: Props) => {
+const Web = ({ className, showOnWeb, image = "", skinColor, topType, accessoriesType, hairColor, facialHairType, clotheType, eyeType, eyebrowType, mouthType }: Props) => {
     return (
         <>
             <div className={`web ${className}`}>
@@ -24,15 +27,19 @@ const Web = ({ className, image, skinColor, topType, accessoriesType, hairColor,
                 <div className="web-inner opacity-20 scale-[.8]"></div>
                 <div className="web-inner opacity-25 scale-[.6]"></div>
                 {
-                    image &&
-                    <Image className="absolute rounded-full w-[20rem] aspect-square object-cover left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10" alt="test" src={image} width={700} height={700} />
+                    showOnWeb === "default" &&
+                    <div className="absolute rounded-full object-cover left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10">
+                    </div>
                 }
                 {
-                    Avatar &&
-
+                    showOnWeb === "image" &&
+                    <Image className="absolute rounded-full w-[20rem] aspect-square object-cover left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10" alt="test" src={image || '/'} width={700} height={700} />
+                }
+                {
+                    showOnWeb === "avatar" &&
                     <Avatar
-                        className="absolute p-5 scale-[1.6] aspect-square object-cover left-1/2 top-[47%] -translate-y-1/2 -translate-x-1/2 z-10"
-                        avatarStyle='Circle'
+                        className="absolute bg-white rounded-full w-[20rem] h-[20rem]  object-cover left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10"
+                        avatarStyle=''
                         topType={topType}
                         skinColor={skinColor}
                         accessoriesType={accessoriesType}

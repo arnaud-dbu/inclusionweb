@@ -22,7 +22,7 @@ export const Btn = ({ className, children, imgSrc, alt, primary, secondary, tert
 
     if (submit) {
         return (
-            <button type="submit" className={`${btnVariant} w-full flex gap-2 items-center justify-center h-12 rounded-full ${className} `}>
+            <button type="submit" className={`${btnVariant} px-8 flex gap-2 items-center justify-center h-12 rounded-full ${className} `}>
                 {
                     imgSrc &&
                     <Image

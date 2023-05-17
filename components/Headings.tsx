@@ -1,11 +1,12 @@
 type Props = {
     children?: string,
-    underline?: boolean
+    underline?: boolean;
+    className?: string;
 }
 
-export const H1 = ({ children, underline } : Props) => {
+export const H1 = ({ children, underline, className } : Props) => {
     return (
-        <h1 className={`text-7xl leading-[1.1] font-primary font-bold uppercase text-neutral-900 mb-6 relative ${underline && "title-underline"}`}>{children}</h1>
+        <h1 className={`text-7xl leading-[1.1] font-primary font-bold uppercase text-neutral-900 mb-6 relative ${className} ${underline && "title-underline"}`}>{children}</h1>
     )
 }
 
