@@ -5,6 +5,7 @@ import searchIcon from '@/public/icons/search.svg'
 import DivisionLine from '@/components/DivisionLine'
 import WebCard from '@/components/WebCard'
 import { BtnLarge } from '@/components/Buttons'
+import Header from '@/components/Header'
 
 
 
@@ -19,6 +20,7 @@ const DashboardPage = async () => {
 
     return (
         <>
+            <Header title="Mijn overzicht" />
             <div className="layout-wrapper flex justify-between gap-16">
                 <div className='mt-8 w-full'>
                     <div className='flex justify-between items-center gap-12 mb-8'>

@@ -1,4 +1,3 @@
-import Header from "@/components/Header"
 import SideMenu from "@/components/SideMenu"
 
 export default function mainLayout({
@@ -9,7 +8,6 @@ export default function mainLayout({
     return (
         <div className="h-[100dvh]">
             <SideMenu />
-            <Header title="Mijn overzicht" />
             {children}
         </div>
     )

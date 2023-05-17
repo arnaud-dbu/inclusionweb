@@ -18,18 +18,22 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-    const { name, user_id } = await request.json()
+    const { name, user_id, image_path } = await request.json()
 
     const supabase = createRouteHandlerSupabaseClient<Database>({
         headers,
         cookies,
     })
 
+    console.log(name, user_id, image_path);
+    
+
     const { data, error } = await supabase
         .from("webs")
         .insert({
             name: name,
             user_id: user_id,
+            image_path: image_path
         })
 
     if (error) {
