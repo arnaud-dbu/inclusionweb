@@ -1,52 +1,197 @@
-import { Btn } from '@/components/Buttons'
-import DivisionLine from '@/components/DivisionLine'
-import addUserIcon from '@/public/icons/add-user.svg'
+"use client";
 
-type Props = {}
+import { Btn } from "@/components/Buttons";
+import DivisionLine from "@/components/DivisionLine";
+import { AddUserIcon, GridIcon, ListIcon, SearchIcon } from "@/public/icons";
+import Avatar from "avataaars";
+
+type Props = {};
 
 const WebPage = ({ params }) => {
-
     return (
         <>
             <aside className="bg-primary-200 flex flex-col shadow-lg absolute left-24 w-[25%] h-full px-16 pt-12">
                 <div className="flex flex-col">
-                    <img className='w-24' src='https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light' />
+                    <Avatar
+                        className="w-24 h-24 bg-primary-500 rounded-full object-cover"
+                        avatarStyle=""
+                        topType="LongHairStraight"
+                        accessoriesType="Blank"
+                        hairColor="BrownDark"
+                        facialHairType="Blank"
+                        clotheType="BlazerShirt"
+                        eyeType="Default"
+                        eyebrowType="Default"
+                        mouthType="Default"
+                        skinColor="Light"
+                    />
                     <span className="text-3xl text-neutral-800">Netwerk</span>
-                    <span className="font-primary uppercase text-6xl font-bold text-neutral-900">Annelies Jacobs</span>
+                    <span className="font-primary uppercase text-6xl font-bold text-neutral-900">
+                        Annelies Jacobs
+                    </span>
                 </div>
                 <div className="form-input relative my-6">
-                    <svg className='w-6 fill-neutral-900 absolute right-4 top-1/2 -translate-y-1/2 opacity-30' xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="#ffffff" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
+                    <SearchIcon className="w-6 fill-neutral-900 absolute right-4 top-1/2 -translate-y-1/2 opacity-30" />
                     <input placeholder="Zoek" />
                 </div>
-                <div className='flex items-center justify-between gap-3'>
-                    <div className='flex items-center'>
-                        <button className='bg-primary-400 text-primary-800 px-4 py-[.5rem] font-semibold rounded-full whitespace-nowrap'>Niet geplaatst</button>
-                        <button className='text-neutral-800 px-4 py-[.5rem] font-semibold rounded-full whitespace-nowrap'>Geplaatst</button>
+                <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center">
+                        <button className="bg-primary-400 text-primary-800 px-4 py-[.5rem] font-semibold rounded-full whitespace-nowrap">
+                            Niet geplaatst
+                        </button>
+                        <button className="text-neutral-800 px-4 py-[.5rem] font-semibold rounded-full whitespace-nowrap">
+                            Geplaatst
+                        </button>
                     </div>
                     <DivisionLine />
-                    <div className='flex items-center gap-2 ml-4'>
+                    <div className="flex items-center gap-2 ml-4">
                         <button>
-                            <svg className="fill-neutral-600" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#ffffff" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path></svg>
+                            <ListIcon className="fill-neutral-600 w-8" />
                         </button>
                         <button>
-                            <svg className="fill-neutral-600" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#ffffff" viewBox="0 0 256 256"><path d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z"></path></svg>
+                            <GridIcon className="fill-neutral-600 w-8" />
                         </button>
+                    </div>
+                </div>
+                <div className="flex flex-wrap justify-between gap-y-4 my-5">
+                    <div className="bg-white w-[48%] flex flex-col items-center justify-center shadow-lg rounded-xl h-[14rem]">
+                        <Avatar
+                            className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover"
+                            avatarStyle=""
+                            topType="LongHairStraight"
+                            accessoriesType="Blank"
+                            hairColor="BrownDark"
+                            facialHairType="Blank"
+                            clotheType="BlazerShirt"
+                            eyeType="Default"
+                            eyebrowType="Default"
+                            mouthType="Default"
+                            skinColor="Light"
+                        />
+                        <span className="font-bold text-neutral-800 text-xl">
+                            Jane Doe
+                        </span>
+                        <span className="text-neutral-800 font-light">
+                            Babysit
+                        </span>
+                    </div>
+                    <div className="bg-white w-[48%] flex flex-col items-center justify-center shadow-lg rounded-xl h-[14rem]">
+                        <Avatar
+                            className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover"
+                            avatarStyle=""
+                            topType="LongHairStraight"
+                            accessoriesType="Blank"
+                            hairColor="BrownDark"
+                            facialHairType="Blank"
+                            clotheType="BlazerShirt"
+                            eyeType="Default"
+                            eyebrowType="Default"
+                            mouthType="Default"
+                            skinColor="Light"
+                        />
+                        <span className="font-bold text-neutral-800 text-xl">
+                            Jane Doe
+                        </span>
+                        <span className="text-neutral-800 font-light">
+                            Babysit
+                        </span>
+                    </div>
+                    <div className="bg-white w-[48%] flex flex-col items-center justify-center shadow-lg rounded-xl h-[14rem]">
+                        <Avatar
+                            className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover"
+                            avatarStyle=""
+                            topType="LongHairStraight"
+                            accessoriesType="Blank"
+                            hairColor="BrownDark"
+                            facialHairType="Blank"
+                            clotheType="BlazerShirt"
+                            eyeType="Default"
+                            eyebrowType="Default"
+                            mouthType="Default"
+                            skinColor="Light"
+                        />
+                        <span className="font-bold text-neutral-800 text-xl">
+                            Jane Doe
+                        </span>
+                        <span className="text-neutral-800 font-light">
+                            Babysit
+                        </span>
+                    </div>
+                    <div className="bg-white w-[48%] flex flex-col items-center justify-center shadow-lg rounded-xl h-[14rem]">
+                        <Avatar
+                            className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover"
+                            avatarStyle=""
+                            topType="LongHairStraight"
+                            accessoriesType="Blank"
+                            hairColor="BrownDark"
+                            facialHairType="Blank"
+                            clotheType="BlazerShirt"
+                            eyeType="Default"
+                            eyebrowType="Default"
+                            mouthType="Default"
+                            skinColor="Light"
+                        />
+                        <span className="font-bold text-neutral-800 text-xl">
+                            Jane Doe
+                        </span>
+                        <span className="text-neutral-800 font-light">
+                            Babysit
+                        </span>
                     </div>
                 </div>
 
-                <Btn className='w-full mt-auto mb-8' primary submit imgSrc={addUserIcon}>Nieuw</Btn>
+                <Btn className="w-full mt-auto mb-8" primary submit>
+                    <AddUserIcon className="w-6 fill-white mr-2" />
+                    Nieuw
+                </Btn>
             </aside>
-            <div className='w-[70%] absolute right-0 top-1/2 -translate-y-1/2 flex items-center justify-center'>
+            <div className="w-[70%] absolute right-0 top-1/2 -translate-y-1/2 flex items-center justify-center">
                 <div className={`web w-[65rem]`}>
-                    <div className="web-inner opacity-20"></div>
-                    <div className="web-inner opacity-20 scale-[.8]"></div>
-                    <div className="web-inner opacity-25 scale-[.6]"></div>
-                    <div className="web-inner opacity-30 scale-[.4]"></div>
-                    <div className="web-inner opacity-30 scale-[.2]"></div>
+                    <div className="web-inner opacity-20 scale-[.95]"></div>
+                    <div className="web-inner opacity-20 scale-[.75]"></div>
+                    <div className="web-inner opacity-20 scale-[.55]"></div>
+                    <div className="web-inner opacity-25 scale-[.35]"></div>
+                    <Avatar
+                        className="absolute-center w-[10rem] h-[10rem] bg-primary-500 mb-2 rounded-full object-cover z-10"
+                        avatarStyle=""
+                        topType="LongHairStraight"
+                        accessoriesType="Blank"
+                        hairColor="BrownDark"
+                        facialHairType="Blank"
+                        clotheType="BlazerShirt"
+                        eyeType="Default"
+                        eyebrowType="Default"
+                        mouthType="Default"
+                        skinColor="Light"
+                    />
+
+                    <div className="border-[1.25px] rotate-[0deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2"></div>
+                    <div className="border-[0] rotate-[20deg] origin-right w-1/2 absolute left-0 top-1/2 -translate-y-1/2">
+                        <div className="relative">
+                            <span className="absolute w-[15rem] text-center -left-[8.5rem] -rotate-90 top-1/2 -translate-y-1/2 text-lg text-neutral-800">
+                                Vrije tijd
+                            </span>
+                        </div>
+                    </div>
+                    <div className="border-[1.25px] rotate-[40deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2"></div>
+                    <div className="border-[0] rotate-[60deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2">
+                        <div className="relative">
+                            <span className="absolute w-[15rem] -left-[8.5rem] -rotate-90 text-center top-1/2 -translate-y-1/2 text-lg text-neutral-800">
+                                Ontspanningsmomenten
+                            </span>
+                        </div>
+                    </div>
+                    <div className="border-[1.25px] rotate-[80deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2"></div>
+                    <div className="border-[1.25px] rotate-[120deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2"></div>
+                    <div className="border-[1.25px] rotate-[160deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2"></div>
+                    <div className="border-[1.25px] rotate-[200deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2"></div>
+                    <div className="border-[1.25px] rotate-[240deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2"></div>
+                    <div className="border-[1.25px] rotate-[280deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2"></div>
+                    <div className="border-[1.25px] rotate-[320deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2"></div>
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default WebPage
+export default WebPage;

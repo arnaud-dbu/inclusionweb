@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.1.0",
+    "@newhighsco/next-plugin-svgr": "^3.0.94",
     "@supabase/auth-helpers-nextjs": "^0.6.1",
     "@supabase/auth-helpers-react": "^0.3.1",
     "@supabase/supabase-js": "^2.22.0",
@@ -21,7 +22,7 @@
     "avataaars": "^2.0.0",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
-    "next": "13.4.1",
+    "next": "^13.4.1",
     "postcss-import": "^15.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -34,6 +35,8 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.0.1",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "supabase": "^1.58.1"
   }
