@@ -1,30 +1,23 @@
-"use client";
-
+import { useSupabase } from "@/app/supabase-provider";
 import { Btn } from "@/components/Buttons";
 import DivisionLine from "@/components/DivisionLine";
+import AvatarComponent from "@/components/avatar/Avatar";
+import WebDivisionLine from "@/components/web/WebDivisionLine";
+import WebSliceNaming from "@/components/web/WebSliceNaming";
 import { AddUserIcon, GridIcon, ListIcon, SearchIcon } from "@/public/icons";
 import Avatar from "avataaars";
+import { log } from "console";
 
 type Props = {};
 
-const WebPage = ({ params }) => {
+const WebPage = async ({ params }) => {
+    const { id } = params;
+
     return (
         <>
             <aside className="bg-primary-200 flex flex-col shadow-lg absolute left-24 w-[25%] h-full px-16 pt-12">
                 <div className="flex flex-col">
-                    <Avatar
-                        className="w-24 h-24 bg-primary-500 rounded-full object-cover"
-                        avatarStyle=""
-                        topType="LongHairStraight"
-                        accessoriesType="Blank"
-                        hairColor="BrownDark"
-                        facialHairType="Blank"
-                        clotheType="BlazerShirt"
-                        eyeType="Default"
-                        eyebrowType="Default"
-                        mouthType="Default"
-                        skinColor="Light"
-                    />
+                    <AvatarComponent className="w-24 h-24 bg-primary-500 rounded-full object-cover" />
                     <span className="text-3xl text-neutral-800">Netwerk</span>
                     <span className="font-primary uppercase text-6xl font-bold text-neutral-900">
                         Annelies Jacobs
@@ -55,19 +48,7 @@ const WebPage = ({ params }) => {
                 </div>
                 <div className="flex flex-wrap justify-between gap-y-4 my-5">
                     <div className="bg-white w-[48%] flex flex-col items-center justify-center shadow-lg rounded-xl h-[14rem]">
-                        <Avatar
-                            className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover"
-                            avatarStyle=""
-                            topType="LongHairStraight"
-                            accessoriesType="Blank"
-                            hairColor="BrownDark"
-                            facialHairType="Blank"
-                            clotheType="BlazerShirt"
-                            eyeType="Default"
-                            eyebrowType="Default"
-                            mouthType="Default"
-                            skinColor="Light"
-                        />
+                        <AvatarComponent className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover" />
                         <span className="font-bold text-neutral-800 text-xl">
                             Jane Doe
                         </span>
@@ -76,19 +57,8 @@ const WebPage = ({ params }) => {
                         </span>
                     </div>
                     <div className="bg-white w-[48%] flex flex-col items-center justify-center shadow-lg rounded-xl h-[14rem]">
-                        <Avatar
-                            className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover"
-                            avatarStyle=""
-                            topType="LongHairStraight"
-                            accessoriesType="Blank"
-                            hairColor="BrownDark"
-                            facialHairType="Blank"
-                            clotheType="BlazerShirt"
-                            eyeType="Default"
-                            eyebrowType="Default"
-                            mouthType="Default"
-                            skinColor="Light"
-                        />
+                        <AvatarComponent className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover" />
+
                         <span className="font-bold text-neutral-800 text-xl">
                             Jane Doe
                         </span>
@@ -97,19 +67,8 @@ const WebPage = ({ params }) => {
                         </span>
                     </div>
                     <div className="bg-white w-[48%] flex flex-col items-center justify-center shadow-lg rounded-xl h-[14rem]">
-                        <Avatar
-                            className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover"
-                            avatarStyle=""
-                            topType="LongHairStraight"
-                            accessoriesType="Blank"
-                            hairColor="BrownDark"
-                            facialHairType="Blank"
-                            clotheType="BlazerShirt"
-                            eyeType="Default"
-                            eyebrowType="Default"
-                            mouthType="Default"
-                            skinColor="Light"
-                        />
+                        <AvatarComponent className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover" />
+
                         <span className="font-bold text-neutral-800 text-xl">
                             Jane Doe
                         </span>
@@ -118,19 +77,8 @@ const WebPage = ({ params }) => {
                         </span>
                     </div>
                     <div className="bg-white w-[48%] flex flex-col items-center justify-center shadow-lg rounded-xl h-[14rem]">
-                        <Avatar
-                            className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover"
-                            avatarStyle=""
-                            topType="LongHairStraight"
-                            accessoriesType="Blank"
-                            hairColor="BrownDark"
-                            facialHairType="Blank"
-                            clotheType="BlazerShirt"
-                            eyeType="Default"
-                            eyebrowType="Default"
-                            mouthType="Default"
-                            skinColor="Light"
-                        />
+                        <AvatarComponent className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover" />
+
                         <span className="font-bold text-neutral-800 text-xl">
                             Jane Doe
                         </span>
@@ -146,48 +94,56 @@ const WebPage = ({ params }) => {
                 </Btn>
             </aside>
             <div className="w-[70%] absolute right-0 top-1/2 -translate-y-1/2 flex items-center justify-center">
-                <div className={`web w-[65rem]`}>
+                <div className={`web w-[60rem]`}>
+                    <div className="web-inner z-20 opacity-10 scale-[1.04]"></div>
                     <div className="web-inner opacity-20 scale-[.95]"></div>
                     <div className="web-inner opacity-20 scale-[.75]"></div>
                     <div className="web-inner opacity-20 scale-[.55]"></div>
                     <div className="web-inner opacity-25 scale-[.35]"></div>
-                    <Avatar
-                        className="absolute-center w-[10rem] h-[10rem] bg-primary-500 mb-2 rounded-full object-cover z-10"
-                        avatarStyle=""
-                        topType="LongHairStraight"
-                        accessoriesType="Blank"
-                        hairColor="BrownDark"
-                        facialHairType="Blank"
-                        clotheType="BlazerShirt"
-                        eyeType="Default"
-                        eyebrowType="Default"
-                        mouthType="Default"
-                        skinColor="Light"
-                    />
 
-                    <div className="border-[1.25px] rotate-[0deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2"></div>
-                    <div className="border-[0] rotate-[20deg] origin-right w-1/2 absolute left-0 top-1/2 -translate-y-1/2">
-                        <div className="relative">
-                            <span className="absolute w-[15rem] text-center -left-[8.5rem] -rotate-90 top-1/2 -translate-y-1/2 text-lg text-neutral-800">
-                                Vrije tijd
-                            </span>
-                        </div>
-                    </div>
-                    <div className="border-[1.25px] rotate-[40deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2"></div>
-                    <div className="border-[0] rotate-[60deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2">
-                        <div className="relative">
-                            <span className="absolute w-[15rem] -left-[8.5rem] -rotate-90 text-center top-1/2 -translate-y-1/2 text-lg text-neutral-800">
-                                Ontspanningsmomenten
-                            </span>
-                        </div>
-                    </div>
-                    <div className="border-[1.25px] rotate-[80deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2"></div>
-                    <div className="border-[1.25px] rotate-[120deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2"></div>
-                    <div className="border-[1.25px] rotate-[160deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2"></div>
-                    <div className="border-[1.25px] rotate-[200deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2"></div>
-                    <div className="border-[1.25px] rotate-[240deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2"></div>
-                    <div className="border-[1.25px] rotate-[280deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2"></div>
-                    <div className="border-[1.25px] rotate-[320deg] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2"></div>
+                    <AvatarComponent className="absolute-center w-[10rem] z-50 h-[10rem] bg-primary-500 mb-2 rounded-full object-cover" />
+                    <WebDivisionLine className="rotate-[0deg]" />
+                    <WebSliceNaming name="Wonen" className="rotate-[20deg]" />
+                    <WebDivisionLine className="rotate-[40deg]" />
+                    <WebSliceNaming
+                        name="Hulpverlening, diensten"
+                        className="rotate-[60deg]"
+                    />
+                    <WebDivisionLine className="rotate-[80deg]" />
+                    <WebSliceNaming
+                        name="Buurt, gemeenschap"
+                        className="rotate-[100deg]"
+                    />
+                    <WebDivisionLine className="rotate-[120deg]" />
+                    <WebSliceNaming
+                        name="Familie"
+                        className="rotate-[140deg]"
+                    />
+                    <WebDivisionLine className="rotate-[160deg]" />
+                    <WebSliceNaming
+                        name="Onderwijs"
+                        className="rotate-[180deg]"
+                    />
+                    <WebDivisionLine className="rotate-[200deg]" />
+                    <WebSliceNaming
+                        name="Onderwijs"
+                        className="rotate-[220deg]"
+                    />
+                    <WebDivisionLine className="rotate-[240deg]" />
+                    <WebSliceNaming
+                        name="Vrije tijd"
+                        className="rotate-[260deg]"
+                    />
+                    <WebDivisionLine className="rotate-[280deg]" />
+                    <WebSliceNaming
+                        name="Levensbeschouwing"
+                        className="rotate-[300deg]"
+                    />
+                    <WebDivisionLine className="rotate-[320deg]" />
+                    <WebSliceNaming
+                        name="Internet"
+                        className="rotate-[340deg]"
+                    />
                 </div>
             </div>
         </>

@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import Input from "@/components/form/Input"
-import emailIcon from "@/public/icons/email.svg"
-import keyIcon from "@/public/icons/key.svg"
-import Form from "@/components/form/Form"
-import { useSupabase } from "@/app/supabase-provider"
-import { useForm } from "react-hook-form"
+import Input from "@/components/form/Input";
+import emailIcon from "@/public/icons/email.svg";
+import keyIcon from "@/public/icons/key.svg";
+import Form from "@/components/form/Form";
+import { useSupabase } from "@/app/supabase-provider";
+import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup"
+import { yupResolver } from "@hookform/resolvers/yup";
 
 // interface for form
 type EmailInterface = {
@@ -15,7 +15,7 @@ type EmailInterface = {
     password: string;
     options: string;
     emailRedirectTo: string;
-}
+};
 
 // validation
 const EmailSchema = yup.object().shape({
@@ -26,12 +26,16 @@ const EmailSchema = yup.object().shape({
     password: yup
         .string()
         .max(32, "Max password length is 32")
-        .required("Password is required")
+        .required("Password is required"),
 });
 
 const LoginForm = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(EmailSchema) });
-    const { supabase } = useSupabase()
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({ resolver: yupResolver(EmailSchema) });
+    const { supabase } = useSupabase();
 
     const onSubmit = async (data: EmailInterface) => {
         await supabase.auth.signInWithPassword({
@@ -53,19 +57,19 @@ const LoginForm = () => {
                 label="Email"
                 error={errors.email?.message}
                 className="mb-3"
-                icon={emailIcon}
+                // icon={emailIcon}
                 alt="email icon"
             />
             <Input
                 name="password"
                 type="password"
                 label="Password"
-                icon={keyIcon}
+                // icon={keyIcon}
                 alt="key icon"
                 error={errors.password?.message}
             />
         </Form>
-    )
-}
+    );
+};
 
-export default LoginForm
+export default LoginForm;

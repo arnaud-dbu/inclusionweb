@@ -45,9 +45,9 @@ export const Btn = ({
                 href={href}
                 className={`px-8 text-lg flex gap-2 items-center justify-center h-12 rounded-full ${className} ${btnVariant}`}
             >
-                {imgSrc && (
+                {/* {imgSrc && (
                     <Image src={imgSrc} width={20} height={20} alt={alt} />
-                )}
+                )} */}
                 {children}
             </Link>
         );
