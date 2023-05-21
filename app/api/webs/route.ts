@@ -13,8 +13,6 @@ export async function GET() {
     });
     const { data } = await supabase.from("webs").select();
 
-    console.log(data);
-
     return NextResponse.json(data);
 }
 

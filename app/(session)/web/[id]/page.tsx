@@ -1,26 +1,46 @@
-import { useSupabase } from "@/app/supabase-provider";
 import { Btn } from "@/components/Buttons";
 import DivisionLine from "@/components/DivisionLine";
+import { H1 } from "@/components/Headings";
+import Modal from "@/components/Modal";
 import AvatarComponent from "@/components/avatar/Avatar";
 import WebDivisionLine from "@/components/web/WebDivisionLine";
 import WebSliceNaming from "@/components/web/WebSliceNaming";
 import { AddUserIcon, GridIcon, ListIcon, SearchIcon } from "@/public/icons";
-import Avatar from "avataaars";
-import { log } from "console";
+import Image from "next/image";
+import { useState } from "react";
 
 type Props = {};
 
 const WebPage = async ({ params }) => {
-    const { id } = params;
+    const res = await fetch(`http://localhost:3000/api/web/${params.id}`, {
+        cache: "no-store",
+    });
+    const data = await res.json();
 
     return (
         <>
+            <Modal />
             <aside className="bg-primary-200 flex flex-col shadow-lg absolute left-24 w-[25%] h-full px-16 pt-12">
                 <div className="flex flex-col">
-                    <AvatarComponent className="w-24 h-24 bg-primary-500 rounded-full object-cover" />
+                    {data.image_path && (
+                        <Image
+                            className="rounded-full w-24 aspect-square object-cover"
+                            alt="test"
+                            src={`${process.env.SUPABASE_UPLOAD_URL}${data.image_path}`}
+                            width={700}
+                            height={700}
+                        />
+                    )}
+                    {data.avatar && (
+                        <AvatarComponent
+                            data={data.avatar}
+                            className="w-24 h-24 bg-primary-500 rounded-full object-cover"
+                        />
+                    )}
+
                     <span className="text-3xl text-neutral-800">Netwerk</span>
                     <span className="font-primary uppercase text-6xl font-bold text-neutral-900">
-                        Annelies Jacobs
+                        {data.name}
                     </span>
                 </div>
                 <div className="form-input relative my-6">
@@ -46,9 +66,13 @@ const WebPage = async ({ params }) => {
                         </button>
                     </div>
                 </div>
+
                 <div className="flex flex-wrap justify-between gap-y-4 my-5">
                     <div className="bg-white w-[48%] flex flex-col items-center justify-center shadow-lg rounded-xl h-[14rem]">
-                        <AvatarComponent className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover" />
+                        <AvatarComponent
+                            data={data.avatar}
+                            className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover"
+                        />
                         <span className="font-bold text-neutral-800 text-xl">
                             Jane Doe
                         </span>
@@ -57,7 +81,10 @@ const WebPage = async ({ params }) => {
                         </span>
                     </div>
                     <div className="bg-white w-[48%] flex flex-col items-center justify-center shadow-lg rounded-xl h-[14rem]">
-                        <AvatarComponent className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover" />
+                        <AvatarComponent
+                            data={data.avatar}
+                            className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover"
+                        />
 
                         <span className="font-bold text-neutral-800 text-xl">
                             Jane Doe
@@ -67,7 +94,10 @@ const WebPage = async ({ params }) => {
                         </span>
                     </div>
                     <div className="bg-white w-[48%] flex flex-col items-center justify-center shadow-lg rounded-xl h-[14rem]">
-                        <AvatarComponent className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover" />
+                        <AvatarComponent
+                            data={data.avatar}
+                            className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover"
+                        />
 
                         <span className="font-bold text-neutral-800 text-xl">
                             Jane Doe
@@ -77,7 +107,10 @@ const WebPage = async ({ params }) => {
                         </span>
                     </div>
                     <div className="bg-white w-[48%] flex flex-col items-center justify-center shadow-lg rounded-xl h-[14rem]">
-                        <AvatarComponent className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover" />
+                        <AvatarComponent
+                            data={data.avatar}
+                            className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover"
+                        />
 
                         <span className="font-bold text-neutral-800 text-xl">
                             Jane Doe
@@ -101,7 +134,10 @@ const WebPage = async ({ params }) => {
                     <div className="web-inner opacity-20 scale-[.55]"></div>
                     <div className="web-inner opacity-25 scale-[.35]"></div>
 
-                    <AvatarComponent className="absolute-center w-[10rem] z-50 h-[10rem] bg-primary-500 mb-2 rounded-full object-cover" />
+                    <AvatarComponent
+                        data={data.avatar}
+                        className="absolute-center w-[10rem] z-50 h-[10rem] bg-primary-500 mb-2 rounded-full object-cover"
+                    />
                     <WebDivisionLine className="rotate-[0deg]" />
                     <WebSliceNaming name="Wonen" className="rotate-[20deg]" />
                     <WebDivisionLine className="rotate-[40deg]" />
