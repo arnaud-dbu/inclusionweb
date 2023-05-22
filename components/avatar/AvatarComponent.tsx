@@ -3,7 +3,7 @@
 import Avatar from "avataaars";
 
 type Props = {
-    className: string;
+    className?: string;
     data: string;
 };
 

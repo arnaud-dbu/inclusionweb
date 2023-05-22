@@ -12,12 +12,13 @@ type Props = {
     submit?: boolean;
     href?: any;
     label?: string;
+    onClick?: any;
 };
 
 export const Btn = ({
     className,
     children,
-    alt,
+    onClick,
     primary,
     secondary,
     tertiary,
@@ -33,6 +34,7 @@ export const Btn = ({
     if (submit) {
         return (
             <button
+                onClick={onClick}
                 type="submit"
                 className={`${btnVariant} px-8 flex gap-2 items-center justify-center h-12 rounded-full ${className} `}
             >
@@ -45,9 +47,6 @@ export const Btn = ({
                 href={href}
                 className={`px-8 text-lg flex gap-2 items-center justify-center h-12 rounded-full ${className} ${btnVariant}`}
             >
-                {/* {imgSrc && (
-                    <Image src={imgSrc} width={20} height={20} alt={alt} />
-                )} */}
                 {children}
             </Link>
         );
@@ -57,7 +56,6 @@ export const Btn = ({
 export const BtnLarge = ({
     className,
     children,
-    imgSrc,
     alt,
     label,
     href = "",
@@ -67,7 +65,6 @@ export const BtnLarge = ({
             href={href}
             className={`shadow-lg w-[47.5%] h-[17.5rem] flex flex-col gap-2 justify-end px-6 py-6 rounded-2xl aspect-square ${className}`}
         >
-            {imgSrc && <Image src={imgSrc} width={20} height={20} alt={alt} />}
             {children}
             <span className="font-primary text-white uppercase text-4xl font-bold">
                 {label}

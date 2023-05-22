@@ -18,7 +18,7 @@ const SideMenu = (props: Props) => {
             <nav className="relative top-1/2 -translate-y-1/2">
                 <ul className="flex flex-col gap-8">
                     <li>
-                        <Link href="#">
+                        <Link href="/dashboard">
                             <HouseIcon className="opacity-70" />
                         </Link>
                     </li>

@@ -1,9 +1,9 @@
-import { Btn } from "./Buttons"
-import Web from "./Web"
+import { Btn } from "./Buttons";
+import Web from "./Web";
 
 type Props = {
-    data: any
-}
+    data: any;
+};
 
 const WebCard = ({ data }: Props) => {
     return (
@@ -11,16 +11,20 @@ const WebCard = ({ data }: Props) => {
             <div className="flex flex-col justify-between">
                 <div className="flex flex-col">
                     <span className="text-2xl">Inclusieweb</span>
-                    <span className="font-primary uppercase text-neutral-900 font-extrabold text-5xl">{data.name}</span>
+                    <span className="font-primary uppercase text-neutral-900 font-extrabold text-5xl">
+                        {data.name}
+                    </span>
                 </div>
                 <div className="flex gap-3">
-                    <Btn tertiary className="w-fit">Open</Btn>
+                    <Btn tertiary href={`web/${data.id}`} className="w-fit">
+                        Open
+                    </Btn>
                     <Btn secondary>Deel</Btn>
                 </div>
             </div>
             <Web className="w-[12rem] opacity-80" />
         </article>
-    )
-}
+    );
+};
 
-export default WebCard
+export default WebCard;
