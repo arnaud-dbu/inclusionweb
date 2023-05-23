@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import Input from "@/components/form/Input";
-import emailIcon from "@/public/icons/email.svg";
-import keyIcon from "@/public/icons/key.svg";
-import Form from "@/components/form/Form";
-import { useSupabase } from "@/app/supabase-provider";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { Input } from '@/components/form/Input';
+import emailIcon from '@/public/icons/email.svg';
+import keyIcon from '@/public/icons/key.svg';
+import Form from '@/components/form/Form';
+import { useSupabase } from '@/app/supabase-provider';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 // interface for form
 type EmailInterface = {
@@ -21,12 +21,12 @@ type EmailInterface = {
 const EmailSchema = yup.object().shape({
     email: yup
         .string()
-        .email("Enter a valid email")
-        .required("Email is required"),
+        .email('Enter a valid email')
+        .required('Email is required'),
     password: yup
         .string()
-        .max(32, "Max password length is 32")
-        .required("Password is required"),
+        .max(32, 'Max password length is 32')
+        .required('Password is required'),
 });
 
 const LoginForm = () => {

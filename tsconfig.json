@@ -23,6 +23,15 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/Input.jsx", "components/Input.jsx", "app/welcome/page.tsx", "app/welcome/page.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "components/Input.jsx",
+    "components/Input.jsx",
+    "app/welcome/page.tsx",
+    "app/welcome/page.tsx"
+  ],
   "exclude": ["node_modules"]
 }

@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import Form from "@/components/form/Form";
-import { H1 } from "@/components/Headings";
-import Input from "@/components/form/Input";
-import Web from "@/components/Web";
-import React, { useEffect, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useSupabase } from "@/app/supabase-provider";
-import AvatarStyle from "@/components/avatar/AvatarStyle";
-import { useRouter } from "next/navigation";
+import Form from '@/components/form/Form';
+import { H1 } from '@/components/Headings';
+import { Input } from '@/components/form/Input';
+import Web from '@/components/Web';
+import React, { useEffect, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useSupabase } from '@/app/supabase-provider';
+import AvatarStyle from '@/components/avatar/AvatarStyle';
+import { useRouter } from 'next/navigation';
 import {
     ClothesIcon,
     EditIcon,
@@ -21,62 +21,62 @@ import {
     ImageIcon,
     MouthIcon,
     SkinColorIcon,
-} from "@/public/icons";
+} from '@/public/icons';
 
 type Props = {};
 
-const NewWebPage = ({}: Props) => {
+const NewWebPage = ({ }: Props) => {
     const router = useRouter();
     const { supabase } = useSupabase();
     const { register, handleSubmit } = useForm();
-    const [selectedImage, setSelectedImage] = useState<any>("");
-    const [imageUrl, setImageUrl] = useState<string>("");
+    const [selectedImage, setSelectedImage] = useState<any>('');
+    const [imageUrl, setImageUrl] = useState<string>('');
     const [avatarStyleVisible, setAvatarStyleVisible] = useState<boolean>(true);
     const [mainMenuVisible, setMainMenuVisible] = useState<boolean>(false);
-    const [showOnWeb, setShowOnWeb] = useState<string>("default");
+    const [showOnWeb, setShowOnWeb] = useState<string>('default');
 
     const [topType, setTopType] = useState<string[]>([
-        "LongHairStraight",
-        "NoHair",
-        "Hijab",
-        "LongHairDreads",
+        'LongHairStraight',
+        'NoHair',
+        'Hijab',
+        'LongHairDreads',
     ]);
     const [accesoiresType, setAccesoiresType] = useState<string[]>([
-        "Blank",
-        "Round",
-        "Sunglasses",
-        "Wayfarers",
+        'Blank',
+        'Round',
+        'Sunglasses',
+        'Wayfarers',
     ]);
     const [hairColor, setHairColor] = useState<string[]>([
-        "Blonde",
-        "Black",
-        "Red",
+        'Blonde',
+        'Black',
+        'Red',
     ]);
     const [facialHair, setFacialHair] = useState<string[]>([
-        "Blank",
-        "BeardLight",
-        "BeardMedium",
+        'Blank',
+        'BeardLight',
+        'BeardMedium',
     ]);
     const [clothes, setClothes] = useState<string[]>([
-        "BlazerShirt",
-        "Overall",
-        "Hoodie",
+        'BlazerShirt',
+        'Overall',
+        'Hoodie',
     ]);
-    const [eyes, setEyes] = useState<string[]>(["Default", "Close", "Cry"]);
+    const [eyes, setEyes] = useState<string[]>(['Default', 'Close', 'Cry']);
     const [eyebrow, setEyebrow] = useState<string[]>([
-        "Default",
-        "DefaultNatural",
-        "Angry",
+        'Default',
+        'DefaultNatural',
+        'Angry',
     ]);
-    const [mouth, setMouth] = useState<string[]>(["Default", "Eating", "Sad"]);
+    const [mouth, setMouth] = useState<string[]>(['Default', 'Eating', 'Sad']);
     const [skinColor, setSkinColor] = useState<string[]>([
-        "Light",
-        "Tanned",
-        "Yellow",
-        "Pale",
-        "Brown",
-        "Black",
-        "DarkBrown",
+        'Light',
+        'Tanned',
+        'Yellow',
+        'Pale',
+        'Brown',
+        'Black',
+        'DarkBrown',
     ]);
 
     useEffect(() => {
@@ -93,15 +93,12 @@ const NewWebPage = ({}: Props) => {
             try {
                 // Upload image
                 const { data: image } = await supabase.storage
-                    .from("uploads")
-                    .upload(
-                        userId + "/" + crypto.randomUUID(),
-                        data.picture[0]
-                    );
+                    .from('uploads')
+                    .upload(userId + '/' + crypto.randomUUID(), data.picture[0]);
 
                 // Insert data into the database
-                const response = await fetch("/api/webs", {
-                    method: "POST",
+                const response = await fetch('/api/webs', {
+                    method: 'POST',
                     body: JSON.stringify({
                         id: id,
                         name: data.name,
@@ -109,7 +106,7 @@ const NewWebPage = ({}: Props) => {
                         image_path: image.path,
                     }),
                     headers: {
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                     },
                 });
 
@@ -118,8 +115,8 @@ const NewWebPage = ({}: Props) => {
                 console.log(error);
             }
         } else {
-            const response = await fetch("/api/webs", {
-                method: "POST",
+            const response = await fetch('/api/webs', {
+                method: 'POST',
                 body: JSON.stringify({
                     id: id,
                     name: data.name,
@@ -137,7 +134,7 @@ const NewWebPage = ({}: Props) => {
                     }),
                 }),
                 headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                 },
             });
 
@@ -151,12 +148,10 @@ const NewWebPage = ({}: Props) => {
     };
 
     const handleItem = (item, dir) => {
-        const currentIndex = item.indexOf(
-            item.find((type) => type === item[0])
-        );
+        const currentIndex = item.indexOf(item.find((type) => type === item[0]));
         let newItem = [];
 
-        if (dir === ">") {
+        if (dir === '>') {
             newItem = [
                 ...item.slice(currentIndex + 1),
                 ...item.slice(0, currentIndex + 1),
@@ -201,7 +196,7 @@ const NewWebPage = ({}: Props) => {
 
     return (
         <div className="flex items-center w-full justify-center gap-28 absolute top-1/2 -translate-y-1/2">
-            <div className={`w-[20rem] ${mainMenuVisible && "hidden"}`}>
+            <div className={`w-[20rem] ${mainMenuVisible && 'hidden'}`}>
                 <H1 className="mb-10" underline>
                     Start een nieuw web
                 </H1>
@@ -212,16 +207,11 @@ const NewWebPage = ({}: Props) => {
                     onSubmit={onSubmit}
                     className={`w-full`}
                 >
-                    <Input
-                        register={register}
-                        name="name"
-                        label="Naam"
-                        spacing="my-4"
-                    />
+                    <Input register={register} name="name" label="Naam" spacing="my-4" />
                     <div
                         onClick={() => {
                             handleUIToggle();
-                            setShowOnWeb("avatar");
+                            setShowOnWeb('avatar');
                         }}
                         className={`cursor-pointer w-[47.5%]  text-neutral-800 border-[1.5px] border-neutral-500 flex flex-col gap-2 justify-center px-5 py-5 rounded-2xl`}
                     >
@@ -239,10 +229,10 @@ const NewWebPage = ({}: Props) => {
                             Upload een foto
                         </span>
                         <input
-                            {...register("picture")}
+                            {...register('picture')}
                             onChange={(e) => {
                                 setSelectedImage(e.target.files[0]);
-                                setShowOnWeb("image");
+                                setShowOnWeb('image');
                             }}
                             className="cursor-pointer absolute w-full h-full left-0 opacity-0"
                             type="file"
@@ -252,7 +242,7 @@ const NewWebPage = ({}: Props) => {
                     </div>
                 </Form>
             </div>
-            <div className={` ${avatarStyleVisible && "hidden"}`}>
+            <div className={` ${avatarStyleVisible && 'hidden'}`}>
                 <div onClick={handleUIToggle}>
                     <svg
                         className="cursor-pointer fill-neutral-700"
@@ -271,64 +261,64 @@ const NewWebPage = ({}: Props) => {
                 <ul className="flex flex-col gap-4">
                     <AvatarStyle
                         name="Huidskleur"
-                        prevBtn={() => handleItem(skinColor, "<")}
-                        nextBtn={() => handleItem(skinColor, ">")}
+                        prevBtn={() => handleItem(skinColor, '<')}
+                        nextBtn={() => handleItem(skinColor, '>')}
                     >
                         <SkinColorIcon className="fill-neutral-900 mr-5" />
                     </AvatarStyle>
                     <AvatarStyle
                         name="Haar"
-                        prevBtn={() => handleItem(topType, "<")}
-                        nextBtn={() => handleItem(topType, ">")}
+                        prevBtn={() => handleItem(topType, '<')}
+                        nextBtn={() => handleItem(topType, '>')}
                     >
                         <HairIcon className="fill-neutral-900 mr-5" />
                     </AvatarStyle>
                     <AvatarStyle
                         name="Ogen"
-                        prevBtn={() => handleItem(eyes, "<")}
-                        nextBtn={() => handleItem(eyes, ">")}
+                        prevBtn={() => handleItem(eyes, '<')}
+                        nextBtn={() => handleItem(eyes, '>')}
                     >
                         <EyeIcon className="fill-neutral-900 mr-5" />
                     </AvatarStyle>
                     <AvatarStyle
                         name="Mond"
-                        prevBtn={() => handleItem(mouth, "<")}
-                        nextBtn={() => handleItem(mouth, ">")}
+                        prevBtn={() => handleItem(mouth, '<')}
+                        nextBtn={() => handleItem(mouth, '>')}
                     >
                         <MouthIcon className="fill-neutral-900 mr-5" />
                     </AvatarStyle>
                     <AvatarStyle
                         name="Wenkbrauwen"
-                        prevBtn={() => handleItem(eyebrow, "<")}
-                        nextBtn={() => handleItem(eyebrow, ">")}
+                        prevBtn={() => handleItem(eyebrow, '<')}
+                        nextBtn={() => handleItem(eyebrow, '>')}
                     >
                         <EyeBrowIcon className="fill-neutral-900 mr-5" />
                     </AvatarStyle>
                     <AvatarStyle
                         name="Kleding"
-                        prevBtn={() => handleItem(clothes, "<")}
-                        nextBtn={() => handleItem(clothes, ">")}
+                        prevBtn={() => handleItem(clothes, '<')}
+                        nextBtn={() => handleItem(clothes, '>')}
                     >
                         <ClothesIcon className="fill-neutral-900 mr-5" />
                     </AvatarStyle>
                     <AvatarStyle
                         name="Haar Kleur"
-                        prevBtn={() => handleItem(hairColor, "<")}
-                        nextBtn={() => handleItem(hairColor, ">")}
+                        prevBtn={() => handleItem(hairColor, '<')}
+                        nextBtn={() => handleItem(hairColor, '>')}
                     >
                         <HairColorIcon className="fill-neutral-900 mr-5" />
                     </AvatarStyle>
                     <AvatarStyle
                         name="Bril"
-                        prevBtn={() => handleItem(accesoiresType, "<")}
-                        nextBtn={() => handleItem(accesoiresType, ">")}
+                        prevBtn={() => handleItem(accesoiresType, '<')}
+                        nextBtn={() => handleItem(accesoiresType, '>')}
                     >
                         <GlassesIcon className="fill-neutral-900 mr-5" />
                     </AvatarStyle>
                     <AvatarStyle
                         name="Baardgroei"
-                        prevBtn={() => handleItem(facialHair, "<")}
-                        nextBtn={() => handleItem(facialHair, ">")}
+                        prevBtn={() => handleItem(facialHair, '<')}
+                        nextBtn={() => handleItem(facialHair, '>')}
                     >
                         <FacialHairIcon className="fill-neutral-900 mr-5" />
                     </AvatarStyle>

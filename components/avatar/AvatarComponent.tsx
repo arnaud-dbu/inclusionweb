@@ -1,14 +1,30 @@
-"use client";
-
-import Avatar from "avataaars";
+import React from 'react';
+import Avatar from 'avataaars';
 
 type Props = {
     className?: string;
-    data: string;
+    data?: any;
 };
 
 const AvatarComponent = ({ className, data }: Props) => {
-    const parsedData = JSON.parse(data);
+    let avatarData;
+
+    if (typeof data === 'string') {
+        try {
+            avatarData = JSON.parse(data);
+        } catch (error) {
+            console.log('Error occurred while parsing data:', error);
+            return null;
+        }
+    } else {
+        avatarData = data;
+    }
+
+    if (!avatarData) {
+        console.log('No data provided');
+        return null;
+    }
+
     const {
         topType,
         accessoriesType,
@@ -19,7 +35,7 @@ const AvatarComponent = ({ className, data }: Props) => {
         eyebrowType,
         mouthType,
         skinColor,
-    } = parsedData;
+    } = avatarData;
 
     return (
         <Avatar

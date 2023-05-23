@@ -1,22 +1,22 @@
-'use client'
+"use client";
 
-import Image from "next/image";
-import React, { FC, InputHTMLAttributes, useState } from "react";
+import { InputHTMLAttributes, useState } from "react";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+type Props = {
     name: string;
     label?: string;
     error?: any;
     register?: any;
     wrapperClass?: string;
     className?: string;
-    icon?: string,
-    alt?: string,
-    title?: string,
-    spacing?: string
-}
+    icon?: string;
+    alt?: string;
+    title?: string;
+    spacing?: string;
+    secondary?: boolean;
+} & InputHTMLAttributes<HTMLInputElement>;
 
-const Input: FC<InputProps> = ({
+export const Input = ({
     register,
     name,
     error,
@@ -27,38 +27,33 @@ const Input: FC<InputProps> = ({
     title,
     alt,
     spacing,
+    secondary,
     ...rest
-}) => {
+}: Props) => {
     const [isFocused, setIsFocused] = useState(false);
     const handleFocus = () => {
         setIsFocused(true);
-    }
+    };
 
     return (
         <div className={`w-full ${spacing}`}>
-            {
-                title &&
-                <span className="mb-3 font-secondary block font-semibold pl-1 text-neutral-800">{title}</span>
-            }
-            <div className={`form-input w-full relative ${className}  ${isFocused && "active"}`} onFocus={handleFocus}>
+            {/* {title && (
+                    <span className="mb-3 font-secondary block font-semibold pl-1 text-neutral-800">
+                        {title}
+                    </span>
+                )} */}
+            <div className={`form-input w-full relative ${isFocused && "active"}`} onFocus={handleFocus}>
+                <label
+                    className={`absolute pointer-events-none transition-all ease-out duration-300 left-3 top-1/2 -translate-y-1/2 opacity-50 text-neutral-900 font-normal`}>
+                    {label}
+                </label>
                 <input
-                    {...register(name)} {...rest}
+                    className={` h-12 w-full border-0 px-4 rounded-lg ${secondary ? "bg-neutral-300" : "bg-neutral-400"}`}
+                    {...register(name)}
+                    {...rest}
                 />
-                <label className={`absolute pointer-events-none transition-all ease-out duration-300 left-3 top-1/2 -translate-y-1/2 opacity-50 text-neutral-900 font-normal`}>{label}</label>
-                {
-                    icon && alt &&
-                    <Image
-                        src={icon}
-                        alt={alt}
-                        width={20}
-                        height={20}
-                        className='absolute right-4 top-1/2 -translate-y-1/2 opacity-30'
-                    />
-                }
-                {error && <span role="alert">{error}</span>}
+                {/* {error && <span role="alert">{error}</span>} */}
             </div>
         </div>
     );
-};
-
-export default Input;
+}

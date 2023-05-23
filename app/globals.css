@@ -3,54 +3,54 @@
 @tailwind utilities;
 
 :root {
-    --bg-light: #e9f5f5;
-    --text-dark: #0c566d;
-    --primary-800: #1db1ab;
+	--bg-light: #e9f5f5;
+	--text-dark: #0c566d;
+	--primary-800: #1db1ab;
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
-        --foreground-rgb: 255, 255, 255;
-        --background-start-rgb: 0, 0, 0;
-        --background-end-rgb: 0, 0, 0;
-    }
+	:root {
+		--foreground-rgb: 255, 255, 255;
+		--background-start-rgb: 0, 0, 0;
+		--background-end-rgb: 0, 0, 0;
+	}
 }
 
 body {
-    @apply bg-primary-300;
+	@apply bg-primary-300;
 }
 
 p {
-    @apply italic text-base leading-6;
+	@apply italic text-base leading-6;
 }
 
 .layout-wrapper {
-    max-width: 120rem;
-    margin: 0 auto;
-    padding: 0 10rem;
+	max-width: 120rem;
+	margin: 0 auto;
+	padding: 0 10rem;
 }
 
 .title-underline {
-    &::after {
-        content: "";
-        display: block;
-        width: 3.5rem;
-        height: 0.5rem;
-        background-color: var(--primary-800);
-        margin-top: 1rem;
-    }
+	&::after {
+		content: "";
+		display: block;
+		width: 3.5rem;
+		height: 0.5rem;
+		background-color: var(--primary-800);
+		margin-top: 1rem;
+	}
 }
 
 .absolute-center {
-    @apply absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2;
+	@apply absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2;
 }
 
 .web {
-    @apply rounded-full relative aspect-square;
+	@apply rounded-full relative aspect-square;
 }
 
 .web-inner {
-    @apply absolute rounded-full top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-primary-800 w-full h-full;
+	@apply absolute rounded-full top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-primary-800 w-full h-full;
 }
 
 /* .web {
@@ -58,25 +58,50 @@ p {
 } */
 
 .link {
-    @apply block text-neutral-800 font-light underline;
+	@apply block text-neutral-800 font-light underline;
 }
 
 .form-input {
-    & input {
-        @apply h-12 w-full border-0 bg-neutral-400 px-4 rounded-lg;
-    }
+	&.active {
+		& label {
+			@apply top-0 left-3 text-neutral-800 bg-white z-10 text-xs opacity-100 px-1 font-medium;
+		}
 
-    &.active {
-        & label {
-            @apply top-0 left-3 text-neutral-800 bg-primary-300 z-10 text-xs opacity-100 px-1 font-medium;
-        }
+		& input {
+			@apply border-neutral-600 bg-[transparent] border;
+		}
 
-        & input {
-            @apply border-neutral-600 bg-[transparent] border;
-        }
+		& input:focus {
+			@apply outline-none;
+		}
+	}
+}
 
-        & input:focus {
-            @apply outline-none;
-        }
-    }
+.checkbox:checked {
+	border: none;
+}
+
+.checkbox:checked + .check-icon {
+	display: flex;
+}
+
+.frequency-line {
+	@apply content-[''] absolute w-[90%] h-[2px] z-10 bg-primary-800 left-1/2 -translate-x-1/2 top-[.5rem];
+
+	.block {
+		@apply absolute bottom-[2px] bg-primary-200 w-1/4;
+
+		&--1 {
+			@apply left-0 h-2;
+		}
+		&--2 {
+			@apply left-1/4 h-4;
+		}
+		&--3 {
+			@apply left-2/4 h-6;
+		}
+		&--4 {
+			@apply left-3/4 h-8;
+		}
+	}
 }
