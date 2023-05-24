@@ -20,7 +20,6 @@ export const CheckButtonGroup = ({ register, name, options, ...rest }: Props) =>
 
 	useEffect(() => {
 		register(name, { value: ["practical", "emotional"] });
-		console.log(selected);
 	}, [selected, register, name]);
 
 	return (

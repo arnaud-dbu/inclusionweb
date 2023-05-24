@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 type Props = {
 	register?: any;
 	options: any;
@@ -29,9 +27,9 @@ export const RadioButtons = ({ register, name, options, ...rest }: Props) => {
 						/>
 						<div className="check-icon hidden bg-primary-800 shadow-lg border-primary-800 rounded-full w-full h-full z-1"></div>
 					</div>
-					<option className="absolute left-1/2 -translate-x-1/2 -bottom-6 text-neutral-900 text-sm">
+					<span className="absolute left-1/2 -translate-x-1/2 -bottom-6 text-neutral-900 text-sm">
 						{option.label}
-					</option>
+					</span>
 				</div>
 			))}
 		</div>

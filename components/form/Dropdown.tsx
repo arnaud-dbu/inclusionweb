@@ -66,7 +66,7 @@ const noOptionsMessageStyles =
 export const Dropdown = ({ register, options, name }: Props) => {
 	const [selectedOption, setSelectedOption] = useState(null);
 	if (selectedOption) {
-		register(name, { value: selectedOption.value });
+		register(name, { value: selectedOption.label });
 	}
 
 	return (

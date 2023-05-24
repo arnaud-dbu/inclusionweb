@@ -1,24 +1,22 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { H1, H2 } from "@/components/Headings";
-import Form from "@/components/form/Form";
-import AvatarComponent from "@/components/avatar/AvatarComponent";
-import { AnimalIcon, GroupIcon, PersonIcon, PlaceIcon } from "@/public/icons";
-import SelectButton from "@/components/form/SelectButtons";
-import { Input } from "@/components/form/Input";
-import { BlockTitle } from "@/components/form/BlockTitle";
+import { useEffect, useState } from "react";
 import {
-	SelectAvatar,
-	SelectEditAvatar,
-	SelectImageThumbnail,
-} from "@/components/form/SelectAvatar";
-import { CheckButtonGroup } from "@/components/form/CheckButtonGroup";
-import { Btn } from "@/components/Buttons";
-import { RadioButtons } from "@/components/form/RadioButtonGroup";
-import { useState } from "react";
-import SelectButtons from "@/components/form/SelectButtons";
-import { Dropdown } from "@/components/form/Dropdown";
+	accessoriesTypes,
+	clothesTypes,
+	eyeTypes,
+	eyebrowTypes,
+	facialHairTypes,
+	hairColors,
+	mouthTypes,
+	skinColors,
+	topTypes,
+	youngManAvatar,
+} from "@/lib/avatarPresets";
+import { NewContactAvatar } from "./NewContactAvatar";
+import { NewContactForm } from "./NewContactForm";
+import { AvatarEditForm } from "./AvatarEditForm";
+import { CustomAvatar } from "./CustomAvatar";
 
 type Props = {
 	modalVisible: any;
@@ -26,36 +24,118 @@ type Props = {
 };
 
 const Modal = ({ modalVisible, setModalVisible }: Props) => {
-	const { register, handleSubmit } = useForm();
-	const [type, setType] = useState("person");
-	const [selected, setSelected] = useState([]);
+	const [avatarEditWindow, setEditAvatarWindow] = useState(false);
 
-	const handleSelection = (e) => {
-		const selectedLabel = e.target.innerText;
-		if (selected.includes(selectedLabel)) {
-			setSelected(selected.filter((item) => item !== selectedLabel));
+	const [topType, setTopType] = useState<string[]>(["ShortHairShortFlat", ...topTypes.slice(1)]);
+	const [accessoriesType, setAccessoriesType] = useState<string[]>([
+		"Blank",
+		...accessoriesTypes.slice(1),
+	]);
+	const [hairColor, setHairColor] = useState<string[]>(["BrownDark", ...hairColors.slice(1)]);
+	const [facialHair, setFacialHair] = useState<string[]>(["Blank", ...facialHairTypes.slice(1)]);
+	const [clothes, setClothes] = useState<string[]>(["ShirtCrewNeck", ...clothesTypes.slice(1)]);
+	const [eyes, setEyes] = useState<string[]>(["Default", ...eyeTypes.slice(1)]);
+	const [eyebrow, setEyebrow] = useState<string[]>(["Default", ...eyebrowTypes.slice(1)]);
+	const [mouth, setMouth] = useState<string[]>(["Default", ...mouthTypes.slice(1)]);
+	const [skinColor, setSkinColor] = useState<string[]>(["Light", ...skinColors.slice(1)]);
+
+	const handleItem = (item, dir) => {
+		const currentIndex = item.indexOf(item.find((type) => type === item[0]));
+		let newItem = [];
+
+		if (dir === ">") {
+			newItem = [...item.slice(currentIndex + 1), ...item.slice(0, currentIndex + 1)];
 		} else {
-			setSelected([...selected, selectedLabel]);
+			newItem = [...item.slice(currentIndex - 1), ...item.slice(0, currentIndex - 1)];
+		}
+
+		switch (item) {
+			case topType:
+				setTopType(newItem);
+				break;
+			case skinColor:
+				setSkinColor(newItem);
+				break;
+			case accessoriesType:
+				setAccessoriesType(newItem);
+				break;
+			case hairColor:
+				setHairColor(newItem);
+				break;
+			case facialHair:
+				setFacialHair(newItem);
+				break;
+			case clothes:
+				setClothes(newItem);
+				break;
+			case eyes:
+				setEyes(newItem);
+				break;
+			case eyebrow:
+				setEyebrow(newItem);
+				break;
+			case mouth:
+				setMouth(newItem);
+				break;
 		}
 	};
+
+	let customAvatar = {
+		topType: topType[0],
+		accessoriesType: accessoriesType[0],
+		hairColor: hairColor[0],
+		facialHairType: facialHair[0],
+		clotheType: clothes[0],
+		eyeType: eyes[0],
+		eyebrowType: eyebrow[0],
+		mouthType: mouth[0],
+		skinColor: skinColor[0],
+	};
+
+	const handleCustomAvatarSubmit = () => {
+		// setAvatarStyle(customAvatar);
+		setEditAvatarWindow(false);
+	};
+
+	const handleEditAvatarWindow = () => {
+		setEditAvatarWindow(true);
+	};
+
+	const handlePresetAvatarSubmit = (type) => {
+		console.log(type);
+		switch (type) {
+			case "youngManAvatar":
+				setTopType(["ShortHairShortFlat", ...topTypes.slice(1)]);
+				setSkinColor(["Light", ...skinColors.slice(1)]);
+				setAccessoriesType(["Blank", ...accessoriesTypes.slice(1)]);
+				setHairColor(["BrownDark", ...hairColors.slice(1)]);
+				setFacialHair(["Blank", ...facialHairTypes.slice(1)]);
+				setClothes(["ShirtCrewNeck", ...clothesTypes.slice(1)]);
+				setEyes(["Default", ...eyeTypes.slice(1)]);
+				setEyebrow(["Default", ...eyebrowTypes.slice(1)]);
+				setMouth(["Default", ...mouthTypes.slice(1)]);
+				setActiveAvatarPreset("youngManAvatar");
+				break;
+			case "youngWomanAvatar":
+				setTopType(["LongHairCurvy", ...topTypes.slice(1)]);
+				setSkinColor(["Light", ...skinColors.slice(1)]);
+				setAccessoriesType(["Blank", ...accessoriesTypes.slice(1)]);
+				setHairColor(["BrownDark", ...hairColors.slice(1)]);
+				setFacialHair(["Blank", ...facialHairTypes.slice(1)]);
+				setClothes(["BlazerShirt", ...clothesTypes.slice(1)]);
+				setEyes(["Default", ...eyeTypes.slice(1)]);
+				setEyebrow(["Default", ...eyebrowTypes.slice(1)]);
+				setMouth(["Default", ...mouthTypes.slice(1)]);
+				setActiveAvatarPreset("youngWomanAvatar");
+				break;
+		}
+	};
+
+	const [activeAvatarPreset, setActiveAvatarPreset] = useState("youngManAvatar");
 
 	const onSubmit = (data) => {
 		console.log(data);
 	};
-
-	const data = {
-		topType: "Turban",
-		accessoriesType: "Round",
-		hairColor: "Blue",
-		facialHairType: "Blank",
-		clotheType: "BlazerShirt",
-		eyeType: "Default",
-		eyebrowType: "Default",
-		mouthType: "Default",
-		skinColor: "Light",
-	};
-
-	const jsonData = JSON.stringify(data);
 
 	return (
 		modalVisible && (
@@ -63,135 +143,50 @@ const Modal = ({ modalVisible, setModalVisible }: Props) => {
 				<div className="w-screen h-screen bg-neutral-900 relative z-50 opacity-30"></div>
 				<dialog
 					open
-					className="relative flex items-center justify-center m-0 absolute-center z-50 rounded-3xl px-0 bg-primary-100 pt-20 pb-36">
-					<div className="flex items-center justify-between gap-14 px-20">
-						<div className="flex flex-col gap-5 items-center">
-							<AvatarComponent
-								data={jsonData}
-								className="w-[12.5rem] h-[12.5rem] bg-primary-500 rounded-full object-cover"
+					className="relative flex items-center justify-center m-0 absolute-center z-50 rounded-3xl px-0 bg-primary-100 pt-[3.5rem] pb-[4rem] w-[65rem]">
+					<div className="flex items-center justify-between gap-14 relative mx-20">
+						{avatarEditWindow ? (
+							<CustomAvatar
+								customAvatar={customAvatar}
+								handlePresetAvatarSubmit={handlePresetAvatarSubmit}
+								setEditAvatarWindow={setEditAvatarWindow}
+								activeAvatarPreset={activeAvatarPreset}
 							/>
-							<H2 className="mb-0 text-5xl">Nieuw contact</H2>
-						</div>
-						<div className="w-[1.5px] h-[40rem] bg-neutral-400"></div>
-						<Form
-							className="flex flex-col gap-4"
-							register={register}
-							handleSubmit={handleSubmit}
-							onSubmit={onSubmit}>
-							<div>
-								<BlockTitle title="Type" />
-								<SelectButtons
-									name="type"
-									options={[
-										{ value: "person", label: "Persoon" },
-										{ value: "group", label: "Groep" },
-										{ value: "place", label: "Plaats" },
-										{ value: "animal", label: "Dier" },
-									]}
-									icons={[
-										<PersonIcon
-											key={"person"}
-											className={`w-6 h-6 fill-neutral-900 ${type === "person" && "fill-white"}`}
-										/>,
-										<GroupIcon
-											key={"group"}
-											className={`w-6 h-6 fill-neutral-900 ${type === "group" && "fill-white"}`}
-										/>,
-										<PlaceIcon
-											key={"place"}
-											className={`w-6 h-6 fill-neutral-900 ${type === "place" && "fill-white"}`}
-										/>,
-										<AnimalIcon
-											key={"animal"}
-											className={`w-6 h-6 fill-neutral-900 ${type === "animal" && "fill-white"}`}
-										/>,
-									]}
-									register={register}
-									type={type}
-									setType={setType}
-								/>
-							</div>
-							<div>
-								<BlockTitle title="Gegevens" />
-								<div className="flex gap-3">
-									<Input secondary register={register} name="name" label="Naam" />
-									<Input secondary register={register} name="role" label="Rol" />
-								</div>
-							</div>
-							<div>
-								<BlockTitle title="Relatie" />
-								<Dropdown
-									register={register}
-									name="relation"
-									options={[
-										{ value: "partner", label: "Partner" },
-										{ value: "family", label: "Familie" },
-										{ value: "neighbour", label: "Buur" },
-									]}
-								/>
-							</div>
-							<div>
-								<BlockTitle title="Afbeelding" />
-								<div className="flex gap-3">
-									<SelectAvatar type="man" />
-									<SelectAvatar type="woman" />
-									<SelectEditAvatar />
-									<SelectImageThumbnail />
-								</div>
-							</div>
-							<div>
-								<BlockTitle title="Gegeven Steun" />
-								<CheckButtonGroup
-									register={register}
-									name="given_support"
-									options={[
-										{ value: "emotional", label: "Emotioneel" },
-										{ value: "conviviality", label: "Gezelligheid" },
-										{ value: "practical", label: "Praktisch" },
-										{ value: "advice", label: "Goede Raad" },
-									]}
-								/>
-							</div>
-							<div>
-								<BlockTitle title="Ontvangen Steun" />
-								<CheckButtonGroup
-									register={register}
-									name="received_support"
-									options={[
-										{ value: "emotional", label: "Emotioneel" },
-										{ value: "conviviality", label: "Gezelligheid" },
-										{ value: "practical", label: "Praktisch" },
-										{ value: "advice", label: "Goede Raad" },
-									]}
-								/>
-							</div>
-							<div className="flex gap-3 absolute bottom-10 right-20">
-								<Btn secondary submit>
-									Annuleer
-								</Btn>
-								<Btn primary submit>
-									Opslaan
-								</Btn>
-							</div>
-							<div className="">
-								<BlockTitle title="Frequentie" />
-								<RadioButtons
-									register={register}
-									options={[
-										{ value: "never", label: "Nooit" },
-										{ value: "daily", label: "Dagelijks" },
-										{ value: "weekly", label: "Wekelijks" },
-										{ value: "monthly", label: "Maandelijks" },
-										{ value: "yearly", label: "Jaarlijks" },
-									]}
-									name="frequency"
-								/>
-							</div>
-						</Form>
+						) : (
+							<NewContactAvatar avatarStyle={customAvatar} />
+						)}
+
+						<div className="w-[1.5px] h-[50rem] bg-neutral-400"></div>
+
+						{avatarEditWindow ? (
+							<AvatarEditForm
+								setEditAvatarWindow={setEditAvatarWindow}
+								handleCustomAvatarSubmit={handleCustomAvatarSubmit}
+								handleItem={handleItem}
+								skinColor={skinColor}
+								topType={topType}
+								eyes={eyes}
+								mouth={mouth}
+								eyebrow={eyebrow}
+								clothes={clothes}
+								hairColor={hairColor}
+								accessoriesType={accessoriesType}
+								facialHair={facialHair}
+							/>
+						) : (
+							<NewContactForm
+								activeAvatarPreset={activeAvatarPreset}
+								setModalVisible={setModalVisible}
+								setEditAvatarWindow={setEditAvatarWindow}
+								handlePresetAvatarSubmit={handlePresetAvatarSubmit}
+								handleEditAvatarWindow={handleEditAvatarWindow}
+								customAvatar={customAvatar}
+							/>
+						)}
 					</div>
 					{/* <Btn submit onClick={() => setModalVisible(false)}>
-                        Close
-                    </Btn> */}
+                Close
+              </Btn> */}
 				</dialog>
 			</>
 		)

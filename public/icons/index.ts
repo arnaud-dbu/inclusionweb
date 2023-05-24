@@ -22,3 +22,4 @@ export { default as GroupIcon } from "./group.svg";
 export { default as PlaceIcon } from "./place.svg";
 export { default as PencilIcon } from "./pencil.svg";
 export { default as ImageSquareIcon } from "./image-square.svg";
+export { default as ArrowLeftIcon } from "./arrow-left.svg";
