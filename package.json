@@ -12,6 +12,7 @@
   "dependencies": {
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/modifiers": "^6.0.1",
+    "@dnd-kit/sortable": "^7.0.2",
     "@hookform/resolvers": "^3.1.0",
     "@newhighsco/next-plugin-svgr": "^3.0.94",
     "@supabase/auth-helpers-nextjs": "^0.6.1",

@@ -8,9 +8,10 @@ type Props = {
 	data: any;
 	setModalVisible: any;
 	contacts: any;
+	setContacts: any;
 };
 
-const NetworkSideMenu = ({ data, setModalVisible, contacts }: Props) => {
+const NetworkSideMenu = ({ data, setModalVisible, contacts, setContacts }: Props) => {
 	return (
 		<aside className="bg-primary-200 flex flex-col shadow-lg absolute left-24 w-[25%] h-full px-16 pt-12">
 			<div className="flex flex-col">
@@ -40,7 +41,7 @@ const NetworkSideMenu = ({ data, setModalVisible, contacts }: Props) => {
 					</button>
 				</div>
 			</div>
-			<Contacts />
+			<Contacts contacts={contacts} setContacts={setContacts} />
 
 			<Btn onClick={() => setModalVisible(true)} className="w-full mt-auto mb-8" primary submit>
 				<AddUserIcon className="w-6 fill-white mr-2" />

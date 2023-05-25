@@ -7,16 +7,14 @@ import React, { useState } from "react";
 import { restrictToWindowEdges, restrictToParentElement } from "@dnd-kit/modifiers";
 
 export const Example = () => {
-	const [isDropped, setIsDropped] = useState([]);
-
 	const [dragItems, setDragItems] = useState([
 		{
 			id: "1",
 			content: "arnaud",
 			visible: "none",
 			position: {
-				x: 200,
-				y: 200,
+				x: 0,
+				y: 0,
 			},
 		},
 		{
@@ -24,8 +22,8 @@ export const Example = () => {
 			content: "eva",
 			visible: "none",
 			position: {
-				x: 200,
-				y: 200,
+				x: 0,
+				y: 0,
 			},
 		},
 	]);
@@ -63,17 +61,12 @@ export const Example = () => {
 			return item;
 		});
 		setDragItems(newPositionedDragItems);
+		console.log(newPositionedDragItems);
 
 		if (ev.over && ev.over.id === dragItemId) {
 			setIsDropped(true);
 		}
 	};
-
-	// Press on a button
-
-	// Find the id of the dragItem
-
-	// Make it visible on the web
 
 	return (
 		<>
@@ -100,6 +93,7 @@ export const Example = () => {
 					);
 				})}
 			</div>
+
 			<DndContext onDragEnd={handleDragEnd} modifiers={[restrictToParentElement]}>
 				<div className="absolute-center">
 					<Droppable>{dragItem}</Droppable>
