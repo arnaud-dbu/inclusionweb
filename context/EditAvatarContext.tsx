@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import {
 	accessoriesTypes,
 	clothesTypes,
@@ -11,20 +8,18 @@ import {
 	mouthTypes,
 	skinColors,
 	topTypes,
-	youngManAvatar,
 } from "@/lib/avatarPresets";
-import { NewContactAvatar } from "./NewContactAvatar";
-import { NewContactForm } from "./NewContactForm";
-import { AvatarEditForm } from "./AvatarEditForm";
-import { CustomAvatar } from "./CustomAvatar";
+import { createContext, useState } from "react";
 
-type Props = {
-	modalVisible: any;
-	setModalVisible: any;
-};
+export const EditAvatarContext = createContext(null);
 
-const Modal = ({ modalVisible, setModalVisible }: Props) => {
-	const [avatarEditWindow, setEditAvatarWindow] = useState(false);
+export const EditAvatarProvider = ({ children }) => {
+	const [avatarEditWindow, setEditAvatarWindow] = useState(true);
+	const [activeAvatarPreset, setActiveAvatarPreset] = useState("youngManAvatar");
+
+	const toggleAvatarEditWindow = () => {
+		setEditAvatarWindow(!avatarEditWindow);
+	};
 
 	const [topType, setTopType] = useState<string[]>(["ShortHairShortFlat", ...topTypes.slice(1)]);
 	const [accessoriesType, setAccessoriesType] = useState<string[]>([
@@ -39,7 +34,7 @@ const Modal = ({ modalVisible, setModalVisible }: Props) => {
 	const [mouth, setMouth] = useState<string[]>(["Default", ...mouthTypes.slice(1)]);
 	const [skinColor, setSkinColor] = useState<string[]>(["Light", ...skinColors.slice(1)]);
 
-	const handleItem = (item, dir) => {
+	const handleSwitchAvatarStyles = (item, dir) => {
 		const currentIndex = item.indexOf(item.find((type) => type === item[0]));
 		let newItem = [];
 
@@ -92,17 +87,7 @@ const Modal = ({ modalVisible, setModalVisible }: Props) => {
 		skinColor: skinColor[0],
 	};
 
-	const handleCustomAvatarSubmit = () => {
-		// setAvatarStyle(customAvatar);
-		setEditAvatarWindow(false);
-	};
-
-	const handleEditAvatarWindow = () => {
-		setEditAvatarWindow(true);
-	};
-
 	const handlePresetAvatarSubmit = (type) => {
-		console.log(type);
 		switch (type) {
 			case "youngManAvatar":
 				setTopType(["ShortHairShortFlat", ...topTypes.slice(1)]);
@@ -131,66 +116,37 @@ const Modal = ({ modalVisible, setModalVisible }: Props) => {
 		}
 	};
 
-	const [activeAvatarPreset, setActiveAvatarPreset] = useState("youngManAvatar");
-
-	const onSubmit = (data) => {
-		console.log(data);
-	};
-
 	return (
-		modalVisible && (
-			<>
-				<div className="w-screen h-screen bg-neutral-900 relative z-50 opacity-30"></div>
-				<dialog
-					open
-					className="relative flex items-center justify-center m-0 absolute-center z-50 rounded-3xl px-0 bg-primary-100 pt-[3.5rem] pb-[4rem] w-[65rem]">
-					<div className="flex items-center justify-between gap-14 relative mx-20">
-						{avatarEditWindow ? (
-							<CustomAvatar
-								customAvatar={customAvatar}
-								handlePresetAvatarSubmit={handlePresetAvatarSubmit}
-								setEditAvatarWindow={setEditAvatarWindow}
-								activeAvatarPreset={activeAvatarPreset}
-							/>
-						) : (
-							<NewContactAvatar avatarStyle={customAvatar} />
-						)}
-
-						<div className="w-[1.5px] h-[50rem] bg-neutral-400"></div>
-
-						{avatarEditWindow ? (
-							<AvatarEditForm
-								setEditAvatarWindow={setEditAvatarWindow}
-								handleCustomAvatarSubmit={handleCustomAvatarSubmit}
-								handleItem={handleItem}
-								skinColor={skinColor}
-								topType={topType}
-								eyes={eyes}
-								mouth={mouth}
-								eyebrow={eyebrow}
-								clothes={clothes}
-								hairColor={hairColor}
-								accessoriesType={accessoriesType}
-								facialHair={facialHair}
-							/>
-						) : (
-							<NewContactForm
-								activeAvatarPreset={activeAvatarPreset}
-								setModalVisible={setModalVisible}
-								setEditAvatarWindow={setEditAvatarWindow}
-								handlePresetAvatarSubmit={handlePresetAvatarSubmit}
-								handleEditAvatarWindow={handleEditAvatarWindow}
-								customAvatar={customAvatar}
-							/>
-						)}
-					</div>
-					{/* <Btn submit onClick={() => setModalVisible(false)}>
-                Close
-              </Btn> */}
-				</dialog>
-			</>
-		)
+		<EditAvatarContext.Provider
+			value={{
+				avatarEditWindow,
+				activeAvatarPreset,
+				setActiveAvatarPreset,
+				setEditAvatarWindow,
+				topType,
+				setTopType,
+				accessoriesType,
+				setAccessoriesType,
+				hairColor,
+				setHairColor,
+				facialHair,
+				setFacialHair,
+				clothes,
+				setClothes,
+				eyes,
+				setEyes,
+				eyebrow,
+				setEyebrow,
+				mouth,
+				setMouth,
+				skinColor,
+				setSkinColor,
+				handleSwitchAvatarStyles,
+				handlePresetAvatarSubmit,
+				toggleAvatarEditWindow,
+				customAvatar,
+			}}>
+			{children}
+		</EditAvatarContext.Provider>
 	);
 };
-
-export default Modal;

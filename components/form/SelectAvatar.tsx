@@ -44,7 +44,7 @@ export const SelectAvatar = ({ type, onClick, className }: Props) => {
 
 	return (
 		<div onClick={onClick} className={`cursor-pointer bg-primary-500 rounded-full ${className}`}>
-			<AvatarComponent className="rounded-full w-10 h-10" data={avatarStyles} />
+			<AvatarComponent className="rounded-full w-10 h-10" avatar={avatarStyles} />
 		</div>
 	);
 };

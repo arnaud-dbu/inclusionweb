@@ -6,15 +6,12 @@ import { DndContext } from "@dnd-kit/core";
 import { DragContact } from "./DragContact";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
 import { DropZone } from "./DropZone";
-import { log } from "console";
+import { useContext } from "react";
+import { WebContext } from "@/context/WebContext";
 
-type Props = {
-	data: any;
-	contacts: any;
-	setContacts: any;
-};
+const Web = () => {
+	const { contacts, setContacts, fetchedWebData } = useContext(WebContext);
 
-const Web = ({ data, contacts, setContacts }: Props) => {
 	const handleDragEnd = (ev) => {
 		const dragItemId = ev.active.id;
 		const newPositionedDragItems = contacts?.map((item) => {
@@ -22,26 +19,21 @@ const Web = ({ data, contacts, setContacts }: Props) => {
 				const newX = parseFloat(item.position.x) + ev.delta.x;
 				const newY = parseFloat(item.position.y) + ev.delta.y;
 
+				const x = parseFloat(newX.toFixed());
+				const y = parseFloat(newY.toFixed());
+
 				return {
 					...item,
 					position: {
-						x: Number(newX.toFixed(2)),
-						y: Number(newY.toFixed(2)),
+						x: x,
+						y: y,
 					},
 				};
 			}
 			return item;
 		});
 		setContacts(newPositionedDragItems);
-		console.log(newPositionedDragItems);
 	};
-
-	// {
-	// 	contacts?.map((contact) => {
-	// 		console.log(parseFloat(contact.position.x));
-	// 		console.log(parseFloat(contact.position.y));
-	// 	});
-	// }
 
 	return (
 		<DndContext onDragEnd={handleDragEnd} modifiers={[restrictToParentElement]}>
@@ -52,8 +44,8 @@ const Web = ({ data, contacts, setContacts }: Props) => {
 							<DragContact
 								styles={{
 									position: "absolute",
-									left: `${parseFloat(contact.position.x)}px`,
-									top: `${parseFloat(contact.position.y)}px`,
+									left: `${contact.position.x}px`,
+									top: `${contact.position.y}px`,
 								}}
 								key={contact.id}
 								id={contact.id}
@@ -67,18 +59,18 @@ const Web = ({ data, contacts, setContacts }: Props) => {
 						<div className="web-inner opacity-20 scale-[.55]"></div>
 						<div className="web-inner opacity-25 scale-[.35]"></div>
 
-						{data.image_path && (
+						{fetchedWebData.image_path && (
 							<Image
 								className="absolute-center z-50 w-[10rem] rounded-full aspect-square object-cover"
 								alt="test"
-								src={`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${data.image_path}`}
+								src={`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${fetchedWebData.image_path}`}
 								width={700}
 								height={700}
 							/>
 						)}
-						{data.avatar && (
+						{fetchedWebData.avatar && (
 							<AvatarComponent
-								data={data.avatar}
+								avatar={fetchedWebData.avatar}
 								className="absolute-center w-[10rem] z-50 h-[10rem] bg-primary-500 mb-2 rounded-full object-cover"
 							/>
 						)}

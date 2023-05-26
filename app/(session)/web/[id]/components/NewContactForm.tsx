@@ -11,61 +11,66 @@ import {
 import { CheckButtonGroup } from "@/components/form/CheckButtonGroup";
 import { Btn } from "@/components/Buttons";
 import { RadioButtons } from "@/components/form/RadioButtonGroup";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import SelectButtons from "@/components/form/SelectButtons";
 import { Dropdown } from "@/components/form/Dropdown";
 import { useSupabase } from "@/app/supabase-provider";
+import { WebContext } from "@/context/WebContext";
 
-type Props = {
-	setModalVisible: any;
-	setEditAvatarWindow: any;
-	handlePresetAvatarSubmit: any;
-	handleEditAvatarWindow: any;
-	activeAvatarPreset: any;
-	customAvatar: any;
-};
-
-export const NewContactForm = ({
-	activeAvatarPreset,
-	setModalVisible,
-	handlePresetAvatarSubmit,
-	setEditAvatarWindow,
-	customAvatar,
-}: Props) => {
+export const NewContactForm = () => {
+	const { contacts, setContacts } = useContext(WebContext);
 	const { register, handleSubmit } = useForm();
 	const [type, setType] = useState("person");
 	const { supabase } = useSupabase();
-
-	const handleEditAvatar = () => {
-		setEditAvatarWindow(true);
-	};
+	const {
+		setEditAvatarWindow,
+		setModalVisible,
+		customAvatar,
+		handlePresetAvatarSubmit,
+		activeAvatarPreset,
+	} = useContext(WebContext);
 
 	const onSubmit = async (data) => {
 		const customAvatarString = JSON.stringify(customAvatar);
-		const userId = (await supabase.auth.getUser()).data.user.id;
 		const id = crypto.randomUUID();
+		const userId = (await supabase.auth.getUser()).data.user.id;
+
+		const contactObj = {
+			id: id,
+			user_id: userId,
+			avatar: customAvatarString,
+			type: data.type,
+			name: data.name,
+			role: data.role,
+			relation: data.relation,
+			given_support: data.given_support,
+			received_support: data.received_support,
+			frequency: data.frequency,
+		};
 
 		const response = await fetch("/api/contact", {
 			method: "POST",
-			body: JSON.stringify({
-				id: id,
-				user_id: (await supabase.auth.getUser()).data.user.id,
-				avatar: customAvatarString,
-				type: data.type,
-				name: data.name,
-				role: data.role,
-				relation: data.relation,
-				given_support: data.given_support,
-				received_support: data.received_support,
-				frequency: data.frequency,
-			}),
+			body: JSON.stringify(contactObj),
 			headers: {
 				"Content-Type": "application/json",
 			},
 		});
 
 		if (response.status === 201) {
+			const newContact = {
+				...contactObj,
+				position: {
+					x: 0,
+					y: 0,
+				},
+			};
 			setModalVisible(false);
+
+			if (contacts.length === 0) {
+				setContacts([newContact]);
+			} else {
+				setContacts([...contacts, newContact]);
+			}
 		}
 	};
 
@@ -144,7 +149,7 @@ export const NewContactForm = ({
 						onClick={() => handlePresetAvatarSubmit("youngWomanAvatar")}
 						type="woman"
 					/>
-					<SelectEditAvatar onClick={handleEditAvatar} />
+					<SelectEditAvatar onClick={() => setEditAvatarWindow(true)} />
 					<SelectImageThumbnail />
 				</div>
 			</div>

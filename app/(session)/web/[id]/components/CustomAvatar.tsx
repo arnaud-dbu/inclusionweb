@@ -1,20 +1,12 @@
 import AvatarComponent from "@/components/avatar/AvatarComponent";
+import { EditAvatarContext } from "@/context/EditAvatarContext";
 import { ArrowLeftIcon } from "@/public/icons";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
-type Props = {
-	customAvatar: any;
-	setEditAvatarWindow: any;
-	handlePresetAvatarSubmit: any;
-	activeAvatarPreset: any;
-};
+export const CustomAvatar = () => {
+	const { activeAvatarPreset, handlePresetAvatarSubmit, setEditAvatarWindow, customAvatar } =
+		useContext(EditAvatarContext);
 
-export const CustomAvatar = ({
-	customAvatar,
-	handlePresetAvatarSubmit,
-	activeAvatarPreset,
-	setEditAvatarWindow,
-}: Props) => {
 	const handleReset = () => {
 		handlePresetAvatarSubmit(activeAvatarPreset);
 		setEditAvatarWindow(false);
@@ -28,7 +20,7 @@ export const CustomAvatar = ({
 			</div>
 			<div className="flex flex-col gap-5 items-center">
 				<AvatarComponent
-					data={customAvatar}
+					avatar={customAvatar}
 					className="w-[12.5rem] h-[12.5rem] bg-primary-500 rounded-full object-cover"
 				/>
 			</div>

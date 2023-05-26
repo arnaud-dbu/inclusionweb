@@ -1,22 +1,21 @@
-import MyWeb from "./partials/MyWeb";
+import MyWeb from "./components/MyWeb";
 
 type Props = {
 	data: any;
 };
 
 const WebPage = async ({ params }) => {
-	const webresponse = await fetch(`http://localhost:3000/api/web/${params.id}`, {
+	const webRes = await fetch(`http://localhost:3000/api/web/${params.id}`, {
 		cache: "no-store",
 	});
-	const web = await webresponse.json();
+	const fetchedWebData = await webRes.json();
 
-	// const contactres = await fetch(`http://localhost:3000/api/contacts`, {
-	// 	cache: "no-store",
-	// });
+	const contactRes = await fetch(`http://localhost:3000/api/contacts`, {
+		cache: "no-store",
+	});
+	const fetchedContactsData = await contactRes.json();
 
-	// const contacts = await contactres.json();
-
-	return <MyWeb data={web} />;
+	return <MyWeb fetchedContactsData={fetchedContactsData} fetchedWebData={fetchedWebData} />;
 };
 
 export default WebPage;

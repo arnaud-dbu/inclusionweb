@@ -8,7 +8,7 @@ type Props = {
 	id: string;
 	name: string;
 	styles: any;
-	avatar: any;
+	avatar?: any;
 	// visible?: string;
 };
 
@@ -37,7 +37,7 @@ export const DragContact = ({ id, name, styles, avatar }: Props) => {
 			<div className="flex flex-col">
 				<AvatarComponent
 					className="w-16 h-16 bg-white  rounded-full shadow-lg object-cover"
-					data={avatar}
+					avatar={avatar}
 				/>
 				<span className="text-center text-neutral-900 text-sm font-semibold font-primary uppercase ">
 					{name}

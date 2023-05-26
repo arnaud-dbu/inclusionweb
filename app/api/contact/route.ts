@@ -20,6 +20,8 @@ export async function POST(request: Request) {
 		frequency,
 	} = await request.json();
 
+	console.log(request);
+
 	const supabase = createRouteHandlerSupabaseClient<Database>({
 		headers,
 		cookies,
