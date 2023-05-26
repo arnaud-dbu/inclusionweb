@@ -13,7 +13,6 @@ type Props = {
 };
 
 const MyWeb = ({ fetchedWebData, fetchedContactsData }: Props) => {
-	const [modalVisible, setModalVisible] = useState(false);
 	const [contacts, setContacts] = useState(fetchedContactsData);
 
 	return (
@@ -21,9 +20,7 @@ const MyWeb = ({ fetchedWebData, fetchedContactsData }: Props) => {
 			fetchedWebData={fetchedWebData}
 			fetchedContactsData={fetchedContactsData}
 			contacts={contacts}
-			setContacts={setContacts}
-			modalVisible={modalVisible}
-			setModalVisible={setModalVisible}>
+			setContacts={setContacts}>
 			<EditAvatarProvider>
 				<Modal />
 			</EditAvatarProvider>

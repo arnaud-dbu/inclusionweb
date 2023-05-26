@@ -20,7 +20,6 @@ const AvatarComponent = ({ className, avatar }: Props) => {
 	}
 
 	if (!avatarStyles) {
-		console.log("No data provided");
 		return null;
 	}
 

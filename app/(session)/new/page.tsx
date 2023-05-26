@@ -3,42 +3,27 @@
 import Form from "@/components/form/Form";
 import { H1 } from "@/components/Headings";
 import { Input } from "@/components/form/Input";
-import Web from "@/components/Web";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSupabase } from "@/app/supabase-provider";
-import AvatarStyle from "@/components/avatar/AvatarStyle";
 import { useRouter } from "next/navigation";
-import {
-	ClothesIcon,
-	EditIcon,
-	EyeBrowIcon,
-	EyeIcon,
-	FacialHairIcon,
-	GlassesIcon,
-	HairColorIcon,
-	HairIcon,
-	ImageIcon,
-	MouthIcon,
-	SkinColorIcon,
-} from "@/public/icons";
-import { EditAvatarContext, EditAvatarProvider } from "@/context/EditAvatarContext";
-import Modal from "./components/Modal";
+import { EditIcon, ImageIcon } from "@/public/icons";
+import { EditAvatarContext } from "@/context/EditAvatarContext";
+import { Button } from "@/components/form/Button";
+import WebIllustration from "@/app/(session)/new/components/WebIllustration";
+import Modal from "../web/[id]/components/Modal";
 
 type Props = {};
 
 const NewWebPage = ({}: Props) => {
-	const { toggleAvatarEditWindow } = useContext(EditAvatarContext);
-
+	const { setEditAvatarWindow, customAvatar, toggleModalVisibility } =
+		useContext(EditAvatarContext);
 	const router = useRouter();
 	const { supabase } = useSupabase();
-
 	const { register, handleSubmit } = useForm();
 	const [selectedImage, setSelectedImage] = useState<any>("");
 	const [imageUrl, setImageUrl] = useState<string>("");
-	const [avatarStyleVisible, setAvatarStyleVisible] = useState<boolean>(true);
-	const [mainMenuVisible, setMainMenuVisible] = useState<boolean>(false);
-	const [showOnWeb, setShowOnWeb] = useState<string>("default");
+	const [showOnWeb, setShowOnWeb] = useState<string>(null);
 
 	useEffect(() => {
 		if (selectedImage) {
@@ -47,56 +32,46 @@ const NewWebPage = ({}: Props) => {
 	}, [selectedImage]);
 
 	const onSubmit = async (data: any) => {
-		// const userId = (await supabase.auth.getUser()).data.user.id;
-		// const id = crypto.randomUUID();
-		// if (data.picture[0]) {
-		// 	try {
-		// 		// Upload image
-		// 		const { data: image } = await supabase.storage
-		// 			.from("uploads")
-		// 			.upload(userId + "/" + crypto.randomUUID(), data.picture[0]);
-		// 		// Insert data into the database
-		// 		const response = await fetch("/api/webs", {
-		// 			method: "POST",
-		// 			body: JSON.stringify({
-		// 				id: id,
-		// 				name: data.name,
-		// 				user_id: (await supabase.auth.getUser()).data.user.id,
-		// 				image_path: image.path,
-		// 			}),
-		// 			headers: {
-		// 				"Content-Type": "application/json",
-		// 			},
-		// 		});
-		// 		response.status === 201 && router.push(`/web/${id}`);
-		// 	} catch (error) {
-		// 		console.log(error);
-		// 	}
-		// } else {
-		// 	const response = await fetch("/api/webs", {
-		// 		method: "POST",
-		// 		body: JSON.stringify({
-		// 			id: id,
-		// 			name: data.name,
-		// 			user_id: (await supabase.auth.getUser()).data.user.id,
-		// 			avatar: JSON.stringify({
-		// 				topType: topType[0],
-		// 				accessoriesType: accesoiresType[0],
-		// 				hairColor: hairColor[0],
-		// 				facialHairType: facialHair[0],
-		// 				clotheType: clothes[0],
-		// 				eyeType: eyes[0],
-		// 				eyebrowType: eyebrow[0],
-		// 				mouthType: mouth[0],
-		// 				skinColor: skinColor[0],
-		// 			}),
-		// 		}),
-		// 		headers: {
-		// 			"Content-Type": "application/json",
-		// 		},
-		// 	});
-		// 	response.status === 201 && router.push(`/web/${id}`);
-		// }
+		const userId = (await supabase.auth.getUser()).data.user.id;
+		const id = crypto.randomUUID();
+		let imagePath = null;
+
+		try {
+			if (data.picture[0]) {
+				// Upload image
+				const { data: image } = await supabase.storage
+					.from("uploads")
+					.upload(userId + "/" + crypto.randomUUID(), data.picture[0]);
+
+				imagePath = image.path;
+			}
+
+			// Insert data into the database
+			const response = await fetch("/api/webs", {
+				method: "POST",
+				body: JSON.stringify({
+					id: id,
+					name: data.name,
+					user_id: userId,
+					image_path: showOnWeb === "image" && imagePath,
+					avatar: showOnWeb === "avatar" && customAvatar,
+				}),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+
+			if (response.status === 201) {
+				router.push(`/web/${id}`);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const handleModalVisibility = () => {
+		toggleModalVisibility();
+		setEditAvatarWindow(true);
 	};
 
 	return (
@@ -105,19 +80,13 @@ const NewWebPage = ({}: Props) => {
 				<H1 className="mb-10" underline>
 					Start een nieuw web
 				</H1>
-				<Form
-					btnLabel="Start"
-					register={register}
-					handleSubmit={handleSubmit}
-					onSubmit={onSubmit}
-					className={`w-full`}>
-					<Input register={register} name="name" label="Naam" spacing="my-4" />
+				<Form register={register} handleSubmit={handleSubmit} onSubmit={onSubmit}>
+					<Input register={register} name="name" label="Naam" className="mb-4" />
 					<div className="flex gap-2">
 						<div
-							onClick={toggleAvatarEditWindow}
-							className={`cursor-pointer w-[47.5%]  text-neutral-800 border-[1.5px] border-neutral-500 flex flex-col gap-2 justify-center px-5 py-5 rounded-2xl`}>
+							onClick={handleModalVisibility}
+							className={`cursor-pointer w-[47.5%] text-neutral-800 border-[1.5px] border-neutral-500 flex flex-col gap-2 justify-center px-5 py-5 rounded-2xl`}>
 							<EditIcon className="opacity-80" />
-
 							<span className="text-start text-neutral-800 font-medium">Ontwerp je avatar</span>
 						</div>
 						<div
@@ -137,11 +106,17 @@ const NewWebPage = ({}: Props) => {
 							/>
 						</div>
 					</div>
+					<Button label="Start" style="primary" className="w-full mt-4" />
 				</Form>
 			</div>
 
-			{/* <Web image={imageUrl} className="w-[50rem]" showOnWeb={showOnWeb} /> */}
-			<Modal />
+			<WebIllustration
+				image={imageUrl}
+				avatar={customAvatar}
+				className="w-[50rem]"
+				showOnWeb={showOnWeb}
+			/>
+			<Modal setShowOnWeb={setShowOnWeb} />
 		</div>
 	);
 };

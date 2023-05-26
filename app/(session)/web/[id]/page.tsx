@@ -1,10 +1,18 @@
+import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import MyWeb from "./components/MyWeb";
+import type { Database } from "@/lib/database.types";
+import { headers, cookies } from "next/headers";
 
 type Props = {
 	data: any;
 };
 
 const WebPage = async ({ params }) => {
+	const supabase = createServerComponentSupabaseClient<Database>({ headers, cookies });
+	const {
+		data: { user },
+	} = await supabase.auth.getUser();
+
 	const webRes = await fetch(`http://localhost:3000/api/web/${params.id}`, {
 		cache: "no-store",
 	});
@@ -13,7 +21,12 @@ const WebPage = async ({ params }) => {
 	const contactRes = await fetch(`http://localhost:3000/api/contacts`, {
 		cache: "no-store",
 	});
-	const fetchedContactsData = await contactRes.json();
+	const contactData = await contactRes.json();
+	const fetchedContactsData = await contactData?.filter(
+		(contact: any) => contact.web_id === fetchedWebData.id
+	);
+
+	console.log(user.id);
 
 	return <MyWeb fetchedContactsData={fetchedContactsData} fetchedWebData={fetchedWebData} />;
 };

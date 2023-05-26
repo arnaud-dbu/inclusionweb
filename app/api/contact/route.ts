@@ -18,6 +18,7 @@ export async function POST(request: Request) {
 		given_support,
 		received_support,
 		frequency,
+		web_id,
 	} = await request.json();
 
 	console.log(request);
@@ -38,6 +39,7 @@ export async function POST(request: Request) {
 		given_support: given_support,
 		received_support: received_support,
 		frequency: frequency,
+		web_id: web_id,
 	};
 
 	const { data, error } = await supabase.from("contacts").insert(contact).select();

@@ -14,11 +14,16 @@ import { createContext, useState } from "react";
 export const EditAvatarContext = createContext(null);
 
 export const EditAvatarProvider = ({ children }) => {
-	const [avatarEditWindow, setEditAvatarWindow] = useState(true);
+	const [avatarEditWindow, setEditAvatarWindow] = useState(false);
+	const [modalVisible, setModalVisible] = useState(false);
 	const [activeAvatarPreset, setActiveAvatarPreset] = useState("youngManAvatar");
 
-	const toggleAvatarEditWindow = () => {
+	const toggleEditAvatarWindow = () => {
 		setEditAvatarWindow(!avatarEditWindow);
+	};
+
+	const toggleModalVisibility = () => {
+		setModalVisible(!modalVisible);
 	};
 
 	const [topType, setTopType] = useState<string[]>(["ShortHairShortFlat", ...topTypes.slice(1)]);
@@ -143,8 +148,10 @@ export const EditAvatarProvider = ({ children }) => {
 				setSkinColor,
 				handleSwitchAvatarStyles,
 				handlePresetAvatarSubmit,
-				toggleAvatarEditWindow,
+				toggleEditAvatarWindow,
 				customAvatar,
+				modalVisible,
+				toggleModalVisibility,
 			}}>
 			{children}
 		</EditAvatarContext.Provider>

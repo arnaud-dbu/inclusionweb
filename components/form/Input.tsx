@@ -3,57 +3,47 @@
 import { InputHTMLAttributes, useState } from "react";
 
 type Props = {
-    name: string;
-    label?: string;
-    error?: any;
-    register?: any;
-    wrapperClass?: string;
-    className?: string;
-    icon?: string;
-    alt?: string;
-    title?: string;
-    spacing?: string;
-    secondary?: boolean;
+	name: string;
+	label?: string;
+	error?: any;
+	register?: any;
+	className?: string;
+	icon?: string;
+	secondary?: boolean;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export const Input = ({
-    register,
-    name,
-    error,
-    label,
-    wrapperClass,
-    className,
-    icon,
-    title,
-    alt,
-    spacing,
-    secondary,
-    ...rest
+	register,
+	name,
+	error,
+	label,
+	className,
+	icon,
+	secondary,
+	...rest
 }: Props) => {
-    const [isFocused, setIsFocused] = useState(false);
-    const handleFocus = () => {
-        setIsFocused(true);
-    };
-
-    return (
-        <div className={`w-full ${spacing}`}>
-            {/* {title && (
-                    <span className="mb-3 font-secondary block font-semibold pl-1 text-neutral-800">
-                        {title}
-                    </span>
-                )} */}
-            <div className={`form-input w-full relative ${isFocused && "active"}`} onFocus={handleFocus}>
-                <label
-                    className={`absolute pointer-events-none transition-all ease-out duration-300 left-3 top-1/2 -translate-y-1/2 opacity-50 text-neutral-900 font-normal`}>
-                    {label}
-                </label>
-                <input
-                    className={` h-12 w-full border-0 px-4 rounded-lg ${secondary ? "bg-neutral-300" : "bg-neutral-400"}`}
-                    {...register(name)}
-                    {...rest}
-                />
-                {/* {error && <span role="alert">{error}</span>} */}
-            </div>
-        </div>
-    );
-}
+	return (
+		<div className={`w-full ${className}`}>
+			<div className="relative">
+				<input
+					placeholder=""
+					className="text-neutral-900 placeholder-gray-500 peer px-4 py-2 w-full m-0 placeholder-transparent border-1 border-neutral-600 rounded-lg bg-transparent focus:outline-none focus:border-primary-800"
+					{...register(name)}
+					{...rest}
+				/>
+				<label
+					htmlFor="username"
+					className="absolute left-3 -top-2 bg-primary-300 px-[.35rem] m-0 text-xs  
+                    peer-placeholder-shown:text-gray-400 
+                    peer-placeholder-shown:top-1/2
+                    peer-placeholder-shown:-translate-y-1/2
+                    peer-placeholder-shown: text-primary-800
+                    peer-placeholder-shown:text-base 
+                    duration-300">
+					{label}
+				</label>
+				{error && <span role="alert">{error}</span>}
+			</div>
+		</div>
+	);
+};

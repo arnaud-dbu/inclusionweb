@@ -39,7 +39,9 @@
         "app/welcome/page.tsx",
         "app/welcome/page.tsx",
         "app/page.jsx",
-        "app/page.jsx"
+        "app/page.jsx",
+        "app/api/users/route.ts",
+        "app/api/users/route.ts"
     ],
     "exclude": [
         "node_modules"

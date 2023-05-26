@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 export const WebContext = createContext(null);
 
@@ -8,9 +8,8 @@ export const WebProvider = ({
 	fetchedContactsData,
 	contacts,
 	setContacts,
-	modalVisible,
-	setModalVisible,
 }) => {
+	const [modalVisible, setModalVisible] = useState(false);
 	return (
 		<WebContext.Provider
 			value={{

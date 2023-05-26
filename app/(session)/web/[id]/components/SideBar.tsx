@@ -7,7 +7,7 @@ import { WebContext, WebProvider } from "@/context/WebContext";
 import { useContext } from "react";
 
 const SideBar = () => {
-	const { fetchedWebData, setModalVisible } = useContext(WebContext);
+	const { fetchedWebData, setModalVisible, modalVisible } = useContext(WebContext);
 
 	return (
 		<aside className="bg-primary-200 flex flex-col shadow-lg absolute left-24 w-[25%] h-full px-16 pt-12">

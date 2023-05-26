@@ -28,6 +28,7 @@ export const NewContactForm = () => {
 		customAvatar,
 		handlePresetAvatarSubmit,
 		activeAvatarPreset,
+		fetchedWebData,
 	} = useContext(WebContext);
 
 	const onSubmit = async (data) => {
@@ -46,6 +47,7 @@ export const NewContactForm = () => {
 			given_support: data.given_support,
 			received_support: data.received_support,
 			frequency: data.frequency,
+			web_id: fetchedWebData.id,
 		};
 
 		const response = await fetch("/api/contact", {

@@ -15,8 +15,14 @@ import {
 } from "@/public/icons";
 import { Btn } from "@/components/Buttons";
 import { EditAvatarContext } from "@/context/EditAvatarContext";
+import { type } from "os";
+import { Button } from "@/components/form/Button";
 
-export const CustomAvatarForm = () => {
+type Props = {
+	setShowOnWeb?: any;
+};
+
+export const CustomAvatarForm = ({ setShowOnWeb }: Props) => {
 	const {
 		skinColor,
 		topType,
@@ -29,7 +35,13 @@ export const CustomAvatarForm = () => {
 		accessoriesType,
 		facialHair,
 		setEditAvatarWindow,
+		toggleModalVisibility,
 	} = useContext(EditAvatarContext);
+
+	const handleShowAvatarOnWeb = () => {
+		setShowOnWeb("avatar");
+		toggleModalVisibility();
+	};
 
 	return (
 		<section>
@@ -89,10 +101,18 @@ export const CustomAvatarForm = () => {
 					<FacialHairIcon className="fill-neutral-900 mr-5" />
 				</AvatarStyle>
 			</ul>
-
-			<Btn tertiary submit onClick={() => setEditAvatarWindow(false)} className="w-full mt-8">
-				Opslaan
-			</Btn>
+			{setShowOnWeb ? (
+				<Button
+					onClick={handleShowAvatarOnWeb}
+					style="primary"
+					label="Opslaan"
+					className="w-full mt-8"
+				/>
+			) : (
+				<Btn tertiary submit onClick={() => setEditAvatarWindow(false)} className="w-full mt-8">
+					Opslaan
+				</Btn>
+			)}
 		</section>
 	);
 };
