@@ -5,9 +5,12 @@ import { AddUserIcon, GridIcon, ListIcon, SearchIcon } from "@/public/icons";
 import { Contacts } from "./Contacts";
 import { WebContext, WebProvider } from "@/context/WebContext";
 import { useContext } from "react";
+import { CategoryButton } from "@/components/form/CategoryButton";
+import { SearchInput } from "@/components/form/SearchInput";
 
 const SideBar = () => {
-	const { fetchedWebData, setModalVisible, modalVisible } = useContext(WebContext);
+	const { fetchedWebData, setModalVisible, showDroppedContacts, setShowDroppedContacts } =
+		useContext(WebContext);
 
 	return (
 		<aside className="bg-primary-200 flex flex-col shadow-lg absolute left-24 w-[25%] h-full px-16 pt-12">
@@ -15,18 +18,19 @@ const SideBar = () => {
 				<span className="text-3xl text-neutral-800">Inclusieweb</span>
 				<H1 underline>{fetchedWebData.name}</H1>
 			</div>
-			<div className="form-input relative my-6">
-				<SearchIcon className="w-6 fill-neutral-900 absolute right-4 top-1/2 -translate-y-1/2 opacity-30" />
-				<input placeholder="Zoek" />
-			</div>
+			<SearchInput />
 			<div className="flex items-center justify-between gap-3">
-				<div className="flex items-center">
-					<button className="bg-primary-400 text-primary-800 px-4 py-[.5rem] font-semibold rounded-full whitespace-nowrap">
-						Niet geplaatst
-					</button>
-					<button className="text-neutral-800 px-4 py-[.5rem] font-semibold rounded-full whitespace-nowrap">
-						Geplaatst
-					</button>
+				<div className="flex items-center gap-2">
+					<CategoryButton
+						onClick={() => setShowDroppedContacts(false)}
+						label="Niet geplaatst"
+						active={!showDroppedContacts}
+					/>
+					<CategoryButton
+						onClick={() => setShowDroppedContacts(true)}
+						label="Geplaatst"
+						active={showDroppedContacts}
+					/>
 				</div>
 				<DivisionLine />
 				<div className="flex items-center gap-2 ml-4">

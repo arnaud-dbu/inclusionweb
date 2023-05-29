@@ -1,6 +1,25 @@
-import { createContext, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 
-export const WebContext = createContext(null);
+type WebContextType = {
+	fetchedWebData: any;
+	fetchedContactsData: any;
+	contacts: any[];
+	setContacts: (contacts: any[]) => void;
+	setModalVisible: (visible: boolean) => void;
+	showDroppedContacts: boolean;
+	setShowDroppedContacts: (category: boolean) => void;
+	modalVisible: boolean;
+};
+
+export const WebContext = createContext<WebContextType | null>(null);
+
+type Props = {
+	children: ReactNode;
+	fetchedWebData: any;
+	fetchedContactsData: any;
+	contacts: any[];
+	setContacts: (contacts: any[]) => void;
+};
 
 export const WebProvider = ({
 	children,
@@ -8,8 +27,10 @@ export const WebProvider = ({
 	fetchedContactsData,
 	contacts,
 	setContacts,
-}) => {
+}: Props) => {
 	const [modalVisible, setModalVisible] = useState(false);
+	const [showDroppedContacts, setShowDroppedContacts] = useState(false);
+
 	return (
 		<WebContext.Provider
 			value={{
@@ -19,6 +40,8 @@ export const WebProvider = ({
 				setContacts,
 				modalVisible,
 				setModalVisible,
+				showDroppedContacts,
+				setShowDroppedContacts,
 			}}>
 			{children}
 		</WebContext.Provider>

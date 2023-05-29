@@ -11,9 +11,56 @@ import {
 } from "@/lib/avatarPresets";
 import { createContext, useState } from "react";
 
-export const EditAvatarContext = createContext(null);
+export const EditAvatarContext = createContext<EditAvatarContextType | null>(null);
 
-export const EditAvatarProvider = ({ children }) => {
+type Props = {
+	children: React.ReactNode;
+};
+
+export type AvatarType = {
+	topType: string;
+	accessoriesType: string;
+	hairColor: string;
+	facialHairType: string;
+	clotheType: string;
+	eyeType: string;
+	eyebrowType: string;
+	mouthType: string;
+	skinColor: string;
+};
+
+type EditAvatarContextType = {
+	avatarEditWindow: boolean;
+	activeAvatarPreset: string;
+	setActiveAvatarPreset: (preset: string) => void;
+	setEditAvatarWindow: (value: boolean) => void;
+	topType: string[];
+	setTopType: (types: string[]) => void;
+	accessoriesType: string[];
+	setAccessoriesType: (types: string[]) => void;
+	hairColor: string[];
+	setHairColor: (colors: string[]) => void;
+	facialHair: string[];
+	setFacialHair: (types: string[]) => void;
+	clothes: string[];
+	setClothes: (types: string[]) => void;
+	eyes: string[];
+	setEyes: (types: string[]) => void;
+	eyebrow: string[];
+	setEyebrow: (types: string[]) => void;
+	mouth: string[];
+	setMouth: (types: string[]) => void;
+	skinColor: string[];
+	setSkinColor: (colors: string[]) => void;
+	handleSwitchAvatarStyles: (item: string[], dir: ">" | "<") => void;
+	handlePresetAvatarSubmit: (type: string) => void;
+	toggleEditAvatarWindow: () => void;
+	customAvatar: AvatarType;
+	modalVisible: boolean;
+	toggleModalVisibility: () => void;
+};
+
+export const EditAvatarProvider = ({ children }: Props) => {
 	const [avatarEditWindow, setEditAvatarWindow] = useState(false);
 	const [modalVisible, setModalVisible] = useState(false);
 	const [activeAvatarPreset, setActiveAvatarPreset] = useState("youngManAvatar");

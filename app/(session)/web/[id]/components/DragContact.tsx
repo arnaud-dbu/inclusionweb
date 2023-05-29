@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useEffect } from "react";
 import { useDraggable } from "@dnd-kit/core";
 import AvatarComponent from "@/components/avatar/AvatarComponent";
 
@@ -9,16 +8,16 @@ type Props = {
 	name: string;
 	styles: any;
 	avatar?: any;
-	// visible?: string;
+	visible?: string;
 };
 
-export const DragContact = ({ id, name, styles, avatar }: Props) => {
+export const DragContact = ({ id, name, styles, avatar, visible }: Props) => {
 	const CustomStyle = {
-		// display: visible,
+		display: visible,
 		zIndex: 100,
 	};
 
-	const { attributes, listeners, setNodeRef, transform } = useDraggable({
+	const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
 		id,
 	});
 
@@ -28,6 +27,8 @@ export const DragContact = ({ id, name, styles, avatar }: Props) => {
 		  }
 		: {};
 
+	const avatarStyle = isDragging && "lifted";
+
 	return (
 		<button
 			ref={setNodeRef}
@@ -36,7 +37,7 @@ export const DragContact = ({ id, name, styles, avatar }: Props) => {
 			{...attributes}>
 			<div className="flex flex-col">
 				<AvatarComponent
-					className="w-16 h-16 bg-white  rounded-full shadow-lg object-cover"
+					className={` w-16 h-16 bg-white  rounded-full shadow-lg object-cover ${avatarStyle}`}
 					avatar={avatar}
 				/>
 				<span className="text-center text-neutral-900 text-sm font-semibold font-primary uppercase ">

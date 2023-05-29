@@ -136,3 +136,7 @@ p {
 	color: black;
 	background-color: white;
 }
+
+.lifted {
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+}

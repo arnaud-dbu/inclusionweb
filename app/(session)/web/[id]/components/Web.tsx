@@ -51,6 +51,7 @@ const Web = () => {
 								id={contact.id}
 								name={contact.name}
 								avatar={contact.avatar}
+								visible={contact.visible ? "block" : "none"}
 							/>
 						))}
 						<div className="web-inner z-20 opacity-10 scale-[1.04]"></div>

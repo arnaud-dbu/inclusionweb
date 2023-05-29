@@ -16,20 +16,17 @@ import SelectButtons from "@/components/form/SelectButtons";
 import { Dropdown } from "@/components/form/Dropdown";
 import { useSupabase } from "@/app/supabase-provider";
 import { WebContext } from "@/context/WebContext";
+import { EditAvatarContext } from "@/context/EditAvatarContext";
 
 export const NewContactForm = () => {
 	const { contacts, setContacts } = useContext(WebContext);
 	const { register, handleSubmit } = useForm();
 	const [type, setType] = useState("person");
 	const { supabase } = useSupabase();
-	const {
-		setEditAvatarWindow,
-		setModalVisible,
-		customAvatar,
-		handlePresetAvatarSubmit,
-		activeAvatarPreset,
-		fetchedWebData,
-	} = useContext(WebContext);
+	const { setModalVisible, fetchedWebData } = useContext(WebContext);
+
+	const { setEditAvatarWindow, customAvatar, handlePresetAvatarSubmit, activeAvatarPreset } =
+		useContext(EditAvatarContext);
 
 	const onSubmit = async (data) => {
 		const customAvatarString = JSON.stringify(customAvatar);
