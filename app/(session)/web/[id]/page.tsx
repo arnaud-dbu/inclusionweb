@@ -13,12 +13,12 @@ const WebPage = async ({ params }) => {
 		data: { user },
 	} = await supabase.auth.getUser();
 
-	const webRes = await fetch(`http://localhost:3000/api/web/${params.id}`, {
+	const webRes = await fetch(`https://inclusionweb-s128.vercel.app/api/web/${params.id}`, {
 		cache: "no-store",
 	});
 	const fetchedWebData = await webRes.json();
 
-	const contactRes = await fetch(`http://localhost:3000/api/contacts`, {
+	const contactRes = await fetch(`https://inclusionweb-s128.vercel.app/api/contacts`, {
 		cache: "no-store",
 	});
 	const contactData = await contactRes.json();
