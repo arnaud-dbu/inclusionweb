@@ -15,7 +15,7 @@ const DashboardPage = async () => {
 		data: { user },
 	} = await supabase.auth.getUser();
 
-	const res = await fetch("https://inclusionweb-s128.vercel.app/api/webs", {
+	const res = await fetch(`${process.env.HOST}/api/webs`, {
 		cache: "no-cache",
 	});
 	const data = await res.json();
