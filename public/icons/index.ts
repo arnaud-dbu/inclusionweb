@@ -24,3 +24,5 @@ export { default as PencilIcon } from "./pencil.svg";
 export { default as ImageSquareIcon } from "./image-square.svg";
 export { default as ArrowLeftIcon } from "./arrow-left.svg";
 export { default as LoupeIcon } from "./loupe.svg";
+export { default as CrossIcon } from "./cross.svg";
+export { default as ShareIcon } from "./share.svg";

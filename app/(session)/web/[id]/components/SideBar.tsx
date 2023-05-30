@@ -1,16 +1,23 @@
 import { Btn } from "@/components/Buttons";
 import DivisionLine from "@/components/DivisionLine";
 import { H1 } from "@/components/Headings";
-import { AddUserIcon, GridIcon, ListIcon, SearchIcon } from "@/public/icons";
+import { AddUserIcon, GridIcon, ListIcon } from "@/public/icons";
 import { Contacts } from "./Contacts";
-import { WebContext, WebProvider } from "@/context/WebContext";
+import { WebContext } from "@/context/WebContext";
 import { useContext } from "react";
 import { CategoryButton } from "@/components/form/CategoryButton";
 import { SearchInput } from "@/components/form/SearchInput";
 
 const SideBar = () => {
-	const { fetchedWebData, setModalVisible, showDroppedContacts, setShowDroppedContacts } =
-		useContext(WebContext);
+	const {
+		fetchedWebData,
+		setModalVisible,
+		showDroppedContacts,
+		setShowDroppedContacts,
+		handleSearchFilter,
+		view,
+		setView,
+	} = useContext(WebContext);
 
 	return (
 		<aside className="bg-primary-200 flex flex-col shadow-lg absolute left-24 w-[25%] h-full px-16 pt-12">
@@ -18,7 +25,7 @@ const SideBar = () => {
 				<span className="text-3xl text-neutral-800">Inclusieweb</span>
 				<H1 underline>{fetchedWebData.name}</H1>
 			</div>
-			<SearchInput />
+			<SearchInput handleSearchFilter={handleSearchFilter} />
 			<div className="flex items-center justify-between gap-3">
 				<div className="flex items-center gap-2">
 					<CategoryButton
@@ -34,11 +41,15 @@ const SideBar = () => {
 				</div>
 				<DivisionLine />
 				<div className="flex items-center gap-2 ml-4">
-					<button>
-						<ListIcon className="fill-neutral-600 w-8" />
+					<button onClick={() => setView("list")}>
+						<ListIcon
+							className={`w-8 ${view === "list" ? "fill-neutral-800" : "fill-neutral-600"}`}
+						/>
 					</button>
-					<button>
-						<GridIcon className="fill-neutral-600 w-8" />
+					<button onClick={() => setView("grid")}>
+						<GridIcon
+							className={`w-8 ${view === "grid" ? "fill-neutral-800" : "fill-neutral-600"}`}
+						/>
 					</button>
 				</div>
 			</div>

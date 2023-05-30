@@ -9,9 +9,11 @@ import Select, {
 } from "react-select";
 
 type Props = {
-	register: any;
+	register?: any;
 	options: any;
-	name: string;
+	name?: string;
+	className?: string;
+	placeholder?: string;
 };
 
 // const DropdownIndicator = (props: DropdownIndicatorProps) => {
@@ -63,64 +65,67 @@ const optionStyles = {
 const noOptionsMessageStyles =
 	"text-gray-500 p-2 bg-gray-50 border border-dashed border-gray-200 rounded-sm";
 
-export const Dropdown = ({ register, options, name }: Props) => {
+export const Dropdown = ({ register, options, name, className, placeholder }: Props) => {
 	const [selectedOption, setSelectedOption] = useState(null);
 	if (selectedOption) {
 		register(name, { value: selectedOption.label });
 	}
 
 	return (
-		<Select
-			// isMulti
-			closeMenuOnSelect={true}
-			hideSelectedOptions={true}
-			unstyled
-			styles={{
-				input: (base) => ({
-					...base,
-					"input:focus": {
-						boxShadow: "none",
-					},
-				}),
-				multiValueLabel: (base) => ({
-					...base,
-					whiteSpace: "normal",
-					overflow: "visible",
-				}),
-				control: (base) => ({
-					...base,
-					transition: "none",
-				}),
-			}}
-			// components={{ DropdownIndicator, ClearIndicator, MultiValueRemove }}
-			classNames={{
-				control: ({ isFocused }) =>
-					clsx(isFocused ? controlStyles.focus : controlStyles.nonFocus, controlStyles.base),
-				placeholder: () => placeholderStyles,
-				input: () => selectInputStyles,
-				valueContainer: () => valueContainerStyles,
-				singleValue: () => singleValueStyles,
-				// multiValue: () => multiValueStyles,
-				// multiValueLabel: () => multiValueLabelStyles,
-				// multiValueRemove: () => multiValueRemoveStyles,
-				indicatorsContainer: () => indicatorsContainerStyles,
-				clearIndicator: () => clearIndicatorStyles,
-				indicatorSeparator: () => indicatorSeparatorStyles,
-				dropdownIndicator: () => dropdownIndicatorStyles,
-				menu: () => menuStyles,
-				// groupHeading: () => groupHeadingStyles,
-				option: ({ isFocused, isSelected }) =>
-					clsx(
-						isFocused && optionStyles.focus,
-						isSelected && optionStyles.selected,
-						optionStyles.base
-					),
-				noOptionsMessage: () => noOptionsMessageStyles,
-			}}
-			// {...props}
-			defaultValue={selectedOption}
-			onChange={setSelectedOption}
-			options={options}
-		/>
+		<div className={` ${className}`}>
+			<Select
+				// isMulti
+				closeMenuOnSelect={true}
+				hideSelectedOptions={true}
+				unstyled
+				styles={{
+					input: (base) => ({
+						...base,
+						"input:focus": {
+							boxShadow: "none",
+						},
+					}),
+					multiValueLabel: (base) => ({
+						...base,
+						whiteSpace: "normal",
+						overflow: "visible",
+					}),
+					control: (base) => ({
+						...base,
+						transition: "none",
+					}),
+				}}
+				// components={{ DropdownIndicator, ClearIndicator, MultiValueRemove }}
+				classNames={{
+					control: ({ isFocused }) =>
+						clsx(isFocused ? controlStyles.focus : controlStyles.nonFocus, controlStyles.base),
+					placeholder: () => placeholderStyles,
+					input: () => selectInputStyles,
+					valueContainer: () => valueContainerStyles,
+					singleValue: () => singleValueStyles,
+					// multiValue: () => multiValueStyles,
+					// multiValueLabel: () => multiValueLabelStyles,
+					// multiValueRemove: () => multiValueRemoveStyles,
+					indicatorsContainer: () => indicatorsContainerStyles,
+					clearIndicator: () => clearIndicatorStyles,
+					indicatorSeparator: () => indicatorSeparatorStyles,
+					dropdownIndicator: () => dropdownIndicatorStyles,
+					menu: () => menuStyles,
+					// groupHeading: () => groupHeadingStyles,
+					option: ({ isFocused, isSelected }) =>
+						clsx(
+							isFocused && optionStyles.focus,
+							isSelected && optionStyles.selected,
+							optionStyles.base
+						),
+					noOptionsMessage: () => noOptionsMessageStyles,
+				}}
+				// {...props}
+				defaultValue={selectedOption}
+				onChange={setSelectedOption}
+				options={options}
+				placeholder={placeholder}
+			/>
+		</div>
 	);
 };

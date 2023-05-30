@@ -2,6 +2,10 @@
 
 import { useDraggable } from "@dnd-kit/core";
 import AvatarComponent from "@/components/avatar/AvatarComponent";
+import { CrossIcon } from "@/public/icons";
+import { useContext, useRef } from "react";
+import useHover from "@/hooks/useHover";
+import { WebContext } from "@/context/WebContext";
 
 type Props = {
 	id: string;
@@ -12,6 +16,21 @@ type Props = {
 };
 
 export const DragContact = ({ id, name, styles, avatar, visible }: Props) => {
+	const hoverRef = useRef(null);
+	const isHover = useHover(hoverRef);
+
+	const { contacts, setContacts, avatarSize } = useContext(WebContext);
+
+	const handleContactVisibility = (id: string) => {
+		const newContacts = contacts.map((contact) => {
+			if (contact.id === id) {
+				return { ...contact, visible: false };
+			}
+			return contact;
+		});
+		setContacts(newContacts);
+	};
+
 	const CustomStyle = {
 		display: visible,
 		zIndex: 100,
@@ -35,15 +54,22 @@ export const DragContact = ({ id, name, styles, avatar, visible }: Props) => {
 			style={{ ...style, ...CustomStyle, ...styles }}
 			{...listeners}
 			{...attributes}>
-			<div className="flex flex-col">
+			<div className="flex flex-col items-center gap-2 relative" ref={hoverRef}>
 				<AvatarComponent
-					className={` w-16 h-16 bg-white  rounded-full shadow-lg object-cover ${avatarStyle}`}
+					className={`bg-white rounded-full shadow-lg object-cover ${avatarStyle} ${
+						avatarSize === "small" ? "w-12 h-12" : "w-16 h-16"
+					}`}
 					avatar={avatar}
 				/>
 				<span className="text-center text-neutral-900 text-sm font-semibold font-primary uppercase ">
 					{name}
 				</span>
 			</div>
+			{/* <div
+				className={`absolute z-50 right-1 w-[1rem] h-[1rem] bg-red fill-white rounded-full flex items-center justify-center`}
+				onClick={() => handleContactVisibility(id)}>
+				<CrossIcon className={`w-3 h-3`} />
+			</div> */}
 		</button>
 	);
 };

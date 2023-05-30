@@ -1,10 +1,16 @@
 import AvatarComponent from "@/components/avatar/AvatarComponent";
 import { WebContext } from "@/context/WebContext";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 export const Contacts = () => {
-	const { contacts, fetchedWebData, setContacts, showDroppedContacts, setShowDroppedContacts } =
-		useContext(WebContext);
+	const {
+		contacts,
+		fetchedWebData,
+		setContacts,
+		view,
+		searchFilteredContacts,
+		showDroppedContacts,
+	} = useContext(WebContext);
 
 	const handleContactVisibility = (id: string) => {
 		const newContacts = contacts.map((contact) => {
@@ -16,7 +22,7 @@ export const Contacts = () => {
 		setContacts(newContacts);
 	};
 
-	const filteredContacts = contacts.filter((contact) => {
+	const filteredContacts = searchFilteredContacts.filter((contact) => {
 		if (showDroppedContacts) {
 			return fetchedWebData.id === contact.web_id && contact.visible;
 		} else {
@@ -29,17 +35,28 @@ export const Contacts = () => {
 			{filteredContacts.map((contact) => (
 				<div
 					key={contact.id}
-					className="bg-white w-[48%] flex flex-col items-center justify-center shadow-lg rounded-xl h-[15rem]">
+					className={`bg-white border-2 border-neutral-500 flex items-center shadow-lg rounded-xl ${
+						view === "list" ? "w-full py-5 px-5" : "flex-col w-[48%] h-[15rem] justify-center"
+					}`}>
 					<AvatarComponent
 						avatar={contact.avatar}
-						className="w-24 h-24 bg-primary-500 mb-2 rounded-full shadow-lg object-cover"
+						className={`bg-primary-500 rounded-full shadow-lg object-cover ${
+							view === "list" ? "w-16 h-16" : "w-24 h-24 mb-2"
+						}`}
 					/>
-					<span className="font-bold text-neutral-800 text-xl">{contact.name}</span>
-					<span className="text-neutral-800 font-light">{contact.role}</span>
+					<div className={`flex flex-col ${view === "list" ? "ml-3" : "items-center"}`}>
+						<span
+							className={`font-bold text-neutral-800 ${view === "list" ? "text-lg" : "text-xl"}`}>
+							{contact.name}
+						</span>
+						<span className="text-neutral-800 font-light">{contact.role}</span>
+					</div>
 					{!contact.visible && (
 						<button
 							onClick={() => handleContactVisibility(contact.id)}
-							className="border-1 p-1 px-4 mt-3 border-neutral-500 rounded-full text-neutral-700 text-sm">
+							className={`border-1 p-1 px-4 mt-3 border-neutral-500 rounded-full text-neutral-700 text-sm ${
+								view === "list" ? "ml-auto" : ""
+							}`}>
 							Voeg toe
 						</button>
 					)}
