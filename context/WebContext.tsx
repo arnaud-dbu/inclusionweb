@@ -28,8 +28,8 @@ type Props = {
 	children: ReactNode;
 	fetchedWebData: any;
 	fetchedContactsData: any;
-	contacts: any[];
-	setContacts: (contacts: any[]) => void;
+	contacts: any;
+	setContacts: any;
 };
 
 export const WebProvider = ({

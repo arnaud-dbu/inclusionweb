@@ -26,8 +26,6 @@ const WebPage = async ({ params }) => {
 		(contact: any) => contact.web_id === fetchedWebData.id
 	);
 
-	console.log(user.id);
-
 	return <MyWeb fetchedContactsData={fetchedContactsData} fetchedWebData={fetchedWebData} />;
 };
 

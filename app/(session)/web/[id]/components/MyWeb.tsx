@@ -6,6 +6,7 @@ import SideBar from "./SideBar";
 import Web from "./Web";
 import { WebProvider } from "@/context/WebContext";
 import { EditAvatarProvider } from "@/context/EditAvatarContext";
+import { useLocalStorage } from "usehooks-ts";
 
 type Props = {
 	fetchedContactsData: any;
@@ -13,7 +14,9 @@ type Props = {
 };
 
 const MyWeb = ({ fetchedWebData, fetchedContactsData }: Props) => {
-	const [contacts, setContacts] = useState(fetchedContactsData);
+	// const [contacts, setContacts] = useState(fetchedContactsData);
+	const [contacts, setContacts] = useLocalStorage("contacts", fetchedContactsData);
+	console.log(contacts);
 
 	return (
 		<WebProvider
