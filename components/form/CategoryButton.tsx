@@ -9,7 +9,9 @@ export const CategoryButton = ({ active, label, ...rest }: Props) => {
 	return (
 		<button
 			className={`px-4 py-[.5rem] font-semibold rounded-full whitespace-nowrap ${
-				active ? "bg-primary-700 text-white" : "bg-neutral-400 text-neutral-700"
+				active
+					? "bg-white border-2 border-primary-700 text-primary-700"
+					: "bg-neutral-400 text-neutral-700"
 			}`}
 			{...rest}>
 			{label}

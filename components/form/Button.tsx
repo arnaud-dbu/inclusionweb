@@ -4,14 +4,18 @@ type Props = {
 	label?: string;
 	style: string;
 	onClick?: () => void;
+	icon: any;
 };
 
-export const Button = ({ className, onClick, children, style, label }: Props) => {
+export const Button = ({ className, onClick, children, style, label, icon }: Props) => {
 	let btnVariant = null;
 
 	switch (style) {
 		case "primary":
 			btnVariant = "bg-secondary-900 font-semibold text-white";
+			break;
+		case "secondary":
+			btnVariant = "bg-neutral-900 font-semibold text-white";
 			break;
 
 		default:
@@ -27,6 +31,7 @@ export const Button = ({ className, onClick, children, style, label }: Props) =>
 			className={`px-8 flex gap-2 items-center justify-center h-12 rounded-full ${btnVariant} ${className} `}>
 			{children}
 			{label}
+			{icon}
 		</button>
 	);
 };

@@ -26,3 +26,6 @@ export { default as ArrowLeftIcon } from "./arrow-left.svg";
 export { default as LoupeIcon } from "./loupe.svg";
 export { default as CrossIcon } from "./cross.svg";
 export { default as ShareIcon } from "./share.svg";
+export { default as VisibleIcon } from "./visible.svg";
+export { default as NonVisibleIcon } from "./not-visible.svg";
+export { default as PlusIcon } from "./plus.svg";

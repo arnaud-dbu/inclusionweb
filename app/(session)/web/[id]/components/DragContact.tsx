@@ -19,7 +19,7 @@ export const DragContact = ({ id, name, styles, avatar, visible }: Props) => {
 	const hoverRef = useRef(null);
 	const isHover = useHover(hoverRef);
 
-	const { contacts, setContacts, avatarSize } = useContext(WebContext);
+	const { contacts, setContacts, avatarSize, namesVisible } = useContext(WebContext);
 
 	const handleContactVisibility = (id: string) => {
 		const newContacts = contacts.map((contact) => {
@@ -61,9 +61,11 @@ export const DragContact = ({ id, name, styles, avatar, visible }: Props) => {
 					}`}
 					avatar={avatar}
 				/>
-				<span className="text-center text-neutral-900 text-sm font-semibold font-primary uppercase ">
-					{name}
-				</span>
+				{namesVisible && (
+					<span className="text-center text-neutral-900 text-sm font-semibold font-primary uppercase ">
+						{name}
+					</span>
+				)}
 			</div>
 			{/* <div
 				className={`absolute z-50 right-1 w-[1rem] h-[1rem] bg-red fill-white rounded-full flex items-center justify-center`}

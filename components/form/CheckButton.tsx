@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes } from "react";
 
 type Props = {
-	active: any;
+	active: boolean;
 	key?: string;
 	label: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;

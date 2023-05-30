@@ -18,6 +18,8 @@ type WebContextType = {
 	setView: (view: string) => void;
 	avatarSize: string;
 	setAvatarSize: (size: string) => void;
+	namesVisible: boolean;
+	setNamesVisible: (visible: boolean) => void;
 };
 
 export const WebContext = createContext<WebContextType | null>(null);
@@ -42,6 +44,7 @@ export const WebProvider = ({
 	const [query, setQuery] = useState("");
 	const [view, setView] = useState("grid");
 	const [avatarSize, setAvatarSize] = useState("small");
+	const [namesVisible, setNamesVisible] = useState(true);
 
 	// Search filter function
 	const searchFilter = (array) => {
@@ -75,6 +78,8 @@ export const WebProvider = ({
 				setAvatarSize,
 				view,
 				setView,
+				namesVisible,
+				setNamesVisible,
 			}}>
 			{children}
 		</WebContext.Provider>

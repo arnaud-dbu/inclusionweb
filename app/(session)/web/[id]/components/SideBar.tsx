@@ -20,7 +20,7 @@ const SideBar = () => {
 	} = useContext(WebContext);
 
 	return (
-		<aside className="bg-primary-200 flex flex-col shadow-lg absolute left-24 w-[25%] h-full px-16 pt-12">
+		<aside className="bg-primary-200 flex flex-col shadow-lg absolute left-24 w-[27.5%] h-full px-16 pt-12">
 			<div className="flex flex-col">
 				<span className="text-3xl text-neutral-800">Inclusieweb</span>
 				<H1 underline>{fetchedWebData.name}</H1>
