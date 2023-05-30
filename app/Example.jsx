@@ -70,30 +70,6 @@ export const Example = () => {
 
 	return (
 		<>
-			<div className="flex flex-col">
-				{dragItems.map((item) => {
-					return (
-						<button
-							key={item.id}
-							className="bg-red m-2 p-5 w-fit"
-							onClick={() => {
-								const newDragItems = dragItems.map((dragItem) => {
-									if (dragItem.id === item.id) {
-										return {
-											...dragItem,
-											visible: "flex",
-										};
-									}
-									return dragItem;
-								});
-								setDragItems(newDragItems);
-							}}>
-							{item.content}
-						</button>
-					);
-				})}
-			</div>
-
 			<DndContext onDragEnd={handleDragEnd} modifiers={[restrictToParentElement]}>
 				<div className="absolute-center">
 					<Droppable>{dragItem}</Droppable>
