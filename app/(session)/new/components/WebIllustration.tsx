@@ -5,10 +5,10 @@ import Avatar from "avataaars";
 import AvatarComponent from "@/components/avatar/AvatarComponent";
 
 type Props = {
-	className: string;
-	image: string;
-	avatar: any;
-	showOnWeb: string;
+	className?: string;
+	image?: string;
+	avatar?: any;
+	showOnWeb?: string;
 };
 
 const WebIllustration = ({ className, avatar, showOnWeb, image = "" }: Props) => {

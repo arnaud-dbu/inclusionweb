@@ -4,7 +4,7 @@ type Props = {
 	label?: string;
 	style: string;
 	onClick?: () => void;
-	icon: any;
+	icon?: any;
 };
 
 export const Button = ({ className, onClick, children, style, label, icon }: Props) => {
