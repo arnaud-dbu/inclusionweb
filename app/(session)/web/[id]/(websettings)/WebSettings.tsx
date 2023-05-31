@@ -9,7 +9,7 @@ import React, { useContext, useState } from "react";
 import Web from "../components/Web";
 import { WebContext } from "@/context/WebContext";
 import { Button } from "@/components/form/Button";
-import { VersionDropDown } from "./VersionDropDown";
+import { VersionDropdown } from "./VersionDropdown";
 
 type Props = {};
 
@@ -45,7 +45,7 @@ export const WebSettings = (props: Props) => {
 				</div>
 				<div className={`flex gap-2 items-center`}>
 					<BlockTitle className="mb-0" title="Versie" />
-					<VersionDropDown
+					<VersionDropdown
 						className={`w-[10rem]`}
 						name="avatar_size"
 						placeholder="12/04/2024"

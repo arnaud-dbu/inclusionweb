@@ -1,6 +1,4 @@
 import { H2 } from "@/components/Headings";
-import Image from "next/image";
-import React from "react";
 import DivisionLine from "@/components/DivisionLine";
 import WebCard from "@/components/WebCard";
 import { BtnLarge } from "@/components/Buttons";
@@ -8,6 +6,7 @@ import Header from "@/components/Header";
 import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { headers, cookies } from "next/headers";
 import { Database } from "@/lib/database.types";
+import { SearchInput } from "@/components/form/SearchInput";
 
 const DashboardPage = async () => {
 	const supabase = createServerComponentSupabaseClient<Database>({ headers, cookies });
@@ -29,18 +28,7 @@ const DashboardPage = async () => {
 					<div className="flex justify-between items-center gap-12 mb-8">
 						<H2>Mijn Webben</H2>
 						<DivisionLine />
-						<div className="form-input relative w-[40rem]">
-							<svg
-								className="w-6 fill-neutral-900 absolute right-4 top-1/2 -translate-y-1/2 opacity-30"
-								xmlns="http://www.w3.org/2000/svg"
-								width="52"
-								height="52"
-								fill="#ffffff"
-								viewBox="0 0 256 256">
-								<path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
-							</svg>
-							<input placeholder="Zoek" />
-						</div>
+						{/* <SearchInput /> */}
 					</div>
 					<div>
 						{webs.map((web: any) => {

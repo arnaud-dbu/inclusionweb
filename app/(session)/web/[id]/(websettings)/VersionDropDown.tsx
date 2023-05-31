@@ -32,7 +32,7 @@ const optionStyles = {
 const noOptionsMessageStyles =
 	"text-gray-500 p-2 bg-gray-50 border border-dashed border-gray-200 rounded-sm";
 
-export const VersionDropDown = ({ options, name, className, placeholder, ...props }: Props) => {
+export const VersionDropdown = ({ options, name, className, placeholder, ...props }: Props) => {
 	const [selectedOption, setSelectedOption] = useState(null);
 
 	return (

@@ -4,7 +4,6 @@ import { useContext } from "react";
 import { CustomAvatar } from "../../web/[id]/components/CustomAvatar";
 import { CustomAvatarForm } from "../../web/[id]/components/CustomAvatarForm";
 import { EditAvatarContext } from "@/context/EditAvatarContext";
-import { Button } from "@/components/form/Button";
 
 type Props = {
 	setShowOnWeb: any;

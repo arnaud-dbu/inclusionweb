@@ -14,9 +14,8 @@ type Props = {
 };
 
 const MyWeb = ({ fetchedWebData, fetchedContactsData }: Props) => {
-	// const [contacts, setContacts] = useState(fetchedContactsData);
-	const [contacts, setContacts] = useLocalStorage("contacts", fetchedContactsData);
-	console.log(contacts);
+	const [contacts, setContacts] = useState(fetchedContactsData);
+	// const [contacts, setContacts] = useLocalStorage("contacts", fetchedContactsData);
 
 	return (
 		<WebProvider

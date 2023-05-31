@@ -6,7 +6,6 @@ import { NewContactForm } from "./NewContactForm";
 import { CustomAvatarForm } from "./CustomAvatarForm";
 import { CustomAvatar } from "./CustomAvatar";
 import { EditAvatarContext } from "@/context/EditAvatarContext";
-import { WebContext } from "@/context/WebContext";
 
 type Props = {
 	setShowOnWeb?: any;
@@ -14,8 +13,7 @@ type Props = {
 };
 
 const Modal = ({ setShowOnWeb, children }: Props) => {
-	const { avatarEditWindow } = useContext(EditAvatarContext);
-	const { modalVisible } = useContext(WebContext);
+	const { avatarEditWindow, modalVisible } = useContext(EditAvatarContext);
 
 	return (
 		modalVisible && (
