@@ -1,17 +1,11 @@
 import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import MyWeb from "./components/MyWeb";
 import type { Database } from "@/lib/database.types";
 import { headers, cookies } from "next/headers";
-
-type Props = {
-	data: any;
-};
+import MyWeb from "@/components/pages/web/MyWeb";
+import { getUser } from "@/utils/users";
 
 const WebPage = async ({ params }) => {
-	const supabase = createServerComponentSupabaseClient<Database>({ headers, cookies });
-	const {
-		data: { user },
-	} = await supabase.auth.getUser();
+	const { user } = await getUser();
 
 	const webRes = await fetch(`${process.env.HOST}/api/web/${params.id}`, {
 		cache: "no-store",

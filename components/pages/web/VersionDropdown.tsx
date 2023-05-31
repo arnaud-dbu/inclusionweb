@@ -32,7 +32,7 @@ const optionStyles = {
 const noOptionsMessageStyles =
 	"text-gray-500 p-2 bg-gray-50 border border-dashed border-gray-200 rounded-sm";
 
-export const VersionDropdown = ({ options, name, className, placeholder, ...props }: Props) => {
+const DropdownVersion = ({ options, name, className, placeholder, ...props }: Props) => {
 	const [selectedOption, setSelectedOption] = useState(null);
 
 	return (
@@ -89,13 +89,4 @@ export const VersionDropdown = ({ options, name, className, placeholder, ...prop
 	);
 };
 
-// const SelectMenuButton = (props) => {
-// 	return (
-// 		<components.MenuList {...props}>
-// 			{props.children}
-// 			<button className="px-3 py-2 hover:text-primary-800" onClick={() => alert("halo")}>
-// 				+ Start nieuwe sessie
-// 			</button>
-// 		</components.MenuList>
-// 	);
-// };
+export default DropdownVersion;

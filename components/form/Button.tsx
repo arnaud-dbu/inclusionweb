@@ -17,7 +17,7 @@ export const Button = ({
 	label,
 	size,
 	icon,
-	active,
+	active = true,
 	...rest
 }: Props) => {
 	let btnVariant = null;

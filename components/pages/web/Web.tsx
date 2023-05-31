@@ -8,7 +8,7 @@ import { restrictToParentElement } from "@dnd-kit/modifiers";
 import { DropZone } from "./DropZone";
 import { useContext } from "react";
 import { WebContext } from "@/context/WebContext";
-import { WebSettings } from "../(websettings)/WebSettings";
+import { WebSettings } from "./WebSettings";
 
 const Web = () => {
 	const { contacts, setContacts, fetchedWebData } = useContext(WebContext);

@@ -1,15 +1,11 @@
 import { BlockTitle } from "@/components/form/BlockTitle";
 import CheckButton from "@/components/form/CheckButton";
-import { CheckButtonGroup } from "@/components/form/CheckButtonGroup";
-import { Dropdown } from "@/components/form/Dropdown";
 import { IconButton } from "@/components/form/IconButton";
-import useToggle from "@/hooks/useToggle";
 import { NonVisibleIcon, PlusIcon, ShareIcon, VisibleIcon } from "@/public/icons";
-import React, { useContext, useState } from "react";
-import Web from "../components/Web";
+import { useContext } from "react";
 import { WebContext } from "@/context/WebContext";
 import { Button } from "@/components/form/Button";
-import { VersionDropdown } from "./VersionDropdown";
+import DropdownVersion from "@/components/pages/web/VersionDropdown";
 
 type Props = {};
 
@@ -45,7 +41,7 @@ export const WebSettings = (props: Props) => {
 				</div>
 				<div className={`flex gap-2 items-center`}>
 					<BlockTitle className="mb-0" title="Versie" />
-					<VersionDropdown
+					<DropdownVersion
 						className={`w-[10rem]`}
 						name="avatar_size"
 						placeholder="12/04/2024"

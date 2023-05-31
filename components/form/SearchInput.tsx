@@ -1,14 +1,13 @@
-import { WebContext } from "@/context/WebContext";
 import { LoupeIcon, CrossIcon } from "@/public/icons"; // Assuming you have a CrossIcon component
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
 type Props = {
 	handleSearchFilter: any;
+	setQuery: any;
 };
 
-export const SearchInput = ({ handleSearchFilter }: Props) => {
+export const SearchInput = ({ handleSearchFilter, setQuery }: Props) => {
 	const [inputValue, setInputValue] = useState("");
-	const { setQuery } = useContext(WebContext);
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setInputValue(event.target.value);
@@ -35,7 +34,7 @@ export const SearchInput = ({ handleSearchFilter }: Props) => {
 				</button>
 			)}
 			<input
-				className={`bg-transparent w-full border-2 px-4 py-2 rounded-lg border-neutral-500`}
+				className={`bg-transparent w-full min-w-[15rem] border-2 px-4 py-2 rounded-lg border-neutral-500`}
 				type="text"
 				placeholder="Zoek"
 				value={inputValue}

@@ -43,7 +43,9 @@
         "app/api/users/route.ts",
         "app/api/users/route.ts",
         "components/form/DropDownCheckboxes.jsx",
-        "components/form/DropDownCheckboxes.jsx"
+        "components/form/DropDownCheckboxes.jsx",
+        "utils/webs.js",
+        "utils/webs.js"
     ],
     "exclude": [
         "node_modules"

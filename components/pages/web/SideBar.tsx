@@ -15,6 +15,7 @@ const SideBar = () => {
 		showDroppedContacts,
 		setShowDroppedContacts,
 		handleSearchFilter,
+		setQuery,
 		view,
 		setView,
 	} = useContext(WebContext);
@@ -25,7 +26,7 @@ const SideBar = () => {
 				<span className="text-3xl text-neutral-800">Inclusieweb</span>
 				<H1 underline>{fetchedWebData.name}</H1>
 			</div>
-			<SearchInput handleSearchFilter={handleSearchFilter} />
+			<SearchInput handleSearchFilter={handleSearchFilter} setQuery={setQuery} />
 			<div className="flex items-center justify-between gap-3">
 				<div className="flex items-center gap-2">
 					<CategoryButton

@@ -30,3 +30,5 @@ export { default as VisibleIcon } from "./visible.svg";
 export { default as NonVisibleIcon } from "./not-visible.svg";
 export { default as PlusIcon } from "./plus.svg";
 export { default as TrashIcon } from "./trash.svg";
+export { default as SignOutIcon } from "./sign-out.svg";
+export { default as CirclePlusIcon } from "./circle-plus.svg";

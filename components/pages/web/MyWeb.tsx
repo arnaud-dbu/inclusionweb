@@ -1,12 +1,11 @@
 "use client";
 
-import Modal from "@/app/(session)/web/[id]/components/Modal";
 import { useState } from "react";
 import SideBar from "./SideBar";
-import Web from "./Web";
 import { WebProvider } from "@/context/WebContext";
 import { EditAvatarProvider } from "@/context/EditAvatarContext";
-import { useLocalStorage } from "usehooks-ts";
+import Modal from "./Modal";
+import Web from "./Web";
 
 type Props = {
 	fetchedContactsData: any;
