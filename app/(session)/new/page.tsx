@@ -11,7 +11,7 @@ import { EditIcon, ImageIcon } from "@/public/icons";
 import { EditAvatarContext } from "@/context/EditAvatarContext";
 import { Button } from "@/components/form/Button";
 import WebIllustration from "@/app/(session)/new/components/WebIllustration";
-import Modal from "../web/[id]/components/Modal";
+import Modal from "@/components/pages/web/Modal";
 
 type Props = {};
 

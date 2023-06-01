@@ -7,6 +7,8 @@ type Props = {
 
 export const BlockTitle = ({ title, className }: Props) => {
 	return (
-		<span className={`text-md font-semibold text-neutral-800 block ${className}`}>{title}</span>
+		<span className={`text-md font-semibold text-neutral-800 block mb-3 ${className}`}>
+			{title}
+		</span>
 	);
 };

@@ -14,7 +14,8 @@ const SelectButtons = ({ register, type, icons, setType, name, options }: Props)
 	return (
 		<div className="flex gap-2 w-full">
 			{options.map((option, i) => (
-				<div
+				<button
+					type="button"
 					onClick={() => setType(option.value)}
 					key={option.value}
 					className={`cursor-pointer border-[1.5px] border-neutral-500 flex flex-col items-center rounded-lg py-2 px-4 ${
@@ -27,7 +28,7 @@ const SelectButtons = ({ register, type, icons, setType, name, options }: Props)
 						}`}>
 						{option.label}
 					</span>
-				</div>
+				</button>
 			))}
 		</div>
 	);

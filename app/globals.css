@@ -140,3 +140,43 @@ p {
 .lifted {
 	box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
 }
+
+.circular-progress {
+	position: relative;
+	display: inline-block;
+}
+
+.circular-progress-circle {
+	position: relative;
+	width: 30rem;
+	height: 30rem;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.segment {
+	border: 1px solid red;
+	/* background-color: yellow; */
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 80%;
+	height: 100%;
+	transform-origin: 0 0;
+
+	&:hover {
+		background-color: green;
+	}
+}
+
+.text {
+	position: absolute;
+	top: 0;
+	color: black;
+	transform: rotate(0deg) skewX(-50deg);
+}
+
+.hidden {
+	opacity: 0;
+	pointer-events: none;
+}

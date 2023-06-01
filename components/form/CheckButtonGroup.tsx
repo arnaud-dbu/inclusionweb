@@ -25,7 +25,8 @@ export const CheckButtonGroup = ({ register, name, options, ...rest }: Props) =>
 	return (
 		<div className="flex gap-2 cursor-pointer" {...rest}>
 			{options.map((option) => (
-				<div
+				<button
+					type="button"
 					onClick={handleSelection}
 					key={option.value}
 					className={`border-1 border-neutral-500 h-fit whitespace-nowrap text-neutral-800 rounded-full px-3 py-1 ${
@@ -33,7 +34,7 @@ export const CheckButtonGroup = ({ register, name, options, ...rest }: Props) =>
 						"bg-primary-300 border-primary-800 text-primary-900 shadow-lg"
 					}`}>
 					{option.label}
-				</div>
+				</button>
 			))}
 		</div>
 	);

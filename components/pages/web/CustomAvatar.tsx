@@ -2,6 +2,7 @@ import AvatarComponent from "@/components/avatar/AvatarComponent";
 import { EditAvatarContext } from "@/context/EditAvatarContext";
 import { ArrowLeftIcon } from "@/public/icons";
 import React, { useContext, useState } from "react";
+import { CustomAvatarForm } from "./CustomAvatarForm";
 
 export const CustomAvatar = () => {
 	const { activeAvatarPreset, handlePresetAvatarSubmit, setEditAvatarWindow, customAvatar } =

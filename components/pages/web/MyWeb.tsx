@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import SideBar from "./SideBar";
 import { WebProvider } from "@/context/WebContext";
 import { EditAvatarProvider } from "@/context/EditAvatarContext";
-import Modal from "./Modal";
 import Web from "./Web";
+import html2canvas from "html2canvas";
+import Modal from "./Modal";
 
 type Props = {
 	fetchedContactsData: any;

@@ -1,6 +1,3 @@
-import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import type { Database } from "@/lib/database.types";
-import { headers, cookies } from "next/headers";
 import MyWeb from "@/components/pages/web/MyWeb";
 import { getUser } from "@/utils/users";
 

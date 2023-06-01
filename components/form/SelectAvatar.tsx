@@ -43,28 +43,33 @@ export const SelectAvatar = ({ type, onClick, className }: Props) => {
 	}
 
 	return (
-		<div onClick={onClick} className={`cursor-pointer bg-primary-500 rounded-full ${className}`}>
+		<button
+			type="button"
+			onClick={onClick}
+			className={`cursor-pointer bg-primary-500 rounded-full ${className}`}>
 			<AvatarComponent className="rounded-full w-10 h-10" avatar={avatarStyles} />
-		</div>
+		</button>
 	);
 };
 
 export const SelectEditAvatar = ({ className, onClick }: EditProps) => {
 	return (
-		<div
+		<button
+			type="button"
 			onClick={onClick}
 			className={`w-10 h-10 cursor-pointer rounded-full border-[1.5px] border-neutral-500 relative ${className}`}>
 			<PencilIcon className="absolute-center fill-neutral-800 w-6 h-6" />
-		</div>
+		</button>
 	);
 };
 
 export const SelectImageThumbnail = ({ className, onClick }: EditProps) => {
 	return (
-		<div
+		<button
+			type="button"
 			onClick={onClick}
 			className={`w-10 h-10 cursor-pointer rounded-full border-[1.5px] border-neutral-500 relative ${className}`}>
 			<ImageIcon className="absolute-center fill-neutral-800 w-6 h-6" />
-		</div>
+		</button>
 	);
 };

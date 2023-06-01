@@ -20,9 +20,10 @@ import { Button } from "@/components/form/Button";
 
 type Props = {
 	setShowOnWeb?: any;
+	className?: string;
 };
 
-export const CustomAvatarForm = ({ setShowOnWeb }: Props) => {
+export const CustomAvatarForm = ({ setShowOnWeb, className }: Props) => {
 	const {
 		skinColor,
 		topType,
@@ -44,61 +45,61 @@ export const CustomAvatarForm = ({ setShowOnWeb }: Props) => {
 	};
 
 	return (
-		<section>
+		<section className={`${className}`}>
 			<ul className="flex flex-col gap-4">
 				<AvatarStyle
 					name="Huidskleur"
 					prevBtn={() => handleSwitchAvatarStyles(skinColor, "<")}
 					nextBtn={() => handleSwitchAvatarStyles(skinColor, ">")}>
-					<SkinColorIcon className="fill-neutral-900 mr-5" />
+					<SkinColorIcon className="w-6 h-6 fill-neutral-900 mr-5" />
 				</AvatarStyle>
 				<AvatarStyle
 					name="Haar"
 					prevBtn={() => handleSwitchAvatarStyles(topType, "<")}
 					nextBtn={() => handleSwitchAvatarStyles(topType, ">")}>
-					<HairIcon className="fill-neutral-900 mr-5" />
+					<HairIcon className="w-6 h-6 fill-neutral-900 mr-5" />
 				</AvatarStyle>
 				<AvatarStyle
 					name="Ogen"
 					prevBtn={() => handleSwitchAvatarStyles(eyes, "<")}
 					nextBtn={() => handleSwitchAvatarStyles(eyes, ">")}>
-					<EyeIcon className="fill-neutral-900 mr-5" />
+					<EyeIcon className="w-6 h-6 fill-neutral-900 mr-5" />
 				</AvatarStyle>
 				<AvatarStyle
 					name="Mond"
 					prevBtn={() => handleSwitchAvatarStyles(mouth, "<")}
 					nextBtn={() => handleSwitchAvatarStyles(mouth, ">")}>
-					<MouthIcon className="fill-neutral-900 mr-5" />
+					<MouthIcon className="w-6 h-6 fill-neutral-900 mr-5" />
 				</AvatarStyle>
 				<AvatarStyle
 					name="Wenkbrauwen"
 					prevBtn={() => handleSwitchAvatarStyles(eyebrow, "<")}
 					nextBtn={() => handleSwitchAvatarStyles(eyebrow, ">")}>
-					<EyeBrowIcon className="fill-neutral-900 mr-5" />
+					<EyeBrowIcon className="w-6 h-6 fill-neutral-900 mr-5" />
 				</AvatarStyle>
 				<AvatarStyle
 					name="Kleding"
 					prevBtn={() => handleSwitchAvatarStyles(clothes, "<")}
 					nextBtn={() => handleSwitchAvatarStyles(clothes, ">")}>
-					<ClothesIcon className="fill-neutral-900 mr-5" />
+					<ClothesIcon className="w-6 h-6 fill-neutral-900 mr-5" />
 				</AvatarStyle>
 				<AvatarStyle
 					name="Haar Kleur"
 					prevBtn={() => handleSwitchAvatarStyles(hairColor, "<")}
 					nextBtn={() => handleSwitchAvatarStyles(hairColor, ">")}>
-					<HairColorIcon className="fill-neutral-900 mr-5" />
+					<HairColorIcon className="w-6 h-6 fill-neutral-900 mr-5" />
 				</AvatarStyle>
 				<AvatarStyle
 					name="Bril"
 					prevBtn={() => handleSwitchAvatarStyles(accessoriesType, "<")}
 					nextBtn={() => handleSwitchAvatarStyles(accessoriesType, ">")}>
-					<GlassesIcon className="fill-neutral-900 mr-5" />
+					<GlassesIcon className="w-6 h-6 fill-neutral-900 mr-5" />
 				</AvatarStyle>
 				<AvatarStyle
 					name="Baardgroei"
 					prevBtn={() => handleSwitchAvatarStyles(facialHair, "<")}
 					nextBtn={() => handleSwitchAvatarStyles(facialHair, ">")}>
-					<FacialHairIcon className="fill-neutral-900 mr-5" />
+					<FacialHairIcon className="w-6 h-6 fill-neutral-900 mr-5" />
 				</AvatarStyle>
 			</ul>
 			{setShowOnWeb ? (

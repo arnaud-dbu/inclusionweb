@@ -33,7 +33,7 @@ export const Input = ({
 				/>
 				<label
 					htmlFor="username"
-					className="absolute left-3 -top-2 bg-primary-300 px-[.35rem] m-0 text-xs  
+					className="absolute left-3 pointer-events-none -top-2 bg-white px-[.35rem] m-0 text-xs  
                     peer-placeholder-shown:text-gray-400 
                     peer-placeholder-shown:top-1/2
                     peer-placeholder-shown:-translate-y-1/2

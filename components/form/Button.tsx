@@ -29,6 +29,9 @@ export const Button = ({
 		case "secondary":
 			btnVariant = "bg-neutral-900 font-semibold text-white";
 			break;
+		case "outline":
+			btnVariant = "border-neutral-500 text-neutral-800 border-2";
+			break;
 		default:
 			break;
 	}

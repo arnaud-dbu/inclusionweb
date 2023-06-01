@@ -1,4 +1,5 @@
 import Avatar from "avataaars";
+import Image from "next/image";
 
 type Props = {
 	className?: string;
