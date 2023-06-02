@@ -16,19 +16,19 @@ export const RadioButtons = ({ register, name, options, ...rest }: Props) => {
 				<div className="block block--4"></div>
 			</div>
 			{options.map((option) => (
-				<div key={option.label} className="flex flex-col items-center gap-2 relative z-20">
+				<div key={option} className="flex flex-col items-center gap-2 relative z-20">
 					<div className="bg-white dark:bg-gray-100 rounded-full w-4 h-4 flex flex-shrink-0 justify-center items-center relative">
 						<input
 							type="radio"
 							name={name}
-							value={option.value}
+							value={option}
 							{...register(name)}
-							className="checkbox appearance-none focus:opacity-100 focus:ring-2 focus:ring-offset-2 focus:ring-neutral-700 focus:outline-none border rounded-full border-gray-400 absolute cursor-pointer w-full h-full checked:border-none"
+							className="checkbox appearance-none focus:opacity-100 focus:ring-2 focus:ring-offset-2 focus:ring-neutral-700 focus:border-none border rounded-full border-gray-400 absolute cursor-pointer w-full h-full checked:bg-primary-800"
 						/>
 						<div className="check-icon hidden bg-primary-800 shadow-lg border-primary-800 rounded-full w-full h-full z-1"></div>
 					</div>
 					<span className="absolute left-1/2 -translate-x-1/2 -bottom-6 text-neutral-900 text-sm">
-						{option.label}
+						{option}
 					</span>
 				</div>
 			))}

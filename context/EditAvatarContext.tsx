@@ -58,11 +58,14 @@ type EditAvatarContextType = {
 	customAvatar: AvatarType;
 	modalVisible: boolean;
 	toggleModalVisibility: () => void;
+	thumbnail: string;
+	setThumbnail: (value: string) => void;
 };
 
 export const EditAvatarProvider = ({ children }: Props) => {
 	const [avatarEditWindow, setEditAvatarWindow] = useState(false);
 	const [modalVisible, setModalVisible] = useState(false);
+	const [thumbnail, setThumbnail] = useState("avatar" || "image");
 	const [activeAvatarPreset, setActiveAvatarPreset] = useState("youngManAvatar");
 
 	const toggleEditAvatarWindow = () => {
@@ -151,7 +154,9 @@ export const EditAvatarProvider = ({ children }: Props) => {
 				setEyes(["Default", ...eyeTypes.slice(1)]);
 				setEyebrow(["Default", ...eyebrowTypes.slice(1)]);
 				setMouth(["Default", ...mouthTypes.slice(1)]);
+
 				setActiveAvatarPreset("youngManAvatar");
+				setThumbnail("avatar");
 				break;
 			case "youngWomanAvatar":
 				setTopType(["LongHairCurvy", ...topTypes.slice(1)]);
@@ -163,7 +168,9 @@ export const EditAvatarProvider = ({ children }: Props) => {
 				setEyes(["Default", ...eyeTypes.slice(1)]);
 				setEyebrow(["Default", ...eyebrowTypes.slice(1)]);
 				setMouth(["Default", ...mouthTypes.slice(1)]);
+
 				setActiveAvatarPreset("youngWomanAvatar");
+				setThumbnail("avatar");
 				break;
 		}
 	};
@@ -199,6 +206,8 @@ export const EditAvatarProvider = ({ children }: Props) => {
 				customAvatar,
 				modalVisible,
 				toggleModalVisibility,
+				thumbnail,
+				setThumbnail,
 			}}>
 			{children}
 		</EditAvatarContext.Provider>

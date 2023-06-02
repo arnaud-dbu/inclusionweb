@@ -60,9 +60,6 @@ const Web = () => {
 
 	return (
 		<>
-			<button className="bg-red absolute top-0 right-0 z-50" onClick={handleImageDownload}>
-				Download
-			</button>
 			<DndContext onDragEnd={handleDragEnd} modifiers={[restrictToParentElement]}>
 				<div className="w-[70%] h-screen absolute right-0 top-1/2 -translate-y-1/2 flex items-center justify-center">
 					<WebSettings />
@@ -105,7 +102,7 @@ const Web = () => {
 									/>
 								)}
 
-								{/* <WebSliceContainer /> */}
+								<WebSliceContainer />
 							</DropZone>
 						</div>
 					</div>

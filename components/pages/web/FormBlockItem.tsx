@@ -3,14 +3,15 @@ import { BlockTitle } from "@/components/form/BlockTitle";
 import React from "react";
 
 type Props = {
-	title: string;
+	title?: string;
 	children: React.ReactNode;
+	alignStart?: boolean;
 };
 
-const FormItemContainer = ({ title, children }: Props) => {
+const FormBlockItem = ({ title, children, alignStart }: Props) => {
 	return (
 		<>
-			<div className={`flex items-center justify-between mb-7`}>
+			<div className={`flex ${!alignStart && "items-center"} justify-between mb-7`}>
 				<BlockTitle title={title} className={`!mb-0`} />
 				<div className={`w-[30rem]`}>{children}</div>
 			</div>
@@ -18,4 +19,4 @@ const FormItemContainer = ({ title, children }: Props) => {
 	);
 };
 
-export default FormItemContainer;
+export default FormBlockItem;

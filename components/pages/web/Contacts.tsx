@@ -1,5 +1,6 @@
 import AvatarComponent from "@/components/avatar/AvatarComponent";
 import { WebContext } from "@/context/WebContext";
+import Image from "next/image";
 import { useContext } from "react";
 
 export const Contacts = () => {
@@ -38,12 +39,28 @@ export const Contacts = () => {
 					className={`bg-white border-2 border-neutral-500 flex items-center shadow-lg rounded-xl ${
 						view === "list" ? "w-full py-5 px-5" : "flex-col w-[48%] h-[15rem] justify-center"
 					}`}>
-					<AvatarComponent
-						avatar={contact.avatar}
-						className={`bg-primary-500 rounded-full shadow-lg object-cover ${
-							view === "list" ? "w-16 h-16" : "w-24 h-24 mb-2"
-						}`}
-					/>
+					{contact.avatar ? (
+						<AvatarComponent
+							avatar={contact.avatar}
+							className={`bg-primary-500 rounded-full shadow-lg object-cover ${
+								view === "list" ? "w-16 h-16" : "w-24 h-24 mb-2"
+							}`}
+						/>
+					) : (
+						<Image
+							className={`rounded-full shadow-lg aspect-square object-cover ${
+								view === "list" ? "w-16 h-16" : "w-24 h-24 mb-2"
+							}`}
+							alt="test"
+							src={
+								contact.image_type === "presetImage"
+									? contact.image_path
+									: `${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${contact.image_path}`
+							}
+							width={700}
+							height={700}
+						/>
+					)}
 					<div className={`flex flex-col ${view === "list" ? "ml-3" : "items-center"}`}>
 						<span
 							className={`font-bold text-neutral-800 ${view === "list" ? "text-lg" : "text-xl"}`}>

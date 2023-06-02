@@ -17,7 +17,7 @@ export const WebSettings = (props: Props) => {
 			className={`flex gap-4 items-center absolute z-50 left-1/2 pt-12 -translate-x-1/2 top-0 w-[70rem]`}>
 			<div className={`flex gap-12 items-center`}>
 				<div className={`flex gap-2 items-center`}>
-					<BlockTitle className="mb-0" title="Afbeeldingen" />
+					<BlockTitle className="!mb-0" title="Afbeeldingen" />
 					<CheckButton
 						onClick={() => setAvatarSize("small")}
 						active={avatarSize === "small"}
@@ -30,7 +30,7 @@ export const WebSettings = (props: Props) => {
 					/>
 				</div>
 				<div className={`flex gap-2 items-center`}>
-					<BlockTitle className="mb-0" title="Namen" />
+					<BlockTitle className="!mb-0" title="Namen" />
 					<button className={``} onClick={() => setNamesVisible(!namesVisible)}>
 						{namesVisible ? (
 							<VisibleIcon className={`fill-primary-700`} />
@@ -40,7 +40,7 @@ export const WebSettings = (props: Props) => {
 					</button>
 				</div>
 				<div className={`flex gap-2 items-center`}>
-					<BlockTitle className="mb-0" title="Versie" />
+					<BlockTitle className="!mb-0" title="Versie" />
 					<DropdownVersion
 						className={`w-[10rem]`}
 						name="avatar_size"

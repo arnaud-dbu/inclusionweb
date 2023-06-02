@@ -77,13 +77,13 @@ p {
 	}
 }
 
-.checkbox:checked {
+/* .checkbox:checked {
 	border: none;
 }
 
 .checkbox:checked + .check-icon {
 	display: flex;
-}
+} */
 
 .frequency-line {
 	@apply content-[''] absolute w-[90%] h-[2px] z-10 bg-primary-800 left-1/2 -translate-x-1/2 top-[.5rem];
@@ -179,4 +179,28 @@ p {
 .hidden {
 	opacity: 0;
 	pointer-events: none;
+}
+
+.checkbox-hidden {
+	& input[type="checkbox"] {
+		clip: rect(0 0 0 0);
+		clip-path: inset(50%);
+		height: 1px;
+		overflow: hidden;
+		position: absolute;
+		white-space: nowrap;
+		width: 1px;
+	}
+}
+
+.file-input-hidden {
+	& input[type="file"] {
+		clip: rect(0 0 0 0);
+		clip-path: inset(50%);
+		height: 1px;
+		overflow: hidden;
+		position: absolute;
+		white-space: nowrap;
+		width: 1px;
+	}
 }

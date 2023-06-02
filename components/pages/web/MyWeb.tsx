@@ -23,9 +23,7 @@ const MyWeb = ({ fetchedWebData, fetchedContactsData }: Props) => {
 			fetchedContactsData={fetchedContactsData}
 			contacts={contacts}
 			setContacts={setContacts}>
-			<EditAvatarProvider>
-				<Modal />
-			</EditAvatarProvider>
+			<Modal />
 			<SideBar />
 			<Web />
 		</WebProvider>

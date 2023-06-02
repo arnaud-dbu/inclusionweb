@@ -14,11 +14,15 @@ const SideBar = () => {
 		setModalVisible,
 		showDroppedContacts,
 		setShowDroppedContacts,
-		handleSearchFilter,
 		setQuery,
 		view,
 		setView,
 	} = useContext(WebContext);
+
+	// Handlers
+	const handleSearchFilter = (e) => {
+		setQuery(e.target.value.toLowerCase());
+	};
 
 	return (
 		<aside className="bg-primary-200 flex flex-col shadow-lg absolute left-24 w-[27.5%] h-full px-16 pt-12">
