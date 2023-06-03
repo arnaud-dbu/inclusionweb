@@ -8,6 +8,8 @@ type Props = {
 	name?: string;
 	className?: string;
 	placeholder?: string;
+	selectedOption?: any;
+	setSelectedOption?: any;
 };
 
 const controlStyles = {
@@ -32,9 +34,19 @@ const optionStyles = {
 const noOptionsMessageStyles =
 	"text-gray-500 p-2 bg-gray-50 border border-dashed border-gray-200 rounded-sm";
 
-const DropdownVersion = ({ options, name, className, placeholder, ...props }: Props) => {
-	const [selectedOption, setSelectedOption] = useState(null);
-
+const DropdownVersion = ({
+	selectedOption,
+	setSelectedOption,
+	register,
+	options,
+	name,
+	className,
+	placeholder,
+	...props
+}: Props) => {
+	if (selectedOption) {
+		register(name, { value: selectedOption.value });
+	}
 	return (
 		<div className={` ${className}`}>
 			<Select

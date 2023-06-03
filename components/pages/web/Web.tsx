@@ -102,7 +102,7 @@ const Web = () => {
 									/>
 								)}
 
-								<WebSliceContainer />
+								{/* <WebSliceContainer /> */}
 							</DropZone>
 						</div>
 					</div>

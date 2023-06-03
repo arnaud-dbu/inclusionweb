@@ -3,21 +3,20 @@
 import Form from "@/components/form/Form";
 import { H1 } from "@/components/Headings";
 import { Input } from "@/components/form/Input";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSupabase } from "@/app/supabase-provider";
 import { useRouter } from "next/navigation";
 import { EditIcon, ImageIcon } from "@/public/icons";
-import { EditAvatarContext } from "@/context/EditAvatarContext";
 import { Button } from "@/components/form/Button";
 import WebIllustration from "@/app/(session)/new/components/WebIllustration";
 import Modal from "@/components/pages/web/Modal";
+import { WebContext } from "@/context/WebContext";
 
 type Props = {};
 
 const NewWebPage = ({}: Props) => {
-	const { setEditAvatarWindow, customAvatar, toggleModalVisibility } =
-		useContext(EditAvatarContext);
+	const { setEditAvatarWindow, customAvatar, toggleModalVisibility } = useContext(WebContext);
 	const router = useRouter();
 	const { supabase } = useSupabase();
 	const { register, handleSubmit } = useForm();
@@ -47,14 +46,14 @@ const NewWebPage = ({}: Props) => {
 			}
 
 			// Insert data into the database
-			const response = await fetch("/api/webs", {
+			const response = await fetch("/api/web", {
 				method: "POST",
 				body: JSON.stringify({
 					id: id,
 					name: data.name,
 					user_id: userId,
-					image_path: showOnWeb === "image" && imagePath,
-					avatar: showOnWeb === "avatar" && customAvatar,
+					image_path: showOnWeb === "image" ? imagePath : null,
+					avatar: showOnWeb === "avatar" ? customAvatar : null,
 				}),
 				headers: {
 					"Content-Type": "application/json",
@@ -62,7 +61,7 @@ const NewWebPage = ({}: Props) => {
 			});
 
 			if (response.status === 201) {
-				router.push(`/web/${id}`);
+				router.push(`/web/${id}/1`);
 			}
 		} catch (error) {
 			console.log(error);

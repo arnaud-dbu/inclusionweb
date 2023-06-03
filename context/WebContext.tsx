@@ -26,6 +26,8 @@ export type AvatarType = {
 type WebContextType = {
 	fetchedWebData: any;
 	fetchedContactsData: any;
+	fetchedSessionsData: any;
+	session: number;
 	contacts: any[];
 	setContacts: (contacts: any[]) => void;
 	setModalVisible: (visible: boolean) => void;
@@ -86,16 +88,20 @@ export const WebContext = createContext<WebContextType | null>(null);
 
 type Props = {
 	children: ReactNode;
-	fetchedWebData: any;
-	fetchedContactsData: any;
-	contacts: any;
-	setContacts: any;
+	fetchedWebData?: any;
+	fetchedContactsData?: any;
+	fetchedSessionsData?: any;
+	contacts?: any;
+	setContacts?: any;
+	session?: number;
 };
 
 export const WebProvider = ({
 	children,
 	fetchedWebData,
 	fetchedContactsData,
+	fetchedSessionsData,
+	session,
 	contacts,
 	setContacts,
 }: Props) => {
@@ -136,7 +142,8 @@ export const WebProvider = ({
 		return array.filter((el) => el.name.toLowerCase().includes(query));
 	};
 
-	const searchFilteredContacts = searchFilter(contacts);
+	// Check if contacts array exists before filtering
+	const searchFilteredContacts = contacts ? searchFilter(contacts) : [];
 
 	const toggleEditAvatarWindow = () => {
 		setEditAvatarWindow(!avatarEditWindow);
@@ -236,9 +243,11 @@ export const WebProvider = ({
 			value={{
 				fetchedWebData,
 				fetchedContactsData,
+				fetchedSessionsData,
 				contacts,
 				setContacts,
 				modalVisible,
+				session,
 				setModalVisible,
 				showDroppedContacts,
 				setShowDroppedContacts,

@@ -3,17 +3,17 @@
 import { useState, useRef } from "react";
 import SideBar from "./SideBar";
 import { WebProvider } from "@/context/WebContext";
-import { EditAvatarProvider } from "@/context/EditAvatarContext";
 import Web from "./Web";
-import html2canvas from "html2canvas";
 import Modal from "./Modal";
 
 type Props = {
 	fetchedContactsData: any;
 	fetchedWebData: any;
+	fetchedSessionsData: any;
+	session: number;
 };
 
-const MyWeb = ({ fetchedWebData, fetchedContactsData }: Props) => {
+const MyWeb = ({ fetchedWebData, fetchedContactsData, fetchedSessionsData, session }: Props) => {
 	const [contacts, setContacts] = useState(fetchedContactsData);
 	// const [contacts, setContacts] = useLocalStorage("contacts", fetchedContactsData);
 
@@ -21,8 +21,10 @@ const MyWeb = ({ fetchedWebData, fetchedContactsData }: Props) => {
 		<WebProvider
 			fetchedWebData={fetchedWebData}
 			fetchedContactsData={fetchedContactsData}
+			fetchedSessionsData={fetchedSessionsData}
 			contacts={contacts}
-			setContacts={setContacts}>
+			setContacts={setContacts}
+			session={session}>
 			<Modal />
 			<SideBar />
 			<Web />

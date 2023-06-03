@@ -1,31 +1,22 @@
 import { useForm } from "react-hook-form";
 import Form from "@/components/form/Form";
 import { AnimalIcon, GroupIcon, PersonIcon, PlaceIcon } from "@/public/icons";
-import { Input } from "@/components/form/Input";
-import { SelectAvatar, SelectEditAvatar } from "@/components/form/SelectAvatar";
 import { Btn } from "@/components/Buttons";
-import { RadioButtons } from "@/components/form/RadioButtonGroup";
 import { useContext, useEffect } from "react";
 import SelectButtons from "@/components/form/SelectButtons";
 import AvatarComponent from "@/components/avatar/AvatarComponent";
-import { Dropdown } from "@/components/form/Dropdown";
 import { useSupabase } from "@/app/supabase-provider";
 import { WebContext } from "@/context/WebContext";
-import { CustomAvatarForm } from "./CustomAvatarForm";
 import DivisionLine from "@/components/DivisionLine";
-import FormBlockItem from "./FormBlockItem";
-import FormBlock from "./FormBlock";
 import OverFlowContainer from "@/components/OverFlowContainer";
-import { CheckboxButtons } from "@/components/form/CheckboxButtons";
 import Image from "next/image";
-import { Label } from "@/components/form/Label";
 import PersonForm from "./new-contact-forms/PersonForm";
 import GroupForm from "./new-contact-forms/GroupForm";
 import AnimalForm from "./new-contact-forms/AnimalForm";
 import PlaceForm from "./new-contact-forms/PlaceForm";
 import { Button } from "@/components/form/Button";
 
-export const NewContactForm = () => {
+export const NewContactForm = ({ params }) => {
 	const {
 		contacts,
 		setContacts,
@@ -39,6 +30,7 @@ export const NewContactForm = () => {
 		customAvatar,
 		thumbnail,
 		setThumbnail,
+		session,
 	} = useContext(WebContext);
 
 	const { register, handleSubmit, reset } = useForm();
@@ -92,6 +84,7 @@ export const NewContactForm = () => {
 				received_support: data.received_support,
 				frequency: data.frequency,
 				web_id: fetchedWebData.id,
+				session_id: session,
 			};
 
 			const response = await fetch("/api/contact", {

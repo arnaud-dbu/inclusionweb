@@ -1,16 +1,60 @@
+import { useForm } from "react-hook-form";
 import { BlockTitle } from "@/components/form/BlockTitle";
 import CheckButton from "@/components/form/CheckButton";
 import { IconButton } from "@/components/form/IconButton";
 import { NonVisibleIcon, PlusIcon, ShareIcon, VisibleIcon } from "@/public/icons";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { WebContext } from "@/context/WebContext";
 import { Button } from "@/components/form/Button";
 import DropdownVersion from "@/components/pages/web/VersionDropdown";
+import { useRouter } from "next/navigation";
+import Form from "@/components/form/Form";
 
-type Props = {};
+export const WebSettings = () => {
+	const {
+		namesVisible,
+		setNamesVisible,
+		avatarSize,
+		setAvatarSize,
+		session,
+		fetchedWebData,
+		fetchedSessionsData,
+		setContacts,
+		fetchedContactsData,
+	} = useContext(WebContext);
+	const router = useRouter();
 
-export const WebSettings = (props: Props) => {
-	const { namesVisible, setNamesVisible, avatarSize, setAvatarSize } = useContext(WebContext);
+	const [selectedOption, setSelectedOption] = useState(null);
+
+	const { register, handleSubmit } = useForm();
+
+	const onSubmit = async (data) => {
+		await router.push(`/web/${fetchedWebData.id}/${selectedOption.value}`);
+		setContacts(fetchedContactsData);
+	};
+
+	const handleNewSession = async () => {
+		const latestSession = fetchedSessionsData.sort((a, b) => b.session - a.session)[0].session;
+
+		try {
+			const response = await fetch("/api/sessions", {
+				method: "POST",
+				body: JSON.stringify({
+					id: crypto.randomUUID(),
+					session: latestSession + 1,
+					web_id: fetchedWebData.id,
+				}),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+			if (response.status === 201) {
+				router.push(`/web/${fetchedWebData.id}/${latestSession + 1}`);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<section
@@ -41,17 +85,22 @@ export const WebSettings = (props: Props) => {
 				</div>
 				<div className={`flex gap-2 items-center`}>
 					<BlockTitle className="!mb-0" title="Versie" />
-					<DropdownVersion
-						className={`w-[10rem]`}
-						name="avatar_size"
-						placeholder="12/04/2024"
-						options={[
-							{ value: "large", label: "Versie 1" },
-							{ value: "middel", label: "Versie 2" },
-							{ value: "small", label: "Versie 3" },
-						]}
-					/>
-					<IconButton>
+					<Form register={register} handleSubmit={handleSubmit} onSubmit={onSubmit}>
+						<DropdownVersion
+							selectedOption={selectedOption}
+							setSelectedOption={setSelectedOption}
+							className={`w-[10rem]`}
+							name="session"
+							register={register}
+							placeholder={session.toString()}
+							options={fetchedSessionsData.map((session) => ({
+								value: session.session,
+								label: session.session.toString(),
+							}))}
+						/>
+						<Button style="outline">Lets go</Button>
+					</Form>
+					<IconButton onClick={handleNewSession}>
 						<PlusIcon className={`w-5 h-5`} />
 					</IconButton>
 				</div>

@@ -1,7 +1,7 @@
 "use client";
 
-import { EditAvatarProvider } from "@/context/EditAvatarContext";
+import { WebProvider } from "@/context/WebContext";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-	return <EditAvatarProvider>{children}</EditAvatarProvider>;
+	return <WebProvider>{children}</WebProvider>;
 }
