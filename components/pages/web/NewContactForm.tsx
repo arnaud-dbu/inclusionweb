@@ -55,7 +55,6 @@ export const NewContactForm = () => {
 		setEyes,
 		setEyebrow,
 		setMouth,
-		setActiveAvatarPreset,
 		handlePresetAvatarSubmit,
 	} = useContext(WebContext);
 
@@ -69,7 +68,12 @@ export const NewContactForm = () => {
 			setValue("name", editContact.name);
 			setValue("role", editContact.role);
 			setValue("relation", editContact.relation);
+			console.log(editContact.relation);
+
+			setValue("given_support", editContact.given_support);
+			setValue("received_support", editContact.received_support);
 			setSelectedGivenSupport(editContact.given_support);
+
 			setSelectedReceivedSupport(editContact.received_support);
 			setValue("frequency", editContact.frequency);
 			setValue("avatar", editContact.avatar);
@@ -181,7 +185,60 @@ export const NewContactForm = () => {
 	};
 
 	const handleEditContactSubmit = async (data) => {
-		console.log(data);
+		const customAvatarString = JSON.stringify(customAvatar);
+		const userId = (await supabase.auth.getUser()).data.user.id;
+		let imagePath = null;
+
+		try {
+			if (thumbnail === "customImage") {
+				// Upload image
+				const { data: image } = await supabase.storage
+					.from("uploads")
+					.upload(userId + "/" + crypto.randomUUID(), selectedImage);
+
+				imagePath = image.path;
+			}
+
+			if (thumbnail === "presetImage") {
+				imagePath = imageUrl;
+				imagePath = imagePath.src;
+			}
+
+			const body = {
+				avatar: thumbnail === "avatar" ? customAvatarString : null,
+				image_type: thumbnail,
+				image_path: thumbnail === "presetImage" || thumbnail === "customImage" ? imagePath : null,
+				type: type,
+				name: data.name,
+				role: data.role,
+				relation: data.relation,
+				given_support: data.given_support,
+				received_support: data.received_support,
+				frequency: data.frequency,
+			};
+
+			const response = await fetch(`/api/contact/${editContact.id}`, {
+				method: "PUT",
+				body: JSON.stringify(body),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+
+			if (response.status === 200) {
+				const newContact = {
+					...editContact,
+					...body,
+				};
+				setModalVisible(false);
+				setEditContact(null);
+				setContacts(
+					contacts.map((contact) => (contact.id === editContact.id ? newContact : contact))
+				);
+			}
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (

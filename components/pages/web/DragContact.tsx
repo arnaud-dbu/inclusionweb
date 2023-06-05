@@ -6,6 +6,7 @@ import { CrossIcon } from "@/public/icons";
 import { useContext, useRef } from "react";
 import useHover from "@/hooks/useHover";
 import { WebContext } from "@/context/WebContext";
+import Image from "next/image";
 
 type Props = {
 	id: string;
@@ -13,15 +14,18 @@ type Props = {
 	styles: any;
 	avatar?: any;
 	visible?: string;
+	image?: string;
 };
 
-export const DragContact = ({ id, name, styles, avatar, visible }: Props) => {
+export const DragContact = ({ id, name, styles, avatar, visible, image }: Props) => {
 	const hoverRef = useRef(null);
 	const isHover = useHover(hoverRef);
 
+	console.log(image);
+
 	const { contacts, setContacts, avatarSize, namesVisible } = useContext(WebContext);
 
-	const handleContactVisibility = (id: string) => {
+	const handleContactDeleteFromWeb = (id: string) => {
 		const newContacts = contacts.map((contact) => {
 			if (contact.id === id) {
 				return { ...contact, visible: false };
@@ -55,12 +59,24 @@ export const DragContact = ({ id, name, styles, avatar, visible }: Props) => {
 			{...listeners}
 			{...attributes}>
 			<div className="flex flex-col items-center gap-2 relative" ref={hoverRef}>
-				<AvatarComponent
-					className={`bg-white rounded-full shadow-lg object-cover ${avatarStyle} ${
-						avatarSize === "small" ? "w-12 h-12" : "w-16 h-16"
-					}`}
-					avatar={avatar}
-				/>
+				{avatar ? (
+					<AvatarComponent
+						className={`bg-white rounded-full shadow-lg object-cover ${avatarStyle} ${
+							avatarSize === "small" ? "w-12 h-12" : "w-16 h-16"
+						}`}
+						avatar={avatar}
+					/>
+				) : (
+					<Image
+						className={`bg-white rounded-full shadow-lg object-cover ${
+							avatarSize === "small" ? "w-12 h-12" : "w-16 h-16"
+						}`}
+						alt="test"
+						src={`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${image}`}
+						width={100}
+						height={100}
+					/>
+				)}
 				{namesVisible && (
 					<span className="text-center text-neutral-900 text-sm font-semibold font-primary uppercase ">
 						{name}

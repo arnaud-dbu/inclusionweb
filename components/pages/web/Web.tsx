@@ -37,27 +37,23 @@ const Web = () => {
 			return item;
 		});
 		setContacts(newPositionedDragItems);
-	};
 
-	const handleImageDownload = async () => {
-		setTimeout(async () => {
-			const element = printRef.current;
-			const canvas = await html2canvas(element);
+		const draggedItem = newPositionedDragItems?.find((item) => item.id === dragItemId);
 
-			const data = canvas.toDataURL("image/jpg");
-			const link = document.createElement("a");
-
-			if (typeof link.download === "string") {
-				link.href = data;
-				link.download = "image.jpg";
-
-				document.body.appendChild(link);
-				link.click();
-				document.body.removeChild(link);
-			} else {
-				window.open(data);
-			}
-		}, 3000);
+		try {
+			const response = fetch(`/api/contact/position/${dragItemId}`, {
+				method: "PATCH",
+				body: JSON.stringify({
+					position: {
+						x: draggedItem.position.x,
+						y: draggedItem.position.y,
+					},
+				}),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+		} catch (error) {}
 	};
 
 	return (
@@ -79,6 +75,7 @@ const Web = () => {
 										id={contact.id}
 										name={contact.name}
 										avatar={contact.avatar}
+										image={contact.image_path}
 										visible={contact.visible ? "block" : "none"}
 									/>
 								))}

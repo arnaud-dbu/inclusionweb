@@ -9,6 +9,7 @@ import { CustomAvatarForm } from "../CustomAvatarForm";
 import { Label } from "@/components/form/Label";
 import { CheckboxButtons } from "@/components/form/CheckboxButtons";
 import { WebContext } from "@/context/WebContext";
+import SelectItem from "@/components/form/Select";
 
 type Props = {
 	register: any;
@@ -51,18 +52,31 @@ const PersonForm = ({ register }: Props) => {
 					</div>
 				</FormBlockItem>
 
+				{/* <FormBlockItem title="Relatie">
+					<SelectItem
+						name="relation"
+						options={[
+							{ value: "Partner", label: "Partner" },
+							{ value: "Familie", label: "Familie" },
+							{ value: "Buur", label: "Buur" },
+						]}
+					/>
+				</FormBlockItem> */}
+
 				<FormBlockItem title="Relatie">
 					<Dropdown
-						register={register}
 						className={`w-[30rem]`}
 						name="relation"
-						options={[{ label: "Partner" }, { label: "Familie" }, { label: "Buur" }]}
+						options={[
+							{ value: "Partner", label: "Partner" },
+							{ value: "Familie", label: "Familie" },
+							{ value: "Buur", label: "Buur" },
+						]}
 					/>
 				</FormBlockItem>
 
 				<FormBlockItem title="Gegeven Steun">
 					<CheckboxButtons
-						register={register}
 						name="given_support"
 						options={["Emotioneel", "Gezelligheid", "Praktisch", "Goede Raad"]}
 					/>
@@ -70,7 +84,6 @@ const PersonForm = ({ register }: Props) => {
 
 				<FormBlockItem title="Ontvangen Steun">
 					<CheckboxButtons
-						register={register}
 						name="received_support"
 						options={["Emotioneel", "Gezelligheid", "Praktisch", "Goede Raad"]}
 					/>

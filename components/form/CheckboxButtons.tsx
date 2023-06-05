@@ -24,21 +24,17 @@
 
 import { WebContext } from "@/context/WebContext";
 import { useContext, useEffect, useState } from "react";
+import { useFormContext } from "react-hook-form";
 
 type Props = {
-	register?: any;
 	options: any;
 	name: string;
 };
 
-export const CheckboxButtons = ({ register, name, options, ...rest }: Props) => {
+export const CheckboxButtons = ({ name, options, ...rest }: Props) => {
 	const [selected, setSelected] = useState([]);
-	const {
-		setSelectedReceivedSupport,
-		setSelectedGivenSupport,
-		selectedGivenSupport,
-		selectedReceivedSupport,
-	} = useContext(WebContext);
+	const { selectedGivenSupport, selectedReceivedSupport } = useContext(WebContext);
+	const { register } = useFormContext();
 
 	const handleSelection = (e) => {
 		const selectedLabel = e.target.innerText;
@@ -48,22 +44,10 @@ export const CheckboxButtons = ({ register, name, options, ...rest }: Props) => 
 			setSelected([...selected, selectedLabel]);
 		}
 	};
-	// useEffect(() => {
-	// 	if (selectedGivenSupport) {
-	// 		setSelected(selectedGivenSupport);
-	// 	} else {
-	// 		setSelected(selectedReceivedSupport);
-	// 	}
-	// }, [selectedGivenSupport, selectedReceivedSupport]);
-
-	// If selectedGivenSupport is not empty, then set selected to selectedGivenSupport
-	// If selectedGivenSupport is empty, then set selected to selectedReceivedSupport
 	useEffect(() => {
 		name === "received_support" && setSelected(selectedReceivedSupport);
 		name === "given_support" && setSelected(selectedGivenSupport);
 	}, [selectedReceivedSupport, selectedReceivedSupport]);
-
-	useEffect(() => {}, [selectedGivenSupport]);
 
 	return (
 		<div className="flex gap-2 cursor-pointer" {...rest}>

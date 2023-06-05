@@ -21,7 +21,7 @@ export const Contacts = () => {
 	const handleContactVisibility = async (id: string) => {
 		try {
 			const response = await fetch(`/api/contact/${id}`, {
-				method: "PUT",
+				method: "PATCH",
 				body: JSON.stringify({
 					visible: true,
 				}),
@@ -62,7 +62,6 @@ export const Contacts = () => {
 
 	const handleEditContact = async (id: string) => {
 		const contact = contacts.find((contact) => contact.id === id);
-
 		setModalVisible(true);
 		setEditContact(contact);
 	};

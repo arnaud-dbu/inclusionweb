@@ -25,7 +25,7 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
 	return NextResponse.json({ message: "Contact deleted." }, { status: 200 });
 }
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(req: Request, { params }: { params: { id: string } }) {
 	const id = params.id;
 	const body = await req.json();
 
@@ -33,9 +33,6 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 		headers,
 		cookies,
 	});
-
-	console.log(id);
-	console.log(body);
 
 	const { data, error } = await supabase.from("contacts").update(body).eq("id", id);
 
@@ -46,4 +43,22 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 	}
 
 	return NextResponse.json({ message: "Contact visible" }, { status: 200 });
+}
+
+export async function PUT(req: Request, { params }: { params: { id: string } }) {
+	const id = params.id;
+	const body = await req.json();
+
+	const supabase = createRouteHandlerSupabaseClient<Database>({
+		headers,
+		cookies,
+	});
+
+	const { error } = await supabase.from("contacts").update(body).eq("id", id);
+
+	if (error) {
+		return NextResponse.json(error, { status: 500 });
+	}
+
+	return NextResponse.json({ message: "Contact updated" }, { status: 200 });
 }

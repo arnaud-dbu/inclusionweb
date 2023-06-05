@@ -40,16 +40,18 @@ const GroupForm = ({ register }: Props) => {
 
 				<FormBlockItem title="Relatie">
 					<Dropdown
-						register={register}
 						className={`w-[30rem]`}
 						name="relation"
-						options={[{ label: "Partner" }, { label: "Familie" }, { label: "Buur" }]}
+						options={[
+							{ value: "Partner", label: "Partner" },
+							{ value: "Familie", label: "Familie" },
+							{ value: "Buur", label: "Buur" },
+						]}
 					/>
 				</FormBlockItem>
 
 				<FormBlockItem title="Gegeven Steun">
 					<CheckboxButtons
-						register={register}
 						name="given_support"
 						options={["Emotioneel", "Gezelligheid", "Praktisch", "Goede Raad"]}
 					/>
@@ -57,7 +59,6 @@ const GroupForm = ({ register }: Props) => {
 
 				<FormBlockItem title="Ontvangen Steun">
 					<CheckboxButtons
-						register={register}
 						name="received_support"
 						options={["Emotioneel", "Gezelligheid", "Praktisch", "Goede Raad"]}
 					/>

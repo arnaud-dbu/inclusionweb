@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import FormBlock from "../FormBlock";
 import FormBlockItem from "../FormBlockItem";
 import { Input } from "@/components/form/Input";
-import { Dropdown } from "@/components/form/Dropdown";
 import { CheckboxButtons } from "@/components/form/CheckboxButtons";
 import { RadioButtons } from "@/components/form/RadioButtonGroup";
 import { WebContext } from "@/context/WebContext";
@@ -39,7 +38,6 @@ const AnimalForm = ({ register }: Props) => {
 
 				<FormBlockItem title="Gegeven Steun">
 					<CheckboxButtons
-						register={register}
 						name="given_support"
 						options={["Emotioneel", "Gezelligheid", "Praktisch", "Goede Raad"]}
 					/>
@@ -47,7 +45,6 @@ const AnimalForm = ({ register }: Props) => {
 
 				<FormBlockItem title="Ontvangen Steun">
 					<CheckboxButtons
-						register={register}
 						name="received_support"
 						options={["Emotioneel", "Gezelligheid", "Praktisch", "Goede Raad"]}
 					/>
