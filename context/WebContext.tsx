@@ -82,6 +82,14 @@ type WebContextType = {
 	setImageUrl: (url: string) => void;
 	editAvatarFormIsVisible: boolean;
 	setEditAvatarFormIsVisible: (visible: boolean) => void;
+	dragContacts: any;
+	setDragContacts: (contacts: any[]) => void;
+	setEditContact: (contact: any) => void;
+	editContact: any;
+	selectedReceivedSupport: any;
+	setSelectedReceivedSupport: any;
+	selectedGivenSupport: any;
+	setSelectedGivenSupport: any;
 };
 
 export const WebContext = createContext<WebContextType | null>(null);
@@ -94,6 +102,14 @@ type Props = {
 	contacts?: any;
 	setContacts?: any;
 	session?: number;
+	dragContacts?: any;
+	setDragContacts?: any;
+	editContact;
+	setEditContact;
+	selectedReceivedSupport: any;
+	setSelectedReceivedSupport: any;
+	selectedGivenSupport: any;
+	setSelectedGivenSupport: any;
 };
 
 export const WebProvider = ({
@@ -107,18 +123,22 @@ export const WebProvider = ({
 }: Props) => {
 	// States
 	const [showDroppedContacts, setShowDroppedContacts] = useState(false);
+	const [editContact, setEditContact] = useState(null);
 	const [query, setQuery] = useState("");
 	const [view, setView] = useState("grid");
 	const [avatarSize, setAvatarSize] = useState<string>("small");
 	const [type, setType] = useState("person");
 	const [selectedImage, setSelectedImage] = useState("");
 	const [imageUrl, setImageUrl] = useState("");
+	const [dragContacts, setDragContacts] = useState(fetchedContactsData);
 	const [editAvatarFormIsVisible, setEditAvatarFormIsVisible] = useState(true);
 	const [namesVisible, setNamesVisible] = useState(true);
 	const [avatarEditWindow, setEditAvatarWindow] = useState(false);
 	const [modalVisible, setModalVisible] = useState(false);
 	const [thumbnail, setThumbnail] = useState("avatar" || "image");
 	const [activeAvatarPreset, setActiveAvatarPreset] = useState("youngManAvatar");
+	const [selectedReceivedSupport, setSelectedReceivedSupport] = useState([]);
+	const [selectedGivenSupport, setSelectedGivenSupport] = useState([]);
 
 	const [topType, setTopType] = useState<string[]>(["ShortHairShortFlat", ...topTypes.slice(1)]);
 	const [accessoriesType, setAccessoriesType] = useState<string[]>([
@@ -299,6 +319,14 @@ export const WebProvider = ({
 				setImageUrl,
 				editAvatarFormIsVisible,
 				setEditAvatarFormIsVisible,
+				dragContacts,
+				setDragContacts,
+				editContact,
+				setEditContact,
+				selectedGivenSupport,
+				setSelectedGivenSupport,
+				selectedReceivedSupport,
+				setSelectedReceivedSupport,
 			}}>
 			{children}
 		</WebContext.Provider>

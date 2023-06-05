@@ -12,6 +12,7 @@ import html2canvas from "html2canvas";
 
 const Web = () => {
 	const { contacts, setContacts, fetchedWebData } = useContext(WebContext);
+
 	const printRef = useRef();
 
 	const handleDragEnd = (ev) => {
@@ -32,6 +33,7 @@ const Web = () => {
 					},
 				};
 			}
+
 			return item;
 		});
 		setContacts(newPositionedDragItems);
@@ -102,7 +104,7 @@ const Web = () => {
 									/>
 								)}
 
-								{/* <WebSliceContainer /> */}
+								<WebSliceContainer />
 							</DropZone>
 						</div>
 					</div>

@@ -1,26 +1,70 @@
 import AvatarComponent from "@/components/avatar/AvatarComponent";
+import { IconButton } from "@/components/form/IconButton";
 import { WebContext } from "@/context/WebContext";
+import { CrossIcon, EditIcon, PencilIcon } from "@/public/icons";
 import Image from "next/image";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 export const Contacts = () => {
 	const {
 		contacts,
 		fetchedWebData,
+		fetchedContactsData,
 		setContacts,
 		view,
 		searchFilteredContacts,
 		showDroppedContacts,
+		setModalVisible,
+		setEditContact,
 	} = useContext(WebContext);
 
-	const handleContactVisibility = (id: string) => {
-		const newContacts = contacts.map((contact) => {
-			if (contact.id === id) {
-				return { ...contact, visible: true };
+	const handleContactVisibility = async (id: string) => {
+		try {
+			const response = await fetch(`/api/contact/${id}`, {
+				method: "PUT",
+				body: JSON.stringify({
+					visible: true,
+				}),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+			const contact = await response.json();
+
+			if (contact) {
+				const newContacts = contacts.map((contact) => {
+					if (contact.id === id) {
+						return { ...contact, visible: true };
+					}
+					return contact;
+				});
+				setContacts(newContacts);
 			}
-			return contact;
-		});
-		setContacts(newContacts);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const handleDeleteContact = async (id: string) => {
+		try {
+			const response = await fetch(`/api/contact/${id}`, {
+				method: "DELETE",
+			});
+			const contact = await response.json();
+
+			if (contact) {
+				setContacts(fetchedContactsData);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const handleEditContact = async (id: string) => {
+		const contact = contacts.find((contact) => contact.id === id);
+
+		setModalVisible(true);
+		setEditContact(contact);
 	};
 
 	const filteredContacts = searchFilteredContacts.filter((contact) => {
@@ -32,13 +76,24 @@ export const Contacts = () => {
 	});
 
 	return (
-		<div className="flex flex-wrap justify-between gap-y-4 my-5">
+		<div className=" flex flex-wrap justify-between gap-y-4 my-5">
 			{filteredContacts.map((contact) => (
 				<div
 					key={contact.id}
-					className={`bg-white border-2 border-neutral-500 flex items-center shadow-lg rounded-xl ${
+					className={`relative bg-white border-2 border-neutral-500 flex items-center shadow-lg rounded-xl ${
 						view === "list" ? "w-full py-5 px-5" : "flex-col w-[48%] h-[15rem] justify-center"
 					}`}>
+					{/* // TODO: Add delete functionality */}
+					<IconButton
+						onClick={() => handleDeleteContact(contact.id)}
+						className={`opacity-0 hover:opacity-80 absolute right-2 top-2 bg-red rounded-full p-1`}>
+						<CrossIcon className={`w-4`} />
+					</IconButton>
+					<IconButton
+						onClick={() => handleEditContact(contact.id)}
+						className={`opacity-0 hover:opacity-80 absolute right-2 top-10 bg-neutral-700 rounded-full p-1`}>
+						<PencilIcon className={`w-4`} />
+					</IconButton>
 					{contact.avatar ? (
 						<AvatarComponent
 							avatar={contact.avatar}

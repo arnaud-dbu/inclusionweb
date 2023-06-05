@@ -29,8 +29,6 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 export async function POST(request: Request) {
 	const body = await request.json();
 
-	console.log(body);
-
 	const supabase = createRouteHandlerSupabaseClient<Database>({
 		headers,
 		cookies,

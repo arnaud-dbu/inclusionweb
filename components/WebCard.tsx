@@ -16,7 +16,7 @@ const WebCard = ({ data }: Props) => {
 					</span>
 				</div>
 				<div className="flex gap-3">
-					<Btn tertiary href={`web/${data.id}`} className="w-fit">
+					<Btn tertiary href={`web/${data.id}/1`} className="w-fit">
 						Open
 					</Btn>
 					<Btn secondary>Deel</Btn>

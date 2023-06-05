@@ -33,13 +33,15 @@ export const Input = ({
 				/>
 				<label
 					htmlFor="username"
-					className="absolute left-3 pointer-events-none -top-2 bg-white px-[.35rem] m-0 text-xs  
+					className={`absolute left-3 pointer-events-none -top-2 ${
+						secondary ? "bg-white" : "bg-primary-300"
+					} px-[.35rem] m-0 text-xs  
                     peer-placeholder-shown:text-neutral-700 
                     peer-placeholder-shown:top-1/2
                     peer-placeholder-shown:-translate-y-1/2
                     peer-placeholder-shown: text-primary-800
                     peer-placeholder-shown:text-base 
-                    duration-300">
+                    duration-300`}>
 					{label}
 				</label>
 				{error && <span role="alert">{error}</span>}
@@ -47,3 +49,6 @@ export const Input = ({
 		</div>
 	);
 };
+
+// @mediaPrint
+// Share Hashtag Edit efzgr

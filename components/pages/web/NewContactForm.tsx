@@ -1,4 +1,15 @@
-import { useForm } from "react-hook-form";
+import {
+	accessoriesTypes,
+	clothesTypes,
+	eyeTypes,
+	eyebrowTypes,
+	facialHairTypes,
+	hairColors,
+	mouthTypes,
+	skinColors,
+	topTypes,
+} from "@/lib/avatarPresets";
+import { useForm, FormProvider } from "react-hook-form";
 import Form from "@/components/form/Form";
 import { AnimalIcon, GroupIcon, PersonIcon, PlaceIcon } from "@/public/icons";
 import { Btn } from "@/components/Buttons";
@@ -16,7 +27,7 @@ import AnimalForm from "./new-contact-forms/AnimalForm";
 import PlaceForm from "./new-contact-forms/PlaceForm";
 import { Button } from "@/components/form/Button";
 
-export const NewContactForm = ({ params }) => {
+export const NewContactForm = () => {
 	const {
 		contacts,
 		setContacts,
@@ -30,15 +41,68 @@ export const NewContactForm = ({ params }) => {
 		customAvatar,
 		thumbnail,
 		setThumbnail,
+		setEditContact,
 		session,
+		editContact,
+		setSelectedGivenSupport,
+		setSelectedReceivedSupport,
+		setTopType,
+		setSkinColor,
+		setAccessoriesType,
+		setHairColor,
+		setFacialHair,
+		setClothes,
+		setEyes,
+		setEyebrow,
+		setMouth,
+		setActiveAvatarPreset,
+		handlePresetAvatarSubmit,
 	} = useContext(WebContext);
 
-	const { register, handleSubmit, reset } = useForm();
+	const methods = useForm();
+	const { register, handleSubmit, reset, setValue } = methods;
 	const { supabase } = useSupabase();
+
+	useEffect(() => {
+		if (editContact) {
+			setType(editContact.type);
+			setValue("name", editContact.name);
+			setValue("role", editContact.role);
+			setValue("relation", editContact.relation);
+			setSelectedGivenSupport(editContact.given_support);
+			setSelectedReceivedSupport(editContact.received_support);
+			setValue("frequency", editContact.frequency);
+			setValue("avatar", editContact.avatar);
+			setValue("image_path", editContact.image_path);
+
+			if (editContact.avatar) {
+				setThumbnail("avatar");
+				const avatarStyle = JSON.parse(editContact.avatar);
+				setTopType([avatarStyle.topType, ...topTypes.slice(1)]);
+				setSkinColor([avatarStyle.skinColor, ...skinColors.slice(1)]);
+				setAccessoriesType([avatarStyle.accessoriesType, ...accessoriesTypes.slice(1)]);
+				setHairColor([avatarStyle.hairColor, ...hairColors.slice(1)]);
+				setFacialHair([avatarStyle.facialHairType, ...facialHairTypes.slice(1)]);
+				setClothes([avatarStyle.clotheType, ...clothesTypes.slice(1)]);
+				setEyes([avatarStyle.eyeType, ...eyeTypes.slice(1)]);
+				setEyebrow([avatarStyle.eyebrowType, ...eyebrowTypes.slice(1)]);
+				setMouth([avatarStyle.mouthType, ...mouthTypes.slice(1)]);
+			}
+
+			if (editContact.image_path) {
+				setThumbnail("presetImage");
+				setImageUrl(`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${editContact.image_path}`);
+			}
+		}
+	}, []);
 
 	const handleClosingModal = () => {
 		setModalVisible(false);
+		setEditContact(null);
 		setThumbnail("avatar");
+		setSelectedGivenSupport([""]);
+		setSelectedReceivedSupport([""]);
+		handlePresetAvatarSubmit("youngManAvatar");
 		setType("person");
 		reset();
 	};
@@ -49,7 +113,7 @@ export const NewContactForm = ({ params }) => {
 		}
 	}, [selectedImage]);
 
-	const onSubmit = async (data) => {
+	const handleCreateContactSubmit = async (data) => {
 		const customAvatarString = JSON.stringify(customAvatar);
 		const id = crypto.randomUUID();
 		const userId = (await supabase.auth.getUser()).data.user.id;
@@ -116,6 +180,10 @@ export const NewContactForm = ({ params }) => {
 		}
 	};
 
+	const handleEditContactSubmit = async (data) => {
+		console.log(data);
+	};
+
 	return (
 		<>
 			<div className={`flex items-center justify-between w-full gap-10 px-24`}>
@@ -171,26 +239,30 @@ export const NewContactForm = ({ params }) => {
 			</div>
 			<DivisionLine />
 
-			<Form
-				className={`px-24 flex flex-col`}
-				register={register}
-				handleSubmit={handleSubmit}
-				onSubmit={onSubmit}>
-				<OverFlowContainer>
-					{}
-					{type === "person" && <PersonForm register={register} />}
-					{type === "group" && <GroupForm register={register} />}
-					{type === "place" && <PlaceForm register={register} />}
-					{type === "animal" && <AnimalForm register={register} />}
-				</OverFlowContainer>
+			<FormProvider {...methods}>
+				<Form
+					className={`px-24 flex flex-col`}
+					register={register}
+					handleSubmit={handleSubmit}
+					onSubmit={editContact ? handleEditContactSubmit : handleCreateContactSubmit}>
+					<OverFlowContainer>
+						{}
+						{type === "person" && <PersonForm register={register} />}
+						{type === "group" && <GroupForm register={register} />}
+						{type === "place" && <PlaceForm register={register} />}
+						{type === "animal" && <AnimalForm register={register} />}
+					</OverFlowContainer>
 
-				<div className="flex gap-3 mt-8 self-end">
-					<Button style="outline" label="Annuleer" onClick={handleClosingModal} />
-					<Btn primary submit>
-						Opslaan
-					</Btn>
-				</div>
-			</Form>
+					<div className="flex gap-3 mt-8 self-end">
+						<Button style="outline" label="Annuleer" onClick={handleClosingModal} />
+						{editContact ? (
+							<Button style="primary" label="Wijzigen" />
+						) : (
+							<Button style="primary" label="Opslaan" />
+						)}
+					</div>
+				</Form>
+			</FormProvider>
 		</>
 	);
 };

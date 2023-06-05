@@ -23,11 +23,17 @@ const PersonForm = ({ register }: Props) => {
 		setEditAvatarFormIsVisible,
 		setSelectedImage,
 		setThumbnail,
+		thumbnail,
 	} = useContext(WebContext);
 
 	const handleEditAvatarFormVisibility = () => {
 		setActiveAvatarPreset("editAvatar");
 		setEditAvatarFormIsVisible(!editAvatarFormIsVisible);
+	};
+
+	const handleCustomImageChangeUpload = (e) => {
+		setSelectedImage(e.target.files[0]);
+		setThumbnail("customImage");
 	};
 
 	const handleImageChangeUpload = (e) => {
@@ -114,11 +120,13 @@ const PersonForm = ({ register }: Props) => {
 					<Label
 						style="outline"
 						size="sm"
-						title="Upload een foto"
-						className={`file-input-hidden w-full`}>
+						title={thumbnail === "customImage" ? "Geselecteerd" : "Upload een afbeelding"}
+						className={`file-input-hidden w-full ${
+							thumbnail === "customImage" && "border-primary-800 bg-primary-300 text-primary-900"
+						} `}>
 						<input
 							{...register("picture")}
-							onChange={handleImageChangeUpload}
+							onChange={handleCustomImageChangeUpload}
 							className=""
 							type="file"
 							name="picture"

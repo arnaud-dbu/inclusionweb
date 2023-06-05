@@ -4,11 +4,7 @@ import { useContext } from "react";
 import { NewContactForm } from "./NewContactForm";
 import { WebContext } from "@/context/WebContext";
 
-type Props = {
-	setShowOnWeb?: any;
-};
-
-const Modal = ({ setShowOnWeb }: Props) => {
+const Modal = () => {
 	const { modalVisible } = useContext(WebContext);
 
 	return (

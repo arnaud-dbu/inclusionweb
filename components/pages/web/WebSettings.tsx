@@ -1,4 +1,3 @@
-import { useForm } from "react-hook-form";
 import { BlockTitle } from "@/components/form/BlockTitle";
 import CheckButton from "@/components/form/CheckButton";
 import { IconButton } from "@/components/form/IconButton";
@@ -8,7 +7,7 @@ import { WebContext } from "@/context/WebContext";
 import { Button } from "@/components/form/Button";
 import DropdownVersion from "@/components/pages/web/VersionDropdown";
 import { useRouter } from "next/navigation";
-import Form from "@/components/form/Form";
+import dayjs from "dayjs";
 
 export const WebSettings = () => {
 	const {
@@ -19,19 +18,26 @@ export const WebSettings = () => {
 		session,
 		fetchedWebData,
 		fetchedSessionsData,
-		setContacts,
-		fetchedContactsData,
 	} = useContext(WebContext);
 	const router = useRouter();
 
 	const [selectedOption, setSelectedOption] = useState(null);
 
-	const { register, handleSubmit } = useForm();
-
-	const onSubmit = async (data) => {
-		await router.push(`/web/${fetchedWebData.id}/${selectedOption.value}`);
-		setContacts(fetchedContactsData);
+	const handleSessionChange = (selectedOption) => {
+		setSelectedOption(selectedOption);
+		router.push(`/web/${fetchedWebData.id}/${selectedOption.value}`);
+		router.refresh();
 	};
+
+	const currentSession = fetchedSessionsData.filter((x) => x.session == session)[0];
+
+	const getSession = (session) => {
+		const sessionString = session.session.toString();
+		const formattedDate = dayjs(currentSession.created_at).format("MM/DD/YYYY");
+		return `Versie ${sessionString} - ${formattedDate}`;
+	};
+
+	console.log(getSession(currentSession));
 
 	const handleNewSession = async () => {
 		const latestSession = fetchedSessionsData.sort((a, b) => b.session - a.session)[0].session;
@@ -85,21 +91,18 @@ export const WebSettings = () => {
 				</div>
 				<div className={`flex gap-2 items-center`}>
 					<BlockTitle className="!mb-0" title="Versie" />
-					<Form register={register} handleSubmit={handleSubmit} onSubmit={onSubmit}>
-						<DropdownVersion
-							selectedOption={selectedOption}
-							setSelectedOption={setSelectedOption}
-							className={`w-[10rem]`}
-							name="session"
-							register={register}
-							placeholder={session.toString()}
-							options={fetchedSessionsData.map((session) => ({
-								value: session.session,
-								label: session.session.toString(),
-							}))}
-						/>
-						<Button style="outline">Lets go</Button>
-					</Form>
+					<DropdownVersion
+						selectedOption={selectedOption}
+						setSelectedOption={setSelectedOption}
+						handleSessionChange={handleSessionChange}
+						className={`w-[15rem]`}
+						name="session"
+						placeholder={getSession(currentSession)}
+						options={fetchedSessionsData.map((session) => ({
+							value: session.session,
+							label: getSession(session),
+						}))}
+					/>
 					<IconButton onClick={handleNewSession}>
 						<PlusIcon className={`w-5 h-5`} />
 					</IconButton>

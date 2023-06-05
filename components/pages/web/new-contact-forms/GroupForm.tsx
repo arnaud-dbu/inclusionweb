@@ -15,7 +15,8 @@ type Props = {
 };
 
 const GroupForm = ({ register }: Props) => {
-	const { setThumbnail, setSelectedImage, setImageUrl, imageUrl } = useContext(WebContext);
+	const { setThumbnail, setSelectedImage, setImageUrl, imageUrl, thumbnail } =
+		useContext(WebContext);
 
 	const handlePresetImageChangeUpload = (image: any) => {
 		setImageUrl(image);
@@ -89,8 +90,10 @@ const GroupForm = ({ register }: Props) => {
 					<Label
 						style="outline"
 						size="sm"
-						title="Upload een foto"
-						className={`file-input-hidden w-full`}>
+						title={thumbnail === "customImage" ? "Geselecteerd" : "Upload een afbeelding"}
+						className={`file-input-hidden w-full ${
+							thumbnail === "customImage" && "border-primary-800 bg-primary-300 text-primary-900"
+						} `}>
 						<input
 							{...register("picture")}
 							onChange={handleCustomImageChangeUpload}

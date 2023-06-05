@@ -1,3 +1,5 @@
+"use client";
+
 import clsx from "clsx";
 import React, { useState } from "react";
 import Select, { components } from "react-select";
@@ -10,6 +12,7 @@ type Props = {
 	placeholder?: string;
 	selectedOption?: any;
 	setSelectedOption?: any;
+	handleSessionChange?: any;
 };
 
 const controlStyles = {
@@ -37,6 +40,7 @@ const noOptionsMessageStyles =
 const DropdownVersion = ({
 	selectedOption,
 	setSelectedOption,
+	handleSessionChange,
 	register,
 	options,
 	name,
@@ -44,9 +48,6 @@ const DropdownVersion = ({
 	placeholder,
 	...props
 }: Props) => {
-	if (selectedOption) {
-		register(name, { value: selectedOption.value });
-	}
 	return (
 		<div className={` ${className}`}>
 			<Select
@@ -89,11 +90,10 @@ const DropdownVersion = ({
 					noOptionsMessage: () => noOptionsMessageStyles,
 				}}
 				{...props}
-				// components={{ MenuList: SelectMenuButton }}
 				closeMenuOnSelect={true}
 				hideSelectedOptions={true}
 				defaultValue={selectedOption}
-				onChange={setSelectedOption}
+				onChange={handleSessionChange}
 				options={options}
 				placeholder={placeholder}
 			/>

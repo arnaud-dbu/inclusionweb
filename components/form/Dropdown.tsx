@@ -1,5 +1,6 @@
 import clsx from "clsx";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useFormContext } from "react-hook-form";
 import Select, {
 	components,
 	DropdownIndicatorProps,
@@ -69,10 +70,14 @@ export const Blabla = () => {
 };
 
 export const Dropdown = ({ register, options, name, className, placeholder }: Props) => {
+	const { getValues } = useFormContext();
+
 	const [selectedOption, setSelectedOption] = useState(null);
 	if (selectedOption) {
 		register(name, { value: selectedOption.label });
 	}
+
+	const contact = getValues();
 
 	return (
 		<div className={` ${className}`}>
@@ -127,7 +132,7 @@ export const Dropdown = ({ register, options, name, className, placeholder }: Pr
 				defaultValue={selectedOption}
 				onChange={setSelectedOption}
 				options={options}
-				placeholder={placeholder}
+				placeholder={contact.relation ?? placeholder}
 			/>
 		</div>
 	);
