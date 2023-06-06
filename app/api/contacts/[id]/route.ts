@@ -34,6 +34,8 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
 		cookies,
 	});
 
+	console.log(id, body);
+
 	const { data, error } = await supabase.from("contacts").update(body).eq("id", id);
 
 	if (error) {

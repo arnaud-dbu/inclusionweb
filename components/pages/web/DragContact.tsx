@@ -103,7 +103,7 @@ export const DragContact = ({ id, name, styles, avatar, visible, image }: Props)
 			<button
 				className={`cursor-pointer absolute top-0 right-0 w-[1rem] h-[1rem] bg-red fill-white rounded-full flex items-center justify-center `}
 				onClick={() => handleRemoveVisibility(id)}>
-				<CrossIcon className={`w-3 h-3`} />
+				<CrossIcon className={`pointer-events-none w-6 h-6`} />
 				{/* <div className={`absolute bg-red w-8 h-8 p-12 ${isHover ? "block" : "hidden"}`}>{id}</div> */}
 			</button>
 			<button
