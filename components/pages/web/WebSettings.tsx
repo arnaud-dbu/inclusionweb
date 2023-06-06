@@ -60,6 +60,29 @@ export const WebSettings = () => {
 		}
 	};
 
+	const handleDuplicateSession = async () => {
+		const latestSession = fetchedSessionsData.sort((a, b) => b.session - a.session)[0].session;
+
+		try {
+			const response = await fetch(`/api/webs/${fetchedWebData.id}/session/duplicate`, {
+				method: "POST",
+				body: JSON.stringify({
+					random_id: crypto.randomUUID(),
+					current_session: currentSession.session,
+					new_session: latestSession + 1,
+				}),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+			if (response.status === 201) {
+				router.push(`/web/${fetchedWebData.id}/${latestSession + 1}`);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	const handleAvatarSize = async (size) => {
 		try {
 			const response = await fetch(`/api/webs/${fetchedWebData.id}/images`, {
@@ -143,9 +166,12 @@ export const WebSettings = () => {
 							label: getSession(session),
 						}))}
 					/>
-					<IconButton onClick={handleNewSession}>
-						<PlusIcon className={`w-5 h-5`} />
-					</IconButton>
+					<button className={`bg-red`} onClick={handleNewSession}>
+						Start opnieuw
+					</button>
+					<button className={`bg-primary-800`} onClick={handleDuplicateSession}>
+						Verderzetten
+					</button>
 				</div>
 			</div>
 			<div className={`ml-auto flex items-center gap-4`}></div>

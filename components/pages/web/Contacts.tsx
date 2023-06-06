@@ -20,7 +20,7 @@ export const Contacts = () => {
 
 	const handleContactVisibility = async (id: string) => {
 		try {
-			const response = await fetch(`/api/contact/${id}`, {
+			const response = await fetch(`/api/contacts/${id}`, {
 				method: "PATCH",
 				body: JSON.stringify({
 					visible: true,
@@ -47,7 +47,7 @@ export const Contacts = () => {
 
 	const handleDeleteContact = async (id: string) => {
 		try {
-			const response = await fetch(`/api/contact/${id}`, {
+			const response = await fetch(`/api/contacts/${id}`, {
 				method: "DELETE",
 			});
 			const contact = await response.json();

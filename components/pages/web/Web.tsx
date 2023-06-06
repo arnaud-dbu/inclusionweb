@@ -5,15 +5,15 @@ import { DndContext } from "@dnd-kit/core";
 import { DragContact } from "./DragContact";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
 import { DropZone } from "./DropZone";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { WebContext } from "@/context/WebContext";
 import { WebSettings } from "./WebSettings";
-import html2canvas from "html2canvas";
 
 const Web = () => {
 	const { contacts, setContacts, fetchedWebData } = useContext(WebContext);
 
 	const printRef = useRef();
+	const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
 
 	const handleDragEnd = (ev) => {
 		const dragItemId = ev.active.id;
@@ -54,6 +54,8 @@ const Web = () => {
 				},
 			});
 		} catch (error) {}
+
+		setClickPosition({ x: ev.clientX, y: ev.clientY });
 	};
 
 	return (
@@ -61,7 +63,9 @@ const Web = () => {
 			<DndContext onDragEnd={handleDragEnd} modifiers={[restrictToParentElement]}>
 				<div className="w-[70%] h-screen absolute right-0 top-1/2 -translate-y-1/2 flex items-center justify-center">
 					<WebSettings />
-					<div ref={printRef}>
+					<div
+						ref={printRef}
+						onClick={(event) => setClickPosition({ x: event.clientX, y: event.clientY })}>
 						<div className={`web w-[60rem]`}>
 							<DropZone>
 								{contacts?.map((contact) => (
