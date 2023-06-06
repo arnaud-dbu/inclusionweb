@@ -46,7 +46,7 @@ const NewWebPage = ({}: Props) => {
 			}
 
 			// Insert data into the database
-			const response = await fetch("/api/web", {
+			const response = await fetch("/api/webs", {
 				method: "POST",
 				body: JSON.stringify({
 					id: id,
@@ -115,7 +115,7 @@ const NewWebPage = ({}: Props) => {
 				className="w-[50rem]"
 				showOnWeb={showOnWeb}
 			/>
-			<Modal setShowOnWeb={setShowOnWeb} />
+			<Modal />
 		</div>
 	);
 };

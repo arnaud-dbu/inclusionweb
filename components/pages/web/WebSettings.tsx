@@ -37,8 +37,6 @@ export const WebSettings = () => {
 		return `Versie ${sessionString} - ${formattedDate}`;
 	};
 
-	console.log(getSession(currentSession));
-
 	const handleNewSession = async () => {
 		const latestSession = fetchedSessionsData.sort((a, b) => b.session - a.session)[0].session;
 
@@ -62,6 +60,48 @@ export const WebSettings = () => {
 		}
 	};
 
+	const handleAvatarSize = async (size) => {
+		try {
+			const response = await fetch(`/api/webs/${fetchedWebData.id}/images`, {
+				method: "PATCH",
+				body: JSON.stringify({
+					images_size: size,
+				}),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+
+			if (response.status === 201) {
+				console.log("Avatar size updated");
+				setAvatarSize(size);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const handleNamesVisibility = async (visible) => {
+		try {
+			const response = await fetch(`/api/webs/${fetchedWebData.id}/names`, {
+				method: "PATCH",
+				body: JSON.stringify({
+					names_visible: visible,
+				}),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+
+			if (response.status === 201) {
+				console.log("Names visibility updated");
+				setNamesVisible(visible);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<section
 			className={`flex gap-4 items-center absolute z-50 left-1/2 pt-12 -translate-x-1/2 top-0 w-[70rem]`}>
@@ -69,19 +109,19 @@ export const WebSettings = () => {
 				<div className={`flex gap-2 items-center`}>
 					<BlockTitle className="!mb-0" title="Afbeeldingen" />
 					<CheckButton
-						onClick={() => setAvatarSize("small")}
+						onClick={() => handleAvatarSize("small")}
 						active={avatarSize === "small"}
 						label="Klein"
 					/>
 					<CheckButton
-						onClick={() => setAvatarSize("large")}
+						onClick={() => handleAvatarSize("large")}
 						active={avatarSize === "large"}
 						label="Groot"
 					/>
 				</div>
 				<div className={`flex gap-2 items-center`}>
 					<BlockTitle className="!mb-0" title="Namen" />
-					<button className={``} onClick={() => setNamesVisible(!namesVisible)}>
+					<button className={``} onClick={() => handleNamesVisibility(!namesVisible)}>
 						{namesVisible ? (
 							<VisibleIcon className={`fill-primary-700`} />
 						) : (

@@ -25,29 +25,3 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 		},
 	});
 }
-
-export async function POST(request: Request) {
-	const body = await request.json();
-
-	const supabase = createRouteHandlerSupabaseClient<Database>({
-		headers,
-		cookies,
-	});
-
-	// const { data, error } = await supabase
-	// 	.from("webs")
-	// 	.insert({
-	// 		id: id,
-	// 		name: name,
-	// 		user_id: user_id,
-	// 		image_path: image_path,
-	// 		avatar: avatar,
-	// 	})
-	// 	.select();
-
-	// if (error) {
-	// 	NextResponse.json(error, { status: 500 });
-	// }
-
-	// return NextResponse.json(data[0].id, { status: 201 });
-}

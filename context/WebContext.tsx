@@ -126,13 +126,15 @@ export const WebProvider = ({
 	const [editContact, setEditContact] = useState(null);
 	const [query, setQuery] = useState("");
 	const [view, setView] = useState("grid");
-	const [avatarSize, setAvatarSize] = useState<string>("small");
+
+	const [avatarSize, setAvatarSize] = useState<string>(fetchedWebData.images_size);
+	const [namesVisible, setNamesVisible] = useState(fetchedWebData.names_visible);
+
 	const [type, setType] = useState("person");
 	const [selectedImage, setSelectedImage] = useState("");
 	const [imageUrl, setImageUrl] = useState("");
 	const [dragContacts, setDragContacts] = useState(fetchedContactsData);
 	const [editAvatarFormIsVisible, setEditAvatarFormIsVisible] = useState(true);
-	const [namesVisible, setNamesVisible] = useState(true);
 	const [avatarEditWindow, setEditAvatarWindow] = useState(false);
 	const [modalVisible, setModalVisible] = useState(false);
 	const [thumbnail, setThumbnail] = useState("avatar" || "image");
