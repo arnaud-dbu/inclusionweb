@@ -205,3 +205,16 @@ p {
 		width: 1px;
 	}
 }
+
+.is-loading {
+	background: #eee;
+	background: linear-gradient(110deg, #ddedee 8%, #e9f5f5 18%, #ddedee 33%);
+	background-size: 200% 100%;
+	animation: 1.5s shine linear infinite;
+}
+
+@keyframes shine {
+	to {
+		background-position-x: -200%;
+	}
+}

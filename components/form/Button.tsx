@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ButtonHTMLAttributes } from "react";
 
 type Props = {
@@ -7,6 +8,7 @@ type Props = {
 	style: string;
 	icon?: React.ReactNode;
 	size?: string;
+	image?: any;
 	active?: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -16,6 +18,7 @@ export const Button = ({
 	style,
 	label,
 	size,
+	image,
 	icon,
 	active = true,
 	...rest
@@ -30,7 +33,7 @@ export const Button = ({
 			btnVariant = "bg-neutral-900 font-semibold text-white";
 			break;
 		case "outline":
-			btnVariant = "border-neutral-500 text-neutral-800 border-2";
+			btnVariant = "border-neutral-600 text-neutral-800 border-1";
 			break;
 		default:
 			break;
@@ -44,6 +47,7 @@ export const Button = ({
 			}
             ${size === "sm" ? "px-6 py-2 text-md" : "px-8 h-12"}
             `}>
+			{image && <Image className={`w-6 h-6`} src={image} alt="" width={50} height={50} />}
 			{children}
 			{label}
 			{icon}

@@ -32,3 +32,5 @@ export { default as PlusIcon } from "./plus.svg";
 export { default as TrashIcon } from "./trash.svg";
 export { default as SignOutIcon } from "./sign-out.svg";
 export { default as CirclePlusIcon } from "./circle-plus.svg";
+export { default as KeyIcon } from "./key.svg";
+export { default as MailIcon } from "./email.svg";

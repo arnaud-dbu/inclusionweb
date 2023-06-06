@@ -1,38 +1,36 @@
 "use client";
 
 import { Input } from "@/components/form/Input";
-import emailIcon from "@/public/icons/email.svg";
-import keyIcon from "@/public/icons/key.svg";
 import Form from "@/components/form/Form";
 import { useSupabase } from "@/app/supabase-provider";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@/components/form/Button";
+import { KeyIcon, MailIcon } from "@/public/icons";
 
 // interface for form
-type EmailInterface = {
+type LoginTypes = {
 	email: string;
 	password: string;
-	options: string;
-	emailRedirectTo: string;
 };
 
 // validation
 const EmailSchema = yup.object().shape({
-	email: yup.string().email("Enter a valid email").required("Email is required"),
-	password: yup.string().max(32, "Max password length is 32").required("Password is required"),
+	email: yup.string().email("Enter a valid email").required("Email is verplicht"),
+	password: yup.string().max(32, "Max paswoord lengte is 32").required("Paswoord verplicht"),
 });
 
 const LoginForm = () => {
+	const { supabase } = useSupabase();
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm({ resolver: yupResolver(EmailSchema) });
-	const { supabase } = useSupabase();
 
-	const onSubmit = async (data: EmailInterface) => {
+	const onSubmit = async (data: LoginTypes) => {
 		await supabase.auth.signInWithPassword({
 			email: data.email,
 			password: data.password,
@@ -46,23 +44,23 @@ const LoginForm = () => {
 			onSubmit={onSubmit}
 			className="w-full">
 			<Input
+				secondary
 				name="email"
 				type="email"
 				label="Email"
 				error={errors.email?.message}
 				className="mb-3"
-				// icon={emailIcon}
-				alt="email icon"
+				icon={<MailIcon className={`w-6 h-6 fill-neutral-600`} />}
 			/>
 			<Input
+				secondary
 				name="password"
 				type="password"
 				label="Password"
-				// icon={keyIcon}
-				alt="key icon"
 				error={errors.password?.message}
+				icon={<KeyIcon className={`w-6 h-6 fill-neutral-600`} />}
 			/>
-			<Button style="primary" label="login" className="w-full mt-4" />
+			<Button style="primary" label="Log in" className="w-full mt-5" />
 		</Form>
 	);
 };
