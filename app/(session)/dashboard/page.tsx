@@ -3,7 +3,7 @@ import { getUser } from "@/utils/users";
 import MenuButtons from "@/components/pages/dashboard/MenuButtons";
 import WebCards from "@/components/pages/dashboard/WebCards";
 import { Suspense } from "react";
-import { H1 } from "@/components/Headings";
+import { H1 } from "@/components/Typography";
 
 const DashboardPage = async () => {
 	const { user } = await getUser();

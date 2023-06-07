@@ -8,11 +8,11 @@ type Props = {
 };
 
 const SessionLayout = async ({ children }: Props) => {
-	// Check if user is logged in, if not redirect to login page
 	const supabase = createServerComponentSupabaseClient({
 		headers,
 		cookies,
 	});
+
 	const {
 		data: { user },
 	} = await supabase.auth.getUser();

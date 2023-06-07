@@ -1,5 +1,5 @@
 import DivisionLine from "@/components/DivisionLine";
-import { H2 } from "@/components/Headings";
+import { H2 } from "@/components/Typography";
 import Form from "@/components/form/Form";
 import { useForm } from "react-hook-form";
 

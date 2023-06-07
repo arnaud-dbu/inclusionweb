@@ -1,6 +1,6 @@
 import { Btn } from "@/components/Buttons";
 import DivisionLine from "@/components/DivisionLine";
-import { H1 } from "@/components/Headings";
+import { H1 } from "@/components/Typography";
 import { AddUserIcon, GridIcon, ListIcon } from "@/public/icons";
 import { Contacts } from "./Contacts";
 import { WebContext } from "@/context/WebContext";

@@ -1,4 +1,4 @@
-import { H2 } from "@/components/Headings";
+import { H2 } from "@/components/Typography";
 
 type Props = {
 	children: React.ReactNode;

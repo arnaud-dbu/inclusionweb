@@ -1,6 +1,6 @@
 "use client";
 
-import { H2 } from "@/components/Headings";
+import { H2 } from "@/components/Typography";
 import { Button } from "@/components/form/Button";
 import { ButtonLink } from "@/components/form/ButtonLink";
 import { Input } from "@/components/form/Input";

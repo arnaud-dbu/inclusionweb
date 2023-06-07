@@ -218,3 +218,7 @@ p {
 		background-position-x: -200%;
 	}
 }
+
+.alert {
+	@apply text-red-900 text-sm font-light;
+}

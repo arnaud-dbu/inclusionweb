@@ -1,6 +1,6 @@
 import { Btn } from "./Buttons";
 import Web from "../app/(session)/new/components/WebIllustration";
-import { H1 } from "./Headings";
+import { H1 } from "./Typography";
 
 type Props = {
 	data: any;

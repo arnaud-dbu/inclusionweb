@@ -1,6 +1,6 @@
 import DivisionLine from "@/components/DivisionLine";
 import Header from "@/components/Header";
-import { H2 } from "@/components/Headings";
+import { H2 } from "@/components/Typography";
 import MenuButtons from "@/components/pages/dashboard/MenuButtons";
 
 const DashboardLoading = async () => {

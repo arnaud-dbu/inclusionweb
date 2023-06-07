@@ -1,32 +1,22 @@
-import { H1 } from "@/components/Headings";
+import { HeadingPrimary } from "@/components/Typography";
+import RegisterForm from "@/components/auth/RegisterForm";
 import Link from "next/link";
-import RegisterForm from "./RegisterForm";
-import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { headers, cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 const RegisterPage = async () => {
-	const supabase = createServerComponentSupabaseClient({
-		headers,
-		cookies,
-	});
-
-	const {
-		data: { user },
-	} = await supabase.auth.getUser();
-
-	if (user) {
-		return redirect("/welcome");
-	}
-
 	return (
 		<>
-			<H1>Maak een account</H1>
-			<p className="mb-3">Je kunt dit heel snel en eenvoudig doen</p>
+			<HeadingPrimary underline title="Maak een account" />
+
 			<RegisterForm />
-			<Link href="/auth/login" className="link">
-				Meld je aan
-			</Link>
+
+			<div className="flex flex-col items-center">
+				<Link href="/reset-password" className="link">
+					Wachtwoord vergeten?
+				</Link>
+				<Link href="/login" className="link">
+					Ik heb al een account
+				</Link>
+			</div>
 		</>
 	);
 };

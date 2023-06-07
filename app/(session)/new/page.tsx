@@ -1,7 +1,7 @@
 "use client";
 
 import Form from "@/components/form/Form";
-import { H1 } from "@/components/Headings";
+import { H1 } from "@/components/Typography";
 import { Input } from "@/components/form/Input";
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";

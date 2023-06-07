@@ -1,7 +1,7 @@
 "use client";
 
 import DivisionLine from "@/components/DivisionLine";
-import { H2 } from "@/components/Headings";
+import { H2 } from "@/components/Typography";
 import WebCard from "@/components/WebCard";
 import { SearchInput } from "@/components/form/SearchInput";
 import { useState } from "react";

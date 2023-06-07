@@ -1,4 +1,4 @@
-import { H1 } from "./Headings";
+import { H1 } from "./Typography";
 
 type Props = {
 	title: string;

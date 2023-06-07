@@ -1,4 +1,4 @@
-import { H1, H2 } from "@/components/Headings";
+import { H1, H2 } from "@/components/Typography";
 import AvatarComponent from "@/components/avatar/AvatarComponent";
 import SelectButtons from "@/components/form/SelectButtons";
 import { EditAvatarContext } from "@/context/EditAvatarContext";
