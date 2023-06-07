@@ -1,34 +1,33 @@
 "use client";
 
-import Form from "@/components/form/Form";
-import { H1 } from "@/components/Typography";
-import { Input } from "@/components/form/Input";
-import { useContext, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useContext, useEffect } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { useSupabase } from "@/app/supabase-provider";
 import { useRouter } from "next/navigation";
-import { EditIcon, ImageIcon } from "@/public/icons";
-import { Button } from "@/components/form/Button";
 import WebIllustration from "@/app/(session)/new/components/WebIllustration";
-import Modal from "@/components/pages/web/Modal";
 import { WebContext } from "@/context/WebContext";
+import Header from "@/components/Header";
+import { MainSection } from "@/components/Layouts";
+import NewWebForm from "@/components/pages/new/NewWebForm";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-type Props = {};
+// validation
+const NameSchema = yup.object().shape({
+	name: yup.string().required("Naam veld is verplicht"),
+});
 
-const NewWebPage = ({}: Props) => {
-	const { setEditAvatarWindow, customAvatar, toggleModalVisibility } = useContext(WebContext);
+const NewWebPage = () => {
 	const router = useRouter();
 	const { supabase } = useSupabase();
-	const { register, handleSubmit } = useForm();
-	const [selectedImage, setSelectedImage] = useState<any>("");
-	const [imageUrl, setImageUrl] = useState<string>("");
-	const [showOnWeb, setShowOnWeb] = useState<string>(null);
+	const methods = useForm({ resolver: yupResolver(NameSchema) });
+	const { customAvatar, selectedImage, setImageUrl, imageUrl, thumbnail } = useContext(WebContext);
 
 	useEffect(() => {
 		if (selectedImage) {
 			setImageUrl(URL.createObjectURL(selectedImage));
 		}
-	}, [selectedImage]);
+	}, [selectedImage, setImageUrl]);
 
 	const onSubmit = async (data: any) => {
 		const userId = (await supabase.auth.getUser()).data.user.id;
@@ -36,7 +35,7 @@ const NewWebPage = ({}: Props) => {
 		let imagePath = null;
 
 		try {
-			if (data.picture[0]) {
+			if (imageUrl) {
 				// Upload image
 				const { data: image } = await supabase.storage
 					.from("uploads")
@@ -52,8 +51,8 @@ const NewWebPage = ({}: Props) => {
 					id: id,
 					name: data.name,
 					user_id: userId,
-					image_path: showOnWeb === "image" ? imagePath : null,
-					avatar: showOnWeb === "avatar" ? customAvatar : null,
+					image_path: thumbnail === "image" ? imagePath : null,
+					avatar: thumbnail === "avatar" ? customAvatar : null,
 				}),
 				headers: {
 					"Content-Type": "application/json",
@@ -68,55 +67,23 @@ const NewWebPage = ({}: Props) => {
 		}
 	};
 
-	const handleModalVisibility = () => {
-		toggleModalVisibility();
-		setEditAvatarWindow(true);
-	};
-
 	return (
-		<div className="flex items-center w-full justify-center gap-28 absolute top-1/2 -translate-y-1/2">
-			<div className={`w-[20rem] `}>
-				<H1 className="mb-10" underline>
-					Start een nieuw web
-				</H1>
-				<Form register={register} handleSubmit={handleSubmit} onSubmit={onSubmit}>
-					<Input register={register} name="name" label="Naam" className="mb-4" />
-					<div className="flex gap-2">
-						<div
-							onClick={handleModalVisibility}
-							className={`cursor-pointer w-[47.5%] text-neutral-800 border-[1.5px] border-neutral-500 flex flex-col gap-2 justify-center px-5 py-5 rounded-2xl`}>
-							<EditIcon className="opacity-80" />
-							<span className="text-start text-neutral-800 font-medium">Ontwerp je avatar</span>
-						</div>
-						<div
-							className={`cursor-pointer relative w-[47.5%] text-neutral-800 border-[1.5px] border-neutral-500 flex flex-col gap-2 justify-center px-5 py-5 rounded-2xl`}>
-							<ImageIcon className="opacity-80" />
-							<span className="text-start text-neutral-800 font-medium">Upload een foto</span>
-							<input
-								{...register("picture")}
-								onChange={(e) => {
-									setSelectedImage(e.target.files[0]);
-									setShowOnWeb("image");
-								}}
-								className="cursor-pointer absolute w-full h-full left-0 opacity-0"
-								type="file"
-								name="picture"
-								accept="image/*"
-							/>
-						</div>
+		<>
+			<Header title="Start een nieuw web" />
+			<MainSection>
+				<FormProvider {...methods}>
+					<div className={`flex items-center gap-24 pt-20`}>
+						<NewWebForm onSubmit={onSubmit} />
+						<WebIllustration
+							avatar={customAvatar}
+							image={imageUrl}
+							thumbnail={thumbnail}
+							className="w-[50rem]"
+						/>
 					</div>
-					<Button label="Start" style="primary" className="w-full mt-4" />
-				</Form>
-			</div>
-
-			<WebIllustration
-				image={imageUrl}
-				avatar={customAvatar}
-				className="w-[50rem]"
-				showOnWeb={showOnWeb}
-			/>
-			<Modal />
-		</div>
+				</FormProvider>
+			</MainSection>
+		</>
 	);
 };
 

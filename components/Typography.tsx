@@ -49,3 +49,12 @@ export const HeadingPrimary = ({ underline, className, title, subtitle }: Props)
 		</>
 	);
 };
+
+export const HeadingSecondary = ({ className, title }: Props) => {
+	return (
+		<h2
+			className={`text-3xl whitespace-nowrap font-primary font-bold uppercase text-neutral-900 ${className}`}>
+			{title}
+		</h2>
+	);
+};

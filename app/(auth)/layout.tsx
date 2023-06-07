@@ -1,13 +1,13 @@
 import { NetworkIllustration } from "@/public/illustrations";
 import Image from "next/image";
-import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { headers, cookies } from "next/headers";
 import { redirect } from "next/navigation";
-
 import React from "react";
+import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "@/lib/database.types";
+import { headers, cookies } from "next/headers";
 
 const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
-	const supabase = createServerComponentSupabaseClient({
+	const supabase = createServerComponentSupabaseClient<Database>({
 		headers,
 		cookies,
 	});
@@ -19,6 +19,7 @@ const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
 	if (user) {
 		return redirect("/dashboard");
 	}
+
 	return (
 		<div className="flex h-[100dvh] items-center justify-center">
 			<div className={`flex gap-16 items-center`}>

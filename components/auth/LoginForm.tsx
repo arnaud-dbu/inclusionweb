@@ -9,7 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@/components/form/Button";
 import { KeyIcon, MailIcon } from "@/public/icons";
 import { useState } from "react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 // interface for form
 type LoginTypes = {

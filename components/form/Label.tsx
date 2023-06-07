@@ -32,6 +32,9 @@ export const Label = ({
 		case "outline":
 			btnVariant = "border-neutral-500 text-neutral-800 border-2";
 			break;
+		case "link":
+			btnVariant = "text-primary-800 underline w-fit";
+			break;
 		default:
 			break;
 	}
@@ -39,7 +42,7 @@ export const Label = ({
 	return (
 		<label
 			{...rest}
-			className={` flex gap-2 items-center justify-center rounded-full ${btnVariant} ${className} ${
+			className={`cursor-pointer flex gap-2 items-center justify-center rounded-full ${btnVariant} ${className} ${
 				!active && "!bg-neutral-600 pointer-events-none"
 			}
             ${size === "sm" ? "px-6 py-2 text-md" : "px-8 h-12"}

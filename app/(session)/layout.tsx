@@ -1,14 +1,15 @@
 import SideMenu from "@/components/navigation/SideMenu";
-import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { headers, cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "@/lib/database.types";
+import { headers, cookies } from "next/headers";
 
 type Props = {
 	children: React.ReactNode;
 };
 
 const SessionLayout = async ({ children }: Props) => {
-	const supabase = createServerComponentSupabaseClient({
+	const supabase = createServerComponentSupabaseClient<Database>({
 		headers,
 		cookies,
 	});

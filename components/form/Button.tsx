@@ -9,7 +9,6 @@ type Props = {
 	icon?: React.ReactNode;
 	size?: string;
 	image?: any;
-	active?: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = ({
@@ -20,7 +19,6 @@ export const Button = ({
 	size,
 	image,
 	icon,
-	active = true,
 	...rest
 }: Props) => {
 	let btnVariant = null;
@@ -35,6 +33,15 @@ export const Button = ({
 		case "outline":
 			btnVariant = "border-neutral-600 text-neutral-800 border-1";
 			break;
+		case "alert":
+			btnVariant = "border-red-900 text-red-900 border-1";
+			break;
+		case "disabled":
+			btnVariant = "bg-neutral-500 pointer-events-none text-white";
+			break;
+		case "link":
+			btnVariant = "text-primary-800 underline w-fit";
+			break;
 		default:
 			break;
 	}
@@ -42,10 +49,8 @@ export const Button = ({
 	return (
 		<button
 			{...rest}
-			className={` flex gap-2 items-center justify-center rounded-full ${btnVariant} ${className} ${
-				!active && "!bg-neutral-600 pointer-events-none"
-			}
-            ${size === "sm" ? "px-6 py-2 text-md" : "px-8 h-12"}
+			className={` flex gap-2 items-center justify-center rounded-full h-fit ${btnVariant} ${className} 
+            ${size === "sm" ? "px-6 py-2 text-md" : "px-8 py-2 h-12"}
             `}>
 			{image && <Image className={`w-6 h-6`} src={image} alt="" width={50} height={50} />}
 			{children}
