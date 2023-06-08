@@ -36,10 +36,12 @@ export const P = ({ children, className, text }: Props) => {
 export const HeadingPrimary = ({ underline, className, title, subtitle }: Props) => {
 	return (
 		<>
-			<span
-				className={`text-3xl whitespace-nowrap font-primary font-bold uppercase text-neutral-900`}>
-				{subtitle}
-			</span>
+			{subtitle && (
+				<span
+					className={`text-3xl whitespace-nowrap font-primary font-bold uppercase text-neutral-900`}>
+					{subtitle}
+				</span>
+			)}
 			<h1
 				className={`text-7xl leading-[1.1] font-primary font-bold uppercase text-neutral-900 mb-6 relative ${className} ${
 					underline && "title-underline"

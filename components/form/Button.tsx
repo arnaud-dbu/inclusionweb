@@ -50,7 +50,7 @@ export const Button = ({
 		<button
 			{...rest}
 			className={` flex gap-2 items-center justify-center rounded-full h-fit ${btnVariant} ${className} 
-            ${size === "sm" ? "px-6 py-2 text-md" : "px-8 py-2 h-12"}
+            ${size === "sm" ? "px-6 py-2 text-md" : "px-8 py-3 h-12 text-lg"}
             `}>
 			{image && <Image className={`w-6 h-6`} src={image} alt="" width={50} height={50} />}
 			{children}

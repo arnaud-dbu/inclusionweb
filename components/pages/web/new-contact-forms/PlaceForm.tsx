@@ -9,69 +9,44 @@ import { WebContext } from "@/context/WebContext";
 import { Label } from "@/components/form/Label";
 import { LadyIllustration, OrganizationIllustration } from "@/public/illustrations";
 import SelectImage from "@/components/form/SelectImage";
+import { HeadingSecondary } from "@/components/Typography";
+import ContactDetails from "./ContactDetails";
+import ContactRelation from "./ContactRelation";
+import ContactGivenSupport from "./ContactGivenSupport";
+import ContactReceivedSupport from "./ContactReceivedSupport";
+import ContactFrequency from "./ContactFrequency";
+import ContactUploadPicture from "./ContactUploadPicture";
 
-type Props = {
-	register: any;
-};
-
-const PlaceForm = ({ register }: Props) => {
-	const { setThumbnail, setSelectedImage, setImageUrl } = useContext(WebContext);
+const PlaceForm = () => {
+	const { setThumbnail, setImageUrl } = useContext(WebContext);
 
 	const handlePresetImageChangeUpload = (image: any) => {
 		setImageUrl(image);
 		setThumbnail("presetImage");
 	};
 
-	const handleCustomImageChangeUpload = (e) => {
-		setSelectedImage(e.target.files[0]);
-		setThumbnail("customImage");
-	};
-
 	return (
 		<>
-			<FormBlock title="Gegevens">
-				<FormBlockItem title="Plaats">
-					<div className="flex gap-3 w-[30rem]">
-						<Input secondary register={register} name="name" label="Naam" />
-						<Input secondary register={register} name="role" label="Rol" />
-					</div>
-				</FormBlockItem>
-
-				<FormBlockItem title="Relatie">
-					<Dropdown
-						register={register}
-						className={`w-[30rem]`}
-						name="relation"
-						options={[{ label: "Partner" }, { label: "Familie" }, { label: "Buur" }]}
-					/>
-				</FormBlockItem>
-
-				<FormBlockItem title="Gegeven Steun">
-					<CheckboxButtons
-						register={register}
-						name="given_support"
-						options={["Emotioneel", "Gezelligheid", "Praktisch", "Goede Raad"]}
-					/>
-				</FormBlockItem>
-
-				<FormBlockItem title="Ontvangen Steun">
-					<CheckboxButtons
-						register={register}
-						name="received_support"
-						options={["Emotioneel", "Gezelligheid", "Praktisch", "Goede Raad"]}
-					/>
-				</FormBlockItem>
-
-				<FormBlockItem title="Frequentie">
-					<RadioButtons
-						register={register}
-						options={["Nooit", "Dagelijks", "Wekelijks", "Maandelijks", "Jaarlijks"]}
-						name="frequency"
-					/>
-				</FormBlockItem>
+			<FormBlock>
+				<HeadingSecondary title="Gegevens" className="mb-4" />
+				<ContactDetails title="Plaats" />
+				<ContactRelation
+					options={[
+						{ value: "Partner", label: "Partner" },
+						{ value: "Familie", label: "Familie" },
+						{ value: "Buur", label: "Buur" },
+					]}
+				/>
+				<ContactGivenSupport />
+				<ContactReceivedSupport />
+				<ContactFrequency />
 			</FormBlock>
 
-			<FormBlock title="Kies afbeelding">
+			<FormBlock>
+				<div className={`flex items-center justify-between mb-5`}>
+					<HeadingSecondary title="Afbeelding" />
+					<ContactUploadPicture />
+				</div>
 				<FormBlockItem title="Avatar">
 					<div className="flex gap-4">
 						<SelectImage
@@ -83,23 +58,6 @@ const PlaceForm = ({ register }: Props) => {
 							onClick={() => handlePresetImageChangeUpload(OrganizationIllustration)}
 						/>
 					</div>
-				</FormBlockItem>
-
-				<FormBlockItem title="Foto">
-					<Label
-						style="outline"
-						size="sm"
-						title="Upload een foto"
-						className={`file-input-hidden w-full`}>
-						<input
-							{...register("picture")}
-							onChange={handleCustomImageChangeUpload}
-							className=""
-							type="file"
-							name="picture"
-							accept="image/*"
-						/>
-					</Label>
 				</FormBlockItem>
 			</FormBlock>
 		</>

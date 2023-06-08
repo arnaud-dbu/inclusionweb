@@ -8,7 +8,6 @@ import { DropZone } from "./DropZone";
 import { useContext, useRef, useState } from "react";
 import { WebContext } from "@/context/WebContext";
 import { WebSettings } from "./WebSettings";
-import { log } from "util";
 
 const Web = () => {
 	const { contacts, setContacts, fetchedWebData } = useContext(WebContext);
@@ -77,7 +76,7 @@ const Web = () => {
 		const draggedItem = newPositionedDragItems?.find((item) => item.id === dragItemId);
 
 		try {
-			const response = fetch(`/api/contact/position/${dragItemId}`, {
+			const response = fetch(`/api/contact/${dragItemId}/position`, {
 				method: "PATCH",
 				body: JSON.stringify({
 					position: {
@@ -95,10 +94,10 @@ const Web = () => {
 	return (
 		<>
 			<DndContext onDragEnd={handleDragEnd} modifiers={[restrictToParentElement]}>
-				<div className="w-[70%] h-screen absolute right-0 top-1/2 -translate-y-1/2 flex items-center justify-center">
+				<div className="relative w-full flex items-center justify-center">
 					<WebSettings />
 					<div ref={printRef} onClick={handleDivClick} className={`cursor-cell`}>
-						<div className={`web w-[60rem]`}>
+						<div className={`web w-[55rem]`}>
 							<DropZone>
 								{contacts?.map((contact) => (
 									<DragContact

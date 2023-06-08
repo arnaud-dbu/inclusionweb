@@ -12,7 +12,6 @@ import {
 import { useForm, FormProvider } from "react-hook-form";
 import Form from "@/components/form/Form";
 import { AnimalIcon, GroupIcon, PersonIcon, PlaceIcon } from "@/public/icons";
-import { Btn } from "@/components/Buttons";
 import { useContext, useEffect } from "react";
 import SelectButtons from "@/components/form/SelectButtons";
 import AvatarComponent from "@/components/avatar/AvatarComponent";
@@ -98,7 +97,24 @@ export const NewContactForm = () => {
 				setImageUrl(`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${editContact.image_path}`);
 			}
 		}
-	}, []);
+	}, [
+		editContact,
+		setAccessoriesType,
+		setClothes,
+		setEyebrow,
+		setEyes,
+		setFacialHair,
+		setHairColor,
+		setImageUrl,
+		setMouth,
+		setSelectedGivenSupport,
+		setSelectedReceivedSupport,
+		setSkinColor,
+		setThumbnail,
+		setTopType,
+		setType,
+		setValue,
+	]);
 
 	const handleClosingModal = () => {
 		setModalVisible(false);
@@ -115,7 +131,7 @@ export const NewContactForm = () => {
 		if (selectedImage) {
 			setImageUrl(URL.createObjectURL(selectedImage));
 		}
-	}, [selectedImage]);
+	}, [selectedImage, setImageUrl]);
 
 	const handleCreateContactSubmit = async (data) => {
 		const customAvatarString = JSON.stringify(customAvatar);
@@ -155,7 +171,7 @@ export const NewContactForm = () => {
 				session_id: session,
 			};
 
-			const response = await fetch("/api/contact", {
+			const response = await fetch("/api/contacts", {
 				method: "POST",
 				body: JSON.stringify(body),
 				headers: {
@@ -243,9 +259,9 @@ export const NewContactForm = () => {
 
 	return (
 		<>
-			<div className={`flex items-center justify-between w-full gap-10 px-24`}>
-				<div>
-					<span className="mb-7 block font-primary text-6xl uppercase font-bold text-neutral-900 gap-5">
+			<div className={`flex items-center justify-between gap-10 px-24 py-10`}>
+				<div className={``}>
+					<span className="mb-7  block font-primary text-6xl uppercase font-bold text-neutral-900 gap-5">
 						Nieuw contact
 					</span>
 					<SelectButtons
@@ -281,7 +297,7 @@ export const NewContactForm = () => {
 				</div>
 				{thumbnail === "presetImage" || thumbnail === "customImage" ? (
 					<Image
-						className="rounded-full w-32 h-32 object-cover aspect-square "
+						className="rounded-full w-36 h-36 object-cover aspect-square "
 						alt="test"
 						src={imageUrl || "/"}
 						width={700}
@@ -290,7 +306,7 @@ export const NewContactForm = () => {
 				) : (
 					<AvatarComponent
 						avatar={customAvatar}
-						className="bg-primary-500 w-32 h-32 rounded-full object-cover"
+						className="bg-primary-500 w-36 h-36 rounded-full object-cover"
 					/>
 				)}
 			</div>
@@ -298,16 +314,16 @@ export const NewContactForm = () => {
 
 			<FormProvider {...methods}>
 				<Form
-					className={`px-24 flex flex-col`}
+					className={`px-24 py-10 flex flex-col`}
 					register={register}
 					handleSubmit={handleSubmit}
 					onSubmit={editContact ? handleEditContactSubmit : handleCreateContactSubmit}>
-					<OverFlowContainer>
+					<OverFlowContainer bg="white" className={`flex gap-16`}>
 						{}
-						{type === "person" && <PersonForm register={register} />}
-						{type === "group" && <GroupForm register={register} />}
-						{type === "place" && <PlaceForm register={register} />}
-						{type === "animal" && <AnimalForm register={register} />}
+						{type === "person" && <PersonForm />}
+						{type === "group" && <GroupForm />}
+						{type === "place" && <PlaceForm />}
+						{type === "animal" && <AnimalForm />}
 					</OverFlowContainer>
 
 					<div className="flex gap-3 mt-8 self-end">

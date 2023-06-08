@@ -15,3 +15,21 @@ export async function GET() {
 
 	return NextResponse.json(data);
 }
+
+export async function POST(req: Request) {
+	const contact = await req.json();
+
+	const supabase = createRouteHandlerSupabaseClient<Database>({
+		headers,
+		cookies,
+	});
+
+	const { data, error } = await supabase.from("contacts").insert(contact).select();
+
+	if (error) {
+		NextResponse.json(error, { status: 500 });
+		console.log(error);
+	}
+
+	return NextResponse.json(data, { status: 201 });
+}

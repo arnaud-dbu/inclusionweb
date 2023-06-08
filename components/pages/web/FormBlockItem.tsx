@@ -11,8 +11,8 @@ type Props = {
 const FormBlockItem = ({ title, children, alignStart }: Props) => {
 	return (
 		<>
-			<div className={`flex ${!alignStart && "items-center"} justify-between mb-7`}>
-				<BlockTitle title={title} className={`!mb-0`} />
+			<div className={`flex flex-col mb-5`}>
+				<BlockTitle title={title} className={`mb-3`} />
 				<div className={`w-[30rem]`}>{children}</div>
 			</div>
 		</>

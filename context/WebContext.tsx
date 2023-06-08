@@ -24,72 +24,7 @@ export type AvatarType = {
 };
 
 // type WebContextType = {
-// 	fetchedWebData?: any;
-// 	fetchedContactsData?: any;
-// 	fetchedSessionsData?: any;
-// 	session: number;
-// 	contacts: any[];
-// 	setContacts: (contacts: any[]) => void;
-// 	setModalVisible: (visible: boolean) => void;
-// 	showDroppedContacts: boolean;
-// 	setShowDroppedContacts: (category: boolean) => void;
-// 	modalVisible: boolean;
-// 	query: string;
-// 	setQuery: (query: string) => void;
-// 	searchFilter: any;
-// 	handleSearchFilter: (e: any) => void;
-// 	searchFilteredContacts: any;
-// 	view: string;
-// 	setView: (view: string) => void;
-// 	avatarSize: string;
-// 	setAvatarSize: (size: string) => void;
-// 	namesVisible: boolean;
-// 	setNamesVisible: (visible: boolean) => void;
-// 	avatarEditWindow: boolean;
-// 	activeAvatarPreset: string;
-// 	setActiveAvatarPreset: (preset: string) => void;
-// 	setEditAvatarWindow: (value: boolean) => void;
-// 	topType: string[];
-// 	setTopType: (types: string[]) => void;
-// 	accessoriesType: string[];
-// 	setAccessoriesType: (types: string[]) => void;
-// 	hairColor: string[];
-// 	setHairColor: (colors: string[]) => void;
-// 	facialHair: string[];
-// 	setFacialHair: (types: string[]) => void;
-// 	clothes: string[];
-// 	setClothes: (types: string[]) => void;
-// 	eyes: string[];
-// 	setEyes: (types: string[]) => void;
-// 	eyebrow: string[];
-// 	setEyebrow: (types: string[]) => void;
-// 	mouth: string[];
-// 	setMouth: (types: string[]) => void;
-// 	skinColor: string[];
-// 	setSkinColor: (colors: string[]) => void;
-// 	handleSwitchAvatarStyles: (item: string[], dir: ">" | "<") => void;
-// 	handlePresetAvatarSubmit: (type: string) => void;
-// 	toggleEditAvatarWindow: () => void;
-// 	customAvatar: AvatarType;
-// 	toggleModalVisibility: () => void;
-// 	thumbnail: string;
-// 	setThumbnail: (value: string) => void;
-// 	type: string;
-// 	setType: (type: string) => void;
-// 	selectedImage: any;
-// 	setSelectedImage: (image: any) => void;
-// 	imageUrl: string;
-// 	setImageUrl: (url: string) => void;
-// 	editAvatarFormIsVisible: boolean;
-// 	setEditAvatarFormIsVisible: (visible: boolean) => void;
-// 	dragContacts: any;
-// 	setDragContacts: (contacts: any[]) => void;
-// 	setEditContact: (contact: any) => void;
-// 	editContact: any;
-// 	selectedReceivedSupport: any;
-// 	setSelectedReceivedSupport: any;
-// 	selectedGivenSupport: any;
-// 	setSelectedGivenSupport: any;
+
 // };
 
 export const WebContext = createContext(null);
@@ -110,13 +45,30 @@ export const WebProvider = ({
 	fetchedContactsData,
 	fetchedSessionsData,
 	session,
-	contacts,
-	setContacts,
 }: Props) => {
+	// Data
+	const [contacts, setContacts] = useState(fetchedContactsData);
+	const [web, setWeb] = useState(fetchedWebData);
+	const [sessions, sesSessions] = useState(fetchedSessionsData);
+
+	// Search function
+	const [query, setQuery] = useState<string>("");
+	const [inputValue, setInputValue] = useState<string>("");
+
+	const handleSearchFilter = (e: any) => {
+		setQuery(e.target.value.toLowerCase());
+	};
+
+	const handleInputChange = (e: any) => {
+		setInputValue(e.target.value);
+		handleSearchFilter(e);
+	};
+
 	// States
+	const [modalVisible, setModalVisible] = useState(false);
+
 	const [showDroppedContacts, setShowDroppedContacts] = useState<boolean>(false);
 	const [editContact, setEditContact] = useState(null);
-	const [query, setQuery] = useState("");
 	const [view, setView] = useState("grid");
 
 	const [avatarSize, setAvatarSize] = useState<string>(fetchedWebData?.images_size);
@@ -132,7 +84,6 @@ export const WebProvider = ({
 	const [activeAvatarPreset, setActiveAvatarPreset] = useState("youngManAvatar");
 	const [selectedReceivedSupport, setSelectedReceivedSupport] = useState([]);
 	const [selectedGivenSupport, setSelectedGivenSupport] = useState([]);
-	const [modalVisible, setModalVisible] = useState(false);
 
 	const [topType, setTopType] = useState<string[]>(["ShortHairShortFlat", ...topTypes.slice(1)]);
 	const [accessoriesType, setAccessoriesType] = useState<string[]>([
@@ -148,9 +99,6 @@ export const WebProvider = ({
 	const [skinColor, setSkinColor] = useState<string[]>(["Light", ...skinColors.slice(1)]);
 
 	// Handlers
-	const handleSearchFilter = (e) => {
-		setQuery(e.target.value.toLowerCase());
-	};
 
 	const searchFilter = (array) => {
 		return array.filter((el) => el.name.toLowerCase().includes(query));
@@ -163,8 +111,10 @@ export const WebProvider = ({
 		setEditAvatarWindow(!avatarEditWindow);
 	};
 
-	const toggleModalVisibility = () => {
-		setModalVisible(!modalVisible);
+	const toggleModalVisibility = (modalName, isVisible) => {
+		if (modalName === "contact") {
+			setModalVisible(isVisible);
+		}
 	};
 
 	const handleSwitchAvatarStyles = (item, dir) => {
@@ -255,11 +205,21 @@ export const WebProvider = ({
 	return (
 		<WebContext.Provider
 			value={{
+				web,
+				setWeb,
+				sessions,
+				sesSessions,
+				contacts,
+				setContacts,
+				inputValue,
+				setInputValue,
+				handleInputChange,
+				toggleModalVisibility,
+
 				fetchedWebData,
 				fetchedContactsData,
 				fetchedSessionsData,
-				contacts,
-				setContacts,
+
 				modalVisible,
 				session,
 				setModalVisible,
@@ -302,7 +262,6 @@ export const WebProvider = ({
 				handlePresetAvatarSubmit,
 				toggleEditAvatarWindow,
 				customAvatar,
-				toggleModalVisibility,
 				thumbnail,
 				setThumbnail,
 				type,

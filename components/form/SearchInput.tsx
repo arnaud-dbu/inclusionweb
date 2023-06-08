@@ -1,18 +1,9 @@
-import { LoupeIcon, CrossIcon } from "@/public/icons"; // Assuming you have a CrossIcon component
-import React, { useState } from "react";
+import { WebContext } from "@/context/WebContext";
+import { CrossIcon, LoupeIcon } from "@/public/icons";
+import React, { useContext } from "react";
 
-type Props = {
-	handleSearchFilter: any;
-	setQuery: any;
-};
-
-export const SearchInput = ({ handleSearchFilter, setQuery }: Props) => {
-	const [inputValue, setInputValue] = useState("");
-
-	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setInputValue(event.target.value);
-		handleSearchFilter(event);
-	};
+export const SearchInput = () => {
+	const { setQuery, setInputValue, inputValue, handleInputChange } = useContext(WebContext);
 
 	return (
 		<div className={`relative mb-3`}>

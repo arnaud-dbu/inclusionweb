@@ -127,7 +127,7 @@ export const WebSettings = () => {
 
 	return (
 		<section
-			className={`flex gap-4 items-center absolute z-50 left-1/2 pt-12 -translate-x-1/2 top-0 w-[70rem]`}>
+			className={`flex gap-4 justify-center items-center absolute z-50 left-1/2 pt-12 -translate-x-1/2 top-0 `}>
 			<div className={`flex gap-12 items-center`}>
 				<div className={`flex gap-2 items-center`}>
 					<BlockTitle className="!mb-0" title="Afbeeldingen" />
