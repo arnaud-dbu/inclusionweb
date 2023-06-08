@@ -4,13 +4,13 @@ import { useContext, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useSupabase } from "@/app/supabase-provider";
 import { useRouter } from "next/navigation";
-import WebIllustration from "@/app/(session)/new/components/WebIllustration";
 import { WebContext } from "@/context/WebContext";
 import Header from "@/components/Header";
 import { MainSection } from "@/components/Layouts";
 import NewWebForm from "@/components/pages/new/NewWebForm";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import WebIllustration from "@/components/pages/new/WebIllustration";
 
 // validation
 const NameSchema = yup.object().shape({
