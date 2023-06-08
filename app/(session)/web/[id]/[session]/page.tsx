@@ -1,30 +1,34 @@
-"use client";
+import WebComponents from "@/components/web/WebComponent";
 
-import { WebProvider } from "@/context/WebContext";
-import SideBar from "@/components/pages/web/SideBar";
-import Web from "@/components/pages/web/Web";
-import NewContactModal from "@/components/pages/web/NewContactModal";
+const WebPage = async ({ params }) => {
+	const webRes = await fetch(`${process.env.HOST}/api/webs/${params.id}`, {
+		cache: "no-cache",
+	});
+	const fetchedWebData = await webRes.json();
 
-type Props = {
-	fetchedContactsData: any;
-	fetchedWebData: any;
-	fetchedSessionsData: any;
-	session: number;
-};
+	const contactRes = await fetch(`${process.env.HOST}/api/contacts`, {
+		cache: "no-cache",
+	});
+	const contactsData = await contactRes.json();
+	const fetchedContactsData = await contactsData?.filter(
+		(contact: any) => contact.web_id === fetchedWebData.id && contact.session_id === params.session
+	);
 
-const WebPage = ({ fetchedWebData, fetchedContactsData, fetchedSessionsData, session }: Props) => {
+	const sessionRes = await fetch(`${process.env.HOST}/api/sessions`, {
+		cache: "no-cache",
+	});
+	const sessionsData = await sessionRes.json();
+	const fetchedSessionsData = await sessionsData?.filter(
+		(session: any) => session.web_id === fetchedWebData.id
+	);
+
 	return (
-		<div className={`flex relative left-[6rem] w-[calc(100vw-6rem)]`}>
-			<WebProvider
-				fetchedWebData={fetchedWebData}
-				fetchedContactsData={fetchedContactsData}
-				fetchedSessionsData={fetchedSessionsData}
-				session={session}>
-				<SideBar />
-				<Web />
-				<NewContactModal />
-			</WebProvider>
-		</div>
+		<WebComponents
+			fetchedContactsData={fetchedContactsData}
+			fetchedWebData={fetchedWebData}
+			fetchedSessionsData={fetchedSessionsData}
+			session={params.session}
+		/>
 	);
 };
 
