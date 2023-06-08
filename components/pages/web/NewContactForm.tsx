@@ -17,14 +17,13 @@ import SelectButtons from "@/components/form/SelectButtons";
 import AvatarComponent from "@/components/avatar/AvatarComponent";
 import { useSupabase } from "@/app/supabase-provider";
 import { WebContext } from "@/context/WebContext";
-import DivisionLine from "@/components/DivisionLine";
-import OverFlowContainer from "@/components/OverFlowContainer";
 import Image from "next/image";
 import PersonForm from "./new-contact-forms/PersonForm";
 import GroupForm from "./new-contact-forms/GroupForm";
 import AnimalForm from "./new-contact-forms/AnimalForm";
 import PlaceForm from "./new-contact-forms/PlaceForm";
 import { Button } from "@/components/form/Button";
+import NewContactNavigation from "./NewContactNavigation";
 
 export const NewContactForm = () => {
 	const {
@@ -55,6 +54,7 @@ export const NewContactForm = () => {
 		setEyebrow,
 		setMouth,
 		handlePresetAvatarSubmit,
+		setEditInfoVisible,
 	} = useContext(WebContext);
 
 	const methods = useForm();
@@ -67,7 +67,6 @@ export const NewContactForm = () => {
 			setValue("name", editContact.name);
 			setValue("role", editContact.role);
 			setValue("relation", editContact.relation);
-			console.log(editContact.relation);
 
 			setValue("given_support", editContact.given_support);
 			setValue("received_support", editContact.received_support);
@@ -76,7 +75,6 @@ export const NewContactForm = () => {
 			setSelectedReceivedSupport(editContact.received_support);
 			setValue("frequency", editContact.frequency);
 			setValue("avatar", editContact.avatar);
-			setValue("image_path", editContact.image_path);
 
 			if (editContact.avatar) {
 				setThumbnail("avatar");
@@ -92,29 +90,17 @@ export const NewContactForm = () => {
 				setMouth([avatarStyle.mouthType, ...mouthTypes.slice(1)]);
 			}
 
-			if (editContact.image_path) {
+			if (editContact.image_type === "presetImage") {
 				setThumbnail("presetImage");
+				setImageUrl(editContact.image_path);
+			}
+
+			if (editContact.image_type === "customImage") {
+				setThumbnail("customImage");
 				setImageUrl(`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${editContact.image_path}`);
 			}
 		}
-	}, [
-		editContact,
-		setAccessoriesType,
-		setClothes,
-		setEyebrow,
-		setEyes,
-		setFacialHair,
-		setHairColor,
-		setImageUrl,
-		setMouth,
-		setSelectedGivenSupport,
-		setSelectedReceivedSupport,
-		setSkinColor,
-		setThumbnail,
-		setTopType,
-		setType,
-		setValue,
-	]);
+	}, [editContact]);
 
 	const handleClosingModal = () => {
 		setModalVisible(false);
@@ -124,6 +110,7 @@ export const NewContactForm = () => {
 		setSelectedReceivedSupport([""]);
 		handlePresetAvatarSubmit("youngManAvatar");
 		setType("person");
+		setEditInfoVisible("Gegevens");
 		reset();
 	};
 
@@ -233,7 +220,7 @@ export const NewContactForm = () => {
 				frequency: data.frequency,
 			};
 
-			const response = await fetch(`/api/contact/${editContact.id}`, {
+			const response = await fetch(`/api/contacts/${editContact.id}`, {
 				method: "PUT",
 				body: JSON.stringify(body),
 				headers: {
@@ -256,6 +243,8 @@ export const NewContactForm = () => {
 			console.log(error);
 		}
 	};
+
+	console.log(imageUrl);
 
 	return (
 		<>
@@ -295,22 +284,35 @@ export const NewContactForm = () => {
 						setType={setType}
 					/>
 				</div>
-				{thumbnail === "presetImage" || thumbnail === "customImage" ? (
-					<Image
-						className="rounded-full w-36 h-36 object-cover aspect-square "
-						alt="test"
-						src={imageUrl || "/"}
-						width={700}
-						height={700}
-					/>
-				) : (
+				{thumbnail === "avatar" && (
 					<AvatarComponent
 						avatar={customAvatar}
 						className="bg-primary-500 w-36 h-36 rounded-full object-cover"
 					/>
 				)}
+
+				{thumbnail === "presetImage" && (
+					<Image
+						className="rounded-full w-36 h-36 object-cover aspect-square "
+						alt="test"
+						src={editContact?.image_path ?? (imageUrl || "/")}
+						width={700}
+						height={700}
+					/>
+				)}
+
+				{thumbnail === "customImage" && (
+					<Image
+						className="rounded-full w-36 h-36 object-cover aspect-square "
+						alt="test"
+						src={`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${imageUrl}` || "/"}
+						width={700}
+						height={700}
+					/>
+				)}
 			</div>
-			<DivisionLine />
+
+			<NewContactNavigation />
 
 			<FormProvider {...methods}>
 				<Form
@@ -318,13 +320,13 @@ export const NewContactForm = () => {
 					register={register}
 					handleSubmit={handleSubmit}
 					onSubmit={editContact ? handleEditContactSubmit : handleCreateContactSubmit}>
-					<OverFlowContainer bg="white" className={`flex gap-16`}>
-						{}
-						{type === "person" && <PersonForm />}
-						{type === "group" && <GroupForm />}
-						{type === "place" && <PlaceForm />}
-						{type === "animal" && <AnimalForm />}
-					</OverFlowContainer>
+					{/* <OverFlowContainer bg="white" className={`flex gap-16`}> */}
+					{}
+					{type === "person" && <PersonForm />}
+					{type === "group" && <GroupForm />}
+					{type === "place" && <PlaceForm />}
+					{type === "animal" && <AnimalForm />}
+					{/* </OverFlowContainer> */}
 
 					<div className="flex gap-3 mt-8 self-end">
 						<Button style="outline" label="Annuleer" onClick={handleClosingModal} />

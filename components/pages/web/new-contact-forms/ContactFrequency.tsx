@@ -1,7 +1,7 @@
 import React from "react";
-import FormBlockItem from "../FormBlockItem";
 import { RadioButtons } from "@/components/form/RadioButtonGroup";
 import { useFormContext } from "react-hook-form";
+import { FormBlockItem } from "../FormBlock";
 
 const ContactFrequency = () => {
 	const { register } = useFormContext();

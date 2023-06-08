@@ -1,11 +1,24 @@
-import { HeadingSecondary } from "@/components/Typography";
+import DivisionLine from "@/components/DivisionLine";
+import { BlockTitle } from "@/components/form/BlockTitle";
+import React from "react";
 
 type Props = {
 	children: React.ReactNode;
+	className?: string;
+	title?: string;
 };
 
-const FormBlock = ({ children }: Props) => {
-	return <div className={`flex flex-col`}>{children}</div>;
+export const FormBlock = ({ children, className }: Props) => {
+	return <div className={`flex flex-col ${className}`}>{children}</div>;
 };
 
-export default FormBlock;
+export const FormBlockItem = ({ title, children }: Props) => {
+	return (
+		<>
+			<div className={`flex flex-col mb-5`}>
+				<BlockTitle title={title} className={`mb-3`} />
+				<div className={`w-[30rem]`}>{children}</div>
+			</div>
+		</>
+	);
+};

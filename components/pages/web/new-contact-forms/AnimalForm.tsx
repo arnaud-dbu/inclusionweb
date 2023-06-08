@@ -1,6 +1,4 @@
 import { useContext } from "react";
-import FormBlock from "../FormBlock";
-import FormBlockItem from "../FormBlockItem";
 import { WebContext } from "@/context/WebContext";
 import { LadyIllustration, OrganizationIllustration } from "@/public/illustrations";
 import SelectImage from "@/components/form/SelectImage";
@@ -11,9 +9,10 @@ import ContactGivenSupport from "./ContactGivenSupport";
 import ContactReceivedSupport from "./ContactReceivedSupport";
 import ContactFrequency from "./ContactFrequency";
 import ContactUploadPicture from "./ContactUploadPicture";
+import { FormBlock, FormBlockItem } from "../FormBlock";
 
 const AnimalForm = () => {
-	const { setThumbnail, setImageUrl } = useContext(WebContext);
+	const { setThumbnail, setImageUrl, editInfoVisible } = useContext(WebContext);
 
 	const handlePresetImageChangeUpload = (image: any) => {
 		setImageUrl(image);
@@ -22,7 +21,7 @@ const AnimalForm = () => {
 
 	return (
 		<>
-			<FormBlock>
+			<FormBlock className={`${editInfoVisible !== "Gegevens" && "hidden"}`}>
 				<HeadingSecondary title="Gegevens" className="mb-4" />
 				<ContactDetails title="Dier" />
 				<ContactRelation
@@ -37,7 +36,7 @@ const AnimalForm = () => {
 				<ContactFrequency />
 			</FormBlock>
 
-			<FormBlock>
+			<FormBlock className={`${editInfoVisible !== "Afbeelding" && "hidden"}`}>
 				<div className={`flex items-center justify-between mb-5`}>
 					<HeadingSecondary title="Afbeelding" />
 					<ContactUploadPicture />

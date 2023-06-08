@@ -1,6 +1,4 @@
 import { useContext } from "react";
-import FormBlock from "../FormBlock";
-import FormBlockItem from "../FormBlockItem";
 import { SelectAvatar } from "@/components/form/SelectAvatar";
 import { CustomAvatarForm } from "../CustomAvatarForm";
 import { WebContext } from "@/context/WebContext";
@@ -11,15 +9,14 @@ import ContactGivenSupport from "./ContactGivenSupport";
 import ContactReceivedSupport from "./ContactReceivedSupport";
 import ContactFrequency from "./ContactFrequency";
 import ContactUploadPicture from "./ContactUploadPicture";
+import { FormBlock, FormBlockItem } from "../FormBlock";
 
 const PersonForm = () => {
-	const { handlePresetAvatarSubmit, activeAvatarPreset, editAvatarFormIsVisible } =
-		useContext(WebContext);
+	const { handlePresetAvatarSubmit, activeAvatarPreset, editInfoVisible } = useContext(WebContext);
 
 	return (
 		<>
-			<FormBlock>
-				<HeadingSecondary title="Gegevens" className="mb-4" />
+			<FormBlock className={`${editInfoVisible !== "Gegevens" && "hidden"}`}>
 				<ContactDetails title="Persoon" />
 				<ContactRelation
 					options={[
@@ -33,7 +30,7 @@ const PersonForm = () => {
 				<ContactFrequency />
 			</FormBlock>
 
-			<FormBlock>
+			<FormBlock className={`${editInfoVisible !== "Afbeelding" && "hidden"}`}>
 				<div className={`flex items-center justify-between mb-5`}>
 					<HeadingSecondary title="Afbeelding" />
 					<ContactUploadPicture />
@@ -57,11 +54,9 @@ const PersonForm = () => {
 					</div>
 				</FormBlockItem>
 
-				{editAvatarFormIsVisible && (
-					<FormBlockItem>
-						<CustomAvatarForm />
-					</FormBlockItem>
-				)}
+				<FormBlockItem>
+					<CustomAvatarForm />
+				</FormBlockItem>
 			</FormBlock>
 		</>
 	);

@@ -71,6 +71,8 @@ export const WebProvider = ({
 	const [editContact, setEditContact] = useState(null);
 	const [view, setView] = useState("grid");
 
+	const [editInfoVisible, setEditInfoVisible] = useState("Gegevens");
+
 	const [avatarSize, setAvatarSize] = useState<string>(fetchedWebData?.images_size);
 	const [namesVisible, setNamesVisible] = useState(fetchedWebData?.names_visible);
 
@@ -78,7 +80,6 @@ export const WebProvider = ({
 	const [selectedImage, setSelectedImage] = useState<any>("");
 	const [imageUrl, setImageUrl] = useState("");
 	const [dragContacts, setDragContacts] = useState(fetchedContactsData);
-	const [editAvatarFormIsVisible, setEditAvatarFormIsVisible] = useState(true);
 	const [avatarEditWindow, setEditAvatarWindow] = useState(false);
 	const [thumbnail, setThumbnail] = useState("avatar" || "image");
 	const [activeAvatarPreset, setActiveAvatarPreset] = useState("youngManAvatar");
@@ -215,6 +216,8 @@ export const WebProvider = ({
 				setInputValue,
 				handleInputChange,
 				toggleModalVisibility,
+				editInfoVisible,
+				setEditInfoVisible,
 
 				fetchedWebData,
 				fetchedContactsData,
@@ -270,8 +273,6 @@ export const WebProvider = ({
 				setSelectedImage,
 				imageUrl,
 				setImageUrl,
-				editAvatarFormIsVisible,
-				setEditAvatarFormIsVisible,
 				dragContacts,
 				setDragContacts,
 				editContact,

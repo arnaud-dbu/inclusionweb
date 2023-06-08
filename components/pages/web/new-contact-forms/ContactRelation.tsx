@@ -1,5 +1,5 @@
 import React from "react";
-import FormBlockItem from "../FormBlockItem";
+import { FormBlockItem } from "../FormBlock";
 import { Dropdown } from "@/components/form/Dropdown";
 
 type Props = {

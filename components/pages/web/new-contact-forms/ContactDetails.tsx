@@ -1,7 +1,7 @@
 import React from "react";
-import FormBlockItem from "../FormBlockItem";
 import { Input } from "@/components/form/Input";
 import { useFormContext } from "react-hook-form";
+import { FormBlockItem } from "../FormBlock";
 
 type Props = {
 	title: string;

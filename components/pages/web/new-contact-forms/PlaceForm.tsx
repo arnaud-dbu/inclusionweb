@@ -1,12 +1,5 @@
-import React, { useContext, useState } from "react";
-import FormBlock from "../FormBlock";
-import FormBlockItem from "../FormBlockItem";
-import { Input } from "@/components/form/Input";
-import { Dropdown } from "@/components/form/Dropdown";
-import { CheckboxButtons } from "@/components/form/CheckboxButtons";
-import { RadioButtons } from "@/components/form/RadioButtonGroup";
+import { useContext } from "react";
 import { WebContext } from "@/context/WebContext";
-import { Label } from "@/components/form/Label";
 import { LadyIllustration, OrganizationIllustration } from "@/public/illustrations";
 import SelectImage from "@/components/form/SelectImage";
 import { HeadingSecondary } from "@/components/Typography";
@@ -16,9 +9,10 @@ import ContactGivenSupport from "./ContactGivenSupport";
 import ContactReceivedSupport from "./ContactReceivedSupport";
 import ContactFrequency from "./ContactFrequency";
 import ContactUploadPicture from "./ContactUploadPicture";
+import { FormBlock, FormBlockItem } from "../FormBlock";
 
 const PlaceForm = () => {
-	const { setThumbnail, setImageUrl } = useContext(WebContext);
+	const { setThumbnail, setImageUrl, editInfoVisible } = useContext(WebContext);
 
 	const handlePresetImageChangeUpload = (image: any) => {
 		setImageUrl(image);
@@ -27,7 +21,7 @@ const PlaceForm = () => {
 
 	return (
 		<>
-			<FormBlock>
+			<FormBlock className={`${editInfoVisible !== "Gegevens" && "hidden"}`}>
 				<HeadingSecondary title="Gegevens" className="mb-4" />
 				<ContactDetails title="Plaats" />
 				<ContactRelation
@@ -42,7 +36,7 @@ const PlaceForm = () => {
 				<ContactFrequency />
 			</FormBlock>
 
-			<FormBlock>
+			<FormBlock className={`${editInfoVisible !== "Afbeelding" && "hidden"}`}>
 				<div className={`flex items-center justify-between mb-5`}>
 					<HeadingSecondary title="Afbeelding" />
 					<ContactUploadPicture />

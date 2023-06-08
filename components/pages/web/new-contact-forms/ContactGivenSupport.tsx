@@ -1,6 +1,6 @@
 import React from "react";
-import FormBlockItem from "../FormBlockItem";
 import { CheckboxButtons } from "@/components/form/CheckboxButtons";
+import { FormBlockItem } from "../FormBlock";
 
 type Props = {};
 

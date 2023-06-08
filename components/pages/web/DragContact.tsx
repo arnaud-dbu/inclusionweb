@@ -53,7 +53,7 @@ export const DragContact = ({ id, name, styles, avatar, visible, image }: Props)
 
 	const CustomStyle = {
 		display: visible,
-		zIndex: 100,
+		zIndex: 30,
 	};
 
 	const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
