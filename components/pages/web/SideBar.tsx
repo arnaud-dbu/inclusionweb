@@ -12,7 +12,7 @@ const xSpacing = 20;
 const headerContainer = "20rem";
 
 const SideBar = () => {
-	const { toggleModalVisibility } = useContext(WebContext);
+	const { setModalVisible } = useContext(WebContext);
 
 	return (
 		<SideBarContainer>
@@ -24,7 +24,7 @@ const SideBar = () => {
 					label="Niew Contact "
 					className={`w-full`}
 					icon={<AddUserIcon className="w-6 h-6 fill-white mr-2" />}
-					onClick={() => toggleModalVisibility("contact", true)}
+					onClick={() => setModalVisible("contact")}
 				/>
 			</div>
 		</SideBarContainer>
@@ -34,7 +34,7 @@ const SideBar = () => {
 const SideBarContainer = ({ children }) => {
 	return (
 		<aside className="bg-primary-200 shadow-lg w-[60rem]">
-			<div className={`relative`}>{children}</div>
+			<div className={`relative h-full`}>{children}</div>
 		</aside>
 	);
 };

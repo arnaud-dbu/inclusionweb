@@ -23,9 +23,9 @@ const SessionLayout = async ({ children }: Props) => {
 	}
 
 	return (
-		<div className="h-[100dvh]">
+		<div className="h-screen">
 			<SideMenu className={`w-[6rem]`} />
-			<section className={`w-[calc(100vw-6rem)]`}>{children}</section>
+			{children}
 		</div>
 	);
 };

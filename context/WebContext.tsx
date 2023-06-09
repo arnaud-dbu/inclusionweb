@@ -65,7 +65,7 @@ export const WebProvider = ({
 	};
 
 	// States
-	const [modalVisible, setModalVisible] = useState(false);
+	const [modalVisible, setModalVisible] = useState(null);
 
 	const [showDroppedContacts, setShowDroppedContacts] = useState<boolean>(false);
 	const [editContact, setEditContact] = useState(null);
@@ -113,9 +113,12 @@ export const WebProvider = ({
 	};
 
 	const toggleModalVisibility = (modalName, isVisible) => {
-		if (modalName === "contact") {
-			setModalVisible(isVisible);
-		}
+		setModalVisible("session");
+	};
+
+	const handlePresetImageChangeUpload = async (image: any) => {
+		await setImageUrl(image);
+		await setThumbnail("presetImage");
 	};
 
 	const handleSwitchAvatarStyles = (item, dir) => {
@@ -218,6 +221,7 @@ export const WebProvider = ({
 				toggleModalVisibility,
 				editInfoVisible,
 				setEditInfoVisible,
+				handlePresetImageChangeUpload,
 
 				fetchedWebData,
 				fetchedContactsData,

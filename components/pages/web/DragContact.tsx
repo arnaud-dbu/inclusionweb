@@ -2,11 +2,24 @@
 
 import { useDraggable } from "@dnd-kit/core";
 import AvatarComponent from "@/components/avatar/AvatarComponent";
-import { CrossIcon, LoupeIcon } from "@/public/icons";
+import {
+	AnimalIcon,
+	ChartIcon,
+	CrossIcon,
+	GroupIcon,
+	HandIcon,
+	LinkIcon,
+	LoupeIcon,
+	PersonIcon,
+	PlaceIcon,
+} from "@/public/icons";
 import { useContext, useRef } from "react";
 import useHover from "@/hooks/useHover";
 import { WebContext } from "@/context/WebContext";
 import Image from "next/image";
+import { HeadingSecondary } from "@/components/Typography";
+import { isNullOrUndefined } from "util";
+import { Button } from "@/components/form/Button";
 
 type Props = {
 	id: string;
@@ -17,9 +30,20 @@ type Props = {
 	image?: string;
 };
 
+const DragContactInfo = ({ title, icon }) => {
+	return (
+		<div className={`flex items-center justify-between gap-3  `}>
+			<div className={`bg-primary-300 rounded-md p-2 shadow-lg`}>{icon}</div>
+			<span className={`text-neutral-900 text-sm text-start`}>{title}</span>
+		</div>
+	);
+};
+
 export const DragContact = ({ id, name, styles, avatar, visible, image }: Props) => {
 	const hoverRef = useRef(null);
 	const isHover = useHover(hoverRef);
+
+	const infoIconStyle = `w-[1rem] h-[1rem] fill-primary-900`;
 
 	const { contacts, setContacts, avatarSize, namesVisible } = useContext(WebContext);
 
@@ -84,7 +108,7 @@ export const DragContact = ({ id, name, styles, avatar, visible, image }: Props)
 						/>
 					) : (
 						<Image
-							className={`bg-white rounded-full shadow-lg object-cover ${
+							className={`bg-white rounded-full shadow-lg object-cover ${avatarStyle} ${
 								avatarSize === "small" ? "w-12 h-12" : "w-16 h-16"
 							}`}
 							alt="test"
@@ -100,27 +124,58 @@ export const DragContact = ({ id, name, styles, avatar, visible, image }: Props)
 					)}
 				</div>
 			</button>
-			<button
-				className={`cursor-pointer absolute top-0 right-0 w-[1rem] h-[1rem] bg-red fill-white rounded-full flex items-center justify-center `}
-				onClick={() => handleRemoveVisibility(id)}>
-				<CrossIcon className={`pointer-events-none w-6 h-6`} />
-				{/* <div className={`absolute bg-red w-8 h-8 p-12 ${isHover ? "block" : "hidden"}`}>{id}</div> */}
-			</button>
-			<button
-				className={`cursor-pointer absolute top-4 -right-2 w-[1rem] h-[1rem] bg-black fill-white rounded-full flex items-center justify-center `}
+
+			<div
+				className={`cursor-pointer absolute top-[2.6rem] right-0 w-5 h-5 p-[3px] bg-primary-800 shadow-lg fill-white rounded-full flex items-center justify-center `}
 				ref={hoverRef}>
-				<LoupeIcon className={`fill-white w-3 h-3`} />
+				{currentContact.type === "person" && <PersonIcon className={"fill-white"} />}
+				{currentContact.type === "group" && <GroupIcon className={"fill-white"} />}
+				{currentContact.type === "place" && <PlaceIcon className={"fill-white"} />}
+				{currentContact.type === "animal" && <AnimalIcon className={"fill-white"} />}
 				<div
-					className={`absolute flex flex-col gap-2 bg-red -left-[10rem]  ${
+					className={`absolute flex flex-col items-start gap-2 border-2 ml-12 border-neutral-500 -right-[16rem] w-[15rem] bottom-0 bg-white px-6 py-4 rounded-2xl shadow-lg  ${
 						isHover ? "block" : "hidden"
 					}`}>
-					<span>{currentContact?.name}</span>
-					<span>{currentContact?.relation}</span>
-					<span>{currentContact?.role}</span>
-					<span>{currentContact?.given_support}</span>
-					<span>{currentContact?.received_support}</span>
+					<HeadingSecondary underline title={currentContact?.name} className={`mb-2 text-2xl`} />
+					<DragContactInfo
+						title={currentContact?.role}
+						icon={
+							currentContact.type === "person" ? (
+								<PersonIcon className={`${infoIconStyle}`} />
+							) : currentContact.type === "group" ? (
+								<GroupIcon className={`${infoIconStyle}`} />
+							) : currentContact.type === "place" ? (
+								<PlaceIcon className={`${infoIconStyle}`} />
+							) : currentContact.type === "animal" ? (
+								<AnimalIcon className={`${infoIconStyle}`} />
+							) : null
+						}
+					/>
+					<DragContactInfo
+						title={currentContact?.relation}
+						icon={<LinkIcon className={infoIconStyle} />}
+					/>
+					<DragContactInfo
+						title={currentContact?.given_support.map((support) => support).join(", ")}
+						icon={<HandIcon className={infoIconStyle} />}
+					/>
+					<DragContactInfo
+						title={currentContact?.received_support.map((support) => support).join(", ")}
+						icon={<HandIcon className={`${infoIconStyle} transform scale-x-[-1]`} />}
+					/>
+					<DragContactInfo
+						title={currentContact?.frequency}
+						icon={<ChartIcon className={infoIconStyle} />}
+					/>
+
+					{/* <div className={`mt-4 flex gap-1 items-center self-end`}>
+						<div>
+							<Button label="Verwijder" style="outline" size="xs" />
+						</div>
+						<Button label="Bewerken" style="secondary" size="xs" />
+					</div> */}
 				</div>
-			</button>
+			</div>
 		</div>
 	);
 };

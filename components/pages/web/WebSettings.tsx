@@ -8,6 +8,8 @@ import { Button } from "@/components/form/Button";
 import DropdownVersion from "@/components/pages/web/VersionDropdown";
 import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
+import { Session } from "inspector";
+import SessionModal from "./SessionModal";
 
 export const WebSettings = () => {
 	const {
@@ -18,6 +20,7 @@ export const WebSettings = () => {
 		session,
 		fetchedWebData,
 		fetchedSessionsData,
+		setModalVisible,
 	} = useContext(WebContext);
 	const router = useRouter();
 
@@ -37,51 +40,51 @@ export const WebSettings = () => {
 		return `Versie ${sessionString} - ${formattedDate}`;
 	};
 
-	const handleNewSession = async () => {
-		const latestSession = fetchedSessionsData.sort((a, b) => b.session - a.session)[0].session;
+	// const handleNewSession = async () => {
+	// 	const latestSession = fetchedSessionsData.sort((a, b) => b.session - a.session)[0].session;
 
-		try {
-			const response = await fetch("/api/sessions", {
-				method: "POST",
-				body: JSON.stringify({
-					id: crypto.randomUUID(),
-					session: latestSession + 1,
-					web_id: fetchedWebData.id,
-				}),
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
-			if (response.status === 201) {
-				router.push(`/web/${fetchedWebData.id}/${latestSession + 1}`);
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
+	// 	try {
+	// 		const response = await fetch("/api/sessions", {
+	// 			method: "POST",
+	// 			body: JSON.stringify({
+	// 				id: crypto.randomUUID(),
+	// 				session: latestSession + 1,
+	// 				web_id: fetchedWebData.id,
+	// 			}),
+	// 			headers: {
+	// 				"Content-Type": "application/json",
+	// 			},
+	// 		});
+	// 		if (response.status === 201) {
+	// 			router.push(`/web/${fetchedWebData.id}/${latestSession + 1}`);
+	// 		}
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// };
 
-	const handleDuplicateSession = async () => {
-		const latestSession = fetchedSessionsData.sort((a, b) => b.session - a.session)[0].session;
+	// const handleDuplicateSession = async () => {
+	// 	const latestSession = fetchedSessionsData.sort((a, b) => b.session - a.session)[0].session;
 
-		try {
-			const response = await fetch(`/api/webs/${fetchedWebData.id}/session/duplicate`, {
-				method: "POST",
-				body: JSON.stringify({
-					random_id: crypto.randomUUID(),
-					current_session: currentSession.session,
-					new_session: latestSession + 1,
-				}),
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
-			if (response.status === 201) {
-				router.push(`/web/${fetchedWebData.id}/${latestSession + 1}`);
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
+	// 	try {
+	// 		const response = await fetch(`/api/webs/${fetchedWebData.id}/session/duplicate`, {
+	// 			method: "POST",
+	// 			body: JSON.stringify({
+	// 				random_id: crypto.randomUUID(),
+	// 				current_session: currentSession.session,
+	// 				new_session: latestSession + 1,
+	// 			}),
+	// 			headers: {
+	// 				"Content-Type": "application/json",
+	// 			},
+	// 		});
+	// 		if (response.status === 201) {
+	// 			router.push(`/web/${fetchedWebData.id}/${latestSession + 1}`);
+	// 		}
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// };
 
 	const handleAvatarSize = async (size) => {
 		try {
@@ -127,7 +130,7 @@ export const WebSettings = () => {
 
 	return (
 		<section
-			className={`flex gap-4 justify-center items-center absolute z-50 left-1/2 pt-12 -translate-x-1/2 top-0 `}>
+			className={`w-full px-20 flex gap-4 justify-center items-center absolute z-50 left-1/2 pt-12 -translate-x-1/2 top-0 `}>
 			<div className={`flex gap-12 items-center`}>
 				<div className={`flex gap-2 items-center`}>
 					<BlockTitle className="!mb-0" title="Afbeeldingen" />
@@ -166,12 +169,7 @@ export const WebSettings = () => {
 							label: getSession(session),
 						}))}
 					/>
-					<button className={`bg-red`} onClick={handleNewSession}>
-						Start opnieuw
-					</button>
-					<button className={`bg-primary-800`} onClick={handleDuplicateSession}>
-						Verderzetten
-					</button>
+					<button onClick={() => setModalVisible("session")}>Voeg een versie toe</button>
 				</div>
 			</div>
 			<div className={`ml-auto flex items-center gap-4`}></div>

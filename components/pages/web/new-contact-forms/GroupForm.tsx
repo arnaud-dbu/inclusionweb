@@ -12,12 +12,7 @@ import { WebContext } from "@/context/WebContext";
 import { FormBlock, FormBlockItem } from "../FormBlock";
 
 const GroupForm = () => {
-	const { setThumbnail, setImageUrl, editInfoVisible } = useContext(WebContext);
-
-	const handlePresetImageChangeUpload = (image: any) => {
-		setImageUrl(image);
-		setThumbnail("presetImage");
-	};
+	const { editInfoVisible, handlePresetImageChangeUpload } = useContext(WebContext);
 
 	return (
 		<>

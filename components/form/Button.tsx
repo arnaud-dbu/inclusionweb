@@ -22,6 +22,7 @@ export const Button = ({
 	...rest
 }: Props) => {
 	let btnVariant = null;
+	let btnSize = null;
 
 	switch (style) {
 		case "primary":
@@ -46,11 +47,23 @@ export const Button = ({
 			break;
 	}
 
+	switch (size) {
+		case "sm":
+			btnSize = "px-6 py-2 text-md";
+			break;
+		case "xs":
+			btnSize = "px-3 py-[3px] text-sm";
+			break;
+		default:
+			btnSize = "px-6 py-2 text-md";
+			break;
+	}
+
 	return (
 		<button
 			{...rest}
 			className={` flex gap-2 items-center justify-center rounded-full h-fit ${btnVariant} ${className} 
-            ${size === "sm" ? "px-6 py-2 text-md" : "px-8 py-3 h-12 text-lg"}
+            ${btnSize}
             `}>
 			{image && <Image className={`w-6 h-6`} src={image} alt="" width={50} height={50} />}
 			{children}

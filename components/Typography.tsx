@@ -12,7 +12,7 @@ export const H1 = ({ children, underline, className }: Props) => {
 		<>
 			<h1
 				className={`text-7xl leading-[1.1] font-primary font-bold uppercase text-neutral-900 mb-6 relative ${className} ${
-					underline && "title-underline"
+					underline && "title-underline-lg"
 				}`}>
 				{children}
 			</h1>
@@ -44,7 +44,7 @@ export const HeadingPrimary = ({ underline, className, title, subtitle }: Props)
 			)}
 			<h1
 				className={`text-7xl leading-[1.1] font-primary font-bold uppercase text-neutral-900 mb-6 relative ${className} ${
-					underline && "title-underline"
+					underline && "title-underline-lg"
 				}`}>
 				{title}
 			</h1>
@@ -52,10 +52,12 @@ export const HeadingPrimary = ({ underline, className, title, subtitle }: Props)
 	);
 };
 
-export const HeadingSecondary = ({ className, title }: Props) => {
+export const HeadingSecondary = ({ className, title, underline }: Props) => {
 	return (
 		<h2
-			className={`text-3xl whitespace-nowrap font-primary font-bold uppercase text-neutral-900 ${className}`}>
+			className={`text-3xl whitespace-nowrap font-primary font-bold uppercase text-neutral-900 ${
+				underline && "title-underline-sm"
+			} ${className}`}>
 			{title}
 		</h2>
 	);

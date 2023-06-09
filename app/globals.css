@@ -30,7 +30,7 @@ p {
 	padding: 0 10rem;
 }
 
-.title-underline {
+.title-underline-lg {
 	&::after {
 		content: "";
 		display: block;
@@ -38,6 +38,17 @@ p {
 		height: 0.5rem;
 		background-color: var(--primary-800);
 		margin-top: 1rem;
+	}
+}
+
+.title-underline-sm {
+	&::after {
+		content: "";
+		display: block;
+		width: 1.5rem;
+		margin-top: 0.25rem;
+		height: 0.25rem;
+		background-color: var(--primary-800);
 	}
 }
 

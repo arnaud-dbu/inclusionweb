@@ -4,6 +4,7 @@ import { WebProvider } from "@/context/WebContext";
 import SideBar from "@/components/pages/web/SideBar";
 import NewContactModal from "@/components/pages/web/NewContactModal";
 import Web from "@/components/pages/web/Web";
+import SessionModal from "../pages/web/SessionModal";
 
 type Props = {
 	fetchedWebData: any;
@@ -19,7 +20,7 @@ const WebComponents = ({
 	session,
 }: Props) => {
 	return (
-		<div className={`flex relative left-[6rem] w-[calc(100vw-6rem)]`}>
+		<div className={`flex relative left-[6rem] h-full w-[calc(100vw-6rem)]`}>
 			<WebProvider
 				fetchedWebData={fetchedWebData}
 				fetchedContactsData={fetchedContactsData}
@@ -28,6 +29,7 @@ const WebComponents = ({
 				<SideBar />
 				<Web />
 				<NewContactModal />
+				<SessionModal />
 			</WebProvider>
 		</div>
 	);

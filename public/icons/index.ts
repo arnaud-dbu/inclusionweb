@@ -34,3 +34,6 @@ export { default as SignOutIcon } from "./sign-out.svg";
 export { default as CirclePlusIcon } from "./circle-plus.svg";
 export { default as KeyIcon } from "./key.svg";
 export { default as MailIcon } from "./email.svg";
+export { default as ChartIcon } from "./chart.svg";
+export { default as HandIcon } from "./hand.svg";
+export { default as LinkIcon } from "./link.svg";

@@ -24,6 +24,7 @@ import AnimalForm from "./new-contact-forms/AnimalForm";
 import PlaceForm from "./new-contact-forms/PlaceForm";
 import { Button } from "@/components/form/Button";
 import NewContactNavigation from "./NewContactNavigation";
+import ContactThumbnail from "./ContactThumbnail";
 
 export const NewContactForm = () => {
 	const {
@@ -62,6 +63,12 @@ export const NewContactForm = () => {
 	const { supabase } = useSupabase();
 
 	useEffect(() => {
+		if (selectedImage) {
+			setImageUrl(URL.createObjectURL(selectedImage));
+		}
+	}, [selectedImage, setImageUrl]);
+
+	useEffect(() => {
 		if (editContact) {
 			setType(editContact.type);
 			setValue("name", editContact.name);
@@ -75,6 +82,8 @@ export const NewContactForm = () => {
 			setSelectedReceivedSupport(editContact.received_support);
 			setValue("frequency", editContact.frequency);
 			setValue("avatar", editContact.avatar);
+			setValue("image_type", editContact.image_type);
+			setValue("image_path", editContact.image_path);
 
 			if (editContact.avatar) {
 				setThumbnail("avatar");
@@ -89,23 +98,38 @@ export const NewContactForm = () => {
 				setEyebrow([avatarStyle.eyebrowType, ...eyebrowTypes.slice(1)]);
 				setMouth([avatarStyle.mouthType, ...mouthTypes.slice(1)]);
 			}
-
 			if (editContact.image_type === "presetImage") {
 				setThumbnail("presetImage");
 				setImageUrl(editContact.image_path);
 			}
-
 			if (editContact.image_type === "customImage") {
 				setThumbnail("customImage");
 				setImageUrl(`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${editContact.image_path}`);
 			}
 		}
-	}, [editContact]);
+	}, [
+		editContact,
+		setAccessoriesType,
+		setClothes,
+		setEyebrow,
+		setEyes,
+		setFacialHair,
+		setHairColor,
+		setImageUrl,
+		setMouth,
+		setSelectedGivenSupport,
+		setSelectedReceivedSupport,
+		setSkinColor,
+		setThumbnail,
+		setTopType,
+		setType,
+		setValue,
+	]);
 
 	const handleClosingModal = () => {
-		setModalVisible(false);
+		setModalVisible(null);
 		setEditContact(null);
-		setThumbnail("avatar");
+		setThumbnail("");
 		setSelectedGivenSupport([""]);
 		setSelectedReceivedSupport([""]);
 		handlePresetAvatarSubmit("youngManAvatar");
@@ -113,12 +137,6 @@ export const NewContactForm = () => {
 		setEditInfoVisible("Gegevens");
 		reset();
 	};
-
-	useEffect(() => {
-		if (selectedImage) {
-			setImageUrl(URL.createObjectURL(selectedImage));
-		}
-	}, [selectedImage, setImageUrl]);
 
 	const handleCreateContactSubmit = async (data) => {
 		const customAvatarString = JSON.stringify(customAvatar);
@@ -244,14 +262,12 @@ export const NewContactForm = () => {
 		}
 	};
 
-	console.log(imageUrl);
-
 	return (
 		<>
 			<div className={`flex items-center justify-between gap-10 px-24 py-10`}>
 				<div className={``}>
 					<span className="mb-7  block font-primary text-6xl uppercase font-bold text-neutral-900 gap-5">
-						Nieuw contact
+						{editContact ? "Contact wijzigen" : "Nieuw contact"}
 					</span>
 					<SelectButtons
 						name="type"
@@ -284,31 +300,38 @@ export const NewContactForm = () => {
 						setType={setType}
 					/>
 				</div>
+
 				{thumbnail === "avatar" && (
-					<AvatarComponent
-						avatar={customAvatar}
-						className="bg-primary-500 w-36 h-36 rounded-full object-cover"
-					/>
+					<ContactThumbnail type={type}>
+						<AvatarComponent
+							avatar={customAvatar}
+							className="bg-primary-500 w-36 h-36 rounded-full object-cover"
+						/>
+					</ContactThumbnail>
 				)}
 
 				{thumbnail === "presetImage" && (
-					<Image
-						className="rounded-full w-36 h-36 object-cover aspect-square "
-						alt="test"
-						src={editContact?.image_path ?? (imageUrl || "/")}
-						width={700}
-						height={700}
-					/>
+					<ContactThumbnail type={type}>
+						<Image
+							className="rounded-full w-36 h-36 object-cover aspect-square "
+							alt="test"
+							src={imageUrl || "/"}
+							width={700}
+							height={700}
+						/>
+					</ContactThumbnail>
 				)}
 
 				{thumbnail === "customImage" && (
-					<Image
-						className="rounded-full w-36 h-36 object-cover aspect-square "
-						alt="test"
-						src={`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${imageUrl}` || "/"}
-						width={700}
-						height={700}
-					/>
+					<ContactThumbnail type={type}>
+						<Image
+							className="rounded-full w-36 h-36 object-cover aspect-square "
+							alt="test"
+							src={imageUrl || "/"}
+							width={700}
+							height={700}
+						/>
+					</ContactThumbnail>
 				)}
 			</div>
 

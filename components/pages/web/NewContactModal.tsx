@@ -9,7 +9,7 @@ const NewContactModal = () => {
 	const { modalVisible } = useContext(WebContext);
 
 	return (
-		modalVisible && (
+		modalVisible === "contact" && (
 			<>
 				<Modal className={`h-[62.5rem]`}>
 					<NewContactForm />

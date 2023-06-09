@@ -6,6 +6,7 @@ import { PencilIcon } from "@/public/icons";
 import Image from "next/image";
 import { useContext, useRef } from "react";
 import { useHover } from "usehooks-ts";
+import ContactThumbnail from "./ContactThumbnail";
 
 type Props = {
 	headerContainer: string;
@@ -72,7 +73,7 @@ export const SideBarContacts = ({ headerContainer, xSpacing }: Props) => {
 
 	const handleEditContact = async (id: string) => {
 		const contact = contacts.find((contact) => contact.id === id);
-		setModalVisible(true);
+		setModalVisible("contact");
 		setEditContact(contact);
 	};
 
@@ -102,26 +103,30 @@ export const SideBarContacts = ({ headerContainer, xSpacing }: Props) => {
 							<PencilIcon className={`w-5`} />
 						</IconButton>
 						{contact.avatar ? (
-							<AvatarComponent
-								avatar={contact.avatar}
-								className={`bg-primary-500 rounded-full shadow-lg object-cover ${
-									view === "list" ? "w-16 h-16" : "w-24 h-24 mb-2"
-								}`}
-							/>
+							<ContactThumbnail type={contact.type} size="sm">
+								<AvatarComponent
+									avatar={contact.avatar}
+									className={`bg-primary-500 rounded-full shadow-lg object-cover ${
+										view === "list" ? "w-16 h-16" : "w-24 h-24 mb-2"
+									}`}
+								/>
+							</ContactThumbnail>
 						) : (
-							<Image
-								className={`rounded-full shadow-lg aspect-square object-cover ${
-									view === "list" ? "w-16 h-16" : "w-24 h-24 mb-2"
-								}`}
-								alt="test"
-								src={
-									contact.image_type === "presetImage"
-										? contact.image_path
-										: `${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${contact.image_path}`
-								}
-								width={700}
-								height={700}
-							/>
+							<ContactThumbnail type={contact.type} size="sm">
+								<Image
+									className={`rounded-full shadow-lg aspect-square object-cover ${
+										view === "list" ? "w-16 h-16" : "w-24 h-24 mb-2"
+									}`}
+									alt="test"
+									src={
+										contact.image_type === "presetImage"
+											? contact.image_path
+											: `${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${contact.image_path}`
+									}
+									width={700}
+									height={700}
+								/>
+							</ContactThumbnail>
 						)}
 						<div className={`flex flex-col ${view === "list" ? "ml-3" : "items-center"}`}>
 							<span
