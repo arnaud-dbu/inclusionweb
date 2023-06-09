@@ -27,7 +27,7 @@ const Form: FC<IFormProps> = ({
 	...rest
 }) => {
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} {...rest}>
+		<form onSubmit={handleSubmit(onSubmit)} {...rest} className={`w-full`}>
 			<div className={` ${className}`}>
 				{Array.isArray(children)
 					? children.map((child) => {

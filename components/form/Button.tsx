@@ -43,6 +43,9 @@ export const Button = ({
 		case "link":
 			btnVariant = "text-primary-800 underline w-fit";
 			break;
+		case "icon":
+			btnVariant = "bg-primary-700 !px-4 rounded-lg";
+			break;
 		default:
 			break;
 	}
@@ -62,8 +65,8 @@ export const Button = ({
 	return (
 		<button
 			{...rest}
-			className={` flex gap-2 items-center justify-center rounded-full h-fit ${btnVariant} ${className} 
-            ${btnSize}
+			className={` flex gap-2 items-center justify-center rounded-full h-fit  ${btnSize} ${btnVariant} ${className} 
+           
             `}>
 			{image && <Image className={`w-6 h-6`} src={image} alt="" width={50} height={50} />}
 			{children}

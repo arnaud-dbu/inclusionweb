@@ -16,38 +16,36 @@ const Web = () => {
 	const printRef = useRef(null);
 
 	const handleDivClick = async (event) => {
-		if (event.target.tagName !== "BUTTON") {
-			const { top, left } = printRef.current.getBoundingClientRect();
-			const offsetX = Math.floor(event.clientX - left);
-			const offsetY = Math.floor(event.clientY - top);
-			setClickPosition({ x: offsetX, y: offsetY });
-
-			try {
-				const response = await fetch(`/api/contacts/30281683-c477-496e-b934-76e2a3f256e0`, {
-					method: "PATCH",
-					body: JSON.stringify({
-						visible: true,
-						position: JSON.stringify({ x: offsetX, y: offsetY }),
-					}),
-					headers: {
-						"Content-Type": "application/json",
-					},
-				});
-				const contact = await response.json();
-
-				if (contact) {
-					const newContacts = contacts.map((contact) => {
-						if (contact.id === "30281683-c477-496e-b934-76e2a3f256e0") {
-							return { ...contact, visible: true, position: { x: offsetX, y: offsetY } };
-						}
-						return contact;
-					});
-					setContacts(newContacts);
-				}
-			} catch (error) {
-				console.log(error);
-			}
-		}
+		// if (event.target.tagName !== "BUTTON") {
+		// 	const { top, left } = printRef.current.getBoundingClientRect();
+		// 	const offsetX = Math.floor(event.clientX - left);
+		// 	const offsetY = Math.floor(event.clientY - top);
+		// 	setClickPosition({ x: offsetX, y: offsetY });
+		// 	try {
+		// 		const response = await fetch(`/api/contacts/30281683-c477-496e-b934-76e2a3f256e0`, {
+		// 			method: "PATCH",
+		// 			body: JSON.stringify({
+		// 				visible: true,
+		// 				position: JSON.stringify({ x: offsetX, y: offsetY }),
+		// 			}),
+		// 			headers: {
+		// 				"Content-Type": "application/json",
+		// 			},
+		// 		});
+		// 		const contact = await response.json();
+		// 		if (contact) {
+		// 			const newContacts = contacts.map((contact) => {
+		// 				if (contact.id === "30281683-c477-496e-b934-76e2a3f256e0") {
+		// 					return { ...contact, visible: true, position: { x: offsetX, y: offsetY } };
+		// 				}
+		// 				return contact;
+		// 			});
+		// 			setContacts(newContacts);
+		// 		}
+		// 	} catch (error) {
+		// 		console.log(error);
+		// 	}
+		// }
 	};
 
 	const handleDragEnd = (ev) => {
@@ -76,7 +74,7 @@ const Web = () => {
 		const draggedItem = newPositionedDragItems?.find((item) => item.id === dragItemId);
 
 		try {
-			const response = fetch(`/api/contact/${dragItemId}/position`, {
+			fetch(`/api/contacts/${dragItemId}/position`, {
 				method: "PATCH",
 				body: JSON.stringify({
 					position: {

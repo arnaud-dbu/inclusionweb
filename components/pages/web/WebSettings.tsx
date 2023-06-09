@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
 import { Session } from "inspector";
 import SessionModal from "./SessionModal";
+import DivisionLine from "@/components/DivisionLine";
 
 export const WebSettings = () => {
 	const {
@@ -87,6 +88,8 @@ export const WebSettings = () => {
 	// };
 
 	const handleAvatarSize = async (size) => {
+		setAvatarSize(size);
+
 		try {
 			const response = await fetch(`/api/webs/${fetchedWebData.id}/images`, {
 				method: "PATCH",
@@ -100,7 +103,6 @@ export const WebSettings = () => {
 
 			if (response.status === 201) {
 				console.log("Avatar size updated");
-				setAvatarSize(size);
 			}
 		} catch (error) {
 			console.log(error);
@@ -108,6 +110,8 @@ export const WebSettings = () => {
 	};
 
 	const handleNamesVisibility = async (visible) => {
+		setNamesVisible(visible);
+
 		try {
 			const response = await fetch(`/api/webs/${fetchedWebData.id}/names`, {
 				method: "PATCH",
@@ -121,7 +125,6 @@ export const WebSettings = () => {
 
 			if (response.status === 201) {
 				console.log("Names visibility updated");
-				setNamesVisible(visible);
 			}
 		} catch (error) {
 			console.log(error);
@@ -169,7 +172,12 @@ export const WebSettings = () => {
 							label: getSession(session),
 						}))}
 					/>
-					<button onClick={() => setModalVisible("session")}>Voeg een versie toe</button>
+					<Button
+						onClick={() => setModalVisible("session")}
+						style="icon"
+						size="sm"
+						icon={<PlusIcon className={`w-5 h-6`} />}
+					/>
 				</div>
 			</div>
 			<div className={`ml-auto flex items-center gap-4`}></div>

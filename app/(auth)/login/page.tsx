@@ -25,7 +25,7 @@ const LoginPage = async () => {
 				/>
 			</div>
 
-			<DivisionLine bg="white" text="Of" />
+			<DivisionLine bg="white" text="Of" className={`my-4`} />
 
 			<LoginForm />
 
