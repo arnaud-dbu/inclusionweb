@@ -56,6 +56,7 @@ export const NewContactForm = () => {
 		setMouth,
 		handlePresetAvatarSubmit,
 		setEditInfoVisible,
+		clickPosition,
 	} = useContext(WebContext);
 
 	const methods = useForm();
@@ -172,6 +173,8 @@ export const NewContactForm = () => {
 				given_support: data.given_support,
 				received_support: data.received_support,
 				frequency: data.frequency,
+				visible: clickPosition ? true : false,
+				position: clickPosition ? clickPosition : null,
 				web_id: fetchedWebData.id,
 				session_id: session,
 			};
@@ -187,10 +190,7 @@ export const NewContactForm = () => {
 			if (response.status === 201) {
 				const newContact = {
 					...body,
-					position: {
-						x: 0,
-						y: 0,
-					},
+					position: clickPosition ? clickPosition : { x: 0, y: 0 },
 				};
 				setModalVisible(false);
 

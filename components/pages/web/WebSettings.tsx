@@ -87,7 +87,9 @@ export const WebSettings = () => {
 	// 	}
 	// };
 
-	const handleAvatarSize = async (size) => {
+	const handleAvatarSize = async (size: string) => {
+		setAvatarSize(size);
+
 		try {
 			const response = await fetch(`/api/webs/${fetchedWebData.id}/images`, {
 				method: "PATCH",
@@ -101,14 +103,15 @@ export const WebSettings = () => {
 
 			if (response.status === 201) {
 				console.log("Avatar size updated");
-				setAvatarSize(size);
 			}
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
-	const handleNamesVisibility = async (visible) => {
+	const handleNamesVisibility = async (visible: boolean) => {
+		setNamesVisible(visible);
+
 		try {
 			const response = await fetch(`/api/webs/${fetchedWebData.id}/names`, {
 				method: "PATCH",
@@ -122,7 +125,6 @@ export const WebSettings = () => {
 
 			if (response.status === 201) {
 				console.log("Names visibility updated");
-				setNamesVisible(visible);
 			}
 		} catch (error) {
 			console.log(error);

@@ -66,6 +66,7 @@ export const WebProvider = ({
 
 	// States
 	const [modalVisible, setModalVisible] = useState(null);
+	const [clickPosition, setClickPosition] = useState(null);
 
 	const [showDroppedContacts, setShowDroppedContacts] = useState<boolean>(false);
 	const [editContact, setEditContact] = useState(null);
@@ -222,6 +223,8 @@ export const WebProvider = ({
 				editInfoVisible,
 				setEditInfoVisible,
 				handlePresetImageChangeUpload,
+				clickPosition,
+				setClickPosition,
 
 				fetchedWebData,
 				fetchedContactsData,

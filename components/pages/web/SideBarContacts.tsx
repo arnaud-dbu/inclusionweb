@@ -30,8 +30,16 @@ export const SideBarContacts = ({ headerContainer, xSpacing }: Props) => {
 	const isHover = useHover(hoverRef);
 
 	const handleContactVisibility = async (id: string) => {
+		const newContacts = contacts.map((contact) => {
+			if (contact.id === id) {
+				return { ...contact, visible: true };
+			}
+			return contact;
+		});
+		setContacts(newContacts);
+
 		try {
-			const response = await fetch(`/api/contacts/${id}`, {
+			await fetch(`/api/contacts/${id}`, {
 				method: "PATCH",
 				body: JSON.stringify({
 					visible: true,
@@ -40,17 +48,6 @@ export const SideBarContacts = ({ headerContainer, xSpacing }: Props) => {
 					"Content-Type": "application/json",
 				},
 			});
-			const contact = await response.json();
-
-			if (contact) {
-				const newContacts = contacts.map((contact) => {
-					if (contact.id === id) {
-						return { ...contact, visible: true };
-					}
-					return contact;
-				});
-				setContacts(newContacts);
-			}
 		} catch (error) {
 			console.log(error);
 		}
