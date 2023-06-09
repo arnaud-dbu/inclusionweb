@@ -88,8 +88,6 @@ export const WebSettings = () => {
 	// };
 
 	const handleAvatarSize = async (size) => {
-		setAvatarSize(size);
-
 		try {
 			const response = await fetch(`/api/webs/${fetchedWebData.id}/images`, {
 				method: "PATCH",
@@ -103,6 +101,7 @@ export const WebSettings = () => {
 
 			if (response.status === 201) {
 				console.log("Avatar size updated");
+				setAvatarSize(size);
 			}
 		} catch (error) {
 			console.log(error);
@@ -110,8 +109,6 @@ export const WebSettings = () => {
 	};
 
 	const handleNamesVisibility = async (visible) => {
-		setNamesVisible(visible);
-
 		try {
 			const response = await fetch(`/api/webs/${fetchedWebData.id}/names`, {
 				method: "PATCH",
@@ -125,6 +122,7 @@ export const WebSettings = () => {
 
 			if (response.status === 201) {
 				console.log("Names visibility updated");
+				setNamesVisible(visible);
 			}
 		} catch (error) {
 			console.log(error);
