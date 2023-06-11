@@ -25,6 +25,8 @@ import PlaceForm from "./new-contact-forms/PlaceForm";
 import { Button } from "@/components/form/Button";
 import NewContactNavigation from "./NewContactNavigation";
 import ContactThumbnail from "./ContactThumbnail";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export const NewContactForm = () => {
 	const {
@@ -59,8 +61,13 @@ export const NewContactForm = () => {
 		clickPosition,
 	} = useContext(WebContext);
 
-	const methods = useForm();
-	const { register, handleSubmit, reset, setValue } = methods;
+	// validation
+	const NewContactSchema = yup.object().shape({
+		name: yup.string().required("Naam is verplicht"),
+	});
+
+	const methods = useForm({ resolver: yupResolver(NewContactSchema) });
+	const { register, handleSubmit, reset, setValue, formState } = methods;
 	const { supabase } = useSupabase();
 
 	useEffect(() => {
@@ -160,6 +167,9 @@ export const NewContactForm = () => {
 				imagePath = imagePath.src;
 			}
 
+			const givenSupport = Array.isArray(data.given_support) ? data.given_support : [];
+			const receivedSupport = Array.isArray(data.received_support) ? data.received_support : [];
+
 			const body = {
 				id: id,
 				user_id: userId,
@@ -170,11 +180,11 @@ export const NewContactForm = () => {
 				name: data.name,
 				role: data.role,
 				relation: data.relation,
-				given_support: data.given_support,
-				received_support: data.received_support,
+				given_support: givenSupport,
+				received_support: receivedSupport,
 				frequency: data.frequency,
 				visible: clickPosition ? true : false,
-				position: clickPosition ? clickPosition : null,
+				...(clickPosition && { position: clickPosition }),
 				web_id: fetchedWebData.id,
 				session_id: session,
 			};
@@ -190,7 +200,7 @@ export const NewContactForm = () => {
 			if (response.status === 201) {
 				const newContact = {
 					...body,
-					position: clickPosition ? clickPosition : { x: 0, y: 0 },
+					position: clickPosition !== null ? clickPosition : { x: 0, y: 0 },
 				};
 				setModalVisible(false);
 
@@ -339,7 +349,7 @@ export const NewContactForm = () => {
 
 			<FormProvider {...methods}>
 				<Form
-					className={`px-24 py-10 flex flex-col`}
+					className={`px-24 py-6 flex flex-col`}
 					register={register}
 					handleSubmit={handleSubmit}
 					onSubmit={editContact ? handleEditContactSubmit : handleCreateContactSubmit}>

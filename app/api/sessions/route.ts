@@ -24,8 +24,6 @@ export async function GET() {
 export async function POST(req: Request) {
 	const session = await req.json();
 
-	console.log(session);
-
 	const supabase = createRouteHandlerSupabaseClient<Database>({
 		headers,
 		cookies,

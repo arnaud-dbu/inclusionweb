@@ -93,12 +93,11 @@ export const SideBarContacts = ({ headerContainer, xSpacing }: Props) => {
 						}`}
 						ref={hoverRef}>
 						<IconButton
+							icon={<PencilIcon className={`w-5`} />}
 							onClick={() => handleEditContact(contact.id)}
 							className={`absolute right-3 top-3 rounded-full p-1 ${
 								isHover ? `bg-neutral-600 ` : `bg-neutral-400 `
-							}`}>
-							<PencilIcon className={`w-5`} />
-						</IconButton>
+							}`}></IconButton>
 						{contact.avatar ? (
 							<ContactThumbnail type={contact.type} size="sm">
 								<AvatarComponent

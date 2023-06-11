@@ -1,12 +1,12 @@
 type Props = {
-	children: React.ReactNode;
 	className?: string;
+	icon: React.ReactNode;
 } & React.HTMLAttributes<HTMLButtonElement>;
 
-export const IconButton = ({ children, className, ...rest }: Props) => {
+export const IconButton = ({ className, icon, ...rest }: Props) => {
 	return (
 		<button {...rest} className={`aspect-square flex items-center justify-center ${className}`}>
-			{children}
+			{icon}
 		</button>
 	);
 };

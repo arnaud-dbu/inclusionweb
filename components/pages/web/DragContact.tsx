@@ -33,7 +33,7 @@ const DragContactInfo = ({ title, icon }) => {
 	return (
 		<div className={`flex items-center justify-between gap-3  `}>
 			<div className={`bg-primary-300 rounded-md p-2 shadow-lg`}>{icon}</div>
-			<span className={`text-neutral-900 text-sm text-start`}>{title}</span>
+			{title && <span className={`text-neutral-900 text-sm text-start`}>{title}</span>}
 		</div>
 	);
 };
@@ -42,14 +42,11 @@ export const DragContact = ({ id, name, styles, avatar, visible, image }: Props)
 	const hoverRef = useRef(null);
 	const isHover = useHover(hoverRef);
 
-	const infoIconStyle = `w-[1rem] h-[1rem] fill-primary-900`;
-
 	const { contacts, setContacts, avatarSize, namesVisible, setModalVisible, setEditContact } =
 		useContext(WebContext);
 
 	const currentContact = contacts.find((contact) => contact.id === id);
-
-	console.log(currentContact.image_type);
+	const infoIconStyle = `w-[1rem] h-[1rem] fill-primary-900`;
 
 	const handleRemoveVisibility = async (event: React.MouseEvent<HTMLButtonElement>) => {
 		const id = event.currentTarget.id;

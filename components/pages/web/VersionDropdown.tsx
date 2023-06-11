@@ -1,8 +1,43 @@
-"use client";
-
+import React, { useContext } from "react";
 import clsx from "clsx";
-import React, { useState } from "react";
 import Select, { components } from "react-select";
+import { Button } from "@/components/form/Button";
+import { EditIcon, PencilIcon, TrashIcon } from "@/public/icons";
+import { IconButton } from "@/components/form/IconButton";
+import { WebContext } from "@/context/WebContext";
+import { useRouter } from "next/navigation";
+import { set } from "react-hook-form";
+
+const Option = (props) => {
+	const { sessions, setSessions, setModalVisible } = useContext(WebContext);
+
+	const handleDeleteSession = async (id: string, event: React.MouseEvent) => {
+		event.stopPropagation();
+
+		const newSessions = sessions.filter((session) => session.id !== id);
+		setSessions(newSessions);
+
+		const response = await fetch(`/api/sessions/${id}`, {
+			method: "DELETE",
+		});
+	};
+
+	return (
+		<>
+			<components.Option {...props}>
+				<div className={`flex items-center justify-between`}>
+					<div>{props.children}</div>
+					<div className={`flex items-center gap-2`}>
+						<IconButton
+							onClick={(event) => handleDeleteSession(props.data.id, event)}
+							icon={<TrashIcon className={`w-4 h-4 fill-neutral-800 pointer-events-auto`} />}
+						/>
+					</div>
+				</div>
+			</components.Option>
+		</>
+	);
+};
 
 type Props = {
 	register?: any;
@@ -13,6 +48,7 @@ type Props = {
 	selectedOption?: any;
 	setSelectedOption?: any;
 	handleSessionChange?: any;
+	sessions?: any;
 };
 
 const controlStyles = {
@@ -41,6 +77,7 @@ const DropdownVersion = ({
 	selectedOption,
 	setSelectedOption,
 	handleSessionChange,
+	sessions,
 	register,
 	options,
 	name,
@@ -48,6 +85,10 @@ const DropdownVersion = ({
 	placeholder,
 	...props
 }: Props) => {
+	const { session } = useContext(WebContext);
+
+	const filteredOptions = options.filter((option) => option.value !== parseFloat(session));
+
 	return (
 		<div className={` ${className}`}>
 			<Select
@@ -92,9 +133,10 @@ const DropdownVersion = ({
 				{...props}
 				closeMenuOnSelect={true}
 				hideSelectedOptions={true}
+				components={{ Option }}
 				defaultValue={selectedOption}
 				onChange={handleSessionChange}
-				options={options}
+				options={filteredOptions}
 				placeholder={placeholder}
 			/>
 		</div>

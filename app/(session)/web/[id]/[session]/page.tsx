@@ -1,4 +1,5 @@
 import WebComponents from "@/components/web/WebComponent";
+import { redirect } from "next/navigation";
 
 const WebPage = async ({ params }) => {
 	const webRes = await fetch(`${process.env.HOST}/api/webs/${params.id}`, {
@@ -17,6 +18,7 @@ const WebPage = async ({ params }) => {
 	const sessionRes = await fetch(`${process.env.HOST}/api/sessions`, {
 		cache: "no-cache",
 	});
+
 	const sessionsData = await sessionRes.json();
 	const fetchedSessionsData = await sessionsData?.filter(
 		(session: any) => session.web_id === fetchedWebData.id

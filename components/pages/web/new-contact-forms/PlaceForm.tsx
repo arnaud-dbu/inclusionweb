@@ -22,7 +22,6 @@ const PlaceForm = () => {
 	return (
 		<>
 			<FormBlock className={`${editInfoVisible !== "Gegevens" && "hidden"}`}>
-				<HeadingSecondary title="Gegevens" className="mb-4" />
 				<ContactDetails title="Plaats" />
 				<ContactRelation
 					options={[
@@ -38,7 +37,6 @@ const PlaceForm = () => {
 
 			<FormBlock className={`${editInfoVisible !== "Afbeelding" && "hidden"}`}>
 				<div className={`flex items-center justify-between mb-5`}>
-					<HeadingSecondary title="Afbeelding" />
 					<ContactUploadPicture />
 				</div>
 				<FormBlockItem title="Avatar">

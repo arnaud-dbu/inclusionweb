@@ -49,7 +49,7 @@ export const WebProvider = ({
 	// Data
 	const [contacts, setContacts] = useState(fetchedContactsData);
 	const [web, setWeb] = useState(fetchedWebData);
-	const [sessions, sesSessions] = useState(fetchedSessionsData);
+	const [sessions, setSessions] = useState(fetchedSessionsData);
 
 	// Search function
 	const [query, setQuery] = useState<string>("");
@@ -66,6 +66,7 @@ export const WebProvider = ({
 
 	// States
 	const [modalVisible, setModalVisible] = useState(null);
+	const [isValid, setIsValid] = useState(false);
 	const [clickPosition, setClickPosition] = useState(null);
 
 	const [showDroppedContacts, setShowDroppedContacts] = useState<boolean>(false);
@@ -213,7 +214,7 @@ export const WebProvider = ({
 				web,
 				setWeb,
 				sessions,
-				sesSessions,
+				setSessions,
 				contacts,
 				setContacts,
 				inputValue,
@@ -225,6 +226,8 @@ export const WebProvider = ({
 				handlePresetImageChangeUpload,
 				clickPosition,
 				setClickPosition,
+				isValid,
+				setIsValid,
 
 				fetchedWebData,
 				fetchedContactsData,

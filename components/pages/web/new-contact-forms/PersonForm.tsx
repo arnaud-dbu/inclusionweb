@@ -32,7 +32,6 @@ const PersonForm = () => {
 
 			<FormBlock className={`${editInfoVisible !== "Afbeelding" && "hidden"}`}>
 				<div className={`flex items-center justify-between mb-5`}>
-					<HeadingSecondary title="Afbeelding" />
 					<ContactUploadPicture />
 				</div>
 				<FormBlockItem>

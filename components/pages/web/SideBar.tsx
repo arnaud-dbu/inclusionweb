@@ -40,8 +40,11 @@ const SideBarContainer = ({ children }) => {
 };
 
 const SideBarHeader = () => {
-	const { showDroppedContacts, setShowDroppedContacts, view, web, setView } =
+	const { showDroppedContacts, setShowDroppedContacts, contacts, view, web, setView } =
 		useContext(WebContext);
+
+	const placedContacts = contacts.filter((contact) => contact.visible).length;
+	const nonPlacedContacts = contacts.filter((contact) => !contact.visible).length;
 
 	return (
 		<div
@@ -56,12 +59,12 @@ const SideBarHeader = () => {
 					<div className="flex items-center gap-2">
 						<CategoryButton
 							onClick={() => setShowDroppedContacts(false)}
-							label="Niet geplaatst"
+							label={`Niet Geplaatst (${nonPlacedContacts})`}
 							active={!showDroppedContacts}
 						/>
 						<CategoryButton
 							onClick={() => setShowDroppedContacts(true)}
-							label="Geplaatst"
+							label={`Geplaatst (${placedContacts})`}
 							active={showDroppedContacts}
 						/>
 					</div>
