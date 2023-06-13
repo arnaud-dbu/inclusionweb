@@ -8,6 +8,8 @@ import DropdownVersion from "@/components/pages/web/VersionDropdown";
 import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
 import { IconButton } from "@/components/form/IconButton";
+import WebIllustration from "../new/WebIllustration";
+import DivisionLine from "@/components/DivisionLine";
 
 export const WebSettings = () => {
 	const {
@@ -18,24 +20,11 @@ export const WebSettings = () => {
 		session,
 		web,
 		sessions,
+		getSession,
 		setModalVisible,
 	} = useContext(WebContext);
-	const router = useRouter();
 
-	const [selectedOption, setSelectedOption] = useState(null);
 	const currentSession = sessions.filter((x) => x.session == session)[0];
-
-	const handleSessionChange = (selectedOption) => {
-		setSelectedOption(selectedOption);
-		router.push(`/web/${web.id}/${selectedOption.value}`);
-		router.refresh();
-	};
-
-	const getSession = (session) => {
-		const sessionString = session.session.toString();
-		const formattedDate = dayjs(currentSession.created_at).format("MM/DD/YYYY");
-		return `Versie ${sessionString} - ${session.name ?? formattedDate}`;
-	};
 
 	const handleAvatarSize = async (size: string) => {
 		setAvatarSize(size);
@@ -84,53 +73,43 @@ export const WebSettings = () => {
 	return (
 		<section
 			className={`w-full px-20 flex gap-4 justify-center items-center absolute z-50 left-1/2 pt-12 -translate-x-1/2 top-0 `}>
-			<div className={`flex gap-12 items-center`}>
-				<div className={`flex gap-2 items-center`}>
-					<BlockTitle className="!mb-0" title="Afbeeldingen" />
-					<CheckButton
-						onClick={() => handleAvatarSize("small")}
-						active={avatarSize === "small"}
-						label="Klein"
-					/>
-					<CheckButton
-						onClick={() => handleAvatarSize("large")}
-						active={avatarSize === "large"}
-						label="Groot"
-					/>
+			<div className={`flex gap-12 items-center justify-between w-full`}>
+				<div className={`flex items-center gap-3`}>
+					<WebIllustration className={`w-8 h-8`} />
+					<span
+						className={`text-md text-neutral-800 whitespace-nowrap font-semibold`}>{`${getSession(
+						currentSession
+					)}`}</span>
 				</div>
-				<div className={`flex gap-2 items-center`}>
-					<BlockTitle className="!mb-0" title="Namen" />
-					<button className={``} onClick={() => handleNamesVisibility(!namesVisible)}>
-						{namesVisible ? (
-							<VisibleIcon className={`fill-primary-700`} />
-						) : (
-							<NonVisibleIcon className={`fill-primary-700`} />
-						)}
-					</button>
+				<DivisionLine className={``} />
+				<div className={`flex items-center gap-8`}>
+					<div className={`flex gap-2 items-center`}>
+						<BlockTitle className="!mb-0 " title="Afbeeldingen" />
+						<CheckButton
+							onClick={() => handleAvatarSize("small")}
+							active={avatarSize === "small"}
+							label="Klein"
+						/>
+						<CheckButton
+							onClick={() => handleAvatarSize("large")}
+							active={avatarSize === "large"}
+							label="Groot"
+						/>
+					</div>
+					<div className={`flex gap-2 items-center`}>
+						<BlockTitle className="!mb-0 " title="Namen" />
+						<button className={``} onClick={() => handleNamesVisibility(!namesVisible)}>
+							{namesVisible ? (
+								<VisibleIcon className={`fill-primary-700`} />
+							) : (
+								<NonVisibleIcon className={`fill-primary-700`} />
+							)}
+						</button>
+					</div>
 				</div>
-				<div className={`flex gap-2 items-center`}>
-					<BlockTitle className="!mb-0" title="Versie" />
-					<DropdownVersion
-						selectedOption={selectedOption}
-						setSelectedOption={setSelectedOption}
-						handleSessionChange={handleSessionChange}
-						className={`w-[15rem]`}
-						name="session"
-						placeholder={getSession(currentSession)}
-						options={sessions.map((session) => ({
-							id: session.id,
-							value: session.session,
-							label: getSession(session),
-						}))}
-					/>
-					<IconButton
-						onClick={() => setModalVisible("editSession")}
-						icon={<PencilIcon className={`w-6 h-6 fill-primary-700`} />}
-					/>
-				</div>
+				<DivisionLine className={``} />
+				<Button style="outline" label="Menu" onClick={() => setModalVisible("menu")} />
 			</div>
-			<div className={`ml-auto flex items-center gap-4`}></div>
-			<Button style="secondary" label="Deel" icon={<ShareIcon className={`w-5 h-6`} />} />
 		</section>
 	);
 };

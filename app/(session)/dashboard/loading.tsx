@@ -1,26 +1,26 @@
-import DivisionLine from "@/components/DivisionLine";
 import Header from "@/components/Header";
-import { H2 } from "@/components/Typography";
 import MenuButtons from "@/components/pages/dashboard/MenuButtons";
+import DivisionLine from "@/components/DivisionLine";
+import { HeadingSecondary } from "@/components/Typography";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
+import OverFlowContainer from "@/components/OverFlowContainer";
 
-const DashboardLoading = async () => {
+const DashboardPage = async () => {
 	return (
 		<>
 			<Header title="Mijn overzicht" />
 			<div className="layout-wrapper flex justify-between gap-16">
-				<div className="mt-8 w-full">
-					<div className="flex justify-between items-center gap-12 mb-8 px-2">
-						<H2>Mijn Webben</H2>
+				<div className="w-full">
+					<div className="flex justify-between items-center gap-12 px-2 h-fit mb-[2rem]">
+						<HeadingSecondary title="Mijn webben" />
 						<DivisionLine />
+						<LoadingSkeleton className={`w-[30rem] h-[3rem]`} />
 					</div>
-					<div className={`my-4 flex flex-col`}>
-						<div
-							className={`is-loading rounded-3xl px-12 border-[3px] h-[17.5rem] border-neutral-500 mb-4`}></div>
-						<div
-							className={`is-loading rounded-3xl px-12 border-[3px] h-[17.5rem] border-neutral-500 mb-4`}></div>
-						<div
-							className={`is-loading rounded-3xl px-12 border-[3px] h-[17.5rem] border-neutral-500 mb-4`}></div>
-					</div>
+					<OverFlowContainer fadeBottom className={`h-[calc(100vh-20.25rem)]`}>
+						{Array.from({ length: 4 }, (_, index) => (
+							<LoadingSkeleton key={index} className="w-full h-[15rem] mb-5" />
+						))}
+					</OverFlowContainer>
 				</div>
 				<MenuButtons />
 			</div>
@@ -28,4 +28,4 @@ const DashboardLoading = async () => {
 	);
 };
 
-export default DashboardLoading;
+export default DashboardPage;

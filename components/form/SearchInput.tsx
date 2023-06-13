@@ -6,7 +6,7 @@ export const SearchInput = () => {
 	const { setQuery, setInputValue, inputValue, handleInputChange } = useContext(WebContext);
 
 	return (
-		<div className={`relative mb-3`}>
+		<div className={`relative`}>
 			{inputValue ? (
 				<button>
 					<CrossIcon
@@ -25,7 +25,7 @@ export const SearchInput = () => {
 				</button>
 			)}
 			<input
-				className={`bg-transparent w-full min-w-[15rem] border-2 px-4 py-2 rounded-lg border-neutral-500`}
+				className={`outline-none bg-transparent w-full min-w-[15rem] border-1 px-4 py-2 rounded-lg border-neutral-500  focus`}
 				type="text"
 				placeholder="Zoek"
 				value={inputValue}

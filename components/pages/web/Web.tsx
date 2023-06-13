@@ -10,8 +10,7 @@ import { WebContext } from "@/context/WebContext";
 import { WebSettings } from "./WebSettings";
 
 const Web = () => {
-	const { contacts, setContacts, fetchedWebData, setModalVisible, setClickPosition } =
-		useContext(WebContext);
+	const { contacts, setContacts, setModalVisible, setClickPosition, web } = useContext(WebContext);
 
 	const printRef = useRef(null);
 
@@ -120,18 +119,18 @@ const Web = () => {
 								<div className="web-inner opacity-20 scale-[.55]"></div>
 								<div className="web-inner opacity-25 scale-[.35]"></div>
 
-								{fetchedWebData.image_path && (
+								{web.image_path && (
 									<Image
 										className="absolute-center z-50 w-[10rem] rounded-full aspect-square object-cover"
 										alt="test"
-										src={`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${fetchedWebData.image_path}`}
+										src={`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${web.image_path}`}
 										width={700}
 										height={700}
 									/>
 								)}
-								{fetchedWebData.avatar && (
+								{web.avatar && (
 									<AvatarComponent
-										avatar={fetchedWebData.avatar}
+										avatar={web.avatar}
 										className="absolute-center w-[10rem] z-50 h-[10rem] bg-primary-500 mb-2 rounded-full object-cover"
 									/>
 								)}

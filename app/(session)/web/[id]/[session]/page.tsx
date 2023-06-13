@@ -18,7 +18,6 @@ const WebPage = async ({ params }) => {
 	const sessionRes = await fetch(`${process.env.HOST}/api/sessions`, {
 		cache: "no-cache",
 	});
-
 	const sessionsData = await sessionRes.json();
 	const fetchedSessionsData = await sessionsData?.filter(
 		(session: any) => session.web_id === fetchedWebData.id

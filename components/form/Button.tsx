@@ -26,13 +26,16 @@ export const Button = ({
 
 	switch (style) {
 		case "primary":
-			btnVariant = `bg-secondary-900 font-semibold text-white`;
+			btnVariant = `bg-secondary-900 font-semibold text-white shadow-sm`;
 			break;
 		case "secondary":
-			btnVariant = "bg-neutral-900 font-semibold text-white";
+			btnVariant = "bg-neutral-900 font-semibold text-white shadow-sm";
+			break;
+		case "tertiary":
+			btnVariant = "bg-primary-700 font-semibold text-white shadow-sm";
 			break;
 		case "outline":
-			btnVariant = "border-neutral-600 text-neutral-800 border-1";
+			btnVariant = "border-neutral-500 text-neutral-800 border-1 ";
 			break;
 		case "alert":
 			btnVariant = "border-red-900 text-red-900 border-1";
@@ -58,14 +61,14 @@ export const Button = ({
 			btnSize = "px-3 py-[3px] text-sm";
 			break;
 		default:
-			btnSize = "px-6 py-2 text-md";
+			btnSize = "h-12 px-6 py-2 text-md";
 			break;
 	}
 
 	return (
 		<button
 			{...rest}
-			className={` flex gap-2 items-center justify-center rounded-full h-fit  ${btnSize} ${btnVariant} ${className} 
+			className={` flex gap-2 items-center justify-center rounded-full focus ${btnSize} ${btnVariant} ${className} 
            
             `}>
 			{image && <Image className={`w-6 h-6`} src={image} alt="" width={50} height={50} />}

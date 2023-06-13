@@ -1,5 +1,6 @@
 import { Label } from "@/components/form/Label";
 import { WebContext } from "@/context/WebContext";
+import { ImageIcon } from "@/public/icons";
 import React, { useContext } from "react";
 import { useFormContext } from "react-hook-form";
 
@@ -13,7 +14,8 @@ const ContactUploadPicture = () => {
 	};
 	return (
 		<Label
-			style="link"
+			style="outline"
+			icon={<ImageIcon className={`w-5 h-5 fill-neutral-800`} />}
 			size="sm"
 			title={thumbnail === "image" ? "Foto geselecteerd" : "Upload een foto"}
 			className={`file-input-hidden !px-0 ${

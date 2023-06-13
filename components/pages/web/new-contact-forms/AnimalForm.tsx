@@ -10,6 +10,15 @@ import ContactReceivedSupport from "./ContactReceivedSupport";
 import ContactFrequency from "./ContactFrequency";
 import ContactUploadPicture from "./ContactUploadPicture";
 import { FormBlock, FormBlockItem } from "../FormBlock";
+import {
+	BirdImage,
+	BunnyImage,
+	CatImage,
+	DogImage,
+	FishImage,
+	LizardImage,
+	TurtleImage,
+} from "@/public/images";
 
 const AnimalForm = () => {
 	const { setThumbnail, setImageUrl, editInfoVisible } = useContext(WebContext);
@@ -36,20 +45,23 @@ const AnimalForm = () => {
 			</FormBlock>
 
 			<FormBlock className={`${editInfoVisible !== "Afbeelding" && "hidden"}`}>
-				<div className={`flex items-center justify-between mb-5`}>
-					<ContactUploadPicture />
-				</div>
+				<div className={`flex items-center justify-between mb-5`}></div>
 				<FormBlockItem title="Avatar">
 					<div className="flex gap-4">
-						<SelectImage
-							image={LadyIllustration}
-							onClick={() => handlePresetImageChangeUpload(LadyIllustration)}
-						/>
-						<SelectImage
-							image={OrganizationIllustration}
-							onClick={() => handlePresetImageChangeUpload(OrganizationIllustration)}
-						/>
+						{[CatImage, BunnyImage, DogImage, FishImage, TurtleImage, LizardImage, BirdImage].map(
+							(image, index) => (
+								<SelectImage
+									key={index}
+									bg={true}
+									image={image}
+									onClick={() => handlePresetImageChangeUpload(image)}
+								/>
+							)
+						)}
 					</div>
+				</FormBlockItem>
+				<FormBlockItem title="Foto">
+					<ContactUploadPicture />
 				</FormBlockItem>
 			</FormBlock>
 		</>

@@ -11,21 +11,19 @@ import { KeyIcon, MailIcon } from "@/public/icons";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-// interface for form
 type LoginTypes = {
 	email: string;
 	password: string;
 };
 
-// validation
 const EmailSchema = yup.object().shape({
 	email: yup.string().email("Voer een geldig e-mailadres in").required("Email is verplicht"),
 	password: yup.string().max(32, "Max paswoord lengte is 32").required("Paswoord verplicht"),
 });
 
 const LoginForm = () => {
-	const { supabase } = useSupabase();
 	const router = useRouter();
+	const { supabase } = useSupabase();
 	const [submitError, setSubmitError] = useState("");
 
 	const {
@@ -63,22 +61,23 @@ const LoginForm = () => {
 				onSubmit={onSubmit}
 				className="w-full">
 				<Input
-					bg="white"
+					style="primary"
 					name="email"
 					type="email"
 					label="Email"
 					register={register}
 					error={errors.email?.message}
-					className="mb-3"
+					className="mb-4"
 					icon={<MailIcon className={`w-6 h-6 fill-neutral-600`} />}
 				/>
 				<Input
-					bg="white"
+					style="primary"
 					name="password"
 					type="password"
 					label="Password"
 					register={register}
 					error={errors.password?.message}
+					className={`mb-6`}
 					icon={<KeyIcon className={`w-6 h-6 fill-neutral-600`} />}
 				/>
 				<Button style="primary" label="Log in" className="w-full mt-5" />

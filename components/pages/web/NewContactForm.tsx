@@ -279,7 +279,7 @@ export const NewContactForm = () => {
 					<span className="mb-7  block font-primary text-6xl uppercase font-bold text-neutral-900 gap-5">
 						{editContact ? "Contact wijzigen" : "Nieuw contact"}
 					</span>
-					<SelectButtons
+					{/* <SelectButtons
 						name="type"
 						options={[
 							{ value: "person", label: "Persoon" },
@@ -308,7 +308,7 @@ export const NewContactForm = () => {
 						register={register}
 						type={type}
 						setType={setType}
-					/>
+					/> */}
 				</div>
 
 				{thumbnail === "avatar" && (

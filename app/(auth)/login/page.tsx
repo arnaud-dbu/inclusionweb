@@ -1,4 +1,4 @@
-import { HeadingPrimary } from "@/components/Typography";
+import { HeadingPrimary, P } from "@/components/Typography";
 import DivisionLine from "@/components/DivisionLine";
 import Link from "next/link";
 import { Button } from "@/components/form/Button";
@@ -8,7 +8,10 @@ import LoginForm from "@/components/auth/LoginForm";
 const LoginPage = async () => {
 	return (
 		<>
-			<HeadingPrimary underline title="Aanmelden" />
+			<div className={`mb-5`}>
+				<HeadingPrimary underline title="Aanmelden" className={``} />
+				<P text="Voer je inloggegevens in om toegang te krijgen tot het inclusieweb" />
+			</div>
 
 			<div className={`w-full`}>
 				<Button
@@ -30,7 +33,7 @@ const LoginPage = async () => {
 			<LoginForm />
 
 			<div className="flex flex-col items-center">
-				<Link href="/reset-password" className="link">
+				<Link href="/reset-password" className="link mb-1">
 					Wachtwoord vergeten?
 				</Link>
 				<Link href="/register" className="link">

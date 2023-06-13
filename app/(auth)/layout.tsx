@@ -5,6 +5,7 @@ import React from "react";
 import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/lib/database.types";
 import { headers, cookies } from "next/headers";
+import { Card } from "@/components/Card";
 
 const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
 	const supabase = createServerComponentSupabaseClient<Database>({
@@ -23,15 +24,11 @@ const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
 	return (
 		<div className="flex h-[100dvh] items-center justify-center">
 			<div className={`flex gap-16 items-center`}>
-				<div
-					className={`absolute-center z-50 flex items-center gap-[7.5rem] bg-white py-20 px-24 rounded-3xl border-2 border-neutral-500 shadow-lg`}>
-					<div className={`flex flex-col items-center gap-3 w-[22.5rem]`}>
-						<div className={`flex flex-col items-center gap-3 w-[22.5rem]`}>{children}</div>
-					</div>
-				</div>
-				<div>
-					<Image className={`w-[100rem] opacity-60`} src={NetworkIllustration} alt="Network" />
-				</div>
+				<Card
+					className={`absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 px-20 py-16 z-10 flex flex-col gap-3 w-[35rem]`}>
+					{children}
+				</Card>
+				<Image className={`w-[90rem] opacity-50`} src={NetworkIllustration} alt="Network" />
 			</div>
 		</div>
 	);

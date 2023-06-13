@@ -2,8 +2,13 @@ import AvatarComponent from "@/components/avatar/AvatarComponent";
 import { ArrowLeftIcon } from "@/public/icons";
 import React, { useContext, useState } from "react";
 import { WebContext } from "@/context/WebContext";
+import { type } from "os";
 
-export const CustomAvatar = () => {
+type Props = {
+	className?: string;
+};
+
+export const CustomAvatar = ({ className }) => {
 	const { activeAvatarPreset, handlePresetAvatarSubmit, setEditAvatarWindow, customAvatar } =
 		useContext(WebContext);
 
@@ -14,14 +19,10 @@ export const CustomAvatar = () => {
 
 	return (
 		<>
-			<div onClick={handleReset} className="absolute top-0 left-0 flex items-center gap-3">
-				<ArrowLeftIcon className="w-7 h-7 fill-neutral-800" />
-				Ga Terug
-			</div>
-			<div className="flex flex-col gap-5 items-center">
+			<div className={`flex flex-col gap-5 items-center ${className}`}>
 				<AvatarComponent
 					avatar={customAvatar}
-					className="w-[12.5rem] h-[12.5rem] bg-primary-500 rounded-full object-cover"
+					className="w-full h-full bg-primary-500 rounded-full object-cover"
 				/>
 			</div>
 		</>

@@ -1,2 +1,9 @@
 export { default as FacebookLogo } from "./facebook-logo.png";
 export { default as GoogleLogo } from "./google-logo.png";
+export { default as BunnyImage } from "./bunny.png";
+export { default as BirdImage } from "./canary.png";
+export { default as CatImage } from "./cat.png";
+export { default as DogImage } from "./dog.png";
+export { default as FishImage } from "./gold-fish.png";
+export { default as LizardImage } from "./lizard.png";
+export { default as TurtleImage } from "./tortoise.png";

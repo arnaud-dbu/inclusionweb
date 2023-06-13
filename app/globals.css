@@ -233,3 +233,11 @@ p {
 .alert {
 	@apply text-red-900 text-sm font-light;
 }
+
+input:not(:placeholder-shown) {
+	@apply border-1 border-neutral-500;
+}
+
+.focus {
+	@apply outline-none focus:outline-2 focus:outline-primary-800;
+}

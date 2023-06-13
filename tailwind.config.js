@@ -21,7 +21,7 @@ module.exports = {
 				},
 				primary: {
 					// 50: '#fdf8f6',
-					// 100: '#f2e8e5',
+					100: "#f2e8e5",
 					200: "#EFF7F7",
 					300: "#E9F5F5",
 					400: "#CAEBEB",
@@ -58,6 +58,9 @@ module.exports = {
 			backgroundImage: {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
 				"gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+			},
+			outline: {
+				custom: ["2px solid #ff0000", "-webkit-focus-ring-color auto 5px"],
 			},
 		},
 	},

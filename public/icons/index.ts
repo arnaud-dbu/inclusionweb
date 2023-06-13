@@ -37,3 +37,5 @@ export { default as MailIcon } from "./email.svg";
 export { default as ChartIcon } from "./chart.svg";
 export { default as HandIcon } from "./hand.svg";
 export { default as LinkIcon } from "./link.svg";
+export { default as FilePlusIcon } from "./file-plus.svg";
+export { default as DuplicateIcon } from "./copy.svg";

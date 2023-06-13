@@ -66,34 +66,34 @@ const RegisterForm = () => {
 				handleSubmit={handleSubmit}
 				onSubmit={onSubmit}
 				className="w-full">
-				<div className={`flex gap-2 mb-2`}>
+				<div className={`flex gap-2`}>
 					<Input
-						bg="white"
+						style="primary"
 						name="firstName"
 						label="Voornaam"
 						register={register}
-						className="mb-3"
+						className="mb-4"
 					/>
 					<Input
-						bg="white"
+						style="primary"
 						name="lastName"
 						label="Achternaam"
 						register={register}
-						className="mb-3"
+						className="mb-4"
 					/>
 				</div>
 				<Input
-					bg="white"
+					style="primary"
 					name="email"
 					type="email"
 					label="Email"
 					register={register}
 					error={errors.email?.message}
-					className="mb-3"
+					className="mb-4"
 					icon={<MailIcon className={`w-6 h-6 fill-neutral-600`} />}
 				/>
 				<Input
-					bg="white"
+					style="primary"
 					name="password"
 					type="password"
 					label="Password"

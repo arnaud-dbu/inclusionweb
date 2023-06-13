@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 import AvatarComponent from "@/components/avatar/AvatarComponent";
-import { useContext } from "react";
-import { WebContext } from "@/context/WebContext";
 
 type Props = {
 	className?: string;

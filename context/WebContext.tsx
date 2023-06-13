@@ -10,6 +10,7 @@ import {
 	skinColors,
 	topTypes,
 } from "@/lib/avatarPresets";
+import dayjs from "dayjs";
 
 export type AvatarType = {
 	topType: string;
@@ -32,6 +33,7 @@ export const WebContext = createContext(null);
 type Props = {
 	children: ReactNode;
 	fetchedWebData?: any;
+	fetchedWebsData?: any;
 	fetchedContactsData?: any;
 	fetchedSessionsData?: any;
 	contacts?: any;
@@ -42,6 +44,7 @@ type Props = {
 export const WebProvider = ({
 	children,
 	fetchedWebData,
+	fetchedWebsData,
 	fetchedContactsData,
 	fetchedSessionsData,
 	session,
@@ -49,6 +52,8 @@ export const WebProvider = ({
 	// Data
 	const [contacts, setContacts] = useState(fetchedContactsData);
 	const [web, setWeb] = useState(fetchedWebData);
+	const [webs, setWebs] = useState(fetchedWebsData);
+
 	const [sessions, setSessions] = useState(fetchedSessionsData);
 
 	// Search function
@@ -62,6 +67,14 @@ export const WebProvider = ({
 	const handleInputChange = (e: any) => {
 		setInputValue(e.target.value);
 		handleSearchFilter(e);
+	};
+
+	const currentSession = sessions?.filter((x) => x.session == session)[0];
+
+	const getSession = (session) => {
+		const sessionString = session.session.toString();
+		const formattedDate = dayjs(currentSession.created_at).format("MM/DD/YYYY");
+		return `Versie ${sessionString} - ${session.name ?? formattedDate}`;
 	};
 
 	// States
@@ -82,7 +95,7 @@ export const WebProvider = ({
 	const [selectedImage, setSelectedImage] = useState<any>("");
 	const [imageUrl, setImageUrl] = useState("");
 	const [dragContacts, setDragContacts] = useState(fetchedContactsData);
-	const [avatarEditWindow, setEditAvatarWindow] = useState(false);
+	const [editAvatarWindow, setEditAvatarWindow] = useState(false);
 	const [thumbnail, setThumbnail] = useState("avatar" || "image");
 	const [activeAvatarPreset, setActiveAvatarPreset] = useState("youngManAvatar");
 	const [selectedReceivedSupport, setSelectedReceivedSupport] = useState([]);
@@ -111,7 +124,7 @@ export const WebProvider = ({
 	const searchFilteredContacts = contacts ? searchFilter(contacts) : [];
 
 	const toggleEditAvatarWindow = () => {
-		setEditAvatarWindow(!avatarEditWindow);
+		setEditAvatarWindow(!editAvatarWindow);
 	};
 
 	const toggleModalVisibility = (modalName, isVisible) => {
@@ -119,11 +132,24 @@ export const WebProvider = ({
 	};
 
 	const handlePresetImageChangeUpload = async (image: any) => {
-		await setImageUrl(image);
-		await setThumbnail("presetImage");
+		setImageUrl(image);
+		setThumbnail("presetImage");
 	};
 
+	const handleCustomImageChangeUpload = (e: any) => {
+		setSelectedImage(e.target.files[0]);
+		setThumbnail("customImage");
+	};
+
+	useEffect(() => {
+		if (selectedImage) {
+			setImageUrl(URL.createObjectURL(selectedImage));
+		}
+	}, [selectedImage, setImageUrl]);
+
 	const handleSwitchAvatarStyles = (item, dir) => {
+		setThumbnail("avatar");
+
 		const currentIndex = item.indexOf(item.find((type) => type === item[0]));
 		let newItem = [];
 
@@ -213,6 +239,8 @@ export const WebProvider = ({
 			value={{
 				web,
 				setWeb,
+				webs,
+				setWebs,
 				sessions,
 				setSessions,
 				contacts,
@@ -228,14 +256,19 @@ export const WebProvider = ({
 				setClickPosition,
 				isValid,
 				setIsValid,
+				getSession,
+				currentSession,
+				editAvatarWindow,
+				activeAvatarPreset,
+				modalVisible,
+				setModalVisible,
+				session,
+				handleCustomImageChangeUpload,
 
 				fetchedWebData,
 				fetchedContactsData,
 				fetchedSessionsData,
 
-				modalVisible,
-				session,
-				setModalVisible,
 				showDroppedContacts,
 				setShowDroppedContacts,
 				query,
@@ -249,8 +282,6 @@ export const WebProvider = ({
 				setView,
 				namesVisible,
 				setNamesVisible,
-				avatarEditWindow,
-				activeAvatarPreset,
 				setActiveAvatarPreset,
 				setEditAvatarWindow,
 				topType,

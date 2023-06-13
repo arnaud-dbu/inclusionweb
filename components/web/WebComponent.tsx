@@ -4,7 +4,7 @@ import { WebProvider } from "@/context/WebContext";
 import SideBar from "@/components/pages/web/SideBar";
 import NewContactModal from "@/components/pages/web/NewContactModal";
 import Web from "@/components/pages/web/Web";
-import SessionModal from "../pages/web/SessionModal";
+import WebMenu from "../pages/web/WebMenu";
 
 type Props = {
 	fetchedWebData: any;
@@ -29,7 +29,7 @@ const WebComponents = ({
 				<SideBar />
 				<Web />
 				<NewContactModal />
-				<SessionModal />
+				<WebMenu />
 			</WebProvider>
 		</div>
 	);
