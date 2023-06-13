@@ -274,12 +274,12 @@ export const NewContactForm = () => {
 
 	return (
 		<>
-			<div className={`flex items-center justify-between gap-10 px-24 py-10`}>
-				<div className={``}>
-					<span className="mb-7  block font-primary text-6xl uppercase font-bold text-neutral-900 gap-5">
+			<div className={`mb-6 flex items-center justify-between gap-10 px-24`}>
+				<div>
+					<span className="mb-6 block gap-5 font-primary text-7xl font-bold uppercase text-neutral-900">
 						{editContact ? "Contact wijzigen" : "Nieuw contact"}
 					</span>
-					{/* <SelectButtons
+					<SelectButtons
 						name="type"
 						options={[
 							{ value: "person", label: "Persoon" },
@@ -290,32 +290,31 @@ export const NewContactForm = () => {
 						icons={[
 							<PersonIcon
 								key={"person"}
-								className={`w-6 h-6 fill-neutral-900 ${type === "person" && "fill-white"}`}
+								className={`h-6 w-6 fill-neutral-900 ${type === "person" && "fill-white"}`}
 							/>,
 							<GroupIcon
 								key={"group"}
-								className={`w-6 h-6 fill-neutral-900 ${type === "group" && "fill-white"}`}
+								className={`h-6 w-6 fill-neutral-900 ${type === "group" && "fill-white"}`}
 							/>,
 							<PlaceIcon
 								key={"place"}
-								className={`w-6 h-6 fill-neutral-900 ${type === "place" && "fill-white"}`}
+								className={`h-6 w-6 fill-neutral-900 ${type === "place" && "fill-white"}`}
 							/>,
 							<AnimalIcon
 								key={"animal"}
-								className={`w-6 h-6 fill-neutral-900 ${type === "animal" && "fill-white"}`}
+								className={`h-6 w-6 fill-neutral-900 ${type === "animal" && "fill-white"}`}
 							/>,
 						]}
 						register={register}
 						type={type}
 						setType={setType}
-					/> */}
+					/>
 				</div>
-
 				{thumbnail === "avatar" && (
 					<ContactThumbnail type={type}>
 						<AvatarComponent
 							avatar={customAvatar}
-							className="bg-primary-500 w-36 h-36 rounded-full object-cover"
+							className="h-[10rem] w-[10rem] rounded-full bg-primary-500 object-cover"
 						/>
 					</ContactThumbnail>
 				)}
@@ -323,7 +322,7 @@ export const NewContactForm = () => {
 				{thumbnail === "presetImage" && (
 					<ContactThumbnail type={type}>
 						<Image
-							className="rounded-full w-36 h-36 object-cover aspect-square "
+							className="aspect-square h-[10rem] w-[10rem] rounded-full object-cover "
 							alt="test"
 							src={imageUrl || "/"}
 							width={700}
@@ -335,7 +334,7 @@ export const NewContactForm = () => {
 				{thumbnail === "customImage" && (
 					<ContactThumbnail type={type}>
 						<Image
-							className="rounded-full w-36 h-36 object-cover aspect-square "
+							className="aspect-square h-[10rem] w-[10rem] rounded-full object-cover "
 							alt="test"
 							src={imageUrl || "/"}
 							width={700}
@@ -349,7 +348,7 @@ export const NewContactForm = () => {
 
 			<FormProvider {...methods}>
 				<Form
-					className={`px-24 py-6 flex flex-col`}
+					className={`flex flex-col px-24 py-6`}
 					register={register}
 					handleSubmit={handleSubmit}
 					onSubmit={editContact ? handleEditContactSubmit : handleCreateContactSubmit}>
@@ -361,7 +360,7 @@ export const NewContactForm = () => {
 					{type === "animal" && <AnimalForm />}
 					{/* </OverFlowContainer> */}
 
-					<div className="flex gap-3 mt-8 self-end">
+					<div className="mt-8 flex gap-3 self-end">
 						<Button style="outline" label="Annuleer" onClick={handleClosingModal} />
 						{editContact ? (
 							<Button style="primary" label="Wijzigen" />

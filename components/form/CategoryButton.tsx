@@ -8,8 +8,10 @@ type Props = {
 export const CategoryButton = ({ active, label, ...rest }: Props) => {
 	return (
 		<button
-			className={`px-4 py-[.5rem] font-semibold rounded-full whitespace-nowrap ${
-				active ? "border-2 border-primary-700 text-primary-700" : "bg-neutral-400 text-neutral-700"
+			className={`whitespace-nowrap rounded-full px-4 py-[.5rem] font-semibold ${
+				active
+					? "border-1 border-primary-800 text-primary-800 shadow-sm"
+					: "bg-neutral-400 text-neutral-700"
 			}`}
 			{...rest}>
 			{label}

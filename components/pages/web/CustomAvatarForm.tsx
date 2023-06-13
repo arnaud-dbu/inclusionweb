@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import { useContext } from "react";
 import AvatarStyle from "@/components/avatar/AvatarStyle";
 import {
 	ClothesIcon,
@@ -13,10 +13,6 @@ import {
 	MouthIcon,
 	SkinColorIcon,
 } from "@/public/icons";
-import { Btn } from "@/components/Buttons";
-import { EditAvatarContext } from "@/context/EditAvatarContext";
-import { type } from "os";
-import { Button } from "@/components/form/Button";
 import { WebContext } from "@/context/WebContext";
 
 type Props = {
@@ -24,7 +20,7 @@ type Props = {
 	className?: string;
 };
 
-export const CustomAvatarForm = ({ setShowOnWeb, className }: Props) => {
+export const CustomAvatarForm = ({ className }: Props) => {
 	const {
 		skinColor,
 		topType,
@@ -36,13 +32,7 @@ export const CustomAvatarForm = ({ setShowOnWeb, className }: Props) => {
 		hairColor,
 		accessoriesType,
 		facialHair,
-		toggleModalVisibility,
 	} = useContext(WebContext);
-
-	const handleShowAvatarOnWeb = () => {
-		setShowOnWeb("avatar");
-		toggleModalVisibility();
-	};
 
 	return (
 		<section className={`${className}`}>
@@ -51,69 +41,57 @@ export const CustomAvatarForm = ({ setShowOnWeb, className }: Props) => {
 					name="Huidskleur"
 					prevBtn={() => handleSwitchAvatarStyles(skinColor, "<")}
 					nextBtn={() => handleSwitchAvatarStyles(skinColor, ">")}>
-					<SkinColorIcon className="w-7 h-7 fill-neutral-900 mr-5" />
+					<SkinColorIcon className="mr-5 h-7 w-7 fill-neutral-900" />
 				</AvatarStyle>
 				<AvatarStyle
 					name="Haar"
 					prevBtn={() => handleSwitchAvatarStyles(topType, "<")}
 					nextBtn={() => handleSwitchAvatarStyles(topType, ">")}>
-					<HairIcon className="w-7 h-7 fill-neutral-900 mr-5" />
+					<HairIcon className="mr-5 h-7 w-7 fill-neutral-900" />
 				</AvatarStyle>
 				<AvatarStyle
 					name="Ogen"
 					prevBtn={() => handleSwitchAvatarStyles(eyes, "<")}
 					nextBtn={() => handleSwitchAvatarStyles(eyes, ">")}>
-					<EyeIcon className="w-7 h-7 fill-neutral-900 mr-5" />
+					<EyeIcon className="mr-5 h-7 w-7 fill-neutral-900" />
 				</AvatarStyle>
 				<AvatarStyle
 					name="Mond"
 					prevBtn={() => handleSwitchAvatarStyles(mouth, "<")}
 					nextBtn={() => handleSwitchAvatarStyles(mouth, ">")}>
-					<MouthIcon className="w-7 h-7 fill-neutral-900 mr-5" />
+					<MouthIcon className="mr-5 h-7 w-7 fill-neutral-900" />
 				</AvatarStyle>
 				<AvatarStyle
 					name="Wenkbrauwen"
 					prevBtn={() => handleSwitchAvatarStyles(eyebrow, "<")}
 					nextBtn={() => handleSwitchAvatarStyles(eyebrow, ">")}>
-					<EyeBrowIcon className="w-7 h-7 fill-neutral-900 mr-5" />
+					<EyeBrowIcon className="mr-5 h-7 w-7 fill-neutral-900" />
 				</AvatarStyle>
 				<AvatarStyle
 					name="Kleding"
 					prevBtn={() => handleSwitchAvatarStyles(clothes, "<")}
 					nextBtn={() => handleSwitchAvatarStyles(clothes, ">")}>
-					<ClothesIcon className="w-7 h-7 fill-neutral-900 mr-5" />
+					<ClothesIcon className="mr-5 h-7 w-7 fill-neutral-900" />
 				</AvatarStyle>
 				<AvatarStyle
 					name="Haar Kleur"
 					prevBtn={() => handleSwitchAvatarStyles(hairColor, "<")}
 					nextBtn={() => handleSwitchAvatarStyles(hairColor, ">")}>
-					<HairColorIcon className="w-7 h-7 fill-neutral-900 mr-5" />
+					<HairColorIcon className="mr-5 h-7 w-7 fill-neutral-900" />
 				</AvatarStyle>
 				<AvatarStyle
 					name="Bril"
 					prevBtn={() => handleSwitchAvatarStyles(accessoriesType, "<")}
 					nextBtn={() => handleSwitchAvatarStyles(accessoriesType, ">")}>
-					<GlassesIcon className="w-7 h-7 fill-neutral-900 mr-5" />
+					<GlassesIcon className="mr-5 h-7 w-7 fill-neutral-900" />
 				</AvatarStyle>
 				<AvatarStyle
 					name="Baardgroei"
 					prevBtn={() => handleSwitchAvatarStyles(facialHair, "<")}
 					nextBtn={() => handleSwitchAvatarStyles(facialHair, ">")}>
-					<FacialHairIcon className="w-7 h-7 fill-neutral-900 mr-5" />
+					<FacialHairIcon className="mr-5 h-7 w-7 fill-neutral-900" />
 				</AvatarStyle>
 			</ul>
-			{/* {setShowOnWeb ? (
-				<Button
-					onClick={handleShowAvatarOnWeb}
-					style="primary"
-					label="Opslaan"
-					className="w-full mt-8"
-				/>
-			) : (
-				<Btn tertiary submit onClick={() => setEditAvatarWindow(false)} className="w-full mt-8">
-					Opslaan
-				</Btn>
-			)} */}
 		</section>
 	);
 };

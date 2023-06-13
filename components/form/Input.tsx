@@ -42,7 +42,14 @@ export const Input = ({
             focus:border-1 focus:border-primary-800`;
 			break;
 		case "secondary":
-			inputVariant = "bg-neutral-900 font-semibold text-white";
+			inputVariant = `rounded-lg 
+            placeholder-shown:bg-transparent 
+            placeholder-shown:border-1 
+            placeholder-shown:border-neutral-500 
+            placeholder-shown:shadow-none 
+            focus:outline-none 
+            focus:bg-transparent 
+            focus:border-1 focus:border-primary-800`;
 			break;
 			break;
 	}
@@ -50,6 +57,9 @@ export const Input = ({
 	switch (inputVariant) {
 		case "primary":
 			labelVariant = "bg-neutral-100 ";
+			break;
+		case "secondary":
+			labelVariant = "bg-white";
 			break;
 		default:
 			break;
@@ -66,17 +76,9 @@ export const Input = ({
 
 	return (
 		<div className={`${className}`}>
-			<div className={`w-full relative `}>
-				{/* <input
-					className={`peer placeholder:text-transparent w-full px-4 py-2 h-12 border-1 ${
-						error ? "border-red-900" : "border-neutral-600"
-					} rounded-lg bg-transparent focus:outline-none focus:border-primary-800`}
-					placeholder={label}
-					{...register(name)}
-					{...rest}
-				/> */}
+			<div className={`relative w-full `}>
 				<input
-					className={`peer placeholder:text-transparent w-full px-4 py-2 ${inputVariant} ${inputSize}  ${
+					className={`peer w-full px-4 py-2 placeholder:text-transparent ${inputVariant} ${inputSize}  ${
 						error && "!border-red-900"
 					}`}
 					placeholder={label}
@@ -86,17 +88,19 @@ export const Input = ({
 				<label
 					htmlFor={name}
 					className={`
-                    absolute duration-100 ease-linear text-xs -top-2 px-[5px] left-[.6rem] pointer-events-none bg-white text-neutral-800
-                    peer-placeholder-shown:bg-neutral-100
-                    peer-placeholder-shown:-translate-y-1/2 
+                    peer-placeholder-shown: pointer-events-none absolute -top-2 left-[.6rem] bg-white px-[5px] text-xs text-neutral-800 duration-100
+                    ease-linear
                     peer-placeholder-shown:top-1/2 
+                    peer-placeholder-shown:-translate-y-1/2 ${
+											style === "primary" ? "bg-neutral-100" : "bg-white"
+										} 
                     peer-placeholder-shown:text-base 
-                    peer-placeholder-shown:text-neutral-700
-                    peer-focus:bg-white
-                    peer-focus:text-primary-800
-                    peer-focus:-top-2 
+                    peer-placeholder-shown:text-neutral-800
+                    peer-focus:-top-2
                     peer-focus:translate-y-0
+                    peer-focus:bg-white 
                     peer-focus:text-xs
+                    peer-focus:text-primary-800
                 `}>
 					{label}
 				</label>

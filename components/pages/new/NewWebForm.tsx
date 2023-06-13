@@ -9,42 +9,34 @@ import { Card } from "@/components/Card";
 import { SelectAvatar } from "@/components/form/SelectAvatar";
 import { CustomAvatarForm } from "../web/CustomAvatarForm";
 import { Label } from "@/components/form/Label";
+import { useRouter } from "next/navigation";
 
 type Props = {
-	onSubmit: any;
+	handleNewWeb: any;
 };
 
-const NewWebForm = ({ onSubmit }: Props) => {
+const NewWebForm = ({ handleNewWeb }: Props) => {
+	const router = useRouter();
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useFormContext();
-	const {
-		setSelectedImage,
-		setThumbnail,
-		activeAvatarPreset,
-		handlePresetAvatarSubmit,
-		thumbnail,
-	} = useContext(WebContext);
-
-	const handleCustomImageChangeUpload = (e: any) => {
-		setSelectedImage(e.target.files[0]);
-		setThumbnail("image");
-	};
+	const { handleCustomImageChangeUpload, activeAvatarPreset, handlePresetAvatarSubmit, thumbnail } =
+		useContext(WebContext);
 
 	return (
-		<Card className={`px-20 py-20 w-[40rem]`}>
+		<Card className={`px-20 py-16 w-[40rem]`}>
+			<HeadingPrimary underline title="Nieuw web" className="mb-10" />
 			<Form
 				register={register}
 				handleSubmit={handleSubmit}
-				onSubmit={onSubmit}
+				onSubmit={handleNewWeb}
 				className={`flex flex-col gap-6`}>
 				<div>
-					<HeadingSecondary title="Vul een naam in" className="mb-4" />
-
+					<HeadingSecondary title="Gegevens" className="mb-5" />
 					<Input
-						bg="white"
+						style="primary"
 						register={register}
 						name="name"
 						label="Naam"
@@ -54,7 +46,7 @@ const NewWebForm = ({ onSubmit }: Props) => {
 
 				<div>
 					<div className={`flex items-center justify-between mb-5`}>
-						<HeadingSecondary title="Ontwerp je avatar" />
+						<HeadingSecondary title="Afbeelding" />
 						<Label
 							style="link"
 							size="sm"
@@ -89,11 +81,18 @@ const NewWebForm = ({ onSubmit }: Props) => {
 							type="woman"
 						/>
 					</div>
-
 					<CustomAvatarForm />
 				</div>
-
-				<Button label="Start" style="primary" className="w-full mt-4" />
+				<div>
+					<Button label="Start" style="primary" className="w-full mt-4 mb-3" />
+					<Button
+						type="button"
+						onClick={() => router.back()}
+						label="Annuleer"
+						style="outline"
+						className="w-full"
+					/>
+				</div>
 			</Form>
 		</Card>
 	);

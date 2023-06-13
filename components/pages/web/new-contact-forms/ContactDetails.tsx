@@ -16,16 +16,16 @@ const ContactDetails = ({ title }: Props) => {
 
 	return (
 		<FormBlockItem>
-			<div className="flex gap-3 w-[30rem]">
+			<div className="flex w-[30rem] gap-3">
 				<Input
-					secondary
+					style="secondary"
 					register={register}
 					error={errors.name?.message}
 					name="name"
 					label="Naam"
 					className={`w-full`}
 				/>
-				<Input secondary register={register} name="role" label="Rol" className={`w-full`} />
+				<Input style="secondary" register={register} name="role" label="Rol" className={`w-full`} />
 			</div>
 		</FormBlockItem>
 	);

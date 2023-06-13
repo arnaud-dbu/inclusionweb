@@ -1,12 +1,10 @@
 "use client";
 
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useSupabase } from "@/app/supabase-provider";
 import { useRouter } from "next/navigation";
 import { WebContext } from "@/context/WebContext";
-import Header from "@/components/Header";
-import { MainSection } from "@/components/Layouts";
 import NewWebForm from "@/components/pages/new/NewWebForm";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,29 +12,25 @@ import WebIllustration from "@/components/pages/new/WebIllustration";
 
 // validation
 const NameSchema = yup.object().shape({
-	name: yup.string().required("Naam veld is verplicht"),
+	name: yup.string().required("Vul een naam in"),
 });
 
 const NewWebPage = () => {
-	const router = useRouter();
+	// Variable assignments and caching
 	const { supabase } = useSupabase();
+	const router = useRouter();
 	const methods = useForm({ resolver: yupResolver(NameSchema) });
-	const { customAvatar, selectedImage, setImageUrl, imageUrl, thumbnail } = useContext(WebContext);
+	const { customAvatar, imageUrl, thumbnail } = useContext(WebContext);
 
-	useEffect(() => {
-		if (selectedImage) {
-			setImageUrl(URL.createObjectURL(selectedImage));
-		}
-	}, [selectedImage, setImageUrl]);
-
-	const onSubmit = async (data: any) => {
+	// Submit new web form
+	const handleNewWeb = async (data: any) => {
 		const userId = (await supabase.auth.getUser()).data.user.id;
 		const id = crypto.randomUUID();
 		let imagePath = null;
 
 		try {
-			if (imageUrl) {
-				// Upload image
+			// If image exists, upload it to the database
+			if (thumbnail === "customImage") {
 				const { data: image } = await supabase.storage
 					.from("uploads")
 					.upload(userId + "/" + crypto.randomUUID(), data.picture[0]);
@@ -51,7 +45,7 @@ const NewWebPage = () => {
 					id: id,
 					name: data.name,
 					user_id: userId,
-					image_path: thumbnail === "image" ? imagePath : null,
+					image_path: thumbnail === "customImage" ? imagePath : null,
 					avatar: thumbnail === "avatar" ? customAvatar : null,
 				}),
 				headers: {
@@ -69,20 +63,17 @@ const NewWebPage = () => {
 
 	return (
 		<>
-			<Header title="Start een nieuw web" />
-			<MainSection>
-				<FormProvider {...methods}>
-					<div className={`flex items-center gap-24 pt-20`}>
-						<NewWebForm onSubmit={onSubmit} />
-						<WebIllustration
-							avatar={customAvatar}
-							image={imageUrl}
-							thumbnail={thumbnail}
-							className="w-[50rem]"
-						/>
-					</div>
-				</FormProvider>
-			</MainSection>
+			<FormProvider {...methods}>
+				<div className={`layout-wrapper flex h-screen items-center gap-24`}>
+					<NewWebForm handleNewWeb={handleNewWeb} />
+					<WebIllustration
+						avatar={customAvatar}
+						image={imageUrl}
+						thumbnail={thumbnail}
+						className="w-[70rem]"
+					/>
+				</div>
+			</FormProvider>
 		</>
 	);
 };

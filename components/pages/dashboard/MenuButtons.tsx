@@ -27,7 +27,7 @@ const MenuButtons = () => {
 	};
 
 	return (
-		<div className="flex gap-y-8 flex-wrap justify-between items-start w-[60rem] h-fit mt-8">
+		<div className="flex gap-y-8 flex-wrap justify-between items-start w-[60rem] h-fit">
 			<MenuButton
 				onClick={() => router.push("/new")}
 				label="Nieuw web"

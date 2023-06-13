@@ -39,3 +39,4 @@ export { default as HandIcon } from "./hand.svg";
 export { default as LinkIcon } from "./link.svg";
 export { default as FilePlusIcon } from "./file-plus.svg";
 export { default as DuplicateIcon } from "./copy.svg";
+export { default as UserIcon } from "./user.svg";

@@ -61,7 +61,7 @@ p {
 }
 
 .web-inner {
-	@apply absolute rounded-full top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-primary-800 w-full h-full;
+	@apply absolute z-0 rounded-full top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-primary-800 w-full h-full;
 }
 
 /* .web {

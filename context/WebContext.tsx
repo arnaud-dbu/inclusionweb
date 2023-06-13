@@ -96,8 +96,8 @@ export const WebProvider = ({
 	const [imageUrl, setImageUrl] = useState("");
 	const [dragContacts, setDragContacts] = useState(fetchedContactsData);
 	const [editAvatarWindow, setEditAvatarWindow] = useState(false);
-	const [thumbnail, setThumbnail] = useState("avatar" || "image");
-	const [activeAvatarPreset, setActiveAvatarPreset] = useState("youngManAvatar");
+	const [thumbnail, setThumbnail] = useState("default");
+	const [activeAvatarPreset, setActiveAvatarPreset] = useState("default");
 	const [selectedReceivedSupport, setSelectedReceivedSupport] = useState([]);
 	const [selectedGivenSupport, setSelectedGivenSupport] = useState([]);
 

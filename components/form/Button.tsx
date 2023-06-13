@@ -54,6 +54,9 @@ export const Button = ({
 	}
 
 	switch (size) {
+		case "xs":
+			btnSize = "px-3 py-1 text-sm";
+			break;
 		case "sm":
 			btnSize = "px-6 py-2 text-md";
 			break;
@@ -68,10 +71,10 @@ export const Button = ({
 	return (
 		<button
 			{...rest}
-			className={` flex gap-2 items-center justify-center rounded-full focus ${btnSize} ${btnVariant} ${className} 
+			className={` focus flex items-center justify-center gap-2 rounded-full ${btnSize} ${btnVariant} ${className} 
            
             `}>
-			{image && <Image className={`w-6 h-6`} src={image} alt="" width={50} height={50} />}
+			{image && <Image className={`h-6 w-6`} src={image} alt="" width={50} height={50} />}
 			{children}
 			{label}
 			{icon}

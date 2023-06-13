@@ -1,12 +1,13 @@
 import WebComponents from "@/components/web/WebComponent";
-import { redirect } from "next/navigation";
 
 const WebPage = async ({ params }) => {
+	// Fetch web data
 	const webRes = await fetch(`${process.env.HOST}/api/webs/${params.id}`, {
 		cache: "no-cache",
 	});
 	const fetchedWebData = await webRes.json();
 
+	// Fetch contacts data
 	const contactRes = await fetch(`${process.env.HOST}/api/contacts`, {
 		cache: "no-cache",
 	});
@@ -15,6 +16,7 @@ const WebPage = async ({ params }) => {
 		(contact: any) => contact.web_id === fetchedWebData.id && contact.session_id === params.session
 	);
 
+	// Fetch sessions data
 	const sessionRes = await fetch(`${process.env.HOST}/api/sessions`, {
 		cache: "no-cache",
 	});
