@@ -11,7 +11,7 @@ const NewContactModal = () => {
 	return (
 		modalVisible === "contact" && (
 			<>
-				<Modal className={`py-12`}>
+				<Modal className={`h-[55rem] w-[55rem] py-12`}>
 					<NewContactForm />
 				</Modal>
 			</>

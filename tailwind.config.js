@@ -53,7 +53,7 @@ module.exports = {
 				secondary: ["var(--font-asap)"],
 			},
 			boxShadow: {
-				sm: "rgba(0, 0, 0, 0.05) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px",
+				sm: "rgba(0, 0, 0, 0.05) 0px 1px 3px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 0px",
 				md: "rgba(99, 99, 99, 0.15) 0px 2px 8px 0px;",
 				lg: "0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05)",
 			},

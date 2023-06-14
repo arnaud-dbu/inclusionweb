@@ -2,7 +2,6 @@ import React from "react";
 import { Input } from "@/components/form/Input";
 import { useFormContext } from "react-hook-form";
 import { FormBlockItem } from "../FormBlock";
-import { PersonIcon } from "@/public/icons";
 
 type Props = {
 	title: string;
@@ -15,8 +14,8 @@ const ContactDetails = ({ title }: Props) => {
 	} = useFormContext();
 
 	return (
-		<FormBlockItem>
-			<div className="flex w-[30rem] gap-3">
+		<FormBlockItem title={title}>
+			<div className="flex w-full gap-3">
 				<Input
 					style="secondary"
 					register={register}

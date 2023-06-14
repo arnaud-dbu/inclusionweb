@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { SelectAvatar } from "@/components/form/SelectAvatar";
 import { CustomAvatarForm } from "../CustomAvatarForm";
 import { WebContext } from "@/context/WebContext";
-import { HeadingSecondary } from "@/components/Typography";
 import ContactDetails from "./ContactDetails";
 import ContactRelation from "./ContactRelation";
 import ContactGivenSupport from "./ContactGivenSupport";
@@ -10,9 +9,17 @@ import ContactReceivedSupport from "./ContactReceivedSupport";
 import ContactFrequency from "./ContactFrequency";
 import ContactUploadPicture from "./ContactUploadPicture";
 import { FormBlock, FormBlockItem } from "../FormBlock";
+import { Button } from "@/components/form/Button";
+import { ChevronIcon } from "@/public/icons";
 
 const PersonForm = () => {
-	const { handlePresetAvatarSubmit, activeAvatarPreset, editInfoVisible } = useContext(WebContext);
+	const {
+		handlePresetAvatarSubmit,
+		activeAvatarPreset,
+		editInfoVisible,
+		editAvatarWindow,
+		setEditAvatarWindow,
+	} = useContext(WebContext);
 
 	return (
 		<>
@@ -31,30 +38,37 @@ const PersonForm = () => {
 			</FormBlock>
 
 			<FormBlock className={`${editInfoVisible !== "Afbeelding" && "hidden"}`}>
-				<div className={`flex items-center justify-between mb-5`}>
+				<FormBlockItem title="Afbeelding">
 					<ContactUploadPicture />
-				</div>
-				<FormBlockItem>
-					<div className="flex gap-4">
-						<SelectAvatar
-							className={` ${
-								activeAvatarPreset === "youngManAvatar" && "outline outline-2 outline-primary-800"
-							}`}
-							onClick={() => handlePresetAvatarSubmit("youngManAvatar")}
-							type="man"
-						/>
-						<SelectAvatar
-							className={` ${
-								activeAvatarPreset === "youngWomanAvatar" && "outline outline-2 outline-primary-800"
-							}`}
-							onClick={() => handlePresetAvatarSubmit("youngWomanAvatar")}
-							type="woman"
-						/>
-					</div>
 				</FormBlockItem>
 
-				<FormBlockItem>
-					<CustomAvatarForm />
+				<FormBlockItem title="Avatar">
+					<div className="mb-3 flex justify-between">
+						<div className={`flex items-center gap-3`}>
+							<SelectAvatar
+								className={` ${
+									activeAvatarPreset === "youngManAvatar" && "outline outline-2 outline-primary-800"
+								}`}
+								onClick={() => handlePresetAvatarSubmit("youngManAvatar")}
+								type="man"
+							/>
+							<SelectAvatar
+								className={` ${
+									activeAvatarPreset === "youngWomanAvatar" &&
+									"outline outline-2 outline-primary-800"
+								}`}
+								onClick={() => handlePresetAvatarSubmit("youngWomanAvatar")}
+								type="woman"
+							/>
+						</div>
+						<Button
+							onClick={() => setEditAvatarWindow(!editAvatarWindow)}
+							label="Avatar bewerken"
+							style="link"
+							icon={<ChevronIcon className={`h-5 w-5 fill-primary-800`} />}
+						/>
+					</div>
+					{editAvatarWindow && <CustomAvatarForm />}
 				</FormBlockItem>
 			</FormBlock>
 		</>

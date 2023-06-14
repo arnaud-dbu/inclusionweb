@@ -30,7 +30,7 @@ const Option = (props) => {
 					<div className={`flex items-center gap-2`}>
 						<IconButton
 							onClick={(event) => handleDeleteSession(props.data.id, event)}
-							icon={<TrashIcon className={`w-4 h-4 fill-neutral-800 pointer-events-auto`} />}
+							icon={<TrashIcon className={`pointer-events-auto h-4 w-4 fill-neutral-800`} />}
 						/>
 					</div>
 				</div>
@@ -52,7 +52,7 @@ type Props = {
 };
 
 const controlStyles = {
-	base: "border-1 border-neutral-600 rounded-lg h-10 hover:cursor-pointer",
+	base: "border-1 border-neutral-500 rounded-lg h-12 hover:cursor-pointer",
 	focus: "border-primary-600 bg-white ring-1 ring-primary-500",
 	nonFocus: "border-gray-300 hover:border-gray-400",
 };

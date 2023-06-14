@@ -8,26 +8,26 @@ type Props = {
 
 export const RadioButtons = ({ register, name, options, ...rest }: Props) => {
 	return (
-		<div className="mt-7 flex gap-2 justify-between relative px-5" {...rest}>
+		<div className="relative mt-7 flex justify-between gap-2 px-3" {...rest}>
 			<div className="frequency-line">
-				<div className="block block--1"></div>
-				<div className="block block--2"></div>
-				<div className="block block--3"></div>
-				<div className="block block--4"></div>
+				<div className="block--1 block"></div>
+				<div className="block--2 block"></div>
+				<div className="block--3 block"></div>
+				<div className="block--4 block"></div>
 			</div>
 			{options.map((option) => (
-				<div key={option} className="flex flex-col items-center gap-2 relative z-20">
-					<div className="bg-white dark:bg-gray-100 rounded-full w-4 h-4 flex flex-shrink-0 justify-center items-center relative">
+				<div key={option} className="relative z-20 flex flex-col items-center gap-2">
+					<div className="relative flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-white dark:bg-gray-100">
 						<input
 							type="radio"
 							name={name}
 							value={option}
 							{...register(name)}
-							className="checkbox appearance-none focus:opacity-100 focus:ring-2 focus:ring-offset-2 focus:ring-neutral-700 focus:border-none border rounded-full border-gray-400 absolute cursor-pointer w-full h-full checked:bg-primary-800"
+							className="checkbox focus absolute h-full w-full cursor-pointer appearance-none rounded-full border border-gray-400 checked:bg-primary-800 focus:border-none focus:opacity-100 focus:ring-2 focus:ring-neutral-700 focus:ring-offset-2"
 						/>
-						<div className="check-icon hidden bg-primary-800 shadow-lg border-primary-800 rounded-full w-full h-full z-1"></div>
+						<div className="check-icon z-1 hidden h-full w-full rounded-full border-primary-800 bg-primary-800 shadow-lg"></div>
 					</div>
-					<span className="absolute left-1/2 -translate-x-1/2 -bottom-6 text-neutral-900 text-sm">
+					<span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-sm text-neutral-900">
 						{option}
 					</span>
 				</div>

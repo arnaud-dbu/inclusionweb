@@ -9,8 +9,8 @@ type Props = {
 
 const ContactRelation = ({ options }: Props) => {
 	return (
-		<FormBlockItem title="Relatie" icon={<LinkIcon className={`w-4 h-4 `} />}>
-			<Dropdown className={`w-[30rem]`} name="relation" options={options} />
+		<FormBlockItem title="Relatie" icon={<LinkIcon className={`h-4 w-4 `} />}>
+			<Dropdown className={``} name="relation" options={options} />
 		</FormBlockItem>
 	);
 };

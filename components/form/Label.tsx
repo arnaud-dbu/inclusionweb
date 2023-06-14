@@ -30,7 +30,7 @@ export const Label = ({
 			btnVariant = "bg-neutral-900 font-semibold text-white";
 			break;
 		case "outline":
-			btnVariant = "border-neutral-500 text-neutral-800 border-2";
+			btnVariant = "border-neutral-500 text-neutral-800 border-1";
 			break;
 		case "link":
 			btnVariant = "text-primary-800 underline w-fit";
@@ -42,10 +42,10 @@ export const Label = ({
 	return (
 		<label
 			{...rest}
-			className={`cursor-pointer flex gap-2 items-center justify-center rounded-full ${btnVariant} ${className} ${
-				!active && "!bg-neutral-600 pointer-events-none"
+			className={`flex cursor-pointer items-center justify-center gap-2 rounded-full ${btnVariant} ${className} ${
+				!active && "pointer-events-none !bg-neutral-600"
 			}
-            ${size === "sm" ? "px-6 py-2 text-md" : "px-8 h-12"}
+            ${size === "sm" ? "text-md px-6 py-2" : "h-12 px-8"}
             `}>
 			{children}
 			{title}

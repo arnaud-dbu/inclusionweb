@@ -1,15 +1,12 @@
 import { BlockTitle } from "@/components/form/BlockTitle";
 import CheckButton from "@/components/form/CheckButton";
-import { NonVisibleIcon, PencilIcon, PlusIcon, ShareIcon, VisibleIcon } from "@/public/icons";
-import { useContext, useState } from "react";
+import { NonVisibleIcon, UserCircleIcon, VisibleIcon } from "@/public/icons";
+import { useContext } from "react";
 import { WebContext } from "@/context/WebContext";
 import { Button } from "@/components/form/Button";
-import DropdownVersion from "@/components/pages/web/VersionDropdown";
-import { useRouter } from "next/navigation";
-import dayjs from "dayjs";
-import { IconButton } from "@/components/form/IconButton";
 import WebIllustration from "../new/WebIllustration";
 import DivisionLine from "@/components/DivisionLine";
+import { IconButton } from "@/components/form/IconButton";
 
 export const WebSettings = () => {
 	const {
@@ -72,32 +69,43 @@ export const WebSettings = () => {
 
 	return (
 		<section
-			className={`w-full px-20 flex gap-4 justify-center items-center absolute z-50 left-1/2 pt-12 -translate-x-1/2 top-0 `}>
-			<div className={`flex gap-12 items-center justify-between w-full`}>
+			className={`absolute left-1/2 top-0 z-50 flex w-full -translate-x-1/2 items-center justify-center gap-4 px-20 pt-12 `}>
+			<div className={`flex w-full items-center justify-between gap-12`}>
 				<div className={`flex items-center gap-3`}>
-					<WebIllustration className={`w-8 h-8`} />
-					<span
-						className={`text-md text-neutral-800 whitespace-nowrap font-semibold`}>{`${getSession(
+					<WebIllustration className={`h-8 w-8`} />
+					<span className={`text-md whitespace-nowrap font-medium text-neutral-800`}>{`${getSession(
 						currentSession
 					)}`}</span>
 				</div>
-				<DivisionLine className={``} />
-				<div className={`flex items-center gap-8`}>
-					<div className={`flex gap-2 items-center`}>
-						<BlockTitle className="!mb-0 " title="Afbeeldingen" />
-						<CheckButton
-							onClick={() => handleAvatarSize("small")}
-							active={avatarSize === "small"}
-							label="Klein"
-						/>
-						<CheckButton
-							onClick={() => handleAvatarSize("large")}
-							active={avatarSize === "large"}
-							label="Groot"
-						/>
+				<DivisionLine />
+				<div className={`flex items-center gap-12`}>
+					<div className={`flex items-center gap-2`}>
+						<BlockTitle className="!mb-0 !font-medium " title="Afbeeldingen" />
+						<div className={`flex items-center gap-1`}>
+							<IconButton
+								onClick={() => handleAvatarSize("small")}
+								icon={
+									<UserCircleIcon
+										className={`h-7 w-7 ${
+											avatarSize === "small" ? "fill-primary-700" : "fill-neutral-600"
+										}`}
+									/>
+								}
+							/>
+							<IconButton
+								onClick={() => handleAvatarSize("large")}
+								icon={
+									<UserCircleIcon
+										className={`h-9 w-9 ${
+											avatarSize === "large" ? "fill-primary-700" : "fill-neutral-600"
+										}`}
+									/>
+								}
+							/>
+						</div>
 					</div>
-					<div className={`flex gap-2 items-center`}>
-						<BlockTitle className="!mb-0 " title="Namen" />
+					<div className={`flex items-center gap-2`}>
+						<BlockTitle className="!mb-0 !font-medium" title="Namen" />
 						<button className={``} onClick={() => handleNamesVisibility(!namesVisible)}>
 							{namesVisible ? (
 								<VisibleIcon className={`fill-primary-700`} />
@@ -106,9 +114,8 @@ export const WebSettings = () => {
 							)}
 						</button>
 					</div>
+					<Button style="outline" label="Menu" onClick={() => setModalVisible("menu")} />
 				</div>
-				<DivisionLine className={``} />
-				<Button style="outline" label="Menu" onClick={() => setModalVisible("menu")} />
 			</div>
 		</section>
 	);

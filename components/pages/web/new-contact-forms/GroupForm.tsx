@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { LadyIllustration, OrganizationIllustration } from "@/public/illustrations";
 import SelectImage from "@/components/form/SelectImage";
 import ContactDetails from "./ContactDetails";
 import ContactRelation from "./ContactRelation";
@@ -9,6 +8,21 @@ import ContactFrequency from "./ContactFrequency";
 import ContactUploadPicture from "./ContactUploadPicture";
 import { WebContext } from "@/context/WebContext";
 import { FormBlock, FormBlockItem } from "../FormBlock";
+import {
+	BooksImage,
+	BuildingsImage,
+	CookingImage,
+	GraduationImage,
+	HobbyImage,
+	HouseImage,
+	KidsImage,
+	MedicalImage,
+	MountainImage,
+	ParkImage,
+	PassportImage,
+	PetsImage,
+	SportsImage,
+} from "@/public/images";
 
 const GroupForm = () => {
 	const { editInfoVisible, handlePresetImageChangeUpload } = useContext(WebContext);
@@ -30,19 +44,36 @@ const GroupForm = () => {
 			</FormBlock>
 
 			<FormBlock className={`${editInfoVisible !== "Afbeelding" && "hidden"}`}>
-				<div className={`flex items-center justify-between mb-5`}>
+				<FormBlockItem title="Foto">
 					<ContactUploadPicture />
-				</div>
-				<FormBlockItem title="Avatar">
-					<div className="flex gap-4">
-						<SelectImage
-							image={LadyIllustration}
-							onClick={() => handlePresetImageChangeUpload(LadyIllustration)}
-						/>
-						<SelectImage
-							image={OrganizationIllustration}
-							onClick={() => handlePresetImageChangeUpload(OrganizationIllustration)}
-						/>
+				</FormBlockItem>
+
+				<FormBlockItem title="Icoon">
+					<div className="mb-3 flex justify-between">
+						<div className={`flex flex-wrap items-center gap-3`}>
+							{[
+								PetsImage,
+								KidsImage,
+								BooksImage,
+								CookingImage,
+								PassportImage,
+								GraduationImage,
+								MedicalImage,
+								HobbyImage,
+								SportsImage,
+								HouseImage,
+								BuildingsImage,
+								ParkImage,
+								MountainImage,
+							].map((image, index) => (
+								<SelectImage
+									key={index}
+									bg={true}
+									image={image}
+									onClick={() => handlePresetImageChangeUpload(image)}
+								/>
+							))}
+						</div>
 					</div>
 				</FormBlockItem>
 			</FormBlock>

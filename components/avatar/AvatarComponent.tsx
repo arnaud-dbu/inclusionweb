@@ -38,7 +38,7 @@ const AvatarComponent = ({ className, avatar }: Props) => {
 
 	return (
 		<Avatar
-			className={`bg-primary-500 rounded-full object-cover ${className}`}
+			className={`rounded-full bg-primary-400 object-cover ${className}`}
 			avatarStyle=""
 			topType={topType}
 			accessoriesType={accessoriesType}

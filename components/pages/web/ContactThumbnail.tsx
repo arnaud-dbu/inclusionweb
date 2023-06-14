@@ -6,16 +6,17 @@ type Props = {
 	children: React.ReactNode;
 	type: string;
 	size?: string;
+	className?: string;
 };
 
-const ContactThumbnail = ({ children, type, size }: Props) => {
+const ContactThumbnail = ({ children, type, size, className }: Props) => {
 	const { view } = useContext(WebContext);
 
 	const iconMd = "w-6 h-6 fill-white";
 	const iconSm = "w-4 h-4 fill-white";
 
 	return (
-		<div className={`relative rounded-full  `}>
+		<div className={`relative rounded-full ${className} `}>
 			{children}
 			<div
 				className={`absolute rounded-full bg-primary-700 p-2 shadow-lg ${

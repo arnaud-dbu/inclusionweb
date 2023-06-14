@@ -9,11 +9,12 @@ type Props = {
 
 const SelectImage = ({ image, className, bg, ...rest }: Props) => {
 	return (
-		<button type="button" {...rest}>
+		<button
+			className={` ${bg && "rounded-full bg-primary-300  shadow-sm"}`}
+			type="button"
+			{...rest}>
 			<Image
-				className={`rounded-full w-10 h-10 object-cover aspect-square ${className} ${
-					bg && "bg-primary-200 p-1 shadow-sm"
-				}`}
+				className={`aspect-square h-10 w-10  object-cover ${className} ${bg && " p-2 "}`}
 				alt="test"
 				src={image || "/"}
 				width={100}

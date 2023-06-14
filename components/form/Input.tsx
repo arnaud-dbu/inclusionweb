@@ -11,7 +11,7 @@ type Props = {
 	icon?: React.ReactNode;
 	bg?: string;
 	secondary?: boolean;
-	style?: "primary" | "secondary" | "outline" | "alert" | "disabled" | "link" | "icon";
+	style?: "primary" | "secondary";
 	size?: "sm" | "md" | "lg";
 } & InputHTMLAttributes<HTMLInputElement>;
 
@@ -91,8 +91,11 @@ export const Input = ({
                     peer-placeholder-shown: pointer-events-none absolute -top-2 left-[.6rem] bg-white px-[5px] text-xs text-neutral-800 duration-100
                     ease-linear
                     peer-placeholder-shown:top-1/2 
-                    peer-placeholder-shown:-translate-y-1/2 ${
-											style === "primary" ? "bg-neutral-100" : "bg-white"
+                    peer-placeholder-shown:-translate-y-1/2 
+                    ${
+											style === "primary"
+												? "peer-placeholder-shown:bg-neutral-100"
+												: "peer-placeholder-shown:bg-white"
 										} 
                     peer-placeholder-shown:text-base 
                     peer-placeholder-shown:text-neutral-800

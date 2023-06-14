@@ -45,23 +45,25 @@ const AnimalForm = () => {
 			</FormBlock>
 
 			<FormBlock className={`${editInfoVisible !== "Afbeelding" && "hidden"}`}>
-				<div className={`flex items-center justify-between mb-5`}></div>
-				<FormBlockItem title="Avatar">
-					<div className="flex gap-4">
-						{[CatImage, BunnyImage, DogImage, FishImage, TurtleImage, LizardImage, BirdImage].map(
-							(image, index) => (
-								<SelectImage
-									key={index}
-									bg={true}
-									image={image}
-									onClick={() => handlePresetImageChangeUpload(image)}
-								/>
-							)
-						)}
-					</div>
-				</FormBlockItem>
 				<FormBlockItem title="Foto">
 					<ContactUploadPicture />
+				</FormBlockItem>
+
+				<FormBlockItem title="Icoon">
+					<div className="mb-3 flex justify-between">
+						<div className={`flex flex-wrap items-center gap-3`}>
+							{[CatImage, BunnyImage, DogImage, FishImage, TurtleImage, LizardImage, BirdImage].map(
+								(image, index) => (
+									<SelectImage
+										key={index}
+										bg={true}
+										image={image}
+										onClick={() => handlePresetImageChangeUpload(image)}
+									/>
+								)
+							)}
+						</div>
+					</div>
 				</FormBlockItem>
 			</FormBlock>
 		</>

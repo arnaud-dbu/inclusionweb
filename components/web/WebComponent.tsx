@@ -20,16 +20,16 @@ const WebComponents = ({
 	session,
 }: Props) => {
 	return (
-		<div className={`flex relative left-[6rem] h-full w-[calc(100vw-6rem)]`}>
+		<div className={`relative left-[6rem] flex h-full w-[calc(100vw-6rem)]`}>
 			<WebProvider
 				fetchedWebData={fetchedWebData}
 				fetchedContactsData={fetchedContactsData}
 				fetchedSessionsData={fetchedSessionsData}
 				session={session}>
 				<SideBar />
+				<WebMenu />
 				<Web />
 				<NewContactModal />
-				<WebMenu />
 			</WebProvider>
 		</div>
 	);

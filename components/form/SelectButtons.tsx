@@ -1,5 +1,6 @@
 import { WebContext } from "@/context/WebContext";
 import { useContext } from "react";
+import { useFormContext } from "react-hook-form";
 
 type Props = {
 	type: string;
@@ -11,7 +12,9 @@ type Props = {
 };
 
 const SelectButtons = ({ register, type, icons, setType, name, options }: Props) => {
-	const { setEditInfoVisible } = useContext(WebContext);
+	const { setEditInfoVisible, setSelectedGivenSupport, setSelectedReceivedSupport } =
+		useContext(WebContext);
+	const { reset, setValue } = useFormContext();
 
 	if (type) {
 		register(name, { value: type });
@@ -20,6 +23,11 @@ const SelectButtons = ({ register, type, icons, setType, name, options }: Props)
 	const handleTypeChange = (value: any) => {
 		setType(value);
 		setEditInfoVisible("Gegevens");
+		setValue("given_support", [""]);
+		setValue("received_support", [""]);
+		setSelectedGivenSupport([""]);
+		setSelectedReceivedSupport([""]);
+		reset();
 	};
 
 	return (

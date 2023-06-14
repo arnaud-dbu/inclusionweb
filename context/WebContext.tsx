@@ -216,6 +216,7 @@ export const WebProvider = ({
 				setMouth(["Default", ...mouthTypes.slice(1)]);
 
 				setActiveAvatarPreset("youngManAvatar");
+				setThumbnail("avatar");
 				break;
 			case "youngWomanAvatar":
 				setTopType(["LongHairCurvy", ...topTypes.slice(1)]);
@@ -229,9 +230,9 @@ export const WebProvider = ({
 				setMouth(["Default", ...mouthTypes.slice(1)]);
 
 				setActiveAvatarPreset("youngWomanAvatar");
+				setThumbnail("avatar");
 				break;
 		}
-		setThumbnail("avatar");
 	};
 
 	return (

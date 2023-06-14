@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { WebContext } from "@/context/WebContext";
 import DropdownVersion from "./VersionDropdown";
 import { useRouter } from "next/navigation";
-import { DuplicateIcon, FilePlusIcon } from "@/public/icons";
+import { ChevronIcon, DuplicateIcon, FilePlusIcon, ImageIcon, PlusIcon } from "@/public/icons";
 import { CustomAvatarForm } from "./CustomAvatarForm";
 import { CustomAvatar } from "./CustomAvatar";
 import { Label } from "@/components/form/Label";
@@ -140,10 +140,6 @@ const WebMenu = (props: Props) => {
 			imagePath = image.path;
 		}
 
-		console.log(imagePath);
-		console.log(imageUrl);
-		console.log(thumbnail);
-
 		const newWebData = {
 			...web,
 			name: data.name,
@@ -166,7 +162,7 @@ const WebMenu = (props: Props) => {
 			{modalVisible === "menu" && (
 				<>
 					<aside
-						className={`bg-primary-300 shadow-lg z-50 absolute right-0 top-O w-[30rem] h-screen px-12 py-20 `}>
+						className={`top-O absolute right-0 z-50 h-screen w-[30rem] bg-white px-12 py-20 shadow-lg `}>
 						{/* <IconButton icon={<CrossIcon className={`w-8 h-8 fill-neutral-600`} />} /> */}
 						<HeadingPrimary underline title="Menu" />
 						<Setting
@@ -175,41 +171,42 @@ const WebMenu = (props: Props) => {
 							handleSubmit={handleWebNameSubmit}
 							onSubmit={handleSubmitWebName}
 							register={registerWebName}>
-							<div className={`flex gap-3 mb-3 w-full`}>
+							<div className={`mb-3 flex w-full gap-3`}>
 								<Input
 									register={registerWebName}
+									style="primary"
 									name="name"
 									label="Naam"
 									error={webNameErrors.name?.message}
 									defaultValue={web.name}
-									className={`w-full`}
+									className={`!mb-0 w-full`}
 								/>
+								<Button label="Opslaan" size="sm" style="tertiary" />
 							</div>
 							<Button
-								label="Afbeelding bewerken"
-								type="button"
-								style="link"
-								className={`!px-0`}
 								onClick={() => setEditAvatarWindow(!editAvatarWindow)}
+								label="Wijzig afbeelding"
+								className={`h-fit !px-0 `}
+								style="link"
 							/>
 							{editAvatarWindow && (
 								<div className={`flex flex-col items-start pt-3`}>
 									{thumbnail === "customImage" && (
 										<Image
-											className="rounded-full w-[7rem] h-[7rem] mb-4 aspect-square object-cover"
+											className="mb-4 aspect-square h-[7rem] w-[7rem] rounded-full object-cover"
 											alt="test"
 											src={imageUrl}
 											width={700}
 											height={700}
 										/>
 									)}
-									{thumbnail === "avatar" && <CustomAvatar className={`w-[7rem] h-[7rem] mb-4`} />}
-									<CustomAvatarForm className={`w-full`} />
+									{thumbnail === "avatar" && <CustomAvatar className={`mb-4 h-[7rem] w-[7rem]`} />}
 									<Label
-										style="link"
+										style="outline"
+										icon={<ImageIcon className={`h-5 w-5 fill-neutral-800`} />}
 										size="sm"
 										title={thumbnail === "image" ? "Foto geselecteerd" : "Upload een foto"}
-										className={`file-input-hidden !px-0 ${
+										className={`file-input-hidden mb-6 w-full !px-0 ${
 											thumbnail === "customImage" &&
 											"border-primary-800 bg-primary-300 text-primary-900"
 										} `}>
@@ -222,9 +219,9 @@ const WebMenu = (props: Props) => {
 											accept="image/*"
 										/>
 									</Label>
+									<CustomAvatarForm className={`w-full`} />
 								</div>
 							)}
-							<Button label="Opslaan" size="sm" style="secondary" />
 						</Setting>
 
 						<Setting
@@ -232,9 +229,10 @@ const WebMenu = (props: Props) => {
 							handleSubmit={handleVersionNameSubmit}
 							onSubmit={handleSubmitVersionName}
 							register={registerVersionName}>
-							<BlockTitle title="Wijzig je versie naam" />
-							<div className={`flex gap-3 mb-3 w-full`}>
+							<BlockTitle className={`mb-5`} title="Wijzig je versie naam" />
+							<div className={`mb-8 flex w-full gap-3`}>
 								<Input
+									style="primary"
 									register={registerVersionName}
 									name="name"
 									label="Naam"
@@ -242,10 +240,10 @@ const WebMenu = (props: Props) => {
 									defaultValue={currentSession.name}
 									className={`w-full`}
 								/>
-								<Button label="Opslaan" size="sm" style="secondary" />
+								<Button label="Opslaan" size="sm" style="tertiary" />
 							</div>
-							<BlockTitle title="Wijzig je versie" />
-							<div className={`flex gap-3 mb-3`}>
+							<BlockTitle className={`mb-5`} title="Wijzig je versie" />
+							<div className={`mb-3 flex gap-3`}>
 								<DropdownVersion
 									selectedOption={selectedOption}
 									setSelectedOption={setSelectedOption}
@@ -261,7 +259,7 @@ const WebMenu = (props: Props) => {
 								/>
 							</div>
 							<div className={`flex items-center gap-2`}>
-								<FilePlusIcon className={`w-5 h-5 fill-primary-700`} />
+								<FilePlusIcon className={`h-5 w-5 fill-primary-700`} />
 								<Button
 									onClick={handleNewSession}
 									label="Start een nieuwe sessie"
@@ -271,7 +269,7 @@ const WebMenu = (props: Props) => {
 								/>
 							</div>
 							<div className={`flex items-center gap-2`}>
-								<DuplicateIcon className={`w-5 h-5 fill-primary-700`} />
+								<DuplicateIcon className={`h-5 w-5 fill-primary-700`} />
 								<Button
 									onClick={handleDuplicateSession}
 									label="Maak een kopie van huidige sessie"
@@ -284,7 +282,7 @@ const WebMenu = (props: Props) => {
 					</aside>
 					<div
 						onClick={() => setModalVisible(null)}
-						className="absolute w-full h-full bg-neutral-900 z-40 opacity-40"></div>
+						className="absolute z-40 h-full w-full bg-neutral-900 opacity-40"></div>
 				</>
 			)}
 		</>

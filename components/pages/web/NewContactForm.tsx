@@ -11,22 +11,18 @@ import {
 } from "@/lib/avatarPresets";
 import { useForm, FormProvider } from "react-hook-form";
 import Form from "@/components/form/Form";
-import { AnimalIcon, GroupIcon, PersonIcon, PlaceIcon } from "@/public/icons";
-import { useContext, useEffect } from "react";
-import SelectButtons from "@/components/form/SelectButtons";
-import AvatarComponent from "@/components/avatar/AvatarComponent";
+import { use, useContext, useEffect } from "react";
 import { useSupabase } from "@/app/supabase-provider";
 import { WebContext } from "@/context/WebContext";
-import Image from "next/image";
 import PersonForm from "./new-contact-forms/PersonForm";
 import GroupForm from "./new-contact-forms/GroupForm";
 import AnimalForm from "./new-contact-forms/AnimalForm";
 import PlaceForm from "./new-contact-forms/PlaceForm";
 import { Button } from "@/components/form/Button";
 import NewContactNavigation from "./NewContactNavigation";
-import ContactThumbnail from "./ContactThumbnail";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import NewContactFormHeader from "./NewContactFormHeader";
 
 export const NewContactForm = () => {
 	const {
@@ -56,7 +52,7 @@ export const NewContactForm = () => {
 		setEyes,
 		setEyebrow,
 		setMouth,
-		handlePresetAvatarSubmit,
+		setActiveAvatarPreset,
 		setEditInfoVisible,
 		clickPosition,
 	} = useContext(WebContext);
@@ -66,16 +62,12 @@ export const NewContactForm = () => {
 		name: yup.string().required("Naam is verplicht"),
 	});
 
+	// Get form methods and registered fields
 	const methods = useForm({ resolver: yupResolver(NewContactSchema) });
-	const { register, handleSubmit, reset, setValue, formState } = methods;
+	const { register, handleSubmit, reset, setValue } = methods;
 	const { supabase } = useSupabase();
 
-	useEffect(() => {
-		if (selectedImage) {
-			setImageUrl(URL.createObjectURL(selectedImage));
-		}
-	}, [selectedImage, setImageUrl]);
-
+	// When editContact is set, fill in the form with the data of the contact
 	useEffect(() => {
 		if (editContact) {
 			setType(editContact.type);
@@ -86,7 +78,6 @@ export const NewContactForm = () => {
 			setValue("given_support", editContact.given_support);
 			setValue("received_support", editContact.received_support);
 			setSelectedGivenSupport(editContact.given_support);
-
 			setSelectedReceivedSupport(editContact.received_support);
 			setValue("frequency", editContact.frequency);
 			setValue("avatar", editContact.avatar);
@@ -107,8 +98,8 @@ export const NewContactForm = () => {
 				setMouth([avatarStyle.mouthType, ...mouthTypes.slice(1)]);
 			}
 			if (editContact.image_type === "presetImage") {
-				setThumbnail("presetImage");
 				setImageUrl(editContact.image_path);
+				setThumbnail("presetImage");
 			}
 			if (editContact.image_type === "customImage") {
 				setThumbnail("customImage");
@@ -134,19 +125,21 @@ export const NewContactForm = () => {
 		setValue,
 	]);
 
+	// Reset states and values when the modal is closed
 	const handleClosingModal = () => {
 		setModalVisible(null);
 		setEditContact(null);
-		setThumbnail("");
+		setThumbnail("default");
 		setSelectedGivenSupport([""]);
 		setSelectedReceivedSupport([""]);
-		handlePresetAvatarSubmit("youngManAvatar");
+		setActiveAvatarPreset("null");
 		setType("person");
 		setEditInfoVisible("Gegevens");
 		reset();
 	};
 
-	const handleCreateContactSubmit = async (data) => {
+	// Create a new contact
+	const handleCreateContactSubmit = async (data: any) => {
 		const customAvatarString = JSON.stringify(customAvatar);
 		const id = crypto.randomUUID();
 		const userId = (await supabase.auth.getUser()).data.user.id;
@@ -154,7 +147,7 @@ export const NewContactForm = () => {
 
 		try {
 			if (thumbnail === "customImage") {
-				// Upload image
+				// Upload image to storage
 				const { data: image } = await supabase.storage
 					.from("uploads")
 					.upload(userId + "/" + crypto.randomUUID(), selectedImage);
@@ -189,40 +182,43 @@ export const NewContactForm = () => {
 				session_id: session,
 			};
 
-			const response = await fetch("/api/contacts", {
-				method: "POST",
-				body: JSON.stringify(body),
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
+			console.log(body);
 
-			if (response.status === 201) {
-				const newContact = {
-					...body,
-					position: clickPosition !== null ? clickPosition : { x: 0, y: 0 },
-				};
-				setModalVisible(false);
+			// const response = await fetch("/api/contacts", {
+			// 	method: "POST",
+			// 	body: JSON.stringify(body),
+			// 	headers: {
+			// 		"Content-Type": "application/json",
+			// 	},
+			// });
 
-				if (contacts.length === 0) {
-					setContacts([newContact]);
-				} else {
-					setContacts([...contacts, newContact]);
-				}
-			}
+			// if (response.status === 201) {
+			// 	const newContact = {
+			// 		...body,
+			// 		position: clickPosition !== null ? clickPosition : { x: 0, y: 0 },
+			// 	};
+			// 	setModalVisible(false);
+
+			// 	if (contacts.length === 0) {
+			// 		setContacts([newContact]);
+			// 	} else {
+			// 		setContacts([...contacts, newContact]);
+			// 	}
+			// }
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
-	const handleEditContactSubmit = async (data) => {
+	// Edit existing contact
+	const handleEditContactSubmit = async (data: any) => {
 		const customAvatarString = JSON.stringify(customAvatar);
 		const userId = (await supabase.auth.getUser()).data.user.id;
 		let imagePath = null;
 
 		try {
 			if (thumbnail === "customImage") {
-				// Upload image
+				// Upload image to storage
 				const { data: image } = await supabase.storage
 					.from("uploads")
 					.upload(userId + "/" + crypto.randomUUID(), selectedImage);
@@ -232,7 +228,6 @@ export const NewContactForm = () => {
 
 			if (thumbnail === "presetImage") {
 				imagePath = imageUrl;
-				imagePath = imagePath.src;
 			}
 
 			const body = {
@@ -273,103 +268,29 @@ export const NewContactForm = () => {
 	};
 
 	return (
-		<>
-			<div className={`mb-6 flex items-center justify-between gap-10 px-24`}>
-				<div>
-					<span className="mb-6 block gap-5 font-primary text-7xl font-bold uppercase text-neutral-900">
-						{editContact ? "Contact wijzigen" : "Nieuw contact"}
-					</span>
-					<SelectButtons
-						name="type"
-						options={[
-							{ value: "person", label: "Persoon" },
-							{ value: "group", label: "Groep" },
-							{ value: "place", label: "Plaats" },
-							{ value: "animal", label: "Dier" },
-						]}
-						icons={[
-							<PersonIcon
-								key={"person"}
-								className={`h-6 w-6 fill-neutral-900 ${type === "person" && "fill-white"}`}
-							/>,
-							<GroupIcon
-								key={"group"}
-								className={`h-6 w-6 fill-neutral-900 ${type === "group" && "fill-white"}`}
-							/>,
-							<PlaceIcon
-								key={"place"}
-								className={`h-6 w-6 fill-neutral-900 ${type === "place" && "fill-white"}`}
-							/>,
-							<AnimalIcon
-								key={"animal"}
-								className={`h-6 w-6 fill-neutral-900 ${type === "animal" && "fill-white"}`}
-							/>,
-						]}
-						register={register}
-						type={type}
-						setType={setType}
-					/>
-				</div>
-				{thumbnail === "avatar" && (
-					<ContactThumbnail type={type}>
-						<AvatarComponent
-							avatar={customAvatar}
-							className="h-[10rem] w-[10rem] rounded-full bg-primary-500 object-cover"
-						/>
-					</ContactThumbnail>
-				)}
-
-				{thumbnail === "presetImage" && (
-					<ContactThumbnail type={type}>
-						<Image
-							className="aspect-square h-[10rem] w-[10rem] rounded-full object-cover "
-							alt="test"
-							src={imageUrl || "/"}
-							width={700}
-							height={700}
-						/>
-					</ContactThumbnail>
-				)}
-
-				{thumbnail === "customImage" && (
-					<ContactThumbnail type={type}>
-						<Image
-							className="aspect-square h-[10rem] w-[10rem] rounded-full object-cover "
-							alt="test"
-							src={imageUrl || "/"}
-							width={700}
-							height={700}
-						/>
-					</ContactThumbnail>
-				)}
-			</div>
-
+		<FormProvider {...methods}>
+			<NewContactFormHeader />
 			<NewContactNavigation />
 
-			<FormProvider {...methods}>
-				<Form
-					className={`flex flex-col px-24 py-6`}
-					register={register}
-					handleSubmit={handleSubmit}
-					onSubmit={editContact ? handleEditContactSubmit : handleCreateContactSubmit}>
-					{/* <OverFlowContainer bg="white" className={`flex gap-16`}> */}
-					{}
-					{type === "person" && <PersonForm />}
-					{type === "group" && <GroupForm />}
-					{type === "place" && <PlaceForm />}
-					{type === "animal" && <AnimalForm />}
-					{/* </OverFlowContainer> */}
+			<Form
+				className={`flex flex-col px-24 py-6`}
+				register={register}
+				handleSubmit={handleSubmit}
+				onSubmit={editContact ? handleEditContactSubmit : handleCreateContactSubmit}>
+				{type === "person" && <PersonForm />}
+				{type === "group" && <GroupForm />}
+				{type === "place" && <PlaceForm />}
+				{type === "animal" && <AnimalForm />}
 
-					<div className="mt-8 flex gap-3 self-end">
-						<Button style="outline" label="Annuleer" onClick={handleClosingModal} />
-						{editContact ? (
-							<Button style="primary" label="Wijzigen" />
-						) : (
-							<Button style="primary" label="Opslaan" />
-						)}
-					</div>
-				</Form>
-			</FormProvider>
-		</>
+				<div className="absolute bottom-8 right-24 flex gap-3">
+					<Button type="button" style="outline" label="Annuleer" onClick={handleClosingModal} />
+					{editContact ? (
+						<Button style="primary" label="Wijzigen" />
+					) : (
+						<Button style="primary" label="Opslaan" />
+					)}
+				</div>
+			</Form>
+		</FormProvider>
 	);
 };

@@ -97,20 +97,20 @@ const SideBarContact = ({ contact }) => {
 				view === "list" ? "w-full gap-3 px-5 py-4" : "h-[17rem] w-[48%] flex-col justify-center"
 			}`}
 			ref={hoverRef}>
-			{contact.avatar ? (
-				<ContactThumbnail type={contact.type} size="sm">
+			<ContactThumbnail
+				type={contact.type}
+				size="sm"
+				className={`bg-primary-400 shadow-lg ${view === "list" ? "h-16 w-16" : "mb-2 h-24 w-24"}`}>
+				{contact.image_type === "avatar" && (
 					<AvatarComponent
 						avatar={contact.avatar}
-						className={`rounded-full bg-primary-500 object-cover shadow-lg ${
-							view === "list" ? "h-16 w-16" : "mb-2 h-24 w-24"
-						}`}
+						className={`${view === "list" ? "h-16 w-16" : "mb-2 h-24 w-24"}`}
 					/>
-				</ContactThumbnail>
-			) : (
-				<ContactThumbnail type={contact.type} size="sm">
+				)}
+				{(contact.image_type === "customImage" || contact.image_type === "presetImage") && (
 					<Image
-						className={`aspect-square rounded-full object-cover shadow-lg ${
-							view === "list" ? "h-16 w-16" : "mb-2 h-24 w-24"
+						className={`  object-cover  ${
+							contact.image_type === "presetImage" ? "p-5" : "rounded-full"
 						}`}
 						alt="profile picture"
 						src={
@@ -118,11 +118,11 @@ const SideBarContact = ({ contact }) => {
 								? contact.image_path
 								: `${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${contact.image_path}`
 						}
-						width={700}
-						height={700}
+						width={100}
+						height={100}
 					/>
-				</ContactThumbnail>
-			)}
+				)}
+			</ContactThumbnail>
 
 			<div className={`flex flex-col ${view === "list" ? "ml-3" : "items-center"}`}>
 				<span
