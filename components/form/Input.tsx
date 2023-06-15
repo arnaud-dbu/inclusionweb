@@ -11,7 +11,7 @@ type Props = {
 	icon?: React.ReactNode;
 	bg?: string;
 	secondary?: boolean;
-	style?: "primary" | "secondary";
+	style?: "primary" | "secondary" | "tertiary";
 	size?: "sm" | "md" | "lg";
 } & InputHTMLAttributes<HTMLInputElement>;
 
@@ -34,7 +34,7 @@ export const Input = ({
 
 	switch (style) {
 		case "primary":
-			inputVariant = `rounded-lg 
+			inputVariant = `rounded-lg   text-neutral-900
             placeholder-shown:bg-neutral-100 
             placeholder-shown:shadow-sm 
             focus:outline-none 
@@ -42,7 +42,7 @@ export const Input = ({
             focus:border-1 focus:border-primary-800`;
 			break;
 		case "secondary":
-			inputVariant = `rounded-lg 
+			inputVariant = `rounded-lg  text-neutral-900
             placeholder-shown:bg-transparent 
             placeholder-shown:border-1 
             placeholder-shown:border-neutral-500 
@@ -51,6 +51,15 @@ export const Input = ({
             focus:bg-transparent 
             focus:border-1 focus:border-primary-800`;
 			break;
+		case "tertiary":
+			inputVariant = `rounded-lg bg-primary-300 text-neutral-900
+            placeholder-shown:bg-transparent 
+            placeholder-shown:border-1 
+            placeholder-shown:border-neutral-500 
+            placeholder-shown:shadow-none 
+            focus:outline-none 
+            focus:bg-transparent 
+            focus:border-1 focus:border-primary-800`;
 			break;
 	}
 
@@ -60,6 +69,9 @@ export const Input = ({
 			break;
 		case "secondary":
 			labelVariant = "bg-white";
+			break;
+		case "tertiary":
+			labelVariant = "bg-primary-300";
 			break;
 		default:
 			break;
@@ -88,20 +100,21 @@ export const Input = ({
 				<label
 					htmlFor={name}
 					className={`
-                    peer-placeholder-shown: pointer-events-none absolute -top-2 left-[.6rem] bg-white px-[5px] text-xs text-neutral-800 duration-100
+                    peer-placeholder-shown: pointer-events-none absolute -top-2 left-[.6rem] ${
+											style === "tertiary" ? "bg-primary-300" : "bg-white"
+										} px-[5px] text-xs text-neutral-800 duration-100
                     ease-linear
                     peer-placeholder-shown:top-1/2 
                     peer-placeholder-shown:-translate-y-1/2 
-                    ${
-											style === "primary"
-												? "peer-placeholder-shown:bg-neutral-100"
-												: "peer-placeholder-shown:bg-white"
-										} 
+                    ${style === "primary" && "peer-placeholder-shown:bg-neutral-100"} 
+                    ${style === "secondary" && "peer-placeholder-shown:bg-white"} 
+                    ${style === "tertiary" && "peer-placeholder-shown:bg-primary-300"} 
                     peer-placeholder-shown:text-base 
                     peer-placeholder-shown:text-neutral-800
                     peer-focus:-top-2
                     peer-focus:translate-y-0
-                    peer-focus:bg-white 
+                    ${style === "tertiary" ? "peer-focus:bg-primary-300" : "peer-focus:bg-white"}
+                     
                     peer-focus:text-xs
                     peer-focus:text-primary-800
                 `}>

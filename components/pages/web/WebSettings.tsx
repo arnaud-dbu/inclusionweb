@@ -8,7 +8,7 @@ import WebIllustration from "../new/WebIllustration";
 import DivisionLine from "@/components/DivisionLine";
 import { IconButton } from "@/components/form/IconButton";
 
-export const WebSettings = () => {
+export const WebSettings = ({ shareView }) => {
 	const {
 		namesVisible,
 		setNamesVisible,
@@ -114,7 +114,9 @@ export const WebSettings = () => {
 							)}
 						</button>
 					</div>
-					<Button style="outline" label="Menu" onClick={() => setModalVisible("menu")} />
+					{!shareView && (
+						<Button style="outline" label="Menu" onClick={() => setModalVisible("menu")} />
+					)}
 				</div>
 			</div>
 		</section>

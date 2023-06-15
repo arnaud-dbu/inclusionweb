@@ -23,7 +23,8 @@ export async function POST(req: Request, { params }: { params: { id: string } })
 			session: body.new_session,
 			web_id: id,
 		})
-		.select();
+		.select()
+		.single();
 
 	// Get all contacts with matching web_id and matching current_session id
 	const { data: currentContacts, error: currentContactsError } = await supabase
@@ -37,7 +38,7 @@ export async function POST(req: Request, { params }: { params: { id: string } })
 		return {
 			...item,
 			id: crypto.randomUUID(),
-			session_id: body.new_session,
+			session_id: newSession.id,
 		};
 	});
 

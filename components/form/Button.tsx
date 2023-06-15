@@ -2,7 +2,6 @@ import Image from "next/image";
 import { ButtonHTMLAttributes } from "react";
 
 type Props = {
-	children?: any;
 	className?: string;
 	label?: string;
 	style: string;
@@ -11,16 +10,7 @@ type Props = {
 	image?: any;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const Button = ({
-	className,
-	children,
-	style,
-	label,
-	size,
-	image,
-	icon,
-	...rest
-}: Props) => {
+export const Button = ({ className, style, label, size, image, icon, ...rest }: Props) => {
 	let btnVariant = null;
 	let btnSize = null;
 
@@ -58,11 +48,9 @@ export const Button = ({
 			btnSize = "px-3 py-1 text-sm";
 			break;
 		case "sm":
-			btnSize = "px-6 py-2 text-md";
+			btnSize = "px-6 py-2 text-md h-12";
 			break;
-		case "xs":
-			btnSize = "px-3 py-[3px] text-sm";
-			break;
+
 		default:
 			btnSize = "h-12 px-6 py-2 text-md";
 			break;
@@ -71,11 +59,9 @@ export const Button = ({
 	return (
 		<button
 			{...rest}
-			className={` focus flex items-center justify-center gap-2 rounded-full ${btnSize} ${btnVariant} ${className} 
-           
+			className={` focus flex  items-center justify-center gap-2 rounded-full ${btnSize} ${btnVariant} ${className} 
             `}>
 			{image && <Image className={`h-6 w-6`} src={image} alt="" width={50} height={50} />}
-			{children}
 			{label}
 			{icon}
 		</button>

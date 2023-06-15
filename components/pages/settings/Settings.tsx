@@ -8,30 +8,14 @@ import { TrashIcon } from "@/public/icons";
 import { useForm } from "react-hook-form";
 import { useSupabase } from "@/app/supabase-provider";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { NameSchema, ValidatePasswordSchema } from "@/utils/shemas";
+import { createClient } from "@supabase/supabase-js";
 
 type Props = {
 	userMetadata: any;
 	id: string;
 };
-
-// validation
-const NameSchema = yup.object().shape({
-	firstName: yup.string().required("Voornaam is verplicht"),
-	lastName: yup.string().required("Achternaam is verplicht"),
-});
-
-const PasswordSchema = yup.object().shape({
-	password: yup
-		.string()
-		.required("Paswoord is verplicht")
-		.min(6, "Paswoord moet min 6 karakters bevatten"),
-	validatePassword: yup
-		.string()
-		.required("Paswoord is verplicht")
-		.oneOf([yup.ref("password"), null], "Paswoord komt niet overeen"),
-});
 
 const Settings = ({ userMetadata, id }: Props) => {
 	const { supabase } = useSupabase();
@@ -46,12 +30,17 @@ const Settings = ({ userMetadata, id }: Props) => {
 
 	const firstName = watchName("firstName");
 	const lastName = watchName("lastName");
-	const nameIsDifferent =
-		firstName !== userMetadata.firstName || lastName !== userMetadata.lastName;
+
 	const [nameIsUpdated, setNameIsUpdated] = useState("");
 
+	const [nameIsDifferent, setNameIsDifferent] = useState(false);
+
+	useEffect(() => {
+		setNameIsDifferent(firstName !== userMetadata.firstName || lastName !== userMetadata.lastName);
+	}, [firstName, lastName, userMetadata.firstName, userMetadata.lastName]);
+
 	const onSubmitName = async (names: any) => {
-		const { error } = await supabase.auth.updateUser({
+		const { data, error } = await supabase.auth.updateUser({
 			data: { firstName: names.firstName, lastName: names.lastName },
 		});
 
@@ -69,7 +58,7 @@ const Settings = ({ userMetadata, id }: Props) => {
 		reset,
 		watch: watchPassword,
 		formState: { errors: passwordErrors },
-	} = useForm({ resolver: yupResolver(PasswordSchema) });
+	} = useForm({ resolver: yupResolver(ValidatePasswordSchema) });
 
 	const password = watchPassword("password");
 	const validatePassword = watchPassword("validatePassword");
@@ -87,16 +76,17 @@ const Settings = ({ userMetadata, id }: Props) => {
 			setPasswordIsUpdated("Je paswoord is succesvol geüpdatet");
 			reset();
 		}
-
-		console.log(passwordIsUpdated);
 	};
 
 	const handleDeleteUserAccount = async () => {
-		const { data, error } = await supabase.auth.admin.deleteUser(id);
-
-		if (data) {
-			console.log("User deleted");
-		} else {
+		try {
+			await fetch(`/api/users/${id}`, {
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+		} catch (error) {
 			console.log(error);
 		}
 	};
@@ -110,8 +100,9 @@ const Settings = ({ userMetadata, id }: Props) => {
 				onSubmit={onSubmitName}
 				register={registerName}
 				nameIsUpdated={nameIsUpdated}>
-				<div className={`flex gap-3 mb-3`}>
+				<div className={`mb-3 flex gap-3`}>
 					<Input
+						style="tertiary"
 						register={registerName}
 						name="firstName"
 						label="Voornaam"
@@ -119,6 +110,7 @@ const Settings = ({ userMetadata, id }: Props) => {
 						defaultValue={userMetadata.firstName}
 					/>
 					<Input
+						style="tertiary"
 						register={registerName}
 						name="lastName"
 						label="Achternaam"
@@ -135,8 +127,9 @@ const Settings = ({ userMetadata, id }: Props) => {
 				onSubmit={onSubmitPassword}
 				register={registerPassword}
 				passwordIsUpdated={passwordIsUpdated}>
-				<div className={`flex gap-3 mb-3`}>
+				<div className={`mb-3 flex gap-3`}>
 					<Input
+						style="tertiary"
 						register={registerPassword}
 						name="password"
 						type="password"
@@ -144,6 +137,7 @@ const Settings = ({ userMetadata, id }: Props) => {
 						error={passwordErrors.password?.message}
 					/>
 					<Input
+						style="tertiary"
 						register={registerPassword}
 						name="validatePassword"
 						type="password"
@@ -155,7 +149,7 @@ const Settings = ({ userMetadata, id }: Props) => {
 			</Setting>
 			<div>
 				<H2 className={`mb-4`}>Verwijder account</H2>
-				<p className={`not-italic mb-4`}>
+				<p className={`mb-4 not-italic`}>
 					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
 					invidunt ut labore et
 				</p>

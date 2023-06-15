@@ -11,10 +11,7 @@ const WebPage = async ({ params }) => {
 	const contactRes = await fetch(`${process.env.HOST}/api/contacts`, {
 		cache: "no-cache",
 	});
-	const contactsData = await contactRes.json();
-	const fetchedContactsData = await contactsData?.filter(
-		(contact: any) => contact.web_id === fetchedWebData.id && contact.session_id === params.session
-	);
+	const fetchedContactsData = await contactRes.json();
 
 	// Fetch sessions data
 	const sessionRes = await fetch(`${process.env.HOST}/api/sessions`, {

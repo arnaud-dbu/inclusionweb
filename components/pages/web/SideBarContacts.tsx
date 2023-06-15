@@ -10,15 +10,14 @@ import ContactThumbnail from "./ContactThumbnail";
 import { Button } from "@/components/form/Button";
 
 export const SideBarContacts = () => {
-	const { fetchedWebData, searchFilteredContacts, showDroppedContacts, view } =
-		useContext(WebContext);
+	const { web, searchFilteredContacts, showDroppedContacts, view } = useContext(WebContext);
 
 	// Toggle contacts based on visibility on the web
 	const filteredContacts = searchFilteredContacts.filter((contact) => {
 		if (showDroppedContacts) {
-			return fetchedWebData.id === contact.web_id && contact.visible;
+			return web.id === contact.web_id && contact.visible;
 		} else {
-			return fetchedWebData.id === contact.web_id && !contact.visible;
+			return web.id === contact.web_id && !contact.visible;
 		}
 	});
 

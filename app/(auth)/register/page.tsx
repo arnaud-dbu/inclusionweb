@@ -13,9 +13,6 @@ const RegisterPage = async () => {
 			<RegisterForm />
 
 			<div className="flex flex-col items-center">
-				<Link href="/reset-password" className="link">
-					Wachtwoord vergeten?
-				</Link>
 				<Link href="/login" className="link">
 					Ik heb al een account
 				</Link>

@@ -91,7 +91,7 @@ const WebMenu = (props: Props) => {
 				method: "POST",
 				body: JSON.stringify({
 					random_id: crypto.randomUUID(),
-					current_session: currentSession.session,
+					current_session: currentSession.id,
 					new_session: latestSession + 1,
 				}),
 				headers: {
@@ -155,6 +155,22 @@ const WebMenu = (props: Props) => {
 				"Content-Type": "application/json",
 			},
 		});
+	};
+
+	const handleShareSession = async () => {
+		try {
+			const response = await fetch(`/api/sessions/${currentSession.id}/share`, {
+				method: "PATCH",
+				body: JSON.stringify({
+					share_id: crypto.randomUUID(),
+				}),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
@@ -279,6 +295,8 @@ const WebMenu = (props: Props) => {
 								/>
 							</div>
 						</Setting>
+						<button onClick={handleShareSession}>Share</button>
+						{currentSession?.share_id && <p>{currentSession.share_id}</p>}
 					</aside>
 					<div
 						onClick={() => setModalVisible(null)}

@@ -49,12 +49,17 @@ export const WebProvider = ({
 	fetchedSessionsData,
 	session,
 }: Props) => {
+	const [sessions, setSessions] = useState(fetchedSessionsData);
+
+	const currentSession = sessions?.filter((x) => x.session == session)[0];
+	const currentSessionContacts = fetchedContactsData?.filter((contact) => {
+		return contact.session_id === currentSession.id;
+	});
+
 	// Data
-	const [contacts, setContacts] = useState(fetchedContactsData);
+	const [contacts, setContacts] = useState(currentSessionContacts);
 	const [web, setWeb] = useState(fetchedWebData);
 	const [webs, setWebs] = useState(fetchedWebsData);
-
-	const [sessions, setSessions] = useState(fetchedSessionsData);
 
 	// Search function
 	const [query, setQuery] = useState<string>("");
@@ -68,8 +73,6 @@ export const WebProvider = ({
 		setInputValue(e.target.value);
 		handleSearchFilter(e);
 	};
-
-	const currentSession = sessions?.filter((x) => x.session == session)[0];
 
 	const getSession = (session) => {
 		const sessionString = session.session.toString();

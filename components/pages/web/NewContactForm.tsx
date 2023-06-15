@@ -40,6 +40,7 @@ export const NewContactForm = () => {
 		setThumbnail,
 		setEditContact,
 		session,
+		currentSession,
 		editContact,
 		setSelectedGivenSupport,
 		setSelectedReceivedSupport,
@@ -179,32 +180,30 @@ export const NewContactForm = () => {
 				visible: clickPosition ? true : false,
 				...(clickPosition && { position: clickPosition }),
 				web_id: fetchedWebData.id,
-				session_id: session,
+				session_id: currentSession.id,
 			};
 
-			console.log(body);
+			const response = await fetch("/api/contacts", {
+				method: "POST",
+				body: JSON.stringify(body),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
 
-			// const response = await fetch("/api/contacts", {
-			// 	method: "POST",
-			// 	body: JSON.stringify(body),
-			// 	headers: {
-			// 		"Content-Type": "application/json",
-			// 	},
-			// });
+			if (response.status === 201) {
+				const newContact = {
+					...body,
+					position: clickPosition !== null ? clickPosition : { x: 0, y: 0 },
+				};
+				setModalVisible(false);
 
-			// if (response.status === 201) {
-			// 	const newContact = {
-			// 		...body,
-			// 		position: clickPosition !== null ? clickPosition : { x: 0, y: 0 },
-			// 	};
-			// 	setModalVisible(false);
-
-			// 	if (contacts.length === 0) {
-			// 		setContacts([newContact]);
-			// 	} else {
-			// 		setContacts([...contacts, newContact]);
-			// 	}
-			// }
+				if (contacts.length === 0) {
+					setContacts([newContact]);
+				} else {
+					setContacts([...contacts, newContact]);
+				}
+			}
 		} catch (error) {
 			console.log(error);
 		}

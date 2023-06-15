@@ -24,14 +24,14 @@ export async function POST(req: Request) {
 		cookies,
 	});
 
-	console.log(contact);
-
 	const { data, error } = await supabase.from("contacts").insert(contact).select();
 
 	if (error) {
 		NextResponse.json(error, { status: 500 });
 		console.log(error);
 	}
+
+	console.log(data);
 
 	return NextResponse.json({ message: "New Contact Created" }, { status: 201 });
 }
