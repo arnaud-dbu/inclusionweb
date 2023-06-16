@@ -25,6 +25,7 @@ const LoginForm = () => {
 	const router = useRouter();
 	const { supabase } = useSupabase();
 	const [submitError, setSubmitError] = useState("");
+	const [buttonIsLoading, setButtonIsLoading] = useState(false);
 
 	const {
 		register,
@@ -33,6 +34,7 @@ const LoginForm = () => {
 	} = useForm({ resolver: yupResolver(EmailSchema) });
 
 	const onSubmit = async (body: LoginTypes) => {
+		setButtonIsLoading(true);
 		const { error } = await supabase.auth.signInWithPassword({
 			email: body.email,
 			password: body.password,
@@ -40,6 +42,7 @@ const LoginForm = () => {
 
 		if (error) {
 			error && setSubmitError("E-mail adres en/of paswoord is onjuist");
+			setButtonIsLoading(false);
 		}
 
 		const {
@@ -68,7 +71,7 @@ const LoginForm = () => {
 					register={register}
 					error={errors.email?.message}
 					className="mb-4"
-					icon={<MailIcon className={`w-6 h-6 fill-neutral-600`} />}
+					icon={<MailIcon className={`h-6 w-6 fill-neutral-600`} />}
 				/>
 				<Input
 					style="primary"
@@ -78,9 +81,9 @@ const LoginForm = () => {
 					register={register}
 					error={errors.password?.message}
 					className={`mb-6`}
-					icon={<KeyIcon className={`w-6 h-6 fill-neutral-600`} />}
+					icon={<KeyIcon className={`h-6 w-6 fill-neutral-600`} />}
 				/>
-				<Button style="primary" label="Log in" className="w-full mt-5" />
+				<Button style="primary" label="Log in" className="mt-5 w-full" loading={buttonIsLoading} />
 			</Form>
 		</>
 	);

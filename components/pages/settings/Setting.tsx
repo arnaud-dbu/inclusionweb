@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 
 type Props = {
 	children: React.ReactNode;
-	className: string;
+	className?: string;
 	blockTitle?: string;
 	divisionLine?: boolean;
 	handleSubmit?: any;

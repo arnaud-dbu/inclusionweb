@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { NavItem } from "./NavItem";
 
 type Props = {
-	className: string;
+	className?: string;
 };
 
 const SideMenu = ({ className }: Props) => {
@@ -14,7 +14,7 @@ const SideMenu = ({ className }: Props) => {
 
 	return (
 		<aside
-			className={`bg-primary-700 fixed left-0 top-0 h-[100dvh]  flex flex-col items-center ${className}`}>
+			className={`fixed left-0 top-0 flex h-[100dvh]  flex-col items-center bg-primary-700 ${className}`}>
 			<nav className="relative top-1/2 -translate-y-1/2">
 				<ul className="flex flex-col gap-6">
 					<NavItem

@@ -84,7 +84,7 @@ export const Input = ({
 			inputSize = "h-10";
 			break;
 		default:
-			inputSize = "h-12";
+			inputSize = "h-10 md:h-12";
 			break;
 	}
 
@@ -117,14 +117,13 @@ export const Input = ({
                     ${style === "primary" && "peer-placeholder-shown:bg-neutral-100"} 
                     ${style === "secondary" && "peer-placeholder-shown:bg-white"} 
                     ${style === "tertiary" && "peer-placeholder-shown:bg-primary-300"} 
-                    peer-placeholder-shown:text-base 
-                    peer-placeholder-shown:text-neutral-800
+                    peer-placeholder-shown:text-sm peer-placeholder-shown:text-neutral-800
                     peer-focus:-top-2
                     peer-focus:translate-y-0
+                    md:peer-placeholder-shown:text-base
+                    md:peer-focus:text-xs
                     ${style === "tertiary" ? "peer-focus:bg-primary-300" : "peer-focus:bg-white"}
-                     
-                    peer-focus:text-xs
-                    peer-focus:text-primary-800
+                    peer-focus:text-xs peer-focus:text-primary-800
                 `}>
 					{label}
 				</label>

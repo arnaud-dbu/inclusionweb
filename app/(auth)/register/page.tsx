@@ -1,21 +1,19 @@
-import { HeadingPrimary, P } from "@/components/Typography";
+import HyperLink from "@/components/Hyperlink";
+import { H1, P } from "@/components/Typography";
 import RegisterForm from "@/components/auth/RegisterForm";
-import Link from "next/link";
 
 const RegisterPage = async () => {
 	return (
 		<>
 			<div className={`mb-5`}>
-				<HeadingPrimary underline title="Maak een account" className={``} />
+				<H1 underline title="Maak een account" className={``} />
 				<P text="Je kunt dit heel snel en eenvoudig doen" />
 			</div>
 
 			<RegisterForm />
 
-			<div className="flex flex-col items-center">
-				<Link href="/login" className="link">
-					Ik heb al een account
-				</Link>
+			<div className="mt-2 self-center md:mt-0">
+				<HyperLink href="/login" label="Ik heb al een account" />
 			</div>
 		</>
 	);
