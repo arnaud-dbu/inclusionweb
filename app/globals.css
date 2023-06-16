@@ -21,7 +21,7 @@ body {
 }
 
 p {
-	@apply italic text-base leading-6;
+	@apply text-base italic leading-6;
 }
 
 .layout-wrapper {
@@ -45,23 +45,23 @@ p {
 	&::after {
 		content: "";
 		display: block;
-		width: 1.5rem;
-		margin-top: 0.25rem;
-		height: 0.25rem;
+		width: 2.5rem;
+		margin-top: 0.75rem;
+		height: 0.4rem;
 		background-color: var(--primary-800);
 	}
 }
 
 .absolute-center {
-	@apply absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2;
+	@apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
 }
 
 .web {
-	@apply rounded-full relative aspect-square;
+	@apply relative aspect-square rounded-full;
 }
 
 .web-inner {
-	@apply absolute z-0 rounded-full top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-primary-800 w-full h-full;
+	@apply absolute left-1/2 top-1/2 z-0 h-full w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary-800;
 }
 
 /* .web {
@@ -69,17 +69,17 @@ p {
 } */
 
 .link {
-	@apply block text-neutral-800 font-light underline;
+	@apply block font-light text-neutral-800 underline;
 }
 
 .form-input {
 	&.active {
 		& label {
-			@apply top-0 left-3 text-neutral-800 bg-white z-10 text-xs opacity-100 px-1 font-medium;
+			@apply left-3 top-0 z-10 bg-white px-1 text-xs font-medium text-neutral-800 opacity-100;
 		}
 
 		& input {
-			@apply border-neutral-600 bg-[transparent] border;
+			@apply border border-neutral-600 bg-[transparent];
 		}
 
 		& input:focus {
@@ -97,10 +97,10 @@ p {
 } */
 
 .frequency-line {
-	@apply content-[''] absolute w-[90%] h-[2px] z-10 bg-primary-800 left-1/2 -translate-x-1/2 top-[.5rem];
+	@apply absolute left-1/2 top-[.5rem] z-10 h-[2px] w-[90%] -translate-x-1/2 bg-primary-800 content-[''];
 
 	.block {
-		@apply absolute bottom-[2px] bg-primary-200 w-1/4;
+		@apply absolute bottom-[2px] w-1/4 bg-primary-200;
 
 		&--1 {
 			@apply left-0 h-2;
@@ -231,7 +231,7 @@ p {
 }
 
 .alert {
-	@apply text-red-900 text-sm font-light;
+	@apply text-sm font-light text-red-900;
 }
 
 input:not(:placeholder-shown) {

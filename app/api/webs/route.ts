@@ -40,6 +40,7 @@ export async function POST(request: Request) {
 			id: crypto.randomUUID(),
 			web_id: web.id,
 			session: 1,
+			share_id: crypto.randomUUID(),
 		})
 		.select();
 

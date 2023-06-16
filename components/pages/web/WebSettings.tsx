@@ -12,6 +12,7 @@ export const WebSettings = ({ shareView }) => {
 	const {
 		namesVisible,
 		setNamesVisible,
+		setEditInfoVisible,
 		avatarSize,
 		setAvatarSize,
 		session,
@@ -19,6 +20,7 @@ export const WebSettings = ({ shareView }) => {
 		sessions,
 		getSession,
 		setModalVisible,
+		setThumbnail,
 	} = useContext(WebContext);
 
 	const currentSession = sessions.filter((x) => x.session == session)[0];
@@ -67,9 +69,20 @@ export const WebSettings = ({ shareView }) => {
 		}
 	};
 
+	const handleOpenWebMenu = () => {
+		setEditInfoVisible("Versie");
+
+		setModalVisible("menu");
+		if (web.image_path) {
+			setThumbnail("customImage");
+		} else {
+			setThumbnail("avatar");
+		}
+	};
+
 	return (
 		<section
-			className={`absolute left-1/2 top-0 z-50 flex w-full -translate-x-1/2 items-center justify-center gap-4 px-20 pt-12 `}>
+			className={`absolute left-1/2 top-0 z-0 flex w-full -translate-x-1/2 items-center justify-center gap-4 px-20 pt-12 `}>
 			<div className={`flex w-full items-center justify-between gap-12`}>
 				<div className={`flex items-center gap-3`}>
 					<WebIllustration className={`h-8 w-8`} />
@@ -115,7 +128,7 @@ export const WebSettings = ({ shareView }) => {
 						</button>
 					</div>
 					{!shareView && (
-						<Button style="outline" label="Menu" onClick={() => setModalVisible("menu")} />
+						<Button style="outline" label="Menu" size="sm" onClick={handleOpenWebMenu} />
 					)}
 				</div>
 			</div>

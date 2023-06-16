@@ -7,6 +7,7 @@ type Props = {
 	label?: string;
 	error?: any;
 	register?: any;
+	buttonLabel?: string;
 	className?: string;
 	icon?: React.ReactNode;
 	bg?: string;
@@ -25,6 +26,7 @@ export const Input = ({
 	size,
 	bg,
 	icon,
+	buttonLabel,
 	secondary,
 	...rest
 }: Props) => {
@@ -97,6 +99,12 @@ export const Input = ({
 					{...register(name)}
 					{...rest}
 				/>
+				{buttonLabel && (
+					<button
+						className={`p2 absolute right-2 top-1/2 -translate-y-1/2 rounded-md bg-neutral-800 px-4 py-2 text-sm font-semibold text-white`}>
+						{buttonLabel}
+					</button>
+				)}
 				<label
 					htmlFor={name}
 					className={`

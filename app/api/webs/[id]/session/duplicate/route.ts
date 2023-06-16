@@ -22,6 +22,7 @@ export async function POST(req: Request, { params }: { params: { id: string } })
 			id: body.random_id,
 			session: body.new_session,
 			web_id: id,
+			share_id: crypto.randomUUID(),
 		})
 		.select()
 		.single();

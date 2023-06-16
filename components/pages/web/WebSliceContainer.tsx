@@ -1,4 +1,3 @@
-import WebDivisionLine from "@/components/web/WebDivisionLine";
 import WebSliceNaming from "@/components/web/WebSliceNaming";
 import {
 	Buurt,
@@ -48,3 +47,16 @@ const WebSliceContainer = () => {
 };
 
 export default WebSliceContainer;
+
+type LineProps = {
+	className?: any;
+	rotation: any;
+};
+
+const WebDivisionLine = ({ className, rotation }: LineProps) => {
+	return (
+		<div
+			className={`absolute left-0 top-1/2 w-1/2 origin-right -translate-y-1/2 border-[1.25px] border-primary-300  ${className}`}
+			style={rotation}></div>
+	);
+};

@@ -39,7 +39,7 @@ module.exports = {
 					300: "#008E89",
 					400: "#DDEDEE",
 					500: "#D2E2E5",
-					600: "#EDF4F5",
+					600: "#B6CED4",
 					700: "#93B8C1",
 					800: "#427D8F",
 					900: "#0C566D",
@@ -56,6 +56,7 @@ module.exports = {
 				sm: "rgba(0, 0, 0, 0.05) 0px 1px 3px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 0px",
 				md: "rgba(99, 99, 99, 0.15) 0px 2px 8px 0px;",
 				lg: "0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05)",
+				xl: "0 0px 15px -3px rgb(0 0 0 / 0.1), 0 0px 6px -4px rgb(0 0 0 / 0.1)",
 			},
 			backgroundImage: {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

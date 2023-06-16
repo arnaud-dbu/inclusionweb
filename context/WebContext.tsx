@@ -50,14 +50,13 @@ export const WebProvider = ({
 	session,
 }: Props) => {
 	const [sessions, setSessions] = useState(fetchedSessionsData);
-
 	const currentSession = sessions?.filter((x) => x.session == session)[0];
 	const currentSessionContacts = fetchedContactsData?.filter((contact) => {
 		return contact.session_id === currentSession.id;
 	});
+	const [contacts, setContacts] = useState(currentSessionContacts);
 
 	// Data
-	const [contacts, setContacts] = useState(currentSessionContacts);
 	const [web, setWeb] = useState(fetchedWebData);
 	const [webs, setWebs] = useState(fetchedWebsData);
 

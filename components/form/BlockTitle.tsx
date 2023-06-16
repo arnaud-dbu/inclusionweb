@@ -3,12 +3,14 @@ import React from "react";
 type Props = {
 	title: string;
 	className?: string;
+	description?: string;
 };
 
-export const BlockTitle = ({ title, className }: Props) => {
+export const BlockTitle = ({ title, className, description }: Props) => {
 	return (
-		<span className={`text-md font-semibold text-neutral-800 block mb-3 ${className}`}>
-			{title}
-		</span>
+		<div className={`mb-3 ${className}`}>
+			<span className={`text-md block font-semibold text-neutral-800 `}>{title}</span>
+			<p className={`text-sm text-neutral-800`}>{description}</p>
+		</div>
 	);
 };

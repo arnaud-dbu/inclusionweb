@@ -54,7 +54,7 @@ export const HeadingPrimary = ({ underline, className, title, subtitle }: Props)
 export const HeadingSecondary = ({ className, title, underline }: Props) => {
 	return (
 		<h2
-			className={`whitespace-nowrap font-primary text-3xl font-bold uppercase text-neutral-900 ${
+			className={`whitespace-nowrap font-primary text-6xl font-bold uppercase text-neutral-900 ${
 				underline && "title-underline-sm"
 			} ${className}`}>
 			{title}

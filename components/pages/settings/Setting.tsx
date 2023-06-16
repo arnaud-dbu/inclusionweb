@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 
 type Props = {
 	children: React.ReactNode;
+	className: string;
 	blockTitle?: string;
 	divisionLine?: boolean;
 	handleSubmit?: any;
@@ -21,20 +22,27 @@ export const Setting = ({
 	divisionLine = false,
 	handleSubmit,
 	onSubmit,
+	className,
 	register,
 	nameIsUpdated,
 	passwordIsUpdated,
 	form = true,
 }: Props) => {
 	return (
-		<div className={`mb-5 space-y-7`}>
-			<div className={`flex items-center gap-3`}>
-				{blockTitle && <HeadingSecondary title={blockTitle} />}
-				{nameIsUpdated && <span className={`text-primary-800 font-semibold`}>{nameIsUpdated}</span>}
-				{passwordIsUpdated && (
-					<span className={`text-primary-800 font-semibold`}>{passwordIsUpdated}</span>
-				)}
-			</div>
+		<div className={`space-y-7 ${className}`}>
+			{blockTitle && (
+				<>
+					<div className={`flex items-center gap-3`}>
+						{blockTitle && <HeadingSecondary title={blockTitle} />}
+						{nameIsUpdated && (
+							<span className={`font-semibold text-primary-800`}>{nameIsUpdated}</span>
+						)}
+						{passwordIsUpdated && (
+							<span className={`font-semibold text-primary-800`}>{passwordIsUpdated}</span>
+						)}
+					</div>
+				</>
+			)}
 			{form ? (
 				<Form register={register} handleSubmit={handleSubmit} onSubmit={onSubmit}>
 					{children}

@@ -2,12 +2,13 @@ import OverFlowContainer from "@/components/OverFlowContainer";
 import AvatarComponent from "@/components/avatar/AvatarComponent";
 import { IconButton } from "@/components/form/IconButton";
 import { WebContext } from "@/context/WebContext";
-import { PencilIcon } from "@/public/icons";
+import { PencilIcon, TrashIcon } from "@/public/icons";
 import Image from "next/image";
 import { useContext, useRef } from "react";
 import { useHover } from "usehooks-ts";
 import ContactThumbnail from "./ContactThumbnail";
 import { Button } from "@/components/form/Button";
+import WebIllustrationIcon from "./WebIllustrationIcon";
 
 export const SideBarContacts = () => {
 	const { web, searchFilteredContacts, showDroppedContacts, view } = useContext(WebContext);
@@ -42,10 +43,10 @@ const SideBarContact = ({ contact }) => {
 	const isHover = useHover(hoverRef);
 
 	// Add contact to web
-	const handleContactVisibility = async (id: string) => {
+	const handleContactVisibility = async (id: string, visible: boolean) => {
 		const newContacts = contacts.map((contact: any) => {
 			if (contact.id === id) {
-				return { ...contact, visible: true };
+				return { ...contact, visible: visible };
 			}
 			return contact;
 		});
@@ -55,7 +56,7 @@ const SideBarContact = ({ contact }) => {
 			await fetch(`/api/contacts/${id}`, {
 				method: "PATCH",
 				body: JSON.stringify({
-					visible: true,
+					visible: visible,
 				}),
 				headers: {
 					"Content-Type": "application/json",
@@ -68,15 +69,14 @@ const SideBarContact = ({ contact }) => {
 
 	// Delete contact from web
 	const handleDeleteContact = async (id: string) => {
+		const newContacts = contacts.filter((contact: any) => contact.id !== id);
+		setContacts(newContacts);
+
 		try {
 			const response = await fetch(`/api/contacts/${id}`, {
 				method: "DELETE",
 			});
 			const contact = await response.json();
-
-			if (contact) {
-				setContacts(fetchedContactsData);
-			}
 		} catch (error) {
 			console.log(error);
 		}
@@ -90,25 +90,26 @@ const SideBarContact = ({ contact }) => {
 
 	return (
 		<article
-			onClick={() => handleEditContact(contact.id)}
 			key={contact.id}
 			className={`relative flex cursor-pointer items-center rounded-2xl border-1 border-neutral-500 bg-white shadow-lg ${
-				view === "list" ? "w-full gap-3 px-5 py-4" : "h-[17rem] w-[48%] flex-col justify-center"
+				view === "list" ? "w-full gap-3 px-5 py-4" : "h-[18rem] w-[48%] flex-col justify-center"
 			}`}
 			ref={hoverRef}>
 			<ContactThumbnail
 				type={contact.type}
 				size="sm"
-				className={`bg-primary-400 shadow-lg ${view === "list" ? "h-16 w-16" : "mb-2 h-24 w-24"}`}>
+				className={`bg-primary-400 shadow-lg ${
+					view === "list" ? "h-16 w-16" : "mb-1 h-[7.5rem] w-[7.5rem]"
+				}`}>
 				{contact.image_type === "avatar" && (
 					<AvatarComponent
 						avatar={contact.avatar}
-						className={`${view === "list" ? "h-16 w-16" : "mb-2 h-24 w-24"}`}
+						className={`${view === "list" ? "h-16 w-16" : "mb-1 h-[7.5rem] w-[7.5rem]"}`}
 					/>
 				)}
 				{(contact.image_type === "customImage" || contact.image_type === "presetImage") && (
 					<Image
-						className={`  object-cover  ${
+						className={`absolute-center  object-cover  ${
 							contact.image_type === "presetImage" ? "p-5" : "rounded-full"
 						}`}
 						alt="profile picture"
@@ -124,36 +125,75 @@ const SideBarContact = ({ contact }) => {
 			</ContactThumbnail>
 
 			<div className={`flex flex-col ${view === "list" ? "ml-3" : "items-center"}`}>
-				<span
-					className={`relative font-bold text-neutral-800 ${
-						view === "list" ? "text-lg" : "text-xl"
-					}`}>
-					{contact.name}
-					<IconButton
-						className={`absolute -right-5 top-1/2 -translate-y-1/2 ${
-							isHover ? `opacity-100 ` : ` opacity-0 `
-						}`}
-						icon={<PencilIcon className={`h-4 w-4 fill-neutral-600`} />}
-					/>
-				</span>
+				<div className={`flex gap-2`}>
+					<span
+						className={`relative font-bold text-neutral-800 ${
+							view === "list" ? "text-lg" : "text-xl"
+						}`}>
+						{contact.name}
+					</span>
+					{view === "list" && (
+						<div className={`flex items-center gap-1`}>
+							<IconButton
+								className={`opacity-60`}
+								onClick={() => handleEditContact(contact.id)}
+								icon={<PencilIcon className={`h-5 w-5 fill-neutral-600`} />}
+							/>
+							<IconButton
+								className={`opacity-60`}
+								onClick={() => handleDeleteContact(contact.id)}
+								icon={<TrashIcon className={`h-5 w-5 fill-neutral-600`} />}
+							/>
+						</div>
+					)}
+				</div>
 				<span className="font-light text-neutral-800">{contact.role}</span>
+			</div>
+			<div className={`absolute bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-1`}>
+				{view === "grid" && (
+					<>
+						<IconButton
+							className={`opacity-60`}
+							onClick={() => handleEditContact(contact.id)}
+							icon={<PencilIcon className={`h-5 w-5 fill-neutral-600`} />}
+						/>
+						<IconButton
+							className={`opacity-60`}
+							onClick={() => handleDeleteContact(contact.id)}
+							icon={<TrashIcon className={`h-5 w-5 fill-neutral-600`} />}
+						/>
+					</>
+				)}
 			</div>
 
 			{!contact.visible ? (
 				<Button
-					style="outline"
-					size="xs"
-					onClick={() => handleContactVisibility(contact.id)}
-					label="Plaats op web"
-					className={` ${view === "list" ? "ml-auto" : "mt-3 opacity-70"}`}
+					style=""
+					icon={
+						<WebIllustrationIcon
+							plus
+							className={`h-12 w-12  ${isHover ? `opacity-100 ` : ` opacity-80 `}`}
+						/>
+					}
+					onClick={() => handleContactVisibility(contact.id, true)}
+					className={` absolute !m-0 !p-0 ${
+						view === "list"
+							? "right-5 top-1/2 ml-auto -translate-y-1/2 scale-105"
+							: "right-2 top-2 opacity-70"
+					}`}
 				/>
 			) : (
 				<Button
-					style="outline"
-					size="xs"
-					onClick={() => handleDeleteContact(contact.id)}
-					label="Verwijder van web"
-					className={` ${view === "list" ? "ml-auto" : "mt-3 opacity-70"}`}
+					style=""
+					icon={
+						<WebIllustrationIcon
+							className={`h-12 w-12 ${isHover ? `opacity-100 ` : ` opacity-80 `}`}
+						/>
+					}
+					onClick={() => handleContactVisibility(contact.id, false)}
+					className={` absolute right-2 top-2 !m-0 !p-0 ${
+						view === "list" ? "ml-auto" : "mt-3 opacity-70"
+					}`}
 				/>
 			)}
 		</article>

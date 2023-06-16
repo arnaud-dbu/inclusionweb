@@ -9,7 +9,12 @@ import { Button } from "@/components/form/Button";
 import { SideBarContacts } from "./SideBarContacts";
 
 const SideBar = () => {
-	const { setModalVisible } = useContext(WebContext);
+	const { setModalVisible, editInfoVisible, setEditInfoVisible } = useContext(WebContext);
+
+	const handleOpenNewContactModal = () => {
+		setEditInfoVisible("Gegevens");
+		setModalVisible("contact");
+	};
 
 	return (
 		<aside className="relative w-[60rem] bg-primary-200 shadow-lg">
@@ -20,7 +25,7 @@ const SideBar = () => {
 				label="Niew Contact "
 				className={`absolute bottom-10 left-1/2 w-[calc(100%-8rem)] -translate-x-1/2`}
 				icon={<AddUserIcon className="mr-2 h-6 w-6 fill-white" />}
-				onClick={() => setModalVisible("contact")}
+				onClick={handleOpenNewContactModal}
 			/>
 		</aside>
 	);

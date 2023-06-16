@@ -1,4 +1,4 @@
-import { HeadingPrimary } from "@/components/Typography";
+import { HeadingSecondary, P } from "@/components/Typography";
 import { BlockTitle } from "@/components/form/BlockTitle";
 import { useContext, useState } from "react";
 import { Setting } from "../settings/Setting";
@@ -8,12 +8,14 @@ import { useForm } from "react-hook-form";
 import { WebContext } from "@/context/WebContext";
 import DropdownVersion from "./VersionDropdown";
 import { useRouter } from "next/navigation";
-import { ChevronIcon, DuplicateIcon, FilePlusIcon, ImageIcon, PlusIcon } from "@/public/icons";
+import { DuplicateIcon, FilePlusIcon, ImageIcon } from "@/public/icons";
 import { CustomAvatarForm } from "./CustomAvatarForm";
 import { CustomAvatar } from "./CustomAvatar";
 import { Label } from "@/components/form/Label";
 import Image from "next/image";
 import { useSupabase } from "@/app/supabase-provider";
+import { CategoryButton } from "@/components/form/CategoryButton";
+import { useCopyToClipboard } from "usehooks-ts";
 
 type Props = {};
 
@@ -28,6 +30,8 @@ const WebMenu = (props: Props) => {
 		modalVisible,
 		imageUrl,
 		setModalVisible,
+		editInfoVisible,
+		setEditInfoVisible,
 		customAvatar,
 		editAvatarWindow,
 		thumbnail,
@@ -38,6 +42,7 @@ const WebMenu = (props: Props) => {
 	const [selectedOption, setSelectedOption] = useState(null);
 	const router = useRouter();
 	const { supabase } = useSupabase();
+	const [value, copy] = useCopyToClipboard();
 
 	const handleSessionChange = (selectedOption) => {
 		setSelectedOption(selectedOption);
@@ -50,6 +55,7 @@ const WebMenu = (props: Props) => {
 		handleSubmit: handleWebNameSubmit,
 		watch: watchWebName,
 		formState: { errors: webNameErrors },
+		reset: resetWebName,
 	} = useForm();
 
 	const {
@@ -57,6 +63,15 @@ const WebMenu = (props: Props) => {
 		handleSubmit: handleVersionNameSubmit,
 		watch: watchVersionNameName,
 		formState: { errors: nameVersionNameErrors },
+		reset: resetVersionName,
+	} = useForm();
+
+	const {
+		register: registerImage,
+		handleSubmit: handleImageSubmit,
+		watch: watchImageName,
+		formState: { errors: nameImageErrors },
+		reset: resetImage,
 	} = useForm();
 
 	const handleNewSession = async () => {
@@ -69,6 +84,7 @@ const WebMenu = (props: Props) => {
 					id: crypto.randomUUID(),
 					session: latestSession + 1,
 					web_id: web.id,
+					share_id: crypto.randomUUID(),
 				}),
 				headers: {
 					"Content-Type": "application/json",
@@ -128,6 +144,22 @@ const WebMenu = (props: Props) => {
 	};
 
 	const handleSubmitWebName = async (data) => {
+		const newWebData = {
+			...web,
+			name: data.name,
+		};
+		setWeb(newWebData);
+
+		await fetch(`/api/webs/${web.id}`, {
+			method: "PATCH",
+			body: JSON.stringify(newWebData),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+	};
+
+	const handleSubmitImage = async (data) => {
 		const userId = (await supabase.auth.getUser()).data.user.id;
 		let imagePath = null;
 
@@ -142,7 +174,6 @@ const WebMenu = (props: Props) => {
 
 		const newWebData = {
 			...web,
-			name: data.name,
 			avatar: thumbnail === "avatar" ? customAvatar : null,
 			image_path: thumbnail === "customImage" ? imagePath : null,
 		};
@@ -173,134 +204,181 @@ const WebMenu = (props: Props) => {
 		}
 	};
 
+	const handleClosingWebMenu = () => {
+		setModalVisible(null);
+		setEditInfoVisible("version");
+		resetWebName();
+		resetVersionName();
+		copy(null);
+	};
+
 	return (
 		<>
 			{modalVisible === "menu" && (
 				<>
 					<aside
-						className={`top-O absolute right-0 z-50 h-screen w-[30rem] bg-white px-12 py-20 shadow-lg `}>
+						className={`top-O absolute right-0 z-50 flex h-screen w-[35rem] flex-col bg-white px-12 py-20 shadow-lg `}>
 						{/* <IconButton icon={<CrossIcon className={`w-8 h-8 fill-neutral-600`} />} /> */}
-						<HeadingPrimary underline title="Menu" />
-						<Setting
-							blockTitle="Mijn web"
-							divisionLine={true}
-							handleSubmit={handleWebNameSubmit}
-							onSubmit={handleSubmitWebName}
-							register={registerWebName}>
-							<div className={`mb-3 flex w-full gap-3`}>
-								<Input
-									register={registerWebName}
-									style="primary"
-									name="name"
-									label="Naam"
-									error={webNameErrors.name?.message}
-									defaultValue={web.name}
-									className={`!mb-0 w-full`}
-								/>
-								<Button label="Opslaan" size="sm" style="tertiary" />
+						<div className={`mb-10 flex items-center justify-between`}>
+							<HeadingSecondary underline title="Menu" />
+							<div className="flex gap-2">
+								{["Versie", "Mijn Web", "Deel"].map((category) => (
+									<CategoryButton
+										key={category}
+										onClick={() => setEditInfoVisible(category)}
+										active={editInfoVisible === category}
+										label={category.charAt(0).toUpperCase() + category.slice(1)}
+									/>
+								))}
 							</div>
-							<Button
-								onClick={() => setEditAvatarWindow(!editAvatarWindow)}
-								label="Wijzig afbeelding"
-								className={`h-fit !px-0 `}
-								style="link"
-							/>
-							{editAvatarWindow && (
-								<div className={`flex flex-col items-start pt-3`}>
-									{thumbnail === "customImage" && (
-										<Image
-											className="mb-4 aspect-square h-[7rem] w-[7rem] rounded-full object-cover"
-											alt="test"
-											src={imageUrl}
-											width={700}
-											height={700}
-										/>
-									)}
-									{thumbnail === "avatar" && <CustomAvatar className={`mb-4 h-[7rem] w-[7rem]`} />}
-									<Label
-										style="outline"
-										icon={<ImageIcon className={`h-5 w-5 fill-neutral-800`} />}
-										size="sm"
-										title={thumbnail === "image" ? "Foto geselecteerd" : "Upload een foto"}
-										className={`file-input-hidden mb-6 w-full !px-0 ${
-											thumbnail === "customImage" &&
-											"border-primary-800 bg-primary-300 text-primary-900"
-										} `}>
-										<input
-											{...registerWebName("picture")}
-											onChange={handleCustomImageChangeUpload}
-											className=""
-											type="file"
-											name="picture"
-											accept="image/*"
-										/>
-									</Label>
-									<CustomAvatarForm className={`w-full`} />
-								</div>
-							)}
-						</Setting>
+						</div>
 
 						<Setting
-							blockTitle="Versie"
+							className={`${editInfoVisible !== "Versie" && "hidden"}`}
 							handleSubmit={handleVersionNameSubmit}
 							onSubmit={handleSubmitVersionName}
 							register={registerVersionName}>
 							<BlockTitle className={`mb-5`} title="Wijzig je versie naam" />
-							<div className={`mb-8 flex w-full gap-3`}>
-								<Input
-									style="primary"
-									register={registerVersionName}
-									name="name"
-									label="Naam"
-									error={nameVersionNameErrors.name?.message}
-									defaultValue={currentSession.name}
-									className={`w-full`}
-								/>
-								<Button label="Opslaan" size="sm" style="tertiary" />
-							</div>
-							<BlockTitle className={`mb-5`} title="Wijzig je versie" />
-							<div className={`mb-3 flex gap-3`}>
-								<DropdownVersion
-									selectedOption={selectedOption}
-									setSelectedOption={setSelectedOption}
-									handleSessionChange={handleSessionChange}
-									className={`w-full`}
-									name="session"
-									placeholder={getSession(currentSession)}
-									options={sessions.map((session) => ({
-										id: session.id,
-										value: session.session,
-										label: getSession(session),
-									}))}
-								/>
-							</div>
+							<Input
+								style="secondary"
+								register={registerVersionName}
+								name="name"
+								label="Naam"
+								error={nameVersionNameErrors.name?.message}
+								defaultValue={currentSession.name}
+								className={`mb-8 w-full`}
+								buttonLabel="Opslaan"
+							/>
+							<BlockTitle className={`mb-5`} title="Versie overzicht" />
+							<DropdownVersion
+								selectedOption={selectedOption}
+								setSelectedOption={setSelectedOption}
+								handleSessionChange={handleSessionChange}
+								className={`mb-5 w-full`}
+								name="session"
+								placeholder={getSession(currentSession)}
+								options={sessions.map((session) => ({
+									id: session.id,
+									value: session.session,
+									label: getSession(session),
+								}))}
+							/>
 							<div className={`flex items-center gap-2`}>
 								<FilePlusIcon className={`h-5 w-5 fill-primary-700`} />
 								<Button
 									onClick={handleNewSession}
 									label="Start een nieuwe sessie"
-									size="sm"
+									size="xs"
 									style="link"
-									className={`!px-0`}
+									className={`!px-0 `}
 								/>
 							</div>
 							<div className={`flex items-center gap-2`}>
 								<DuplicateIcon className={`h-5 w-5 fill-primary-700`} />
 								<Button
 									onClick={handleDuplicateSession}
-									label="Maak een kopie van huidige sessie"
-									size="sm"
+									label="Maak een kopie van de huidige sessie"
+									size="xs"
 									style="link"
 									className={`!px-0`}
 								/>
 							</div>
 						</Setting>
-						<button onClick={handleShareSession}>Share</button>
-						{currentSession?.share_id && <p>{currentSession.share_id}</p>}
+
+						<Setting
+							className={`${editInfoVisible !== "Mijn Web" && "hidden"}`}
+							handleSubmit={handleWebNameSubmit}
+							onSubmit={handleSubmitWebName}
+							register={registerWebName}>
+							<BlockTitle className={`mb-5`} title="Wijzig de naam van je inclusiewebweb" />
+							<Input
+								register={registerWebName}
+								style="primary"
+								name="name"
+								label="Naam"
+								error={webNameErrors.name?.message}
+								defaultValue={web.name}
+								className={`mb-8 w-full`}
+								buttonLabel="Opslaan"
+							/>
+						</Setting>
+
+						<Setting
+							className={`${editInfoVisible !== "Mijn Web" && "hidden"}`}
+							divisionLine={false}
+							handleSubmit={handleImageSubmit}
+							onSubmit={handleSubmitImage}
+							register={registerImage}>
+							<BlockTitle className={`mb-5`} title="Wijzig de afbeelding van je inclusieweb" />
+							<div className={`flex flex-col pt-3`}>
+								{thumbnail === "customImage" && (
+									<Image
+										className="mb-4 aspect-square h-[7rem] w-[7rem] rounded-full object-cover"
+										alt="test"
+										src={imageUrl}
+										width={700}
+										height={700}
+									/>
+								)}
+								{thumbnail === "avatar" && <CustomAvatar className={`mb-4 h-[7rem] w-[7rem]`} />}
+								<Label
+									style="link"
+									icon={<ImageIcon className={`h-5 w-5 fill-neutral-800`} />}
+									size="sm"
+									title={thumbnail === "image" ? "Foto geselecteerd" : "Upload een foto"}
+									className={`file-input-hidden mb-6 w-fit !px-0 ${
+										thumbnail === "customImage" &&
+										"border-primary-800 bg-primary-300 text-primary-900"
+									} `}>
+									<input
+										{...registerImage("picture")}
+										onChange={handleCustomImageChangeUpload}
+										className=""
+										type="file"
+										name="picture"
+										accept="image/*"
+									/>
+								</Label>
+								<CustomAvatarForm className={`w-full`} />
+							</div>
+							<button>Change</button>
+						</Setting>
+
+						<Setting
+							className={`${editInfoVisible !== "Deel" && "hidden"}`}
+							handleSubmit={handleWebNameSubmit}
+							onSubmit={handleSubmitWebName}
+							register={registerWebName}>
+							<div>
+								<BlockTitle
+									className={`mb-5`}
+									title="Deel link"
+									description="Kopieer de link om je web te delen"
+								/>
+								<span>{value ? "Gekopieerd" : ""}</span>
+							</div>
+							<div className={`flex items-center gap-2`}>
+								<Input
+									register={registerImage}
+									style="primary"
+									name="name"
+									error={webNameErrors.name?.message}
+									value={`${process.env.NEXT_PUBLIC_HOST}/view/${currentSession.share_id}`}
+									className={`mb-0 w-full`}
+								/>
+								<Button
+									onClick={() =>
+										copy(`${process.env.NEXT_PUBLIC_HOST}/view/${currentSession.share_id}`)
+									}
+									label="Kopeer"
+									style="secondary"
+								/>
+							</div>
+						</Setting>
 					</aside>
 					<div
-						onClick={() => setModalVisible(null)}
-						className="absolute z-40 h-full w-full bg-neutral-900 opacity-40"></div>
+						onClick={handleClosingWebMenu}
+						className="absolute z-40 h-full w-full  bg-neutral-600 bg-opacity-30 bg-clip-padding backdrop-blur-sm backdrop-filter"></div>
 				</>
 			)}
 		</>

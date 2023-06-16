@@ -16,7 +16,7 @@ type Props = {
 };
 
 const Web = ({ shareView }: Props) => {
-	const { contacts, setContacts, setModalVisible, setClickPosition, web } = useContext(WebContext);
+	const { contacts, setContacts, web } = useContext(WebContext);
 
 	const handleDragEnd = (ev) => {
 		if (!shareView) {
@@ -64,12 +64,12 @@ const Web = ({ shareView }: Props) => {
 	return (
 		<>
 			<DndContext onDragEnd={handleDragEnd} modifiers={[restrictToParentElement]}>
-				<div className="relative flex w-full items-center justify-center">
+				<div className="relative z-0 flex w-full items-center justify-center">
 					<WebSettings shareView={shareView} />
 					<div className={`cursor-cell`}>
 						<div className={`web w-[55rem]`}>
 							<DropZone>
-								{contacts?.map((contact) => (
+								{contacts.map((contact) => (
 									<DragContact
 										styles={{
 											position: "absolute",
@@ -81,10 +81,10 @@ const Web = ({ shareView }: Props) => {
 										name={contact.name}
 										avatar={contact.avatar}
 										image={contact.image_path}
-										visible={contact.visible ? "bshareView" : "none"}
+										visible={contact.visible ? "block" : "none"}
 									/>
 								))}
-								<div className="web-inner z-20 scale-[1.04] opacity-10"></div>
+								<div className="web-inner shadow-l z-20 scale-[1.04] !bg-primary-300 shadow-xl"></div>
 								<div className="web-inner scale-[.95] opacity-20"></div>
 								<div className="web-inner scale-[.75] opacity-20"></div>
 								<div className="web-inner scale-[.55] opacity-20"></div>
@@ -92,7 +92,7 @@ const Web = ({ shareView }: Props) => {
 
 								{web.image_path && (
 									<Image
-										className="absolute-center z-50 aspect-square w-[10rem] rounded-full object-cover"
+										className="absolute-center z-40 aspect-square w-[10rem] rounded-full object-cover"
 										alt="test"
 										src={`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${web.image_path}`}
 										width={700}
@@ -102,10 +102,9 @@ const Web = ({ shareView }: Props) => {
 								{web.avatar && (
 									<AvatarComponent
 										avatar={web.avatar}
-										className="absolute-center z-50 mb-2 h-[10rem] w-[10rem] rounded-full bg-primary-500 object-cover"
+										className="absolute-center z-40 mb-2 h-[10rem] w-[10rem] rounded-full bg-primary-500 object-cover"
 									/>
 								)}
-
 								<WebSliceContainer />
 							</DropZone>
 						</div>

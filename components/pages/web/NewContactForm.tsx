@@ -135,7 +135,6 @@ export const NewContactForm = () => {
 		setSelectedReceivedSupport([""]);
 		setActiveAvatarPreset("null");
 		setType("person");
-		setEditInfoVisible("Gegevens");
 		reset();
 	};
 
