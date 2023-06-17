@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext, ReactNode, useEffect, useState } from "react";
 import {
 	accessoriesTypes,
@@ -24,10 +26,6 @@ export type AvatarType = {
 	skinColor: string;
 };
 
-// type WebContextType = {
-
-// };
-
 export const WebContext = createContext(null);
 
 type Props = {
@@ -36,6 +34,7 @@ type Props = {
 	fetchedWebsData?: any;
 	fetchedContactsData?: any;
 	fetchedSessionsData?: any;
+	user?: any;
 	contacts?: any;
 	setContacts?: any;
 	session?: number;
@@ -47,18 +46,19 @@ export const WebProvider = ({
 	fetchedWebsData,
 	fetchedContactsData,
 	fetchedSessionsData,
+	user,
 	session,
 }: Props) => {
+	// Data
+	const [webs, setWebs] = useState(fetchedWebsData);
 	const [sessions, setSessions] = useState(fetchedSessionsData);
+	const [web, setWeb] = useState(fetchedWebData);
+
 	const currentSession = sessions?.filter((x) => x.session == session)[0];
 	const currentSessionContacts = fetchedContactsData?.filter((contact) => {
 		return contact.session_id === currentSession.id;
 	});
 	const [contacts, setContacts] = useState(currentSessionContacts);
-
-	// Data
-	const [web, setWeb] = useState(fetchedWebData);
-	const [webs, setWebs] = useState(fetchedWebsData);
 
 	// Search function
 	const [query, setQuery] = useState<string>("");
@@ -81,6 +81,7 @@ export const WebProvider = ({
 
 	// States
 	const [modalVisible, setModalVisible] = useState(null);
+	const [mobileNavVisible, setMobileNavVisible] = useState(false);
 	const [isValid, setIsValid] = useState(false);
 	const [clickPosition, setClickPosition] = useState(null);
 
@@ -267,6 +268,8 @@ export const WebProvider = ({
 				setModalVisible,
 				session,
 				handleCustomImageChangeUpload,
+				mobileNavVisible,
+				setMobileNavVisible,
 
 				fetchedWebData,
 				fetchedContactsData,

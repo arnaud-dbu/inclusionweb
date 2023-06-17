@@ -1,7 +1,6 @@
 import DivisionLine from "@/components/DivisionLine";
-import { H2, HeadingSecondary } from "@/components/Typography";
+import { H3 } from "@/components/Typography";
 import Form from "@/components/form/Form";
-import { useForm } from "react-hook-form";
 
 type Props = {
 	children: React.ReactNode;
@@ -33,7 +32,7 @@ export const Setting = ({
 			{blockTitle && (
 				<>
 					<div className={`flex items-center gap-3`}>
-						{blockTitle && <HeadingSecondary title={blockTitle} />}
+						{blockTitle && <H3 title={blockTitle} />}
 						{nameIsUpdated && (
 							<span className={`font-semibold text-primary-800`}>{nameIsUpdated}</span>
 						)}

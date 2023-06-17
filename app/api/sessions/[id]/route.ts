@@ -25,18 +25,19 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
 
 export async function PATCH(request: Request, { params }: { params: { id: string } }) {
 	const { id } = params;
-	const name = await request.json();
+	const body = await request.json();
 
 	const supabase = createRouteHandlerSupabaseClient<Database>({
 		headers,
 		cookies,
 	});
 
-	const { error } = await supabase.from("sessions").update(name).eq("id", id);
+	const { error } = await supabase.from("sessions").update(body).eq("id", id);
 
 	if (error) {
 		NextResponse.json(error, { status: 500 });
+		console.log(error);
 	}
 
-	return NextResponse.json({ message: "Session name updated" }, { status: 201 });
+	return NextResponse.json({ message: "Session updated" }, { status: 201 });
 }

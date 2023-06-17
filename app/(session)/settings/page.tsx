@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import { MainSection } from "@/components/Layouts";
 import Settings from "@/components/pages/settings/Settings";
 import { getUser } from "@/lib/getUser";
 import { LadyIllustration } from "@/public/illustrations";
@@ -11,14 +10,16 @@ const SettingsPage = async () => {
 	return (
 		<>
 			<Header title="Instellingen" />
-			<MainSection>
+			<div className={`layout-wrapper w-screen overflow-hidden`}>
 				<Settings userMetadata={user.user_metadata} id={user.id} />
-				<Image
-					className={`absolute w-[50rem] h-[55rem] bottom-0 right-0`}
-					alt="woman illustration"
-					src={LadyIllustration}
-				/>
-			</MainSection>
+				<div className={`absolute -right-1/2 bottom-0 z-0`}>
+					<Image
+						className={`absolute w-[50rem] object-contain opacity-40`}
+						alt="woman illustration"
+						src={LadyIllustration}
+					/>
+				</div>
+			</div>
 		</>
 	);
 };

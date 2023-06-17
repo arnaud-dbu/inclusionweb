@@ -25,9 +25,7 @@ p {
 }
 
 .layout-wrapper {
-	max-width: 120rem;
-	margin: 0 auto;
-	padding: 0 10rem;
+	@apply mx-auto max-w-[120rem]  px-6 md:px-10 xl:pl-[8.5rem];
 }
 
 .title-underline-lg {
@@ -45,6 +43,10 @@ p {
 		height: 0.4rem;
 		background-color: var(--primary-800);
 	}
+}
+
+.active-nav::after {
+	@apply absolute left-1 top-1 h-6 w-2 bg-black;
 }
 
 .absolute-center {

@@ -41,5 +41,22 @@ export async function PATCH(request: Request, { params }: { params: { id: string
 		NextResponse.json(error, { status: 500 });
 	}
 
-	return NextResponse.json({ message: "Name updated" }, { status: 201 });
+	return NextResponse.json({ message: "Web updated" }, { status: 201 });
+}
+
+export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+	const { id } = params;
+
+	const supabase = createRouteHandlerSupabaseClient<Database>({
+		headers,
+		cookies,
+	});
+
+	const { data, error } = await supabase.from("webs").delete().eq("id", id);
+
+	if (error) {
+		NextResponse.json(error, { status: 500 });
+	}
+
+	return NextResponse.json({ message: "Web deleted" }, { status: 201 });
 }

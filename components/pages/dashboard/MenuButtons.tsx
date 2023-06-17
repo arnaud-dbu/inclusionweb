@@ -1,78 +1,134 @@
 "use client";
 
-import React from "react";
+import React, { useContext } from "react";
 import { CirclePlusIcon, SettingsIcon, SignOutIcon } from "@/public/icons";
 import { useSupabase } from "@/app/supabase-provider";
 import { useRouter } from "next/navigation";
 import { OrganizationIllustration } from "@/public/illustrations";
 import Image from "next/image";
-import Link from "next/link";
+import { WebContext, WebProvider } from "@/context/WebContext";
+import AvatarComponent from "@/components/avatar/AvatarComponent";
 
 type Props = {
 	label: string;
 	icon?: React.ReactNode;
 	color?: string;
 	href?: string;
-	image?: any;
-	onClick?: () => void;
-};
+	presetImage?: any;
+	customImage?: any;
+	filter?: boolean;
+	imageStyling?: string;
+	avatar?: any;
+	className?: string;
+} & React.HTMLAttributes<HTMLButtonElement>;
 
-const MenuButtons = () => {
+const MenuButtonsContainer = () => {
+	const { webs } = useContext(WebContext);
 	const { supabase } = useSupabase();
 	const router = useRouter();
+	const sortWebs = webs?.sort((a, b) => {
+		return new Date(b.last_opened).getTime() - new Date(a.last_opened).getTime();
+	});
 
 	const handleLogout = async () => {
 		await supabase.auth.signOut();
 		router.push("/login");
 	};
-
 	return (
-		<div className="flex gap-y-8 flex-wrap justify-between items-start w-[60rem] h-fit">
+		<div className="mb-8 hidden w-[65rem] grid-cols-2 grid-rows-3 gap-6 xl:pointer-events-auto xl:grid xl:opacity-100 ">
 			<MenuButton
 				onClick={() => router.push("/new")}
 				label="Nieuw web"
-				icon={<CirclePlusIcon className={`opacity-60 w-[6rem] h-[6rem]`} />}
+				className={webs.length >= 2 ? "" : "row-span-2"}
+				icon={<CirclePlusIcon className={`h-[6rem] w-[6rem] opacity-60`} />}
 				color="bg-secondary-800"
 			/>
+
 			<MenuButton
 				onClick={() => router.push("/settings")}
 				label="Instellingen"
-				icon={<SettingsIcon className={`opacity-60 w-[6rem] h-[6rem]`} />}
+				icon={<SettingsIcon className={`h-[6rem] w-[6rem] opacity-60`} />}
 				color="bg-neutral-700"
+			/>
+			{webs.length >= 2 && (
+				<MenuButton
+					filter
+					onClick={() => router.push("/new")}
+					label="Laatst geopend"
+					avatar={sortWebs?.[0]?.avatar}
+					customImage={sortWebs?.[0]?.image_path}
+					color="bg-secondary-800"
+				/>
+			)}
+			<MenuButton
+				onClick={() => router.push("/about")}
+				label="Over Resokit"
+				className="row-span-2"
+				color="bg-primary-600"
+				imageStyling="absolute bottom-40 scale-[2]"
+				presetImage={OrganizationIllustration}
 			/>
 			<MenuButton
 				onClick={handleLogout}
 				label="Afmelden"
-				icon={<SignOutIcon className={`opacity-60 w-[6rem] h-[6rem]`} />}
+				icon={<SignOutIcon className={`h-[6rem] w-[6rem] opacity-60`} />}
 				color="bg-neutral-900"
-			/>
-			<MenuButton
-				onClick={() => router.push("/about")}
-				label="Over Resokit"
-				color="bg-primary-600"
-				image={OrganizationIllustration}
 			/>
 		</div>
 	);
 };
 
-const MenuButton = ({ label, icon, color, image, onClick }: Props) => {
-	const buttonClass = `relative overflow-hidden shadow-lg w-[47.5%] h-[17.5rem] flex flex-col gap-2 justify-end px-6 py-6 rounded-2xl aspect-square outline-none focus ${color}`;
-	const labelClass = `text-start font-primary text-white uppercase text-4xl font-bold`;
+const MenuButton = ({
+	label,
+	icon,
+	color,
+	presetImage,
+	customImage,
+	className,
+	imageStyling,
+	avatar,
+	filter,
+	...rest
+}: Props) => {
+	const buttonClass = `relative overflow-hidden shadow-lg flex flex-col gap-2 justify-end px-6 py-6 rounded-2xl  outline-none focus ${color} h-full w-full hover:opacity-80 hover:shadow-lg transition-opacity`;
+	const labelClass = `text-start font-primary text-white uppercase text-4xl z-10 font-bold`;
+	const cover = `absolute left-0 top-0 h-full w-full `;
 
 	return (
-		<button onClick={onClick} className={buttonClass}>
+		<button {...rest} className={`${className} ${buttonClass}`}>
 			{icon}
-			{image && (
+			{/* Preset Image Background */}
+			{presetImage && (
+				<Image className={imageStyling} alt="" src={presetImage} width={300} height={300} />
+			)}
+			{/* Custom Image Background */}
+			{customImage && (
 				<Image
-					className={`w-[20rem] h-[20rem] -top-10 object-contain absolute`}
-					alt=""
-					src={image}
+					className={`${cover} object-cover`}
+					alt="web profile picture"
+					src={`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${customImage}`}
+					width={300}
+					height={300}
 				/>
 			)}
+
+			{/* Avatar Background */}
+			{avatar && (
+				<AvatarComponent
+					avatar={avatar}
+					className="absolute left-0 top-0 h-full w-full !rounded-lg"
+				/>
+			)}
+			{/* Label */}
 			<span className={labelClass}>{label}</span>
+
+			{/* Filter */}
+			{filter && (
+				<div
+					className={`absolute bottom-0 left-0 z-0 h-2/3 w-full bg-gradient-to-t from-neutral-900 opacity-50`}></div>
+			)}
 		</button>
 	);
 };
 
-export default MenuButtons;
+export default MenuButtonsContainer;

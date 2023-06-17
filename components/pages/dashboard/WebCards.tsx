@@ -9,63 +9,114 @@ import OverFlowContainer from "@/components/OverFlowContainer";
 import { useRouter } from "next/navigation";
 import { H3 } from "@/components/Typography";
 import { useHover } from "usehooks-ts";
-import { motion } from "framer-motion";
 import AvatarComponent from "@/components/avatar/AvatarComponent";
 import Image from "next/image";
+import { NeighborIllustration } from "@/public/illustrations";
+import { IconButton } from "@/components/form/IconButton";
+import { TrashIcon } from "@/public/icons";
 
-type Props = {
-	fetchedWebsData: any;
-	fetchedSessionsData: any;
-};
-
-const WebCardsContainer = ({ fetchedWebsData, fetchedSessionsData }: Props) => {
+const WebCardsContainer = () => {
 	return (
-		<WebProvider fetchedWebsData={fetchedWebsData} fetchedSessionsData={fetchedSessionsData}>
-			<div className="w-full">
-				<div className="mb-[2rem] flex h-fit items-center justify-between gap-12 px-2">
-					<H3 title="Mijn Webben" />
-					<DivisionLine />
-					<SearchInput />
-				</div>
-				<OverFlowContainer fadeBottom className={`h-[calc(100vh-20.25rem)]`}>
-					<WebCards />
-				</OverFlowContainer>
+		<div className="w-full">
+			<div className="mb-[2rem] flex h-fit items-center justify-between gap-12 px-2">
+				<H3 className={`hidden md:block md:opacity-100`} title="Mijn Webben" />
+				<DivisionLine className={`hidden md:block md:opacity-100`} />
+				<SearchInput className={`w-full md:max-w-[17.5rem] `} />
 			</div>
-		</WebProvider>
+			<OverFlowContainer fadeBottom className={`h-[calc(100vh-20.25rem)]`}>
+				<WebCards />
+			</OverFlowContainer>
+		</div>
 	);
 };
 
 const WebCards = () => {
-	const { searchFilter, webs, sessions } = useContext(WebContext);
+	const { searchFilter, webs, setWebs, sessions } = useContext(WebContext);
 	const searchFilteredWebs = searchFilter(webs);
+	const sortedWebs = searchFilteredWebs.sort((a, b) => {
+		return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+	});
+
 	const router = useRouter();
 
-	const handleOpenSingleWeb = (webId: string) => {
+	const handleOpenSingleWeb = async (webId: string) => {
 		// Get all sessions with this web id and redirect to the last used session
 		const sessionsWithWebId = sessions.filter((session: any) => session.web_id == webId);
 		const lastUsedSession = sessionsWithWebId[sessionsWithWebId.length - 1];
-		router.push(`web/${webId}/${lastUsedSession.session}`);
+
+		try {
+			// Update last used session
+			const response = await fetch(`/api/webs/${webId}`, {
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					last_opened: new Date().toISOString(),
+				}),
+			});
+
+			// Redirect to last used session
+			if (response.status == 201) {
+				router.push(`web/${webId}/${lastUsedSession.session}`);
+			}
+
+			const web = webs.find((web: any) => web.id == webId);
+			const newWeb = {
+				...web,
+				last_opened: new Date().toISOString(),
+			};
+			const newWebs = webs.filter((web: any) => web.id !== webId);
+			setWebs([newWeb, ...newWebs]);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
-	const variants = {
-		hover: {
-			scale: [1],
-		},
-		initial: {
-			x: 0,
-		},
+	const handleDeleteSingleWeb = async (id: string) => {
+		const newWebs = webs.filter((web: any) => web.id !== id);
+		setWebs(newWebs);
+
+		try {
+			await fetch(`/api/webs/${id}`, {
+				method: "DELETE",
+			});
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	return (
 		<section className={`pb-16`}>
-			{searchFilteredWebs.map((web: any) => (
-				<WebCard key={web.id} web={web} handleOpenSingleWeb={handleOpenSingleWeb} />
-			))}
+			{sortedWebs.length == 0 ? (
+				<div className="flex h-[calc(100vh-25rem)] flex-col items-center justify-center">
+					<div className={`relative`}>
+						<Image src={NeighborIllustration} width={500} height={500} alt="buurt afbeelding" />
+						<div className={`absolute right-0 top-0 flex w-[12.5rem] flex-col`}>
+							<span className="mb-3 text-3xl font-semibold text-neutral-800">
+								Geen webben gevonden
+							</span>
+							<span className="text-xl text-neutral-600">
+								Klik op &apos;Nieuw Web&apos; om je eerste inclusieweb te maken.
+							</span>
+						</div>
+					</div>
+				</div>
+			) : (
+				sortedWebs.map((web: any) => (
+					<WebCard
+						key={web.id}
+						web={web}
+						handleOpenSingleWeb={handleOpenSingleWeb}
+						handleDeleteSingleWeb={handleDeleteSingleWeb}
+					/>
+				))
+			)}
 		</section>
 	);
 };
 
-const WebCard = ({ web, handleOpenSingleWeb }) => {
+const WebCard = ({ web, handleOpenSingleWeb, handleDeleteSingleWeb }) => {
 	const hoverRef = useRef(null);
 	const isHover = useHover(hoverRef);
 
@@ -73,41 +124,48 @@ const WebCard = ({ web, handleOpenSingleWeb }) => {
 		<article
 			key={web?.id}
 			ref={hoverRef}
-			className="mb-4 flex justify-between rounded-3xl border-1 border-neutral-500 bg-white px-12 py-10 text-neutral-800 shadow-sm">
-			<div className="flex flex-col justify-between">
-				<div className="flex flex-col">
-					<span className="text-2xl">Inclusieweb</span>
-					<span className="font-primary text-5xl font-semibold uppercase text-neutral-900">
+			className="mb-4 flex flex-col items-center justify-between rounded-3xl border-1 border-neutral-500 bg-white px-20 py-10 text-neutral-800 shadow-sm md:flex-row md:px-12">
+			<div className="flex w-full flex-col justify-between">
+				<div className="my-4 flex flex-col md:mb-10">
+					<span className="text-center text-2xl md:text-start">Inclusieweb</span>
+					<span className="text-center font-primary text-5xl font-semibold uppercase text-neutral-900 md:text-start">
 						{web?.name}
 					</span>
 				</div>
-				<div className="flex gap-3">
+				<div className="flex items-center gap-2 self-center md:self-start">
 					<Button
 						onClick={() => handleOpenSingleWeb(web?.id)}
 						label="Open"
 						style="tertiary"
+						className={`mt-8 md:mt-0`}
 						size="sm"
 					/>
+					{/* <Button label="Deel" style="outline" size="sm" /> */}
+					{/* <IconButton
+						className={`${isHover ? "opacity-1" : "opacity-0"} h-5 w-5 transition-opacity`}
+						onClick={() => handleDeleteSingleWeb(web?.id)}
+						icon={<TrashIcon className={`h-5 w-5 fill-neutral-500 `} />}
+					/> */}
 				</div>
 			</div>
-			<div className={`web w-[10rem]`}>
+			<div className={`web -order-1 h-[10rem] w-[10rem] md:order-1`}>
 				<div
-					className={`web-inner opacity-20 ${isHover ? "scale-1 opacity-30 shadow-lg" : ""}`}></div>
+					className={`web-inner opacity-20 ${isHover ? "scale-1 opacity-0 shadow-lg" : ""}`}></div>
 				<div
 					className={`web-inner scale-[.75] opacity-20 transition-transform ${
-						isHover ? "scale-[.5]" : ""
+						isHover ? "scale-[1]" : ""
 					}`}></div>
 				<div
 					className={`web-inner scale-[.5] opacity-20 transition-transform ${
-						isHover ? "scale-[.5]" : ""
+						isHover ? "scale-[1]" : ""
 					}`}></div>
 				<div
 					className={`web-inner scale-[.25] opacity-20 transition-transform ${
-						isHover ? "scale-[.5]" : ""
+						isHover ? "scale-[1]" : ""
 					}`}></div>
 				<div
 					className={`absolute-center h-[10rem] w-[10rem]  transition ${
-						isHover ? "opacity-1 scale-[.7] " : "scale-0 opacity-0"
+						isHover ? "opacity-1 scale-[1] delay-[.06s]" : "scale-0 opacity-0"
 					}`}>
 					{web?.avatar ? (
 						<AvatarComponent className="h-[10rem] w-[10rem] shadow-lg" avatar={web.avatar} />

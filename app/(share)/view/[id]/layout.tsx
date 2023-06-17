@@ -1,4 +1,4 @@
-import SideMenu from "@/components/navigation/SideMenu";
+import SideMenu from "@/components/navigation/NavBar";
 import { redirect } from "next/navigation";
 import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/lib/database.types";

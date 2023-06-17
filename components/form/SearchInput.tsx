@@ -4,9 +4,10 @@ import React, { useContext } from "react";
 
 type Props = {
 	className?: string;
+	inputStyle?: string;
 };
 
-export const SearchInput = ({ className }: Props) => {
+export const SearchInput = ({ className, inputStyle }: Props) => {
 	const { setQuery, setInputValue, inputValue, handleInputChange } = useContext(WebContext);
 
 	return (
@@ -29,7 +30,7 @@ export const SearchInput = ({ className }: Props) => {
 				</button>
 			)}
 			<input
-				className={`focus w-full min-w-[15rem] rounded-lg border-1 border-neutral-500 bg-transparent px-4 py-2  outline-none`}
+				className={`focus w-full min-w-[15rem] ${inputStyle} rounded-lg border-1 border-neutral-500 bg-transparent px-4 py-2  outline-none`}
 				type="text"
 				placeholder="Zoek"
 				value={inputValue}

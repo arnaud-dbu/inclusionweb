@@ -20,7 +20,7 @@ const NewWebPage = () => {
 	const { supabase } = useSupabase();
 	const router = useRouter();
 	const methods = useForm({ resolver: yupResolver(NameSchema) });
-	const { customAvatar, imageUrl, thumbnail } = useContext(WebContext);
+	const { customAvatar, imageUrl, thumbnail, setWebs, webs } = useContext(WebContext);
 
 	// Submit new web form
 	const handleNewWeb = async (data: any) => {
@@ -38,16 +38,19 @@ const NewWebPage = () => {
 				imagePath = image.path;
 			}
 
+			const newWeb = {
+				id: id,
+				name: data.name,
+				last_opened: new Date().toISOString(),
+				user_id: userId,
+				image_path: thumbnail === "customImage" ? imagePath : null,
+				avatar: thumbnail === "avatar" ? customAvatar : null,
+			};
+
 			// Insert data into the database
 			const response = await fetch("/api/webs", {
 				method: "POST",
-				body: JSON.stringify({
-					id: id,
-					name: data.name,
-					user_id: userId,
-					image_path: thumbnail === "customImage" ? imagePath : null,
-					avatar: thumbnail === "avatar" ? customAvatar : null,
-				}),
+				body: JSON.stringify(newWeb),
 				headers: {
 					"Content-Type": "application/json",
 				},
@@ -55,6 +58,7 @@ const NewWebPage = () => {
 
 			if (response.status === 201) {
 				router.push(`/web/${id}/1`);
+				setWebs([...webs, newWeb]);
 			}
 		} catch (error) {
 			console.log(error);

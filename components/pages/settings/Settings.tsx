@@ -1,6 +1,6 @@
 "use client";
 
-import { H2 } from "@/components/Typography";
+import { H3 } from "@/components/Typography";
 import { Button } from "@/components/form/Button";
 import { Input } from "@/components/form/Input";
 import { Setting } from "@/components/pages/settings/Setting";
@@ -10,7 +10,6 @@ import { useSupabase } from "@/app/supabase-provider";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { NameSchema, ValidatePasswordSchema } from "@/utils/shemas";
-import { createClient } from "@supabase/supabase-js";
 
 type Props = {
 	userMetadata: any;
@@ -92,15 +91,16 @@ const Settings = ({ userMetadata, id }: Props) => {
 	};
 
 	return (
-		<div className={`my-8 w-1/2`}>
+		<div className={`relative z-10 my-4 md:my-8 md:w-2/3 xl:w-1/2`}>
 			<Setting
 				blockTitle="Wijzig je naam"
 				divisionLine={true}
 				handleSubmit={handleSubmitName}
 				onSubmit={onSubmitName}
 				register={registerName}
-				nameIsUpdated={nameIsUpdated}>
-				<div className={`mb-3 flex gap-3`}>
+				nameIsUpdated={nameIsUpdated}
+				className={`mb-8 `}>
+				<div className={`mb-3 flex flex-col gap-3 space-y-2 md:flex-row md:space-y-0`}>
 					<Input
 						style="tertiary"
 						register={registerName}
@@ -117,7 +117,12 @@ const Settings = ({ userMetadata, id }: Props) => {
 						error={nameErrors.lastName?.message}
 						defaultValue={userMetadata.lastName}
 					/>
-					<Button label="Opslaan" size="sm" style={nameIsDifferent ? "secondary" : "disabled"} />
+					<Button
+						label="Opslaan"
+						size="md"
+						className={`sm:w-fit`}
+						style={nameIsDifferent ? "secondary" : "disabled"}
+					/>
 				</div>
 			</Setting>
 			<Setting
@@ -126,8 +131,9 @@ const Settings = ({ userMetadata, id }: Props) => {
 				handleSubmit={handleSubmitPassword}
 				onSubmit={onSubmitPassword}
 				register={registerPassword}
-				passwordIsUpdated={passwordIsUpdated}>
-				<div className={`mb-3 flex gap-3`}>
+				passwordIsUpdated={passwordIsUpdated}
+				className={`mb-8`}>
+				<div className={`mb-3 flex flex-col gap-3 space-y-2 md:flex-row md:space-y-0`}>
 					<Input
 						style="tertiary"
 						register={registerPassword}
@@ -144,11 +150,16 @@ const Settings = ({ userMetadata, id }: Props) => {
 						label="Bevestig paswoord"
 						error={passwordErrors.validatePassword?.message}
 					/>
-					<Button label="Wijzig" size="sm" style={passwordIsNotEmpty ? "secondary" : "disabled"} />
+					<Button
+						label="Wijzig"
+						className={`sm:w-fit`}
+						size="md"
+						style={passwordIsNotEmpty ? "secondary" : "disabled"}
+					/>
 				</div>
 			</Setting>
 			<div>
-				<H2 className={`mb-4`}>Verwijder account</H2>
+				<H3 title="Verwijder account" className={`mb-4`} />
 				<p className={`mb-4 not-italic`}>
 					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
 					invidunt ut labore et
