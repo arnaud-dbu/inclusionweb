@@ -1,3 +1,4 @@
+import { MainSection } from "@/components/Layouts";
 import NewContactModal from "@/components/pages/web/NewContactModal";
 import SideBar from "@/components/pages/web/SideBar";
 import Web from "@/components/pages/web/Web";
@@ -27,7 +28,7 @@ const WebPage = async ({ params }) => {
 	);
 
 	return (
-		<div className={`h-screen w-screen overflow-hidden xl:flex `}>
+		<MainSection>
 			<WebProvider
 				fetchedWebData={fetchedWebData}
 				fetchedContactsData={fetchedContactsData}
@@ -38,7 +39,7 @@ const WebPage = async ({ params }) => {
 				<Web />
 				<NewContactModal />
 			</WebProvider>
-		</div>
+		</MainSection>
 	);
 };
 

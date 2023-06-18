@@ -10,6 +10,8 @@ import { DropZone } from "./DropZone";
 import { useContext, useRef, useState } from "react";
 import { WebContext } from "@/context/WebContext";
 import { WebSettings } from "./WebSettings";
+import { H1 } from "@/components/Typography";
+import { Button } from "@/components/form/Button";
 
 type Props = {
 	shareView?: boolean;
@@ -62,56 +64,67 @@ const Web = ({ shareView }: Props) => {
 	};
 
 	return (
-		<div className="scale-[.5]">
+		<section className={`relative h-full w-full`}>
+			<WebSettings shareView={shareView} />
+			<H1
+				underline
+				subtitle="Inclusieweb"
+				title={web.name}
+				className={`!mb-0 `}
+				blockSpacing="px-4"
+			/>
 			<DndContext onDragEnd={handleDragEnd} modifiers={[restrictToParentElement]}>
-				<div className="relative z-0 flex w-full items-center justify-center">
-					<WebSettings shareView={shareView} />
-					<div className={`cursor-cell`}>
-						<div className={`web w-[55rem]`}>
-							<DropZone>
-								{contacts?.map((contact) => (
-									<DragContact
-										styles={{
-											position: "absolute",
-											left: `${contact.position.x}px`,
-											top: `${contact.position.y}px`,
-										}}
-										key={contact.id}
-										id={contact.id}
-										name={contact.name}
-										avatar={contact.avatar}
-										image={contact.image_path}
-										visible={contact.visible ? "block" : "none"}
-									/>
-								))}
-								<div className="web-inner shadow-l z-20 scale-[1.04] !bg-primary-400 opacity-40 shadow-xl"></div>
-								<div className="web-inner scale-[.95] opacity-20"></div>
-								<div className="web-inner scale-[.75] opacity-20"></div>
-								<div className="web-inner scale-[.55] opacity-20"></div>
-								<div className="web-inner scale-[.35] opacity-25"></div>
+				<div
+					className={`absolute left-1/2 top-[55%] -translate-x-1/2 -translate-y-1/2 scale-[0.4] cursor-cell `}>
+					<div className={`web w-[55rem]`}>
+						<DropZone>
+							{contacts?.map((contact) => (
+								<DragContact
+									styles={{
+										position: "absolute",
+										left: `${contact.position.x}px`,
+										top: `${contact.position.y}px`,
+									}}
+									key={contact.id}
+									id={contact.id}
+									name={contact.name}
+									avatar={contact.avatar}
+									image={contact.image_path}
+									visible={contact.visible ? "block" : "none"}
+								/>
+							))}
+							<div className="web-inner shadow-l z-20 scale-[1.04] !bg-primary-400 opacity-40 shadow-xl"></div>
+							<div className="web-inner scale-[.95] opacity-20"></div>
+							<div className="web-inner scale-[.75] opacity-20"></div>
+							<div className="web-inner scale-[.55] opacity-20"></div>
+							<div className="web-inner scale-[.35] opacity-25"></div>
 
-								{web.image_path && (
-									<Image
-										className="absolute-center z-40 aspect-square w-[10rem] rounded-full object-cover"
-										alt="test"
-										src={`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${web.image_path}`}
-										width={700}
-										height={700}
-									/>
-								)}
-								{web.avatar && (
-									<AvatarComponent
-										avatar={web.avatar}
-										className="absolute-center z-40 mb-2 h-[10rem] w-[10rem] rounded-full bg-primary-500 object-cover"
-									/>
-								)}
-								<WebSliceContainer />
-							</DropZone>
-						</div>
+							{web.image_path && (
+								<Image
+									className="absolute-center z-40 aspect-square w-[10rem] rounded-full object-cover"
+									alt="test"
+									src={`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${web.image_path}`}
+									width={700}
+									height={700}
+								/>
+							)}
+							{web.avatar && (
+								<AvatarComponent
+									avatar={web.avatar}
+									className="absolute-center z-40 mb-2 h-[10rem] w-[10rem] rounded-full bg-primary-500 object-cover"
+								/>
+							)}
+							<WebSliceContainer />
+						</DropZone>
 					</div>
 				</div>
 			</DndContext>
-		</div>
+			<div className={`absolute bottom-4 left-1/2  w-[92.5%] -translate-x-1/2`}>
+				<Button style="tertiary" className="w-full" label="Contacten">
+					Print
+				</Button>
+			</div>
+		</section>
 	);
 };
 

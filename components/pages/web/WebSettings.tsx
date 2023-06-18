@@ -81,18 +81,18 @@ export const WebSettings = ({ shareView }) => {
 	};
 
 	return (
-		<section
-			className={`absolute left-1/2 top-0 z-0 flex w-full -translate-x-1/2 items-center justify-center gap-4 px-20 pt-12 `}>
-			<div className={`flex w-full items-center justify-between gap-12`}>
-				<div className={`flex items-center gap-3`}>
-					<WebIllustration className={`h-8 w-8`} />
-					<span className={`text-md whitespace-nowrap font-medium text-neutral-800`}>{`${getSession(
-						currentSession
-					)}`}</span>
-				</div>
-				<DivisionLine />
-				<div className={`flex items-center gap-12`}>
-					<div className={`flex items-center gap-2`}>
+		<div className={`flex items-center justify-between gap-6 px-4 py-4`}>
+			<div className={`flex items-center gap-3`}>
+				<WebIllustration className={`h-8 w-8`} />
+				<span className={`text-md whitespace-nowrap font-medium text-neutral-800`}>{`${getSession(
+					currentSession
+				)}`}</span>
+			</div>
+
+			<DivisionLine />
+
+			<div className={`flex items-center gap-12`}>
+				{/* <div className={`flex items-center gap-2`}>
 						<BlockTitle className="!mb-0 !font-medium " title="Afbeeldingen" />
 						<div className={`flex items-center gap-1`}>
 							<IconButton
@@ -126,12 +126,11 @@ export const WebSettings = ({ shareView }) => {
 								<NonVisibleIcon className={`fill-primary-700`} />
 							)}
 						</button>
-					</div>
-					{!shareView && (
-						<Button style="outline" label="Menu" size="sm" onClick={handleOpenWebMenu} />
-					)}
-				</div>
+					</div> */}
+				{!shareView && (
+					<Button style="outline" label="Menu" size="sm" onClick={handleOpenWebMenu} />
+				)}
 			</div>
-		</section>
+		</div>
 	);
 };

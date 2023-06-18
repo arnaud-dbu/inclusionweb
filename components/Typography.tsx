@@ -5,6 +5,7 @@ type Props = {
 	title?: string;
 	subtitle?: string;
 	text?: string;
+	blockSpacing?: string;
 };
 
 export const HeadingPrimary = ({ underline, className, title, subtitle }: Props) => {
@@ -37,9 +38,9 @@ export const HeadingSecondary = ({ className, title, underline }: Props) => {
 	);
 };
 
-export const H1 = ({ underline, className, title, subtitle }: Props) => {
+export const H1 = ({ underline, className, title, subtitle, blockSpacing }: Props) => {
 	return (
-		<>
+		<div className={`${blockSpacing}`}>
 			{subtitle && (
 				<span
 					className={`whitespace-nowrap font-secondary text-2xl font-light  text-neutral-900 md:text-3xl`}>
@@ -52,7 +53,7 @@ export const H1 = ({ underline, className, title, subtitle }: Props) => {
 				}`}>
 				{title}
 			</h1>
-		</>
+		</div>
 	);
 };
 
