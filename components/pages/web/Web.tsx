@@ -62,12 +62,12 @@ const Web = ({ shareView }: Props) => {
 	};
 
 	return (
-		<div className={`h-full scale-[.4]`}>
+		<div className="scale-[.5]">
 			<DndContext onDragEnd={handleDragEnd} modifiers={[restrictToParentElement]}>
-				<div className="relative top-1/2 z-0 flex h-full w-full -translate-y-1/2 items-center justify-center">
-					{/* <WebSettings shareView={shareView} /> */}
+				<div className="relative z-0 flex w-full items-center justify-center">
+					<WebSettings shareView={shareView} />
 					<div className={`cursor-cell`}>
-						<div className={`web w-[45rem]`}>
+						<div className={`web w-[55rem]`}>
 							<DropZone>
 								{contacts?.map((contact) => (
 									<DragContact

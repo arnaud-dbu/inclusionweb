@@ -96,7 +96,7 @@ export const DragContact = ({ id, name, styles, avatar, visible, image }: Props)
 
 	return (
 		<div className={`relative`} style={{ ...style, ...CustomStyle, ...styles }} ref={setNodeRef}>
-			<button {...listeners} {...attributes}>
+			<button {...listeners} {...attributes} style={{ touchAction: "none" }}>
 				<div
 					className={`${
 						isDragging ? "cursor-grabbing" : "cursor-grab"

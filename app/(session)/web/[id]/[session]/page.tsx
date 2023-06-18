@@ -27,7 +27,7 @@ const WebPage = async ({ params }) => {
 	);
 
 	return (
-		<div className={`h-screen xl:flex `}>
+		<div className={`h-screen w-screen overflow-hidden xl:flex `}>
 			<WebProvider
 				fetchedWebData={fetchedWebData}
 				fetchedContactsData={fetchedContactsData}
