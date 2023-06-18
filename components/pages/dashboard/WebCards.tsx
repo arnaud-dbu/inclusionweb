@@ -2,8 +2,8 @@
 
 import DivisionLine from "@/components/DivisionLine";
 import { SearchInput } from "@/components/form/SearchInput";
-import { WebContext, WebProvider } from "@/context/WebContext";
-import { useContext, useRef, useState } from "react";
+import { WebContext } from "@/context/WebContext";
+import { useContext, useRef } from "react";
 import { Button } from "@/components/form/Button";
 import OverFlowContainer from "@/components/OverFlowContainer";
 import { useRouter } from "next/navigation";
@@ -12,13 +12,14 @@ import { useHover } from "usehooks-ts";
 import AvatarComponent from "@/components/avatar/AvatarComponent";
 import Image from "next/image";
 import { NeighborIllustration } from "@/public/illustrations";
-import { IconButton } from "@/components/form/IconButton";
-import { TrashIcon } from "@/public/icons";
+import { PlusIcon } from "@/public/icons";
 
 const WebCardsContainer = () => {
+	const router = useRouter();
+
 	return (
 		<div className="w-full">
-			<div className="mb-[2rem] flex h-fit items-center justify-between gap-12 px-2">
+			<div className="mb-[2rem] flex h-fit items-center justify-between gap-12 ">
 				<H3 className={`hidden md:block md:opacity-100`} title="Mijn Webben" />
 				<DivisionLine className={`hidden md:block md:opacity-100`} />
 				<SearchInput className={`w-full md:max-w-[17.5rem] `} />
@@ -26,6 +27,12 @@ const WebCardsContainer = () => {
 			<OverFlowContainer fadeBottom className={`h-[calc(100vh-20.25rem)]`}>
 				<WebCards />
 			</OverFlowContainer>
+			<Button
+				style="primary"
+				icon={<PlusIcon className={`h-16 w-16`} />}
+				onClick={() => router.push("/new")}
+				className={`!fixed bottom-8 right-8 !h-20 w-20 !px-4 !py-7 !shadow-xxl md:right-12 xl:hidden`}
+			/>
 		</div>
 	);
 };

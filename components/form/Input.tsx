@@ -55,7 +55,7 @@ export const Input = ({
 			break;
 		case "tertiary":
 			inputVariant = `rounded-lg bg-primary-300 text-neutral-900
-            placeholder-shown:bg-transparent 
+            placeholder-shown:bg-primary-300 
             placeholder-shown:border-1 
             placeholder-shown:border-neutral-500 
             placeholder-shown:shadow-none 

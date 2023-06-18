@@ -61,20 +61,19 @@ export const Button = ({ className, style, label, size, image, icon, loading, ..
 	return (
 		<button
 			{...rest}
-			className={` focus flex items-center justify-center gap-2 rounded-full ${btnSize} ${btnVariant} ${className} 
+			className={`focus relative flex items-center justify-center gap-2 rounded-full ${btnSize} ${btnVariant} ${className} 
             `}>
 			{image && (
 				<Image className={`h-5 w-5 md:h-6 md:w-6`} src={image} alt="" width={50} height={50} />
 			)}
-			<span className={`relative`}>
-				{label}
-				{loading && (
-					<div className={`absolute -right-6 top-1/2 -translate-y-1/2`}>
-						<div
-							className={`relative h-3 w-3 animate-spin rounded-full border-b-2 border-white`}></div>
-					</div>
-				)}
-			</span>
+
+			{label && <span className={`${loading ? "invisible" : "visible"}`}>{label}</span>}
+			{loading && (
+				<div className={`absolute-center`}>
+					<div
+						className={`relative h-4 w-4 animate-spin rounded-full border-b-2 border-white`}></div>
+				</div>
+			)}
 			{icon}
 		</button>
 	);

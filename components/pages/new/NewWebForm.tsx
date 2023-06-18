@@ -4,37 +4,65 @@ import { Input } from "@/components/form/Input";
 import { useContext } from "react";
 import { useFormContext } from "react-hook-form";
 import { WebContext } from "@/context/WebContext";
-import { HeadingPrimary, HeadingSecondary } from "@/components/Typography";
+import { H1, H3 } from "@/components/Typography";
 import { Card } from "@/components/Card";
 import { SelectAvatar } from "@/components/form/SelectAvatar";
 import { CustomAvatarForm } from "../web/CustomAvatarForm";
 import { Label } from "@/components/form/Label";
 import { useRouter } from "next/navigation";
+import AvatarComponent from "@/components/avatar/AvatarComponent";
+import Image from "next/image";
+import { UserIcon } from "@/public/icons";
 
 type Props = {
 	handleNewWeb: any;
+	avatar: any;
+	image: any;
+	thumbnail: any;
 };
 
-const NewWebForm = ({ handleNewWeb }: Props) => {
+const NewWebForm = ({ handleNewWeb, image, avatar, thumbnail }: Props) => {
 	const router = useRouter();
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useFormContext();
-	const { handleCustomImageChangeUpload, activeAvatarPreset, handlePresetAvatarSubmit, thumbnail } =
+	const { handleCustomImageChangeUpload, activeAvatarPreset, handlePresetAvatarSubmit } =
 		useContext(WebContext);
 
 	return (
-		<Card className={`px-20 py-16 w-[40rem]`}>
-			<HeadingPrimary underline title="Nieuw web" className="mb-10" />
+		<Card
+			// className={`left-1/2 z-30 my-24 w-full px-10 py-12 sm:absolute sm:left-1/2 sm:w-[80%] sm:-translate-x-1/2 lg:absolute lg:top-[50%] lg:my-0 lg:max-w-[40rem] lg:-translate-y-1/2 lg:px-14`}>
+			className={`lg:-translate-x-1/ relative left-1/2 z-30 mb-24 mt-28 max-w-[40rem] -translate-x-1/2 px-10 py-8 lg:absolute lg:top-1/2 lg:my-0  lg:w-[40rem] lg:-translate-y-1/2 2xl:!left-[35%] `}>
+			<div className={`flex items-center justify-between`}>
+				<H1 underline title="Nieuw web" className="mb-10" />
+				<div className={`h-[9rem] w-[9rem] rounded-full `}>
+					{thumbnail === "default" && (
+						<div className="overflow-hidden rounded-full bg-primary-500">
+							<UserIcon className={`h-full w-full`} />
+						</div>
+					)}
+					{thumbnail === "customImage" && (
+						<Image
+							className="rounded-full shadow-sm"
+							alt="profile picture"
+							src={image || "/"}
+							width={200}
+							height={200}
+						/>
+					)}
+					{thumbnail === "avatar" && <AvatarComponent className="h-full w-full" avatar={avatar} />}
+				</div>
+			</div>
+
 			<Form
 				register={register}
 				handleSubmit={handleSubmit}
 				onSubmit={handleNewWeb}
 				className={`flex flex-col gap-6`}>
 				<div>
-					<HeadingSecondary title="Gegevens" className="mb-5" />
+					<H3 title="Gegevens" className="mb-5" />
 					<Input
 						style="primary"
 						register={register}
@@ -45,8 +73,8 @@ const NewWebForm = ({ handleNewWeb }: Props) => {
 				</div>
 
 				<div>
-					<div className={`flex items-center justify-between mb-5`}>
-						<HeadingSecondary title="Afbeelding" />
+					<div className={`mb-5 flex items-center justify-between`}>
+						<H3 title="Afbeelding" />
 						<Label
 							style="link"
 							size="sm"
@@ -65,7 +93,7 @@ const NewWebForm = ({ handleNewWeb }: Props) => {
 						</Label>
 					</div>
 
-					<div className="flex gap-4 mb-4">
+					<div className="mb-4 flex gap-4">
 						<SelectAvatar
 							className={` ${
 								activeAvatarPreset === "youngManAvatar" && "outline outline-2 outline-primary-800"
@@ -83,14 +111,14 @@ const NewWebForm = ({ handleNewWeb }: Props) => {
 					</div>
 					<CustomAvatarForm />
 				</div>
-				<div>
-					<Button label="Start" style="primary" className="w-full mt-4 mb-3" />
+				<div className={`mt-6 flex flex-col gap-3`}>
+					<Button label="Open nieuw web" style="primary" className="" />
 					<Button
 						type="button"
 						onClick={() => router.back()}
-						label="Annuleer"
+						label="Ga terug"
 						style="outline"
-						className="w-full"
+						className=""
 					/>
 				</div>
 			</Form>

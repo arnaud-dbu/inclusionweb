@@ -84,6 +84,7 @@ export const WebProvider = ({
 	const [mobileNavVisible, setMobileNavVisible] = useState(false);
 	const [isValid, setIsValid] = useState(false);
 	const [clickPosition, setClickPosition] = useState(null);
+	const [validationMessage, setValidationMessage] = useState(null);
 
 	const [showDroppedContacts, setShowDroppedContacts] = useState<boolean>(false);
 	const [editContact, setEditContact] = useState(null);
@@ -270,6 +271,8 @@ export const WebProvider = ({
 				handleCustomImageChangeUpload,
 				mobileNavVisible,
 				setMobileNavVisible,
+				validationMessage,
+				setValidationMessage,
 
 				fetchedWebData,
 				fetchedContactsData,

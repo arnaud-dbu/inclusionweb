@@ -60,7 +60,7 @@ const NavItem = ({ href, icon, active, name, ...rest }: NavItemProps) => {
 			<li
 				className={`relative flex cursor-pointer items-center justify-center py-6 transition active:bg-primary-500  ${
 					active
-						? "bg-primary-600 before:absolute before:left-0 before:top-0 before:h-full before:w-2 before:bg-white"
+						? " before:absolute before:left-0 before:top-0 before:h-full before:w-2 before:bg-white"
 						: "before:bg-primary-700"
 				}   before:content-[''] hover:bg-primary-600 `}>
 				{!name && icon}

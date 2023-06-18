@@ -8,8 +8,9 @@ import { TrashIcon } from "@/public/icons";
 import { useForm } from "react-hook-form";
 import { useSupabase } from "@/app/supabase-provider";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NameSchema, ValidatePasswordSchema } from "@/utils/shemas";
+import { WebContext } from "@/context/WebContext";
 
 type Props = {
 	userMetadata: any;
@@ -18,6 +19,7 @@ type Props = {
 
 const Settings = ({ userMetadata, id }: Props) => {
 	const { supabase } = useSupabase();
+	const { validationMessage, setValidationMessage } = useContext(WebContext);
 
 	// Update user name
 	const {
@@ -29,24 +31,28 @@ const Settings = ({ userMetadata, id }: Props) => {
 
 	const firstName = watchName("firstName");
 	const lastName = watchName("lastName");
-
-	const [nameIsUpdated, setNameIsUpdated] = useState("");
-
 	const [nameIsDifferent, setNameIsDifferent] = useState(false);
+	const [nameUpdateIsLoading, setNameUpdateIsLoading] = useState(false);
 
 	useEffect(() => {
 		setNameIsDifferent(firstName !== userMetadata.firstName || lastName !== userMetadata.lastName);
 	}, [firstName, lastName, userMetadata.firstName, userMetadata.lastName]);
 
 	const onSubmitName = async (names: any) => {
-		const { data, error } = await supabase.auth.updateUser({
+		setNameUpdateIsLoading(true);
+		const { error } = await supabase.auth.updateUser({
 			data: { firstName: names.firstName, lastName: names.lastName },
 		});
 
 		if (error) {
-			setNameIsUpdated("Er is iets misgelopen bij het updaten van je naam, probeer het opnieuw");
+			setValidationMessage([
+				"name",
+				"Er is iets misgelopen bij het updaten van je naam, probeer het opnieuw",
+			]);
 		} else {
-			setNameIsUpdated("Je naam is succesvol geüpdatet");
+			setNameUpdateIsLoading(false);
+			setNameIsDifferent(false);
+			setValidationMessage(["name", "Naam aangepast"]);
 		}
 	};
 
@@ -62,17 +68,17 @@ const Settings = ({ userMetadata, id }: Props) => {
 	const password = watchPassword("password");
 	const validatePassword = watchPassword("validatePassword");
 	const passwordIsNotEmpty = password !== "" && validatePassword !== "";
-	const [passwordIsUpdated, setPasswordIsUpdated] = useState("");
 
 	const onSubmitPassword = async (passwords: any) => {
 		const { error, data } = await supabase.auth.updateUser({ password: passwords.password });
 
 		if (error) {
-			setPasswordIsUpdated(
-				"Er is iets misgelopen bij het updaten van je naam, probeer het opnieuw"
-			);
+			setValidationMessage([
+				"password",
+				"Er is iets misgelopen bij het updaten van je paswoord, probeer het opnieuw",
+			]);
 		} else {
-			setPasswordIsUpdated("Je paswoord is succesvol geüpdatet");
+			setValidationMessage(["password", "Paswoord aangepast"]);
 			reset();
 		}
 	};
@@ -91,14 +97,15 @@ const Settings = ({ userMetadata, id }: Props) => {
 	};
 
 	return (
-		<div className={`relative z-10 my-4 md:my-8 md:w-2/3 xl:w-1/2`}>
+		<div className={`relative z-10  md:w-2/3 xl:w-1/2`}>
 			<Setting
+				name="name"
 				blockTitle="Wijzig je naam"
 				divisionLine={true}
 				handleSubmit={handleSubmitName}
 				onSubmit={onSubmitName}
 				register={registerName}
-				nameIsUpdated={nameIsUpdated}
+				validationMessage={validationMessage}
 				className={`mb-8 `}>
 				<div className={`mb-3 flex flex-col gap-3 space-y-2 md:flex-row md:space-y-0`}>
 					<Input
@@ -122,16 +129,18 @@ const Settings = ({ userMetadata, id }: Props) => {
 						size="md"
 						className={`sm:w-fit`}
 						style={nameIsDifferent ? "secondary" : "disabled"}
+						loading={nameUpdateIsLoading}
 					/>
 				</div>
 			</Setting>
 			<Setting
+				name="password"
 				blockTitle="Wijzig je paswoord"
 				divisionLine={true}
 				handleSubmit={handleSubmitPassword}
 				onSubmit={onSubmitPassword}
 				register={registerPassword}
-				passwordIsUpdated={passwordIsUpdated}
+				validationMessage={validationMessage}
 				className={`mb-8`}>
 				<div className={`mb-3 flex flex-col gap-3 space-y-2 md:flex-row md:space-y-0`}>
 					<Input

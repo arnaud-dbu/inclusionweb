@@ -56,6 +56,7 @@ module.exports = {
 				md: "rgba(99, 99, 99, 0.15) 0px 2px 8px 0px",
 				lg: "0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05)",
 				xl: "0 0px 15px -3px rgb(0 0 0 / 0.1), 0 0px 6px -4px rgb(0 0 0 / 0.1)",
+				xxl: "rgba(0, 0, 0, 0.4) 0px 30px 90px;",
 			},
 			backgroundImage: {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

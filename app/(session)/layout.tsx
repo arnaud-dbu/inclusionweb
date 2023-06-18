@@ -42,7 +42,7 @@ const SessionLayout = async ({ children }: Props) => {
 			fetchedSessionsData={fetchedSessionsData}
 			fetchedWebsData={userWebs}
 			user={user}>
-			<div className="h-screen">
+			<div className="xl:h-screen">
 				<NavBar />
 				{children}
 			</div>

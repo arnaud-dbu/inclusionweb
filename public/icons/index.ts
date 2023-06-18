@@ -43,3 +43,4 @@ export { default as DuplicateIcon } from "./copy.svg";
 export { default as UserIcon } from "./user.svg";
 export { default as ChevronIcon } from "./chevron.svg";
 export { default as UserCircleIcon } from "./user-circle.svg";
+export { default as CheckMarkIcon } from "./checkmark.svg";

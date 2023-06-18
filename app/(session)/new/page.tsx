@@ -68,14 +68,16 @@ const NewWebPage = () => {
 	return (
 		<>
 			<FormProvider {...methods}>
-				<div className={`layout-wrapper flex h-screen items-center gap-24`}>
-					<NewWebForm handleNewWeb={handleNewWeb} />
-					<WebIllustration
-						avatar={customAvatar}
-						image={imageUrl}
-						thumbnail={thumbnail}
-						className="w-[70rem]"
-					/>
+				<div className={`relative w-screen overflow-hidden lg:h-screen`}>
+					<div className={`layout-wrapper `}>
+						<NewWebForm
+							handleNewWeb={handleNewWeb}
+							avatar={customAvatar}
+							image={imageUrl}
+							thumbnail={thumbnail}
+						/>
+					</div>
+					<WebIllustration className="absolute -bottom-[37.5rem] -right-[37.5rem] z-0 w-[85rem] opacity-60 lg:w-[90rem] lg:opacity-70 2xl:-bottom-[30vw] 2xl:-right-[30vw] 2xl:w-[85vw]" />
 				</div>
 			</FormProvider>
 		</>

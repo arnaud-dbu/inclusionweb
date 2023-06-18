@@ -12,13 +12,13 @@ const SettingsPage = async () => {
 			<Header title="Instellingen" />
 			<div className={`layout-wrapper w-screen overflow-hidden`}>
 				<Settings userMetadata={user.user_metadata} id={user.id} />
-				<div className={`absolute -right-1/2 bottom-0 z-0`}>
-					<Image
-						className={`absolute w-[50rem] object-contain opacity-40`}
-						alt="woman illustration"
-						src={LadyIllustration}
-					/>
-				</div>
+				<Image
+					className={`absolute bottom-0 left-1/2 w-[17.5rem] opacity-20 sm:w-[22.5rem] md:left-[55%] md:w-[40rem] md:opacity-50 lg:w-[42.5rem] lg:opacity-70`}
+					alt="woman illustration"
+					src={LadyIllustration}
+					width={800}
+					height={800}
+				/>
 			</div>
 		</>
 	);
