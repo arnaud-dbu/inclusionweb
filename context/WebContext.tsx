@@ -56,7 +56,7 @@ export const WebProvider = ({
 
 	const currentSession = sessions?.filter((x) => x.session == session)[0];
 	const currentSessionContacts = fetchedContactsData?.filter((contact) => {
-		return contact.session_id === currentSession.id;
+		return contact.session_id === currentSession?.id;
 	});
 	const [contacts, setContacts] = useState(currentSessionContacts);
 

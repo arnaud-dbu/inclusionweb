@@ -61,6 +61,14 @@ export const NewContactForm = () => {
 	// validation
 	const NewContactSchema = yup.object().shape({
 		name: yup.string().required("Naam is verplicht"),
+		role: yup.string(),
+		relation: yup.string(),
+		given_support: yup.array(),
+		received_support: yup.array(),
+		frequency: yup.string(),
+		avatar: yup.object(),
+		image_type: yup.string(),
+		image_path: yup.string(),
 	});
 
 	// Get form methods and registered fields

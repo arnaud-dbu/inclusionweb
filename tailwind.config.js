@@ -20,7 +20,6 @@ module.exports = {
 					900: "#cc0000",
 				},
 				primary: {
-					// 50: '#fdf8f6',
 					100: "#008E89",
 					200: "#EFF7F7",
 					300: "#E9F5F5",
@@ -54,7 +53,7 @@ module.exports = {
 			},
 			boxShadow: {
 				sm: "rgba(0, 0, 0, 0.05) 0px 1px 3px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 0px",
-				md: "rgba(99, 99, 99, 0.15) 0px 2px 8px 0px;",
+				md: "rgba(99, 99, 99, 0.15) 0px 2px 8px 0px",
 				lg: "0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05)",
 				xl: "0 0px 15px -3px rgb(0 0 0 / 0.1), 0 0px 6px -4px rgb(0 0 0 / 0.1)",
 			},
