@@ -85,6 +85,7 @@ export const WebProvider = ({
 	const [isValid, setIsValid] = useState(false);
 	const [clickPosition, setClickPosition] = useState(null);
 	const [validationMessage, setValidationMessage] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const [showDroppedContacts, setShowDroppedContacts] = useState<boolean>(false);
 	const [editContact, setEditContact] = useState(null);
@@ -273,7 +274,8 @@ export const WebProvider = ({
 				setMobileNavVisible,
 				validationMessage,
 				setValidationMessage,
-
+                isLoading, 
+                setIsLoading,
 				fetchedWebData,
 				fetchedContactsData,
 				fetchedSessionsData,
