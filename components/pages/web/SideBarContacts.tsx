@@ -1,3 +1,5 @@
+"use client";
+
 import OverFlowContainer from "@/components/OverFlowContainer";
 import AvatarComponent from "@/components/avatar/AvatarComponent";
 import { IconButton } from "@/components/form/IconButton";

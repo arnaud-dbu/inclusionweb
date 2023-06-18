@@ -1,4 +1,8 @@
-import WebComponents from "@/components/web/WebComponent";
+import NewContactModal from "@/components/pages/web/NewContactModal";
+import SideBar from "@/components/pages/web/SideBar";
+import Web from "@/components/pages/web/Web";
+import WebMenu from "@/components/pages/web/WebMenu";
+import { WebProvider } from "@/context/WebContext";
 
 const WebPage = async ({ params }) => {
 	// Fetch web data
@@ -23,12 +27,18 @@ const WebPage = async ({ params }) => {
 	);
 
 	return (
-		<WebComponents
-			fetchedContactsData={fetchedContactsData}
-			fetchedWebData={fetchedWebData}
-			fetchedSessionsData={fetchedSessionsData}
-			session={params.session}
-		/>
+		<div className={`h-screen xl:flex `}>
+			<WebProvider
+				fetchedWebData={fetchedWebData}
+				fetchedContactsData={fetchedContactsData}
+				fetchedSessionsData={fetchedSessionsData}
+				session={params.session}>
+				<SideBar />
+				<WebMenu />
+				<Web />
+				<NewContactModal />
+			</WebProvider>
+		</div>
 	);
 };
 

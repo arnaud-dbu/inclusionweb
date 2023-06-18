@@ -1,3 +1,5 @@
+"use client";
+
 import { HeadingSecondary, P } from "@/components/Typography";
 import { BlockTitle } from "@/components/form/BlockTitle";
 import { useContext, useState } from "react";

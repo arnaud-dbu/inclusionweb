@@ -25,6 +25,7 @@ const NewWebPage = () => {
 
 	// Submit new web form
 	const handleNewWeb = async (data: any) => {
+		setIsLoading(true);
 		const userId = (await supabase.auth.getUser()).data.user.id;
 		const id = crypto.randomUUID();
 		let imagePath = null;
@@ -60,6 +61,7 @@ const NewWebPage = () => {
 			if (response.status === 201) {
 				router.push(`/web/${id}/1`);
 				setWebs([...webs, newWeb]);
+				setIsLoading(false);
 			}
 		} catch (error) {
 			console.log(error);

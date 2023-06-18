@@ -28,7 +28,7 @@ const NewWebForm = ({ handleNewWeb, image, avatar, thumbnail }: Props) => {
 		handleSubmit,
 		formState: { errors },
 	} = useFormContext();
-	const { handleCustomImageChangeUpload, activeAvatarPreset, handlePresetAvatarSubmit } =
+	const { handleCustomImageChangeUpload, activeAvatarPreset, handlePresetAvatarSubmit, isLoading } =
 		useContext(WebContext);
 
 	return (
@@ -112,7 +112,7 @@ const NewWebForm = ({ handleNewWeb, image, avatar, thumbnail }: Props) => {
 					<CustomAvatarForm />
 				</div>
 				<div className={`mt-6 flex flex-col gap-3`}>
-					<Button label="Open nieuw web" style="primary" className="" />
+					<Button label="Open nieuw web" style="primary" loading={isLoading} />
 					<Button
 						type="button"
 						onClick={() => router.back()}

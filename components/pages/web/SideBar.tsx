@@ -1,3 +1,5 @@
+"use client";
+
 import DivisionLine from "@/components/DivisionLine";
 import { HeadingPrimary } from "@/components/Typography";
 import { AddUserIcon, GridIcon, ListIcon } from "@/public/icons";
@@ -17,7 +19,7 @@ const SideBar = () => {
 	};
 
 	return (
-		<aside className="relative w-[60rem] bg-primary-200 shadow-lg">
+		<aside className="relative hidden w-[60rem] bg-primary-200 shadow-lg">
 			<SideBarHeader />
 			<SideBarContacts />
 			<Button
@@ -36,7 +38,7 @@ const SideBarHeader = () => {
 		useContext(WebContext);
 
 	// Get contacts that are visible on the web
-	const placedContacts = contacts.filter((contact: any) => contact.visible).length;
+	const placedContacts = contacts?.filter((contact: any) => contact.visible).length;
 
 	return (
 		<div className={`flex flex-col justify-between px-16 pt-10`}>

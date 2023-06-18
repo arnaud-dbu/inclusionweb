@@ -8,7 +8,7 @@ type Props = {
 const WebDivisionLine = ({ className, rotation }: Props) => {
 	return (
 		<div
-			className={`border-[1.25px] origin-right border-primary-300 w-1/2 absolute left-0 top-1/2 -translate-y-1/2  ${className}`}
+			className={`absolute left-0 top-1/2 w-1/2 origin-right -translate-y-1/2 border-[1.25px]  ${className}`}
 			style={rotation}></div>
 	);
 };

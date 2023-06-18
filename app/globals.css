@@ -59,7 +59,7 @@ p {
 }
 
 .web-inner {
-	@apply absolute left-1/2 top-1/2 z-0 h-full w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary-800;
+	@apply absolute left-1/2 top-1/2 z-0 h-[105%] w-[105%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary-800;
 }
 
 /* .web {

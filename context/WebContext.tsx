@@ -38,6 +38,7 @@ type Props = {
 	contacts?: any;
 	setContacts?: any;
 	session?: number;
+	params?: any;
 };
 
 export const WebProvider = ({
@@ -48,6 +49,7 @@ export const WebProvider = ({
 	fetchedSessionsData,
 	user,
 	session,
+	params,
 }: Props) => {
 	// Data
 	const [webs, setWebs] = useState(fetchedWebsData);
@@ -274,8 +276,8 @@ export const WebProvider = ({
 				setMobileNavVisible,
 				validationMessage,
 				setValidationMessage,
-                isLoading, 
-                setIsLoading,
+				isLoading,
+				setIsLoading,
 				fetchedWebData,
 				fetchedContactsData,
 				fetchedSessionsData,

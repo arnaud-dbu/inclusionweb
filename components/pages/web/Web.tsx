@@ -62,14 +62,14 @@ const Web = ({ shareView }: Props) => {
 	};
 
 	return (
-		<>
+		<div className={`h-full scale-[.4]`}>
 			<DndContext onDragEnd={handleDragEnd} modifiers={[restrictToParentElement]}>
-				<div className="relative z-0 flex w-full items-center justify-center">
-					<WebSettings shareView={shareView} />
+				<div className="relative top-1/2 z-0 flex h-full w-full -translate-y-1/2 items-center justify-center">
+					{/* <WebSettings shareView={shareView} /> */}
 					<div className={`cursor-cell`}>
-						<div className={`web w-[55rem]`}>
+						<div className={`web w-[45rem]`}>
 							<DropZone>
-								{contacts.map((contact) => (
+								{contacts?.map((contact) => (
 									<DragContact
 										styles={{
 											position: "absolute",
@@ -84,7 +84,7 @@ const Web = ({ shareView }: Props) => {
 										visible={contact.visible ? "block" : "none"}
 									/>
 								))}
-								<div className="web-inner shadow-l z-20 scale-[1.04] !bg-primary-300 shadow-xl"></div>
+								<div className="web-inner shadow-l z-20 scale-[1.04] !bg-primary-400 opacity-40 shadow-xl"></div>
 								<div className="web-inner scale-[.95] opacity-20"></div>
 								<div className="web-inner scale-[.75] opacity-20"></div>
 								<div className="web-inner scale-[.55] opacity-20"></div>
@@ -111,7 +111,7 @@ const Web = ({ shareView }: Props) => {
 					</div>
 				</div>
 			</DndContext>
-		</>
+		</div>
 	);
 };
 
