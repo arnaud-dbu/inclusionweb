@@ -101,7 +101,7 @@ export const Input = ({
 				/>
 				{buttonLabel && (
 					<button
-						className={`p2 absolute right-2 top-1/2 -translate-y-1/2 rounded-md bg-neutral-800 px-4 py-2 text-sm font-semibold text-white`}>
+						className={`absolute right-1 top-1/2 h-[80%] -translate-y-1/2 rounded-md bg-neutral-800 px-4 text-sm font-semibold text-white md:right-2`}>
 						{buttonLabel}
 					</button>
 				)}

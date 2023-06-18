@@ -60,7 +60,7 @@ export const H1 = ({ underline, className, title, subtitle, blockSpacing }: Prop
 export const H2 = ({ className, title, underline }: Props) => {
 	return (
 		<h2
-			className={`whitespace-nowrap font-primary text-6xl font-bold uppercase text-neutral-900 ${
+			className={`whitespace-nowrap font-primary text-4xl font-bold uppercase text-neutral-900 lg:text-6xl ${
 				underline && "title-underline-sm"
 			} ${className}`}>
 			{title}

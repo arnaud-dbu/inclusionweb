@@ -18,7 +18,7 @@ type Props = {
 };
 
 const Web = ({ shareView }: Props) => {
-	const { contacts, setContacts, web } = useContext(WebContext);
+	const { contacts, setContacts, web, setSidebarOpen } = useContext(WebContext);
 
 	const handleDragEnd = (ev) => {
 		if (!shareView) {
@@ -75,7 +75,7 @@ const Web = ({ shareView }: Props) => {
 			/>
 			<DndContext onDragEnd={handleDragEnd} modifiers={[restrictToParentElement]}>
 				<div
-					className={`absolute left-1/2 top-[55%] -translate-x-1/2 -translate-y-1/2 scale-[0.4] cursor-cell `}>
+					className={`md absolute left-1/2 top-[55%] -translate-x-1/2 -translate-y-1/2 scale-[0.35]  cursor-cell overflow-hidden p-12 sm:scale-[.5]`}>
 					<div className={`web w-[55rem]`}>
 						<DropZone>
 							{contacts?.map((contact) => (
@@ -120,7 +120,7 @@ const Web = ({ shareView }: Props) => {
 				</div>
 			</DndContext>
 			<div className={`absolute bottom-4 left-1/2  w-[92.5%] -translate-x-1/2`}>
-				<Button style="tertiary" className="w-full" label="Contacten">
+				<Button style="tertiary" className="w-full" label="Contacten" onClick={setSidebarOpen}>
 					Print
 				</Button>
 			</div>

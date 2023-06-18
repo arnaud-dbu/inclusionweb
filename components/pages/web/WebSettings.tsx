@@ -89,8 +89,6 @@ export const WebSettings = ({ shareView }) => {
 				)}`}</span>
 			</div>
 
-			<DivisionLine />
-
 			<div className={`flex items-center gap-12`}>
 				{/* <div className={`flex items-center gap-2`}>
 						<BlockTitle className="!mb-0 !font-medium " title="Afbeeldingen" />

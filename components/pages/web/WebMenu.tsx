@@ -219,9 +219,9 @@ const WebMenu = (props: Props) => {
 			{modalVisible === "menu" && (
 				<>
 					<aside
-						className={`top-O absolute right-0 z-50 flex h-screen w-[35rem] flex-col bg-white px-12 py-20 shadow-lg `}>
-						{/* <IconButton icon={<CrossIcon className={`w-8 h-8 fill-neutral-600`} />} /> */}
-						<div className={`mb-10 flex items-center justify-between`}>
+						className={`fixed !top-[0rem] right-0 z-50 flex h-screen w-[90%] flex-col bg-white px-8 py-10 shadow-lg md:w-[35rem] md:px-12 md:py-20 `}>
+						<div
+							className={`mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-center md:gap-0`}>
 							<HeadingSecondary underline title="Menu" />
 							<div className="flex gap-2">
 								{["Versie", "Mijn Web", "Deel"].map((category) => (
@@ -240,7 +240,7 @@ const WebMenu = (props: Props) => {
 							handleSubmit={handleVersionNameSubmit}
 							onSubmit={handleSubmitVersionName}
 							register={registerVersionName}>
-							<BlockTitle className={`mb-5`} title="Wijzig je versie naam" />
+							<BlockTitle className={`mb-3 md:mb-5`} title="Wijzig je versie naam" />
 							<Input
 								style="secondary"
 								register={registerVersionName}
@@ -251,7 +251,7 @@ const WebMenu = (props: Props) => {
 								className={`mb-8 w-full`}
 								buttonLabel="Opslaan"
 							/>
-							<BlockTitle className={`mb-5`} title="Versie overzicht" />
+							<BlockTitle className={`mb-3 md:mb-5`} title="Versie overzicht" />
 							<DropdownVersion
 								selectedOption={selectedOption}
 								setSelectedOption={setSelectedOption}
@@ -311,7 +311,10 @@ const WebMenu = (props: Props) => {
 							handleSubmit={handleImageSubmit}
 							onSubmit={handleSubmitImage}
 							register={registerImage}>
-							<BlockTitle className={`mb-5`} title="Wijzig de afbeelding van je inclusieweb" />
+							<BlockTitle
+								className={`mb-3 md:mb-5`}
+								title="Wijzig de afbeelding van je inclusieweb"
+							/>
 							<div className={`flex flex-col pt-3`}>
 								{thumbnail === "customImage" && (
 									<Image
@@ -353,7 +356,7 @@ const WebMenu = (props: Props) => {
 							register={registerWebName}>
 							<div>
 								<BlockTitle
-									className={`mb-5`}
+									className={`mb-3 md:mb-5`}
 									title="Deel link"
 									description="Kopieer de link om je web te delen"
 								/>
@@ -380,7 +383,7 @@ const WebMenu = (props: Props) => {
 					</aside>
 					<div
 						onClick={handleClosingWebMenu}
-						className="absolute z-40 h-full w-full  bg-neutral-600 bg-opacity-30 bg-clip-padding backdrop-blur-sm backdrop-filter"></div>
+						className="fixed top-0 z-40 h-full w-full  bg-neutral-600 bg-opacity-30 bg-clip-padding backdrop-blur-sm backdrop-filter"></div>
 				</>
 			)}
 		</>

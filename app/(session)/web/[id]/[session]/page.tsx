@@ -28,18 +28,16 @@ const WebPage = async ({ params }) => {
 	);
 
 	return (
-		<MainSection>
-			<WebProvider
-				fetchedWebData={fetchedWebData}
-				fetchedContactsData={fetchedContactsData}
-				fetchedSessionsData={fetchedSessionsData}
-				session={params.session}>
-				<SideBar />
-				<WebMenu />
-				<Web />
-				<NewContactModal />
-			</WebProvider>
-		</MainSection>
+		<WebProvider
+			fetchedWebData={fetchedWebData}
+			fetchedContactsData={fetchedContactsData}
+			fetchedSessionsData={fetchedSessionsData}
+			session={params.session}>
+			<SideBar />
+			<WebMenu />
+			<Web />
+			<NewContactModal />
+		</WebProvider>
 	);
 };
 

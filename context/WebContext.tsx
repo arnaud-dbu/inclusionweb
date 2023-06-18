@@ -107,6 +107,7 @@ export const WebProvider = ({
 	const [activeAvatarPreset, setActiveAvatarPreset] = useState("default");
 	const [selectedReceivedSupport, setSelectedReceivedSupport] = useState([]);
 	const [selectedGivenSupport, setSelectedGivenSupport] = useState([]);
+	const [sidebarOpen, setSidebarOpen] = useState(false);
 
 	const [topType, setTopType] = useState<string[]>(["ShortHairShortFlat", ...topTypes.slice(1)]);
 	const [accessoriesType, setAccessoriesType] = useState<string[]>([
@@ -281,6 +282,8 @@ export const WebProvider = ({
 				fetchedWebData,
 				fetchedContactsData,
 				fetchedSessionsData,
+				sidebarOpen,
+				setSidebarOpen,
 
 				showDroppedContacts,
 				setShowDroppedContacts,

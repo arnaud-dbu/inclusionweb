@@ -26,7 +26,7 @@ const NavBar = ({ className }: SideMenuProps) => {
 
 	return (
 		<aside
-			className={`fixed left-0 top-0 z-40 flex h-16 w-screen items-center justify-between bg-primary-700 p-2 shadow-md xl:h-[100dvh] xl:w-[6rem] xl:flex-col xl:p-0 ${className}`}>
+			className={`fixed left-0 top-0 z-30 flex h-16 w-screen items-center justify-between bg-primary-700 p-2 shadow-md xl:h-[100dvh] xl:w-[6rem] xl:flex-col xl:p-0 ${className}`}>
 			<InclusionWebLogo
 				className={`relative w-[12.5rem] fill-white opacity-90 xl:top-[9rem] xl:w-[20rem] xl:-rotate-90`}
 			/>

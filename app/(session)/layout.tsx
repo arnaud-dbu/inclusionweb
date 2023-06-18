@@ -43,7 +43,9 @@ const SessionLayout = async ({ children }: Props) => {
 			fetchedWebsData={userWebs}
 			user={user}>
 			<NavBar />
-			{children}
+			<div className="mt-16 h-[calc(100vh-4rem)] xl:relative  xl:left-[6rem] xl:h-screen xl:w-[calc(100vw-6rem)]">
+				{children}
+			</div>
 		</WebProvider>
 	);
 };
