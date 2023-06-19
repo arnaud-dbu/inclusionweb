@@ -6,7 +6,8 @@ const NewContactNavigation = () => {
 	const { setEditInfoVisible } = useContext(WebContext);
 	return (
 		<section>
-			<div className={`flex px-24 gap-8 uppercase font-primary text-neutral-800 text-2xl mb-2 `}>
+			<div
+				className={`mb-2 flex gap-8 px-6 font-primary text-xl uppercase text-neutral-800 md:px-24 md:text-2xl `}>
 				<NewContactNavigationItem title="Gegevens" onClick={() => setEditInfoVisible("Gegevens")} />
 				<NewContactNavigationItem
 					title="Afbeelding"
@@ -26,7 +27,7 @@ const NewContactNavigationItem = ({ title, ...rest }) => {
 			{title}
 			{editInfoVisible === title && (
 				<div
-					className={`absolute -bottom-[10px] z-10 left-1/2 -translate-x-1/2 h-[4px] w-7 rounded-lg bg-primary-800`}></div>
+					className={`absolute -bottom-[10px] left-1/2 z-10 h-[4px] w-7 -translate-x-1/2 rounded-lg bg-primary-800`}></div>
 			)}
 		</button>
 	);

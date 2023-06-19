@@ -31,7 +31,7 @@ const SelectButtons = ({ register, type, icons, setType, name, options }: Props)
 	};
 
 	return (
-		<div className="flex w-full gap-2">
+		<div className="flex w-full gap-1 md:gap-2">
 			{options.map((option, i) => (
 				<button
 					type="button"
@@ -42,7 +42,7 @@ const SelectButtons = ({ register, type, icons, setType, name, options }: Props)
 					}`}>
 					{icons[i]}
 					<span
-						className={`text-sm text-neutral-900 ${
+						className={`hidden text-sm text-neutral-900 sm:pointer-events-auto sm:!block sm:opacity-100 ${
 							type === option.value && "font-bold text-white"
 						} `}>
 						{option.label}

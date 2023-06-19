@@ -279,7 +279,7 @@ export const NewContactForm = () => {
 			<NewContactNavigation />
 
 			<Form
-				className={`flex flex-col px-24 py-6`}
+				className={`flex flex-col px-6 py-6 md:px-24`}
 				register={register}
 				handleSubmit={handleSubmit}
 				onSubmit={editContact ? handleEditContactSubmit : handleCreateContactSubmit}>
@@ -288,7 +288,7 @@ export const NewContactForm = () => {
 				{type === "place" && <PlaceForm />}
 				{type === "animal" && <AnimalForm />}
 
-				<div className="absolute bottom-8 right-24 flex gap-3">
+				<div className="absolute right-3 top-1 flex gap-1 md:bottom-8 md:right-24 md:gap-3">
 					<Button type="button" style="outline" label="Annuleer" onClick={handleClosingModal} />
 					{editContact ? (
 						<Button style="primary" label="Wijzigen" />

@@ -8,7 +8,9 @@ type Props = {
 
 export const RadioButtons = ({ register, name, options, ...rest }: Props) => {
 	return (
-		<div className="relative mt-7 flex justify-between gap-2 px-3" {...rest}>
+		<div
+			className="relative mb-16 mt-7 flex w-[95%] justify-between gap-2 px-3 md:mb-0 md:w-full"
+			{...rest}>
 			<div className="frequency-line">
 				<div className="block--1 block"></div>
 				<div className="block--2 block"></div>
@@ -27,7 +29,7 @@ export const RadioButtons = ({ register, name, options, ...rest }: Props) => {
 						/>
 						<div className="check-icon z-1 hidden h-full w-full rounded-full border-primary-800 bg-primary-800 shadow-lg"></div>
 					</div>
-					<span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-sm text-neutral-900">
+					<span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-neutral-900 md:text-sm">
 						{option}
 					</span>
 				</div>

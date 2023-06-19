@@ -13,10 +13,13 @@ const NewContactFormHeader = () => {
 	const { type, setType, imageUrl, customAvatar, thumbnail, editContact } = useContext(WebContext);
 	const { register } = useFormContext();
 
+	const thumbnailStyles = "w-[6rem] h-[6rem] md:w-[10rem] md:h-[10rem]";
+
 	return (
-		<div className={`mb-6 flex items-center justify-between gap-10 px-24`}>
-			<div>
-				<span className="mb-6 block gap-5 font-primary text-7xl font-bold uppercase text-neutral-900">
+		<div
+			className={`mb-6 flex flex-col justify-between gap-4 px-6 md:flex-row md:items-center md:gap-10 md:px-24`}>
+			<div className={`order-1 md:-order-1`}>
+				<span className="mb-6 block gap-5 font-primary text-5xl font-bold uppercase text-neutral-900 md:text-7xl">
 					{editContact ? "Contact wijzigen" : "Nieuw contact"}
 				</span>
 				<SelectButtons
@@ -54,7 +57,7 @@ const NewContactFormHeader = () => {
 			{thumbnail === "default" && (
 				<ContactThumbnail type={type}>
 					<Image
-						className="aspect-square h-[10rem] w-[10rem] rounded-full object-cover "
+						className={`${thumbnailStyles} aspect-square rounded-full object-cover`}
 						alt="test"
 						src={UserImage || "/"}
 						width={700}
@@ -67,13 +70,13 @@ const NewContactFormHeader = () => {
 				<ContactThumbnail type={type}>
 					<AvatarComponent
 						avatar={customAvatar}
-						className="h-[10rem] w-[10rem] rounded-full bg-primary-500 object-cover"
+						className={`${thumbnailStyles} rounded-full bg-primary-500 object-cover`}
 					/>
 				</ContactThumbnail>
 			)}
 
 			{thumbnail === "presetImage" && (
-				<ContactThumbnail type={type} className={`h-[10rem] w-[10rem] bg-primary-300`}>
+				<ContactThumbnail type={type} className={`${thumbnailStyles} bg-primary-300`}>
 					<Image
 						className="aspect-square p-8"
 						alt="test"
@@ -87,7 +90,7 @@ const NewContactFormHeader = () => {
 			{thumbnail === "customImage" && (
 				<ContactThumbnail type={type}>
 					<Image
-						className="aspect-square h-[10rem] w-[10rem] rounded-full object-cover "
+						className={`${thumbnailStyles} aspect-square rounded-full object-cover`}
 						alt="test"
 						src={imageUrl || "/"}
 						width={700}

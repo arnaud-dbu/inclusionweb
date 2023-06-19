@@ -29,13 +29,13 @@ export const CheckboxButtons = ({ name, options, ...rest }: Props) => {
 	}, [selectedReceivedSupport, selectedReceivedSupport]);
 
 	return (
-		<div className="flex cursor-pointer gap-2" {...rest}>
+		<div className="flex cursor-pointer flex-wrap gap-2" {...rest}>
 			{options.map((option, index) => (
 				<label
 					onClick={(e) => handleSelection(e, index)}
 					ref={(button) => (buttonRefs.current[index] = button)}
 					key={option}
-					className={`checkbox-hidden focus relative h-fit cursor-pointer whitespace-nowrap rounded-full border-1 border-neutral-500 px-3 py-1 text-neutral-800 ${
+					className={`checkbox-hidden focus relative h-fit cursor-pointer whitespace-nowrap rounded-full border-1 border-neutral-500 px-3 py-1 text-sm text-neutral-800 md:text-base ${
 						selected.includes(option) &&
 						"border-primary-800 bg-primary-300 text-primary-900 shadow-lg"
 					}`}
