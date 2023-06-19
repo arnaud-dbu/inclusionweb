@@ -190,6 +190,8 @@ export const NewContactForm = () => {
 				session_id: currentSession.id,
 			};
 
+			console.log(body);
+
 			const response = await fetch("/api/contacts", {
 				method: "POST",
 				body: JSON.stringify(body),
@@ -279,7 +281,7 @@ export const NewContactForm = () => {
 			<NewContactNavigation />
 
 			<Form
-				className={`flex flex-col px-6 py-6 md:px-24`}
+				className={`flex flex-col px-6 py-6 md:px-10 lg:px-24`}
 				register={register}
 				handleSubmit={handleSubmit}
 				onSubmit={editContact ? handleEditContactSubmit : handleCreateContactSubmit}>
@@ -288,8 +290,8 @@ export const NewContactForm = () => {
 				{type === "place" && <PlaceForm />}
 				{type === "animal" && <AnimalForm />}
 
-				<div className="absolute right-3 top-1 flex gap-1 md:bottom-8 md:right-24 md:gap-3">
-					<Button type="button" style="outline" label="Annuleer" onClick={handleClosingModal} />
+				<div className="absolute right-5 top-1 flex gap-1 md:right-6 lg:bottom-8 lg:right-24 lg:top-auto lg:gap-3">
+					<Button type="button" style="outline" label="Sluit" onClick={handleClosingModal} />
 					{editContact ? (
 						<Button style="primary" label="Wijzigen" />
 					) : (

@@ -33,9 +33,11 @@ const WebPage = async ({ params }) => {
 			fetchedContactsData={fetchedContactsData}
 			fetchedSessionsData={fetchedSessionsData}
 			session={params.session}>
-			<SideBar />
+			<div className={`h-full w-full lg:flex`}>
+				<SideBar />
+				<Web />
+			</div>
 			<WebMenu />
-			<Web />
 			<NewContactModal />
 		</WebProvider>
 	);

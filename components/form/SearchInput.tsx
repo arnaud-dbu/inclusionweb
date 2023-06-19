@@ -30,7 +30,7 @@ export const SearchInput = ({ className, inputStyle }: Props) => {
 				</button>
 			)}
 			<input
-				className={`focus w-full min-w-[15rem] ${inputStyle} rounded-lg border-1 border-neutral-500 bg-transparent px-4 py-2  outline-none`}
+				className={`focus w-full min-w-[15rem] text-sm lg:text-base ${inputStyle} rounded-lg border-1 border-neutral-500 bg-transparent px-4 py-2  outline-none`}
 				type="text"
 				placeholder="Zoek"
 				value={inputValue}

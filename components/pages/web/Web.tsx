@@ -64,14 +64,14 @@ const Web = ({ shareView }: Props) => {
 	};
 
 	return (
-		<section className={`relative h-full w-full`}>
+		<section className={`relative h-full lg:w-[calc(100%-30rem)] 2xl:w-[calc(100%-35rem)]`}>
 			<WebSettings shareView={shareView} />
 			<H1
 				underline
 				subtitle="Inclusieweb"
 				title={web.name}
 				className={`!mb-0 `}
-				blockSpacing="px-4"
+				blockSpacing="px-4 lg:hidden"
 			/>
 			<DndContext onDragEnd={handleDragEnd} modifiers={[restrictToParentElement]}>
 				<div
@@ -120,9 +120,12 @@ const Web = ({ shareView }: Props) => {
 				</div>
 			</DndContext>
 			<div className={`absolute bottom-4 left-1/2  w-[92.5%] -translate-x-1/2`}>
-				<Button style="tertiary" className="w-full" label="Contacten" onClick={setSidebarOpen}>
-					Print
-				</Button>
+				<Button
+					style="tertiary"
+					className="w-full lg:hidden"
+					label="Contacten"
+					onClick={setSidebarOpen}
+				/>
 			</div>
 		</section>
 	);

@@ -54,7 +54,7 @@ export const Button = ({ className, style, label, size, image, icon, loading, ..
 			btnSize = "px-6 py-2 text-md h-10";
 			break;
 		default:
-			btnSize = "h-10 md:h-12 px-6 py-2 text-sm md:text-base";
+			btnSize = "h-10 lg:h-12 px-6 py-2 text-sm lg:text-base";
 			break;
 	}
 

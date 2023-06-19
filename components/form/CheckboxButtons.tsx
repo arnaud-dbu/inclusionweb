@@ -35,7 +35,7 @@ export const CheckboxButtons = ({ name, options, ...rest }: Props) => {
 					onClick={(e) => handleSelection(e, index)}
 					ref={(button) => (buttonRefs.current[index] = button)}
 					key={option}
-					className={`checkbox-hidden focus relative h-fit cursor-pointer whitespace-nowrap rounded-full border-1 border-neutral-500 px-3 py-1 text-sm text-neutral-800 md:text-base ${
+					className={`checkbox-hidden focus relative h-fit cursor-pointer whitespace-nowrap rounded-full border-1 border-neutral-500 px-3 py-1 text-sm text-neutral-800 lg:text-base ${
 						selected.includes(option) &&
 						"border-primary-800 bg-primary-300 text-primary-900 shadow-lg"
 					}`}

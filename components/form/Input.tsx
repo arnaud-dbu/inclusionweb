@@ -84,7 +84,7 @@ export const Input = ({
 			inputSize = "h-10";
 			break;
 		default:
-			inputSize = "h-10 md:h-12";
+			inputSize = "h-10 lg:h-12";
 			break;
 	}
 
@@ -120,8 +120,8 @@ export const Input = ({
                     peer-placeholder-shown:text-sm peer-placeholder-shown:text-neutral-800
                     peer-focus:-top-2
                     peer-focus:translate-y-0
-                    md:peer-placeholder-shown:text-base
-                    md:peer-focus:text-xs
+                    lg:peer-placeholder-shown:text-base
+                    lg:peer-focus:text-xs
                     ${style === "tertiary" ? "peer-focus:bg-primary-300" : "peer-focus:bg-white"}
                     peer-focus:text-xs peer-focus:text-primary-800
                 `}>

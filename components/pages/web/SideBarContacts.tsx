@@ -27,7 +27,7 @@ export const SideBarContacts = () => {
 	return (
 		<OverFlowContainer fadeBottom className={`h-[calc(100vh-19.5rem)] `}>
 			<div
-				className={`flex flex-wrap justify-between px-16 pt-6 ${
+				className={`mb-20 flex flex-wrap justify-between px-4 pt-6 md:px-10 lg:px-8 ${
 					view === "grid" ? " gap-y-4 " : " gap-y-3 "
 				} `}>
 				{filteredContacts.map((contact: any) => (
@@ -43,6 +43,11 @@ const SideBarContact = ({ contact }) => {
 		useContext(WebContext);
 	const hoverRef = useRef(null);
 	const isHover = useHover(hoverRef);
+	const thumbnailStyle = `${
+		view === "list"
+			? "h-16 w-16  lg:h-12 lg:w-12"
+			: "mb-1 h-[7.5rem] w-[7.5rem] lg:h-[6rem] lg:w-[6rem]"
+	}`;
 
 	// Add contact to web
 	const handleContactVisibility = async (id: string, visible: boolean) => {
@@ -94,20 +99,18 @@ const SideBarContact = ({ contact }) => {
 		<article
 			key={contact.id}
 			className={`relative flex cursor-pointer items-center rounded-2xl border-1 border-neutral-500 bg-white shadow-lg ${
-				view === "list" ? "w-full gap-3 px-5 py-4" : "h-[18rem] w-[48%] flex-col justify-center"
+				view === "list"
+					? "w-full gap-0 px-5 py-4 md:gap-3"
+					: "h-[15rem] w-[48%] flex-col justify-center lg:h-[15rem] xl:h-[15rem]"
 			}`}
 			ref={hoverRef}>
 			<ContactThumbnail
 				type={contact.type}
 				size="sm"
-				className={`bg-primary-400 shadow-lg ${
-					view === "list" ? "h-16 w-16" : "mb-1 h-[7.5rem] w-[7.5rem]"
-				}`}>
+				className={`bg-primary-400 shadow-lg ${thumbnailStyle}
+					`}>
 				{contact.image_type === "avatar" && (
-					<AvatarComponent
-						avatar={contact.avatar}
-						className={`${view === "list" ? "h-16 w-16" : "mb-1 h-[7.5rem] w-[7.5rem]"}`}
-					/>
+					<AvatarComponent avatar={contact.avatar} className={`${thumbnailStyle}`} />
 				)}
 				{(contact.image_type === "customImage" || contact.image_type === "presetImage") && (
 					<Image
@@ -127,10 +130,10 @@ const SideBarContact = ({ contact }) => {
 			</ContactThumbnail>
 
 			<div className={`flex flex-col ${view === "list" ? "ml-3" : "items-center"}`}>
-				<div className={`flex gap-2`}>
+				<div className={`flex flex-col gap-1 lg:flex-row lg:gap-3`}>
 					<span
 						className={`relative font-bold text-neutral-800 ${
-							view === "list" ? "text-lg" : "text-xl"
+							view === "list" ? "text-lg" : "text-xl lg:text-lg xl:text-xl"
 						}`}>
 						{contact.name}
 					</span>
@@ -169,34 +172,42 @@ const SideBarContact = ({ contact }) => {
 			</div>
 
 			{!contact.visible ? (
-				<Button
-					style=""
-					icon={
-						<WebIllustrationIcon
-							plus
-							className={`h-12 w-12  ${isHover ? `opacity-100 ` : ` opacity-80 `}`}
-						/>
-					}
-					onClick={() => handleContactVisibility(contact.id, true)}
-					className={` absolute !m-0 !p-0 ${
+				<div
+					className={` absolute flex h-12 w-12 items-center justify-center  ${
 						view === "list"
 							? "right-5 top-1/2 ml-auto -translate-y-1/2 scale-105"
-							: "right-2 top-2 opacity-70"
-					}`}
-				/>
+							: "right-0 top-0 opacity-70"
+					}`}>
+					<Button
+						className="!m-0 !p-0"
+						style=""
+						icon={
+							<WebIllustrationIcon
+								plus
+								className={`h-10 w-10  ${isHover ? `opacity-100 ` : ` opacity-80 `}`}
+							/>
+						}
+						onClick={() => handleContactVisibility(contact.id, true)}
+					/>
+				</div>
 			) : (
-				<Button
-					style=""
-					icon={
-						<WebIllustrationIcon
-							className={`h-12 w-12 ${isHover ? `opacity-100 ` : ` opacity-80 `}`}
-						/>
-					}
-					onClick={() => handleContactVisibility(contact.id, false)}
-					className={` absolute right-2 top-2 !m-0 !p-0 ${
-						view === "list" ? "ml-auto" : "mt-3 opacity-70"
-					}`}
-				/>
+				<div
+					className={` absolute flex h-12 w-12 items-center justify-center  ${
+						view === "list"
+							? "right-5 top-1/2 ml-auto -translate-y-1/2 scale-105"
+							: "right-0 top-0 opacity-70"
+					}`}>
+					<Button
+						style=""
+						icon={
+							<WebIllustrationIcon
+								className={`h-10 w-10 ${isHover ? `opacity-100 ` : ` opacity-80 `}`}
+							/>
+						}
+						onClick={() => handleContactVisibility(contact.id, false)}
+						className="!m-0 !p-0"
+					/>
+				</div>
 			)}
 		</article>
 	);
