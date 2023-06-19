@@ -16,12 +16,24 @@ const NewContactModal = () => {
 					className="fixed left-0 top-0 z-40 h-full w-full  bg-neutral-600 bg-opacity-30 bg-clip-padding backdrop-blur-sm backdrop-filter"></div>
 				<dialog
 					open
-					className={`fixed left-1/2 top-1/2 z-50 m-0 h-[95%] w-[95%] -translate-x-1/2 -translate-y-1/2 rounded-3xl bg-white px-0 py-6 lg:h-[55rem] lg:w-[55rem] lg:py-12 `}>
-					<div className={`relative h-full w-full`}>
+					className={`fixed left-1/2 top-1/2 z-50 m-0 h-[95%] w-[95%] -translate-x-1/2 -translate-y-1/2 rounded-3xl bg-white px-0 `}>
+					<div className={`relative  py-6 lg:h-[55rem] lg:w-[55rem] lg:py-12 `}>
 						<NewContactForm />
 					</div>
 				</dialog>
 			</>
+			// <>
+			// 	<div
+			// 		onClick={() => setModalVisible(null)}
+			// 		className="fixed left-0 top-0 z-40 h-full w-full  bg-neutral-600 bg-opacity-30 bg-clip-padding backdrop-blur-sm backdrop-filter"></div>
+			// 	<dialog
+			// 		open
+			// 		className={`fixed left-1/2 top-1/2 z-50 m-0 h-[95%] w-[95%] -translate-x-1/2 -translate-y-1/2 rounded-3xl bg-white px-0 `}>
+			// 		<div className={`relative  py-6 lg:h-[55rem] lg:w-[55rem] lg:py-12 `}>
+			// 			<NewContactForm />
+			// 		</div>
+			// 	</dialog>
+			// </>
 		)
 	);
 };

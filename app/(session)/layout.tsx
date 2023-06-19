@@ -42,8 +42,8 @@ const SessionLayout = async ({ children }: Props) => {
 			fetchedSessionsData={fetchedSessionsData}
 			fetchedWebsData={userWebs}
 			user={user}>
-			<NavBar />
-			<div className="mt-16 h-[calc(100vh-4rem)] xl:fixed xl:left-[6rem] xl:mt-0 xl:h-screen xl:w-[calc(100vw-6rem)]">
+			<div className="mt-16 h-[calc(100vh-4rem)] xl:relative  xl:left-[6rem] xl:h-screen xl:w-[calc(100vw-6rem)]">
+				<NavBar />
 				{children}
 			</div>
 		</WebProvider>
