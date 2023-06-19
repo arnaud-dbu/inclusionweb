@@ -81,50 +81,52 @@ export const WebSettings = ({ shareView }) => {
 	};
 
 	return (
-		<div className={`flex items-center justify-between gap-6 px-4 py-4`}>
+		<div
+			className={`relative left-1/2 flex max-w-[95%] -translate-x-1/2 items-center justify-between gap-3 px-2 py-2 lg:py-10 2xl:gap-6`}>
 			<div className={`flex items-center gap-3`}>
 				<WebIllustration className={`h-8 w-8`} />
 				<span className={`text-md whitespace-nowrap font-medium text-neutral-800`}>{`${getSession(
 					currentSession
 				)}`}</span>
 			</div>
+			<DivisionLine className={`hidden xl:block xl:opacity-100`} />
 
-			<div className={`flex items-center gap-12`}>
-				{/* <div className={`flex items-center gap-2`}>
-						<BlockTitle className="!mb-0 !font-medium " title="Afbeeldingen" />
-						<div className={`flex items-center gap-1`}>
-							<IconButton
-								onClick={() => handleAvatarSize("small")}
-								icon={
-									<UserCircleIcon
-										className={`h-7 w-7 ${
-											avatarSize === "small" ? "fill-primary-700" : "fill-neutral-600"
-										}`}
-									/>
-								}
-							/>
-							<IconButton
-								onClick={() => handleAvatarSize("large")}
-								icon={
-									<UserCircleIcon
-										className={`h-9 w-9 ${
-											avatarSize === "large" ? "fill-primary-700" : "fill-neutral-600"
-										}`}
-									/>
-								}
-							/>
-						</div>
+			<div className={`flex items-center gap-4 xl:gap-6`}>
+				<div className={`hidden items-center gap-2 xl:pointer-events-auto xl:flex xl:opacity-100`}>
+					<BlockTitle className="!mb-0 !font-medium " title="Afbeeldingen" />
+					<div className={`flex items-center gap-1`}>
+						<IconButton
+							onClick={() => handleAvatarSize("small")}
+							icon={
+								<UserCircleIcon
+									className={`h-7 w-7 ${
+										avatarSize === "small" ? "fill-primary-700" : "fill-neutral-600"
+									}`}
+								/>
+							}
+						/>
+						<IconButton
+							onClick={() => handleAvatarSize("large")}
+							icon={
+								<UserCircleIcon
+									className={`h-9 w-9 ${
+										avatarSize === "large" ? "fill-primary-700" : "fill-neutral-600"
+									}`}
+								/>
+							}
+						/>
 					</div>
-					<div className={`flex items-center gap-2`}>
-						<BlockTitle className="!mb-0 !font-medium" title="Namen" />
-						<button className={``} onClick={() => handleNamesVisibility(!namesVisible)}>
-							{namesVisible ? (
-								<VisibleIcon className={`fill-primary-700`} />
-							) : (
-								<NonVisibleIcon className={`fill-primary-700`} />
-							)}
-						</button>
-					</div> */}
+				</div>
+				<div className={`hidden items-center gap-2 xl:pointer-events-auto xl:flex xl:opacity-100`}>
+					<BlockTitle className="!mb-0 !font-medium" title="Namen" />
+					<button className={``} onClick={() => handleNamesVisibility(!namesVisible)}>
+						{namesVisible ? (
+							<VisibleIcon className={`fill-primary-700`} />
+						) : (
+							<NonVisibleIcon className={`fill-primary-700`} />
+						)}
+					</button>
+				</div>
 				{!shareView && (
 					<Button style="outline" label="Menu" size="sm" onClick={handleOpenWebMenu} />
 				)}

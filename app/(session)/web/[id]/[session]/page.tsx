@@ -33,7 +33,7 @@ const WebPage = async ({ params }) => {
 			fetchedContactsData={fetchedContactsData}
 			fetchedSessionsData={fetchedSessionsData}
 			session={params.session}>
-			<div className={`h-full w-full lg:flex`}>
+			<div className={`h-full w-full overflow-hidden lg:flex`}>
 				<SideBar />
 				<Web />
 			</div>

@@ -45,8 +45,8 @@ const SideBarContact = ({ contact }) => {
 	const isHover = useHover(hoverRef);
 	const thumbnailStyle = `${
 		view === "list"
-			? "h-16 w-16  lg:h-12 lg:w-12"
-			: "mb-1 h-[7.5rem] w-[7.5rem] lg:h-[6rem] lg:w-[6rem]"
+			? "xl:h-16 xl:w-16  h-12 w-12"
+			: "mb-1 xl:h-[7.5rem] xl:w-[7.5rem] h-[6rem] w-[6rem]"
 	}`;
 
 	// Add contact to web

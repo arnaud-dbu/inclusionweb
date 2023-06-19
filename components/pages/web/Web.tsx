@@ -7,11 +7,12 @@ import { DndContext } from "@dnd-kit/core";
 import { DragContact } from "./DragContact";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
 import { DropZone } from "./DropZone";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { WebContext } from "@/context/WebContext";
 import { WebSettings } from "./WebSettings";
 import { H1 } from "@/components/Typography";
 import { Button } from "@/components/form/Button";
+import { useMediaQuery, useScreen } from "usehooks-ts";
 
 type Props = {
 	shareView?: boolean;
@@ -19,6 +20,28 @@ type Props = {
 
 const Web = ({ shareView }: Props) => {
 	const { contacts, setContacts, web, setSidebarOpen } = useContext(WebContext);
+	const screen = useScreen();
+	const containerRef = useRef(null);
+	const [scaleFactor, setScaleFactor] = useState(1);
+
+	const handleResize = () => {
+		const containerWidth = containerRef.current.offsetWidth;
+		const containerHeight = containerRef.current.offsetHeight;
+		const desiredWidth = 1300;
+		const desiredHeight = 1300;
+		const scaleX = containerWidth / desiredWidth;
+		const scaleY = containerHeight / desiredHeight;
+		const newScaleFactor = Math.min(scaleX, scaleY);
+		setScaleFactor(newScaleFactor);
+	};
+
+	useEffect(() => {
+		handleResize();
+		window.addEventListener("resize", handleResize);
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
+	}, []);
 
 	const handleDragEnd = (ev) => {
 		if (!shareView) {
@@ -64,7 +87,9 @@ const Web = ({ shareView }: Props) => {
 	};
 
 	return (
-		<section className={`relative h-full lg:w-[calc(100%-30rem)] 2xl:w-[calc(100%-35rem)]`}>
+		<section
+			ref={containerRef}
+			className={`relative h-full lg:w-[calc(100%-30rem)] 2xl:w-[calc(100%-35rem)]  3xl:w-[calc(100%-45rem)]`}>
 			<WebSettings shareView={shareView} />
 			<H1
 				underline
@@ -75,8 +100,18 @@ const Web = ({ shareView }: Props) => {
 			/>
 			<DndContext onDragEnd={handleDragEnd} modifiers={[restrictToParentElement]}>
 				<div
-					className={`md absolute left-1/2 top-[55%] -translate-x-1/2 -translate-y-1/2 scale-[0.35]  cursor-cell overflow-hidden p-12 sm:scale-[.5]`}>
-					<div className={`web w-[55rem]`}>
+					style={{
+						transform: `scale(${scaleFactor})`,
+						transformOrigin: "center",
+						position: "absolute",
+						top: "50%",
+						left: "50%",
+						translate: "-50% -50%",
+						marginTop: "1rem",
+						marginBottom: "1rem",
+					}}
+					className={`cursor-cell `}>
+					<div className={`web w-[60rem]`}>
 						<DropZone>
 							{contacts?.map((contact) => (
 								<DragContact
