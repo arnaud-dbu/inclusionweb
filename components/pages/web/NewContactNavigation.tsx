@@ -7,7 +7,7 @@ const NewContactNavigation = () => {
 	return (
 		<section>
 			<div
-				className={`mb-2 flex gap-8 px-6 font-primary text-xl uppercase text-neutral-800 md:px-10 md:text-2xl lg:px-24 `}>
+				className={`mb-2 flex gap-8 px-6 font-primary text-xl uppercase text-neutral-800 md:px-10 md:text-2xl lg:px-14 `}>
 				<NewContactNavigationItem title="Gegevens" onClick={() => setEditInfoVisible("Gegevens")} />
 				<NewContactNavigationItem
 					title="Afbeelding"

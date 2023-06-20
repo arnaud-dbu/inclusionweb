@@ -12,13 +12,15 @@ const NewContactFormHeader = () => {
 	const { type, setType, imageUrl, customAvatar, thumbnail, editContact } = useContext(WebContext);
 	const { register } = useFormContext();
 
-	const thumbnailStyles = "w-[6rem] h-[6rem] md:w-[8rem] lg:w-[10rem] md:h-[8rem] lg:h-[10rem]";
+	console.log(thumbnail);
+
+	const thumbnailStyles = "w-[6rem] h-[6rem] md:w-[8rem]  md:h-[8rem] ";
 
 	return (
 		<div
-			className={`mb-6 flex flex-col justify-between gap-4 px-6 md:px-10 lg:flex-row lg:items-center lg:gap-10 lg:px-24`}>
+			className={`mb-6 flex flex-col justify-between gap-4 px-6 md:px-10 lg:mb-6 lg:flex-row lg:items-center lg:gap-10 lg:px-14`}>
 			<div className={`order-1 lg:-order-1`}>
-				<span className="mb-6 block gap-5 font-primary text-5xl font-bold uppercase text-neutral-900 lg:text-7xl">
+				<span className="mb-6 block gap-5 font-primary text-5xl font-bold uppercase text-neutral-900 lg:text-6xl">
 					{editContact ? "Contact wijzigen" : "Nieuw contact"}
 				</span>
 				<SelectButtons

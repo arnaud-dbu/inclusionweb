@@ -156,8 +156,6 @@ export const NewContactForm = () => {
 
 	// Create a new contact
 	const handleCreateContactSubmit = async (data: any) => {
-		console.log(data);
-
 		const customAvatarString = JSON.stringify(customAvatar);
 		const id = crypto.randomUUID();
 		const userId = (await supabase.auth.getUser()).data.user.id;
@@ -286,7 +284,7 @@ export const NewContactForm = () => {
 			<NewContactNavigation />
 
 			<Form
-				className={`flex flex-col px-6 py-6 md:px-10 lg:px-24`}
+				className={`flex flex-col px-6 py-6 md:px-10 lg:px-14`}
 				register={register}
 				handleSubmit={handleSubmit}
 				onSubmit={editContact ? handleEditContactSubmit : handleCreateContactSubmit}>

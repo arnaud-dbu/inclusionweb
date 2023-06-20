@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import Backdrop from "@/components/Backdrop";
 
 const NewContactModal = () => {
-	const { modalVisible, setModalVisible } = useContext(WebContext);
+	const { modalVisible, setModalVisible, handleClosingModal } = useContext(WebContext);
 
 	const dropIn = {
 		hidden: {
@@ -31,7 +31,7 @@ const NewContactModal = () => {
 	return (
 		<>
 			{modalVisible === "contact" && (
-				<Backdrop onClick={() => setModalVisible(null)}>
+				<Backdrop onClick={handleClosingModal}>
 					<motion.dialog
 						open
 						className="fixed left-1/2 top-1/2 z-50 m-0 h-[95%] w-[95%] -translate-x-1/2 -translate-y-1/2 rounded-3xl bg-white px-0 lg:h-fit lg:w-fit"
@@ -40,7 +40,7 @@ const NewContactModal = () => {
 						animate="visible"
 						onClick={(e) => e.stopPropagation()}
 						exit="exit">
-						<div className="relative py-6 lg:h-[55rem] lg:w-[55rem] lg:py-12">
+						<div className="relative py-6 lg:h-[45rem] lg:w-[50rem] lg:py-6">
 							<NewContactForm />
 						</div>
 					</motion.dialog>

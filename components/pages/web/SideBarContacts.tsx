@@ -50,7 +50,7 @@ const SideBarContact = ({ contact }) => {
 	const thumbnailStyle = `${
 		view === "list"
 			? "xl:h-16 xl:w-16  h-12 w-12"
-			: "mb-1 xl:h-[7.5rem] xl:w-[7.5rem] h-[6rem] w-[6rem]"
+			: "mb-1 xl:h-[6rem] xl:w-[6rem] h-[6rem] w-[6rem]"
 	}`;
 
 	// Add contact to web
@@ -106,7 +106,7 @@ const SideBarContact = ({ contact }) => {
 			className={`relative flex cursor-pointer items-center rounded-2xl border-1 border-neutral-500 bg-white shadow-lg ${
 				view === "list"
 					? "w-full gap-0 px-5 py-4 md:gap-3"
-					: "h-[15rem] w-[48%] flex-col justify-center lg:h-[16rem] xl:h-[17rem]"
+					: "h-[15rem] w-[48%] flex-col justify-center lg:h-[15rem] "
 			}`}>
 			<ContactThumbnail
 				type={contact.type}

@@ -12,7 +12,7 @@ type Props = {
 export const FormBlock = ({ children, className, alignStart }: Props) => {
 	return (
 		<div
-			className={`flex h-[calc(100vh-27rem)] flex-col gap-4 overflow-y-auto py-1 lg:h-full lg:gap-8 lg:overflow-y-visible ${className}`}>
+			className={`flex h-[calc(100vh-27rem)] flex-col gap-4 overflow-y-auto py-1 lg:h-full lg:gap-6 lg:overflow-y-visible ${className}`}>
 			{children}
 		</div>
 	);

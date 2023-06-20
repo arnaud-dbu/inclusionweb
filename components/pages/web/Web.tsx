@@ -108,7 +108,7 @@ const Web = ({ shareView }: Props) => {
 						transform: `scale(${scaleFactor})`,
 						transformOrigin: "center",
 						position: "absolute",
-						top: "50%",
+						top: "52%",
 						left: "50%",
 						translate: "-50% -50%",
 						marginTop: "1rem",

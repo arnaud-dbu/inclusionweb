@@ -75,6 +75,7 @@ export const WebProvider = ({
 		handleSearchFilter(e);
 	};
 
+	// Convert session to string
 	const getSession = (session) => {
 		const sessionString = session.session.toString();
 		const formattedDate = dayjs(currentSession.created_at).format("MM/DD/YYYY");
@@ -88,16 +89,12 @@ export const WebProvider = ({
 	const [clickPosition, setClickPosition] = useState(null);
 	const [validationMessage, setValidationMessage] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
-
 	const [showDroppedContacts, setShowDroppedContacts] = useState<boolean>(false);
 	const [editContact, setEditContact] = useState(null);
 	const [view, setView] = useState("grid");
-
 	const [editInfoVisible, setEditInfoVisible] = useState("Gegevens");
-
 	const [avatarSize, setAvatarSize] = useState<string>(fetchedWebData?.images_size);
 	const [namesVisible, setNamesVisible] = useState(fetchedWebData?.names_visible);
-
 	const [type, setType] = useState<string>("person");
 	const [selectedImage, setSelectedImage] = useState<any>("");
 	const [imageUrl, setImageUrl] = useState("");
@@ -107,29 +104,13 @@ export const WebProvider = ({
 	const [activeAvatarPreset, setActiveAvatarPreset] = useState("default");
 	const [selectedReceivedSupport, setSelectedReceivedSupport] = useState<string[]>([]);
 	const [selectedGivenSupport, setSelectedGivenSupport] = useState<string[]>([]);
-	const [sidebarOpen, setSidebarOpen] = useState(false);
-
-	const [topType, setTopType] = useState<string[]>(["ShortHairShortFlat", ...topTypes.slice(1)]);
-	const [accessoriesType, setAccessoriesType] = useState<string[]>([
-		"Blank",
-		...accessoriesTypes.slice(1),
-	]);
-	const [hairColor, setHairColor] = useState<string[]>(["BrownDark", ...hairColors.slice(1)]);
-	const [facialHair, setFacialHair] = useState<string[]>(["Blank", ...facialHairTypes.slice(1)]);
-	const [clothes, setClothes] = useState<string[]>(["ShirtCrewNeck", ...clothesTypes.slice(1)]);
-	const [eyes, setEyes] = useState<string[]>(["Default", ...eyeTypes.slice(1)]);
-	const [eyebrow, setEyebrow] = useState<string[]>(["Default", ...eyebrowTypes.slice(1)]);
-	const [mouth, setMouth] = useState<string[]>(["Default", ...mouthTypes.slice(1)]);
-	const [skinColor, setSkinColor] = useState<string[]>(["Light", ...skinColors.slice(1)]);
+	const [sidebarOpen, setSidebarOpen] = useState(true);
 
 	// Handlers
 
 	const searchFilter = (array) => {
 		return array.filter((el) => el.name.toLowerCase().includes(query));
 	};
-
-	// Check if contacts array exists before filtering
-	const searchFilteredContacts = contacts ? searchFilter(contacts) : [];
 
 	const toggleEditAvatarWindow = () => {
 		setEditAvatarWindow(!editAvatarWindow);
@@ -149,11 +130,39 @@ export const WebProvider = ({
 		setThumbnail("customImage");
 	};
 
+	const handleClosingModal = () => {
+		setModalVisible(null);
+		setEditContact(null);
+		setThumbnail("default");
+		setSelectedGivenSupport([""]);
+		setSelectedReceivedSupport([""]);
+		setActiveAvatarPreset("null");
+		setType("person");
+	};
+
+	// Check if contacts array exists before filtering
+	const searchFilteredContacts = contacts ? searchFilter(contacts) : [];
+
+	// Custom image
 	useEffect(() => {
 		if (selectedImage) {
 			setImageUrl(URL.createObjectURL(selectedImage));
 		}
 	}, [selectedImage, setImageUrl]);
+
+	// Custom avatar
+	const [topType, setTopType] = useState<string[]>(["ShortHairShortFlat", ...topTypes.slice(1)]);
+	const [accessoriesType, setAccessoriesType] = useState<string[]>([
+		"Blank",
+		...accessoriesTypes.slice(1),
+	]);
+	const [hairColor, setHairColor] = useState<string[]>(["BrownDark", ...hairColors.slice(1)]);
+	const [facialHair, setFacialHair] = useState<string[]>(["Blank", ...facialHairTypes.slice(1)]);
+	const [clothes, setClothes] = useState<string[]>(["ShirtCrewNeck", ...clothesTypes.slice(1)]);
+	const [eyes, setEyes] = useState<string[]>(["Default", ...eyeTypes.slice(1)]);
+	const [eyebrow, setEyebrow] = useState<string[]>(["Default", ...eyebrowTypes.slice(1)]);
+	const [mouth, setMouth] = useState<string[]>(["Default", ...mouthTypes.slice(1)]);
+	const [skinColor, setSkinColor] = useState<string[]>(["Light", ...skinColors.slice(1)]);
 
 	const handleSwitchAvatarStyles = (item, dir) => {
 		setThumbnail("avatar");
@@ -284,7 +293,7 @@ export const WebProvider = ({
 				fetchedSessionsData,
 				sidebarOpen,
 				setSidebarOpen,
-
+				handleClosingModal,
 				showDroppedContacts,
 				setShowDroppedContacts,
 				query,
