@@ -1,6 +1,6 @@
 "use client";
 
-import { HeadingSecondary, P } from "@/components/Typography";
+import { HeadingSecondary } from "@/components/Typography";
 import { BlockTitle } from "@/components/form/BlockTitle";
 import { useContext, useState } from "react";
 import { Setting } from "../settings/Setting";
@@ -18,6 +18,10 @@ import Image from "next/image";
 import { useSupabase } from "@/app/supabase-provider";
 import { CategoryButton } from "@/components/form/CategoryButton";
 import { useCopyToClipboard } from "usehooks-ts";
+import { motion } from "framer-motion";
+import Backdrop from "@/components/Backdrop";
+import Link from "next/link";
+import HyperLink from "@/components/Hyperlink";
 
 type Props = {};
 
@@ -214,11 +218,21 @@ const WebMenu = (props: Props) => {
 		copy(null);
 	};
 
+	const variants = {
+		hidden: { x: "100%", transition: { duration: 0.2 } },
+		visible: { x: 0, transition: { duration: 0.2 } },
+	};
+
 	return (
 		<>
 			{modalVisible === "menu" && (
-				<>
-					<aside
+				<Backdrop onClick={handleClosingWebMenu}>
+					<motion.aside
+						variants={variants}
+						initial="hidden"
+						animate="visible"
+						onClick={(e) => e.stopPropagation()}
+						exit="exit"
 						className={`fixed !top-[0rem] right-0 z-50 flex h-screen w-[90%] flex-col bg-white px-8 py-10 shadow-lg md:w-[35rem] md:px-12 md:py-20 `}>
 						<div
 							className={`mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-center md:gap-0`}>
@@ -362,7 +376,7 @@ const WebMenu = (props: Props) => {
 								/>
 								<span>{value ? "Gekopieerd" : ""}</span>
 							</div>
-							<div className={`flex items-center gap-2`}>
+							<div className={`flex items-center gap-3`}>
 								<Input
 									register={registerImage}
 									style="primary"
@@ -370,21 +384,20 @@ const WebMenu = (props: Props) => {
 									error={webNameErrors.name?.message}
 									value={`${process.env.NEXT_PUBLIC_HOST}/view/${currentSession.share_id}`}
 									className={`mb-0 w-full`}
-								/>
-								<Button
-									onClick={() =>
+									buttonLabel="Kopieer"
+									buttonOnClick={() =>
 										copy(`${process.env.NEXT_PUBLIC_HOST}/view/${currentSession.share_id}`)
 									}
-									label="Kopeer"
-									style="secondary"
+								/>
+								<HyperLink
+									target="_blank"
+									href={`${process.env.NEXT_PUBLIC_HOST}/view/${currentSession.share_id}`}
+									label="Bekijk pagina"
 								/>
 							</div>
 						</Setting>
-					</aside>
-					<div
-						onClick={handleClosingWebMenu}
-						className="fixed top-0 z-40 h-full w-full  bg-neutral-600 bg-opacity-30 bg-clip-padding backdrop-blur-sm backdrop-filter"></div>
-				</>
+					</motion.aside>
+				</Backdrop>
 			)}
 		</>
 	);

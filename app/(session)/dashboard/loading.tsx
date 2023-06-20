@@ -1,7 +1,8 @@
 import Header from "@/components/Header";
-import MenuButtons from "@/components/pages/dashboard/MenuButtons";
+import { H3 } from "@/components/Typography";
 import DivisionLine from "@/components/DivisionLine";
-import { HeadingSecondary } from "@/components/Typography";
+import { SearchInput } from "@/components/form/SearchInput";
+import MenuButtons from "@/components/pages/dashboard/MenuButtons";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
 import OverFlowContainer from "@/components/OverFlowContainer";
 
@@ -9,16 +10,16 @@ const DashboardPage = async () => {
 	return (
 		<>
 			<Header title="Mijn overzicht" />
-			<div className="layout-wrapper flex justify-between gap-16">
+			<div className="layout-wrapper flex justify-between gap-12">
 				<div className="w-full">
-					<div className="flex justify-between items-center gap-12 px-2 h-fit mb-[2rem]">
-						<HeadingSecondary title="Mijn webben" />
-						<DivisionLine />
-						<LoadingSkeleton className={`w-[30rem] h-[3rem]`} />
+					<div className="mb-[1.5rem] flex h-fit items-center justify-between gap-12 xl:mb-[2rem] ">
+						<H3 className={`hidden md:block md:opacity-100`} title="Mijn Webben" />
+						<DivisionLine className={`hidden md:block md:opacity-100`} />
+						<SearchInput className={`w-full md:max-w-[17.5rem] `} />
 					</div>
-					<OverFlowContainer fadeBottom className={`h-[calc(100vh-20.25rem)]`}>
-						{Array.from({ length: 4 }, (_, index) => (
-							<LoadingSkeleton key={index} className="w-full h-[15rem] mb-5" />
+					<OverFlowContainer fadeBottom>
+						{Array.from({ length: 8 }, (_, index) => (
+							<LoadingSkeleton key={index} className="mb-5 h-[15rem] w-full" />
 						))}
 					</OverFlowContainer>
 				</div>

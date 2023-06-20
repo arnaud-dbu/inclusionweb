@@ -14,7 +14,7 @@ const Header = ({ title }: Props) => {
 	const pathname = usePathname();
 
 	return (
-		<header className="relative mt-24 pb-1 pt-4 xl:mb-[2.5rem] xl:mt-0 xl:h-[12rem] xl:bg-primary-200 xl:pb-4 xl:pt-14 xl:shadow-lg">
+		<header className="relative mt-16 pb-1 pt-4 md:mt-20 xl:mb-[2.5rem] xl:mt-0 xl:h-[12rem] xl:bg-primary-200 xl:pb-4 xl:pt-14 xl:shadow-lg">
 			<div className="layout-wrapper relative">
 				{pathname !== "/dashboard" && (
 					<Link
@@ -23,7 +23,7 @@ const Header = ({ title }: Props) => {
 						<ArrowLeftIcon className={`h-7 w-7 fill-neutral-800`} />
 					</Link>
 				)}
-				<H1 className={``} underline title={title} />
+				<H1 underline title={title} />
 			</div>
 		</header>
 	);

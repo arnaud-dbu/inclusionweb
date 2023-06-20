@@ -61,7 +61,7 @@ export const Button = ({ className, style, label, size, image, icon, loading, ..
 	return (
 		<button
 			{...rest}
-			className={`focus relative flex items-center justify-center gap-2 rounded-full ${btnSize} ${btnVariant} ${className} 
+			className={`focus relative flex items-center justify-center gap-2 whitespace-nowrap rounded-full ${btnSize} ${btnVariant} ${className} 
             `}>
 			{image && (
 				<Image className={`h-5 w-5 md:h-6 md:w-6`} src={image} alt="" width={50} height={50} />

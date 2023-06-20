@@ -8,6 +8,7 @@ import Link from "next/link";
 import Hamburger from "hamburger-react";
 import { useContext } from "react";
 import { WebContext } from "@/context/WebContext";
+import { motion } from "framer-motion";
 
 type SideMenuProps = {
 	className?: string;
@@ -27,9 +28,11 @@ const NavBar = ({ className }: SideMenuProps) => {
 	return (
 		<aside
 			className={`fixed left-0 top-0 z-30 flex h-16 w-screen items-center justify-between bg-primary-700 p-2 shadow-md xl:h-[100dvh] xl:w-[6rem] xl:flex-col xl:p-0 ${className}`}>
-			<InclusionWebLogo
-				className={`relative w-[12.5rem] fill-white opacity-90 xl:top-[9rem] xl:w-[20rem] xl:-rotate-90`}
-			/>
+			<Link href="/dashboard">
+				<InclusionWebLogo
+					className={`relative w-[12.5rem] fill-white opacity-90 xl:top-[9rem] xl:w-[20rem] xl:-rotate-90`}
+				/>
+			</Link>
 			<div className={`fixed right-2 top-2 z-50 xl:hidden`}>
 				<Hamburger color="white" rounded toggled={mobileNavVisible} toggle={setMobileNavVisible} />
 			</div>
@@ -79,8 +82,40 @@ const NavItem = ({ href, icon, active, name, ...rest }: NavItemProps) => {
 
 const MobileNav = () => {
 	const pathname = usePathname();
+
+	const fadeIn = {
+		hidden: {
+			y: "-100vh",
+			opacity: 0,
+			transition: {
+				duration: 1,
+			},
+		},
+		visible: {
+			y: "0",
+			opacity: 1,
+			transition: {
+				duration: 0.15,
+				damping: 100,
+				stiffness: 500,
+			},
+		},
+		exit: {
+			y: "-100vh",
+			transition: {
+				duration: 0.15,
+			},
+		},
+	};
+
 	return (
-		<div className={`fixed left-0 top-0 h-screen w-screen bg-primary-700`}>
+		<motion.div
+			variants={fadeIn}
+			initial="hidden"
+			animate="visible"
+			onClick={(e) => e.stopPropagation()}
+			exit="exit"
+			className={`fixed left-0 top-0 h-screen w-screen bg-primary-700`}>
 			<div className={`absolute top-1/2 w-screen -translate-y-1/2`}>
 				<NavItem
 					href="/dashboard"
@@ -101,7 +136,7 @@ const MobileNav = () => {
 					active={pathname === "/about"}
 				/>
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 

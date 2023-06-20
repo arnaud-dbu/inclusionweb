@@ -18,7 +18,7 @@ const ContactThumbnail = ({ children, type, size, className }: Props) => {
 	return (
 		<div className={`relative rounded-full ${className} `}>
 			{children}
-			{/* <div
+			<div
 				className={`absolute rounded-full bg-primary-700 p-2 shadow-lg ${
 					view === "grid" ? "bottom-1 right-1" : "-bottom-[2px] -right-1 scale-[.85]"
 				}`}>
@@ -26,7 +26,7 @@ const ContactThumbnail = ({ children, type, size, className }: Props) => {
 				{type === "group" && <GroupIcon className={size === "sm" ? iconSm : iconMd} />}
 				{type === "place" && <PlaceIcon className={size === "sm" ? iconSm : iconMd} />}
 				{type === "animal" && <AnimalIcon className={size === "sm" ? iconSm : iconMd} />}
-			</div> */}
+			</div>
 		</div>
 	);
 };

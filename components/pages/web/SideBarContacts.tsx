@@ -43,6 +43,10 @@ const SideBarContact = ({ contact }) => {
 		useContext(WebContext);
 	const hoverRef = useRef(null);
 	const isHover = useHover(hoverRef);
+
+	const contactRef = useRef(null);
+	const isHoverContact = useHover(contactRef);
+
 	const thumbnailStyle = `${
 		view === "list"
 			? "xl:h-16 xl:w-16  h-12 w-12"
@@ -98,12 +102,12 @@ const SideBarContact = ({ contact }) => {
 	return (
 		<article
 			key={contact.id}
+			ref={contactRef}
 			className={`relative flex cursor-pointer items-center rounded-2xl border-1 border-neutral-500 bg-white shadow-lg ${
 				view === "list"
 					? "w-full gap-0 px-5 py-4 md:gap-3"
-					: "h-[15rem] w-[48%] flex-col justify-center lg:h-[15rem] xl:h-[15rem]"
-			}`}
-			ref={hoverRef}>
+					: "h-[15rem] w-[48%] flex-col justify-center lg:h-[16rem] xl:h-[17rem]"
+			}`}>
 			<ContactThumbnail
 				type={contact.type}
 				size="sm"
@@ -142,73 +146,60 @@ const SideBarContact = ({ contact }) => {
 							<IconButton
 								className={`opacity-60`}
 								onClick={() => handleEditContact(contact.id)}
-								icon={<PencilIcon className={`h-5 w-5 fill-neutral-600`} />}
+								icon={<PencilIcon className={`h-6 w-6 fill-neutral-600`} />}
 							/>
 							<IconButton
 								className={`opacity-60`}
 								onClick={() => handleDeleteContact(contact.id)}
-								icon={<TrashIcon className={`h-5 w-5 fill-neutral-600`} />}
+								icon={<TrashIcon className={`h-6 w-6 fill-neutral-600`} />}
 							/>
 						</div>
 					)}
 				</div>
 				<span className="font-light text-neutral-800">{contact.role}</span>
 			</div>
-			<div className={`absolute bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-1`}>
+			<div
+				className={`absolute left-12 top-5 flex -translate-x-1/2 items-center  gap-2 transition-opacity ${
+					isHoverContact ? "opacity-100" : "opacity-0"
+				}`}>
 				{view === "grid" && (
 					<>
 						<IconButton
-							className={`opacity-60`}
-							onClick={() => handleEditContact(contact.id)}
-							icon={<PencilIcon className={`h-5 w-5 fill-neutral-600`} />}
+							className={`opacity-60 transition hover:opacity-100`}
+							onClick={() => handleDeleteContact(contact.id)}
+							icon={<TrashIcon className={`h-6 w-6 fill-neutral-600`} />}
 						/>
 						<IconButton
-							className={`opacity-60`}
-							onClick={() => handleDeleteContact(contact.id)}
-							icon={<TrashIcon className={`h-5 w-5 fill-neutral-600`} />}
+							className={`opacity-60 transition hover:opacity-100`}
+							onClick={() => handleEditContact(contact.id)}
+							icon={<PencilIcon className={`h-6 w-6 fill-neutral-600`} />}
 						/>
 					</>
 				)}
 			</div>
 
-			{!contact.visible ? (
-				<div
-					className={` absolute flex h-12 w-12 items-center justify-center  ${
-						view === "list"
-							? "right-5 top-1/2 ml-auto -translate-y-1/2 scale-105"
-							: "right-0 top-0 opacity-70"
-					}`}>
-					<Button
-						className="!m-0 !p-0"
-						style=""
-						icon={
-							<WebIllustrationIcon
-								plus
-								className={`h-10 w-10  ${isHover ? `opacity-100 ` : ` opacity-80 `}`}
-							/>
-						}
-						onClick={() => handleContactVisibility(contact.id, true)}
-					/>
-				</div>
-			) : (
-				<div
-					className={` absolute flex h-12 w-12 items-center justify-center  ${
-						view === "list"
-							? "right-5 top-1/2 ml-auto -translate-y-1/2 scale-105"
-							: "right-0 top-0 opacity-70"
-					}`}>
-					<Button
-						style=""
-						icon={
-							<WebIllustrationIcon
-								className={`h-10 w-10 ${isHover ? `opacity-100 ` : ` opacity-80 `}`}
-							/>
-						}
-						onClick={() => handleContactVisibility(contact.id, false)}
-						className="!m-0 !p-0"
-					/>
-				</div>
-			)}
+			<div
+				ref={hoverRef}
+				className={`absolute flex h-12 w-12 items-center justify-center ${
+					!contact.visible && view === "list"
+						? "right-5 top-1/2 ml-auto -translate-y-1/2 scale-105"
+						: "right-2 top-2 "
+				}`}>
+				<Button
+					className="!m-0 !p-0"
+					style=""
+					icon={
+						<WebIllustrationIcon
+							plus={!contact.visible}
+							isHover={isHover}
+							className={`h-12 w-12 ${
+								!contact.visible && view === "list" ? "opacity-80" : "opacity-100"
+							}  `}
+						/>
+					}
+					onClick={() => handleContactVisibility(contact.id, !contact.visible)}
+				/>
+			</div>
 		</article>
 	);
 };

@@ -8,6 +8,7 @@ type Props = {
 	error?: any;
 	register?: any;
 	buttonLabel?: string;
+	buttonOnClick?: () => void;
 	className?: string;
 	icon?: React.ReactNode;
 	bg?: string;
@@ -28,6 +29,7 @@ export const Input = ({
 	icon,
 	buttonLabel,
 	secondary,
+	buttonOnClick,
 	...rest
 }: Props) => {
 	let inputVariant = null;
@@ -101,6 +103,7 @@ export const Input = ({
 				/>
 				{buttonLabel && (
 					<button
+						onClick={buttonOnClick}
 						className={`absolute right-1 top-1/2 h-[80%] -translate-y-1/2 rounded-md bg-neutral-800 px-4 text-sm font-semibold text-white md:right-2`}>
 						{buttonLabel}
 					</button>

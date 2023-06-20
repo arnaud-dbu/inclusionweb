@@ -6,7 +6,7 @@ import { useSupabase } from "@/app/supabase-provider";
 import { useRouter } from "next/navigation";
 import { OrganizationIllustration } from "@/public/illustrations";
 import Image from "next/image";
-import { WebContext, WebProvider } from "@/context/WebContext";
+import { WebContext } from "@/context/WebContext";
 import AvatarComponent from "@/components/avatar/AvatarComponent";
 
 type Props = {
@@ -22,10 +22,12 @@ type Props = {
 	className?: string;
 } & React.HTMLAttributes<HTMLButtonElement>;
 
-const MenuButtonsContainer = () => {
+const MenuButtons = () => {
 	const { webs } = useContext(WebContext);
 	const { supabase } = useSupabase();
 	const router = useRouter();
+
+	// Sort webs by last opened
 	const sortWebs = webs?.sort((a, b) => {
 		return new Date(b.last_opened).getTime() - new Date(a.last_opened).getTime();
 	});
@@ -35,7 +37,7 @@ const MenuButtonsContainer = () => {
 		router.push("/login");
 	};
 	return (
-		<div className="mb-8 hidden w-[65rem] grid-cols-2 grid-rows-3 gap-6 xl:pointer-events-auto xl:grid xl:opacity-100 ">
+		<div className="mb-8 hidden max-h-[65rem] w-[65rem] grid-cols-2 grid-rows-3 gap-6 xl:pointer-events-auto xl:grid xl:opacity-100">
 			<MenuButton
 				onClick={() => router.push("/new")}
 				label="Nieuw web"
@@ -50,6 +52,7 @@ const MenuButtonsContainer = () => {
 				icon={<SettingsIcon className={`h-[6rem] w-[6rem] opacity-60`} />}
 				color="bg-neutral-700"
 			/>
+			{/* If less then 2 webs, don't show the 'last opened session' button */}
 			{webs.length >= 2 && (
 				<MenuButton
 					filter
@@ -131,4 +134,4 @@ const MenuButton = ({
 	);
 };
 
-export default MenuButtonsContainer;
+export default MenuButtons;

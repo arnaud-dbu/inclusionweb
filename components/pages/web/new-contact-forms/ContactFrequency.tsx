@@ -5,10 +5,13 @@ import { FormBlockItem } from "../FormBlock";
 import { ChartIcon } from "@/public/icons";
 
 const ContactFrequency = () => {
-	const { register } = useFormContext();
+	const {
+		register,
+		formState: { errors },
+	} = useFormContext();
 
 	return (
-		<FormBlockItem title="Frequentie" icon={<ChartIcon className={`w-4 h-4`} />}>
+		<FormBlockItem title="Frequentie" icon={<ChartIcon className={`h-4 w-4`} />}>
 			<RadioButtons
 				register={register}
 				options={["Nooit", "Dagelijks", "Wekelijks", "Maandelijks", "Jaarlijks"]}

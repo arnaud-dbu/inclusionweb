@@ -105,8 +105,8 @@ export const WebProvider = ({
 	const [editAvatarWindow, setEditAvatarWindow] = useState(false);
 	const [thumbnail, setThumbnail] = useState("default");
 	const [activeAvatarPreset, setActiveAvatarPreset] = useState("default");
-	const [selectedReceivedSupport, setSelectedReceivedSupport] = useState([]);
-	const [selectedGivenSupport, setSelectedGivenSupport] = useState([]);
+	const [selectedReceivedSupport, setSelectedReceivedSupport] = useState<string[]>([]);
+	const [selectedGivenSupport, setSelectedGivenSupport] = useState<string[]>([]);
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 
 	const [topType, setTopType] = useState<string[]>(["ShortHairShortFlat", ...topTypes.slice(1)]);

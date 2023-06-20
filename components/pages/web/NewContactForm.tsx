@@ -39,7 +39,6 @@ export const NewContactForm = () => {
 		thumbnail,
 		setThumbnail,
 		setEditContact,
-		session,
 		currentSession,
 		editContact,
 		setSelectedGivenSupport,
@@ -61,19 +60,28 @@ export const NewContactForm = () => {
 	// validation
 	const NewContactSchema = yup.object().shape({
 		name: yup.string().required("Naam is verplicht"),
-		role: yup.string(),
-		relation: yup.string(),
-		given_support: yup.array(),
-		received_support: yup.array(),
-		frequency: yup.string(),
-		avatar: yup.object(),
-		image_type: yup.string(),
-		image_path: yup.string(),
+		role: yup.string().nullable(),
+		relation: yup.string().nullable(),
+		given_support: yup.mixed().nullable(),
+		received_support: yup.mixed().nullable(),
+		frequency: yup.string().nullable(),
+		avatar: yup.object().nullable(),
+		image_type: yup.string().nullable(),
+		image_path: yup.string().nullable(),
 	});
 
 	// Get form methods and registered fields
 	const methods = useForm({ resolver: yupResolver(NewContactSchema) });
-	const { register, handleSubmit, reset, setValue } = methods;
+	const {
+		register,
+		handleSubmit,
+		reset,
+		setValue,
+		formState: { errors },
+	} = methods;
+
+	console.log(errors);
+
 	const { supabase } = useSupabase();
 
 	// When editContact is set, fill in the form with the data of the contact
@@ -148,6 +156,8 @@ export const NewContactForm = () => {
 
 	// Create a new contact
 	const handleCreateContactSubmit = async (data: any) => {
+		console.log(data);
+
 		const customAvatarString = JSON.stringify(customAvatar);
 		const id = crypto.randomUUID();
 		const userId = (await supabase.auth.getUser()).data.user.id;
@@ -168,9 +178,6 @@ export const NewContactForm = () => {
 				imagePath = imagePath.src;
 			}
 
-			const givenSupport = Array.isArray(data.given_support) ? data.given_support : [];
-			const receivedSupport = Array.isArray(data.received_support) ? data.received_support : [];
-
 			const body = {
 				id: id,
 				user_id: userId,
@@ -181,16 +188,14 @@ export const NewContactForm = () => {
 				name: data.name,
 				role: data.role,
 				relation: data.relation,
-				given_support: givenSupport,
-				received_support: receivedSupport,
+				given_support: data.given_support || [],
+				received_support: data.received_support || [],
 				frequency: data.frequency,
 				visible: clickPosition ? true : false,
 				...(clickPosition && { position: clickPosition }),
 				web_id: fetchedWebData.id,
 				session_id: currentSession.id,
 			};
-
-			console.log(body);
 
 			const response = await fetch("/api/contacts", {
 				method: "POST",
@@ -246,8 +251,8 @@ export const NewContactForm = () => {
 				name: data.name,
 				role: data.role,
 				relation: data.relation,
-				given_support: data.given_support,
-				received_support: data.received_support,
+				given_support: data.given_support || [],
+				received_support: data.received_support || [],
 				frequency: data.frequency,
 			};
 

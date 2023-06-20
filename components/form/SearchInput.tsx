@@ -1,3 +1,5 @@
+"use client";
+
 import { WebContext } from "@/context/WebContext";
 import { CrossIcon, LoupeIcon } from "@/public/icons";
 import React, { useContext } from "react";

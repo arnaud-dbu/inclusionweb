@@ -1,4 +1,3 @@
-import { MainSection } from "@/components/Layouts";
 import NewContactModal from "@/components/pages/web/NewContactModal";
 import SideBar from "@/components/pages/web/SideBar";
 import Web from "@/components/pages/web/Web";

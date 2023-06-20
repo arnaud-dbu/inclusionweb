@@ -89,7 +89,11 @@ const Web = ({ shareView }: Props) => {
 	return (
 		<section
 			ref={containerRef}
-			className={`relative h-full lg:w-[calc(100%-30rem)] 2xl:w-[calc(100%-35rem)]  3xl:w-[calc(100%-45rem)]`}>
+			className={`relative h-full ${
+				shareView
+					? ""
+					: "lg:w-[calc(100%-30rem)] 2xl:w-[calc(100%-35rem)]  3xl:w-[calc(100%-40rem)]"
+			} `}>
 			<WebSettings shareView={shareView} />
 			<H1
 				underline
@@ -154,14 +158,17 @@ const Web = ({ shareView }: Props) => {
 					</div>
 				</div>
 			</DndContext>
-			<div className={`absolute bottom-4 left-1/2  w-[92.5%] -translate-x-1/2`}>
-				<Button
-					style="tertiary"
-					className="w-full lg:hidden"
-					label="Contacten"
-					onClick={setSidebarOpen}
-				/>
-			</div>
+
+			{!shareView && (
+				<div className={`absolute bottom-4 left-1/2  w-[92.5%] -translate-x-1/2`}>
+					<Button
+						style="tertiary"
+						className="w-full lg:hidden"
+						label="Contacten"
+						onClick={setSidebarOpen}
+					/>
+				</div>
+			)}
 		</section>
 	);
 };

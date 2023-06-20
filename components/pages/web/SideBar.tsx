@@ -26,7 +26,7 @@ const SideBar = () => {
 	return (
 		<>
 			{sidebarOpen && (
-				<aside className="fixed top-0 z-10 mt-16 h-full w-full bg-primary-200 shadow-lg lg:relative lg:mt-0 lg:w-[30rem] 2xl:w-[35rem] 3xl:w-[45rem]">
+				<aside className="fixed top-0 z-10 mt-16 h-full w-full bg-primary-200 shadow-lg lg:relative lg:mt-0 lg:w-[30rem] 2xl:w-[35rem] 3xl:w-[40rem]">
 					<SideBarHeader />
 					<SideBarContacts />
 

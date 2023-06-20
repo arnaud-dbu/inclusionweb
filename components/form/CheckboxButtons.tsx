@@ -24,9 +24,12 @@ export const CheckboxButtons = ({ name, options, ...rest }: Props) => {
 	};
 
 	useEffect(() => {
-		name === "received_support" && setSelected(selectedReceivedSupport);
-		name === "given_support" && setSelected(selectedGivenSupport);
-	}, [selectedReceivedSupport, selectedReceivedSupport]);
+		if (name === "received_support") {
+			setSelected(selectedReceivedSupport);
+		} else if (name === "given_support") {
+			setSelected(selectedGivenSupport);
+		}
+	}, [selectedGivenSupport, selectedReceivedSupport, name]);
 
 	return (
 		<div className="flex cursor-pointer flex-wrap gap-2" {...rest}>
