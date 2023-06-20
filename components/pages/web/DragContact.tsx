@@ -58,7 +58,7 @@ export const DragContact = ({ id, name, styles, avatar, visible, image }: Props)
 		setContacts(newContacts);
 
 		try {
-			const response = await fetch(`/api/contacts/${id}/visibility`, {
+			await fetch(`/api/contacts/${id}`, {
 				method: "PATCH",
 				headers: {
 					"Content-Type": "application/json",

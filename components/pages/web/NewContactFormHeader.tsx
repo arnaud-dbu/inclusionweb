@@ -12,8 +12,6 @@ const NewContactFormHeader = () => {
 	const { type, setType, imageUrl, customAvatar, thumbnail, editContact } = useContext(WebContext);
 	const { register } = useFormContext();
 
-	console.log(thumbnail);
-
 	const thumbnailStyles = "w-[6rem] h-[6rem] md:w-[8rem]  md:h-[8rem] ";
 
 	return (

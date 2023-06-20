@@ -44,7 +44,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
 		return NextResponse.json(error, { status: 500 });
 	}
 
-	return NextResponse.json({ message: "Contact visible" }, { status: 200 });
+	return NextResponse.json({ message: "Contact updated" }, { status: 200 });
 }
 
 export async function PUT(req: Request, { params }: { params: { id: string } }) {

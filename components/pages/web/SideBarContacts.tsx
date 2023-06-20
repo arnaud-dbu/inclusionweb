@@ -84,10 +84,9 @@ const SideBarContact = ({ contact }) => {
 		setContacts(newContacts);
 
 		try {
-			const response = await fetch(`/api/contacts/${id}`, {
+			await fetch(`/api/contacts/${id}`, {
 				method: "DELETE",
 			});
-			const contact = await response.json();
 		} catch (error) {
 			console.log(error);
 		}

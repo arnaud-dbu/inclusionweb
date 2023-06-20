@@ -22,7 +22,7 @@ body {
 }
 
 p {
-	@apply text-base italic leading-6;
+	@apply text-base leading-6;
 }
 
 .layout-wrapper {

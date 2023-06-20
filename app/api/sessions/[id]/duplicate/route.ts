@@ -21,7 +21,7 @@ export async function POST(req: Request, { params }: { params: { id: string } })
 		.insert({
 			id: body.random_id,
 			session: body.new_session,
-			web_id: id,
+			web_id: body.web_id,
 			share_id: crypto.randomUUID(),
 		})
 		.select()
@@ -31,8 +31,8 @@ export async function POST(req: Request, { params }: { params: { id: string } })
 	const { data: currentContacts, error: currentContactsError } = await supabase
 		.from("contacts")
 		.select()
-		.eq("web_id", id)
-		.eq("session_id", body.current_session);
+		.eq("web_id", body.web_id)
+		.eq("session_id", id);
 
 	// Create new contacts with new session id
 	const newContacts = currentContacts.map((item) => {

@@ -10,17 +10,12 @@ import { useForm } from "react-hook-form";
 import { WebContext } from "@/context/WebContext";
 import DropdownVersion from "./VersionDropdown";
 import { useRouter } from "next/navigation";
-import { DuplicateIcon, FilePlusIcon, ImageIcon } from "@/public/icons";
-import { CustomAvatarForm } from "./CustomAvatarForm";
-import { CustomAvatar } from "./CustomAvatar";
-import { Label } from "@/components/form/Label";
-import Image from "next/image";
+import { DuplicateIcon, FilePlusIcon } from "@/public/icons";
 import { useSupabase } from "@/app/supabase-provider";
 import { CategoryButton } from "@/components/form/CategoryButton";
 import { useCopyToClipboard } from "usehooks-ts";
 import { motion } from "framer-motion";
 import Backdrop from "@/components/Backdrop";
-import Link from "next/link";
 import HyperLink from "@/components/Hyperlink";
 
 type Props = {};
@@ -109,11 +104,11 @@ const WebMenu = (props: Props) => {
 		const currentSession = sessions.filter((x) => x.session == session)[0];
 
 		try {
-			const response = await fetch(`/api/webs/${web.id}/session/duplicate`, {
+			const response = await fetch(`/api/sessions/${currentSession.id}/duplicate`, {
 				method: "POST",
 				body: JSON.stringify({
+					web_id: web.id,
 					random_id: crypto.randomUUID(),
-					current_session: currentSession.id,
 					new_session: latestSession + 1,
 				}),
 				headers: {
@@ -319,7 +314,7 @@ const WebMenu = (props: Props) => {
 							/>
 						</Setting>
 
-						<Setting
+						{/* <Setting
 							className={`${editInfoVisible !== "Mijn Web" && "hidden"}`}
 							divisionLine={false}
 							handleSubmit={handleImageSubmit}
@@ -361,13 +356,9 @@ const WebMenu = (props: Props) => {
 								<CustomAvatarForm className={`w-full`} />
 							</div>
 							<button>Change</button>
-						</Setting>
+						</Setting> */}
 
-						<Setting
-							className={`${editInfoVisible !== "Deel" && "hidden"}`}
-							handleSubmit={handleWebNameSubmit}
-							onSubmit={handleSubmitWebName}
-							register={registerWebName}>
+						<section className={`${editInfoVisible !== "Deel" && "hidden"}`}>
 							<div>
 								<BlockTitle
 									className={`mb-3 md:mb-5`}
@@ -395,7 +386,7 @@ const WebMenu = (props: Props) => {
 									label="Bekijk pagina"
 								/>
 							</div>
-						</Setting>
+						</section>
 					</motion.aside>
 				</Backdrop>
 			)}

@@ -43,7 +43,7 @@ const MenuButtons = () => {
 		router.push("/login");
 	};
 	return (
-		<div className="mb-8 hidden h-[75vh] w-[55rem] grid-cols-2 grid-rows-3 gap-6 xl:pointer-events-auto xl:grid xl:opacity-100">
+		<div className="mb-8 hidden h-[75vh] w-[50rem] grid-cols-2 grid-rows-3 gap-6 xl:pointer-events-auto xl:grid xl:opacity-100">
 			<MenuButton
 				onClick={() => router.push("/new")}
 				label="Nieuw web"

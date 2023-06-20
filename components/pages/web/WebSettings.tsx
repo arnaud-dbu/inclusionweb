@@ -29,7 +29,7 @@ export const WebSettings = ({ shareView }) => {
 		setAvatarSize(size);
 
 		try {
-			const response = await fetch(`/api/webs/${web.id}/images`, {
+			const response = await fetch(`/api/webs/${web.id}`, {
 				method: "PATCH",
 				body: JSON.stringify({
 					images_size: size,
@@ -51,7 +51,7 @@ export const WebSettings = ({ shareView }) => {
 		setNamesVisible(visible);
 
 		try {
-			const response = await fetch(`/api/webs/${web.id}/names`, {
+			const response = await fetch(`/api/webs/${web.id}`, {
 				method: "PATCH",
 				body: JSON.stringify({
 					names_visible: visible,

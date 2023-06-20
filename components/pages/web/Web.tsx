@@ -12,7 +12,7 @@ import { WebContext } from "@/context/WebContext";
 import { WebSettings } from "./WebSettings";
 import { H1 } from "@/components/Typography";
 import { Button } from "@/components/form/Button";
-import { useMediaQuery, useScreen } from "usehooks-ts";
+import { useScreen } from "usehooks-ts";
 
 type Props = {
 	shareView?: boolean;
@@ -20,7 +20,6 @@ type Props = {
 
 const Web = ({ shareView }: Props) => {
 	const { contacts, setContacts, web, setSidebarOpen } = useContext(WebContext);
-	const screen = useScreen();
 	const containerRef = useRef(null);
 	const [scaleFactor, setScaleFactor] = useState(1);
 
@@ -70,7 +69,7 @@ const Web = ({ shareView }: Props) => {
 			const draggedItem = newPositionedDragItems?.find((item) => item.id === dragItemId);
 
 			try {
-				fetch(`/api/contacts/${dragItemId}/position`, {
+				fetch(`/api/contacts/${dragItemId}`, {
 					method: "PATCH",
 					body: JSON.stringify({
 						position: {

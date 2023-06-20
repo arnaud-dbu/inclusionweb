@@ -65,7 +65,7 @@ export const NewContactForm = () => {
 		given_support: yup.mixed().nullable(),
 		received_support: yup.mixed().nullable(),
 		frequency: yup.string().nullable(),
-		avatar: yup.object().nullable(),
+		avatar: yup.mixed().nullable(),
 		image_type: yup.string().nullable(),
 		image_path: yup.string().nullable(),
 	});
@@ -223,6 +223,8 @@ export const NewContactForm = () => {
 
 	// Edit existing contact
 	const handleEditContactSubmit = async (data: any) => {
+		console.log(data);
+
 		const customAvatarString = JSON.stringify(customAvatar);
 		const userId = (await supabase.auth.getUser()).data.user.id;
 		let imagePath = null;

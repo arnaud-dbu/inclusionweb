@@ -51,7 +51,7 @@ export const H3 = ({ className, title, underline }: Props) => {
 
 export const P = ({ children, className, text }: Props) => {
 	return (
-		<p className={`font-secondary text-sm text-neutral-900 md:text-base lg:text-lg ${className}`}>
+		<p className={`font-secondary text-sm text-neutral-900 md:text-base  lg:text-lg ${className}`}>
 			{text}
 		</p>
 	);
