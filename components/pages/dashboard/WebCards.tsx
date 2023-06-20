@@ -117,7 +117,7 @@ const WebCard = ({ web, handleOpenSingleWeb, handleDeleteSingleWeb }) => {
 		<article
 			key={web?.id}
 			ref={hoverRef}
-			className="mb-4 flex flex-col items-center justify-between rounded-3xl border-1 border-neutral-500 bg-white px-20 py-10 text-neutral-800 shadow-sm md:flex-row md:px-12">
+			className="mb-4 flex flex-col items-center justify-between rounded-3xl border-1 border-neutral-500 bg-white px-20 py-8 text-neutral-800 shadow-sm md:flex-row md:px-12">
 			{/* WebCard Details */}
 			<div className="flex w-full flex-col md:justify-between">
 				<div className="my-4 flex flex-col md:my-0 md:mb-10">

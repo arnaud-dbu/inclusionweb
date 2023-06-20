@@ -21,7 +21,6 @@ const Settings = ({ userMetadata, id }: Props) => {
 	const { supabase } = useSupabase();
 	const { validationMessage, setValidationMessage } = useContext(WebContext);
 
-	// Update user name
 	const {
 		register: registerName,
 		handleSubmit: handleSubmitName,
@@ -34,10 +33,12 @@ const Settings = ({ userMetadata, id }: Props) => {
 	const [nameIsDifferent, setNameIsDifferent] = useState(false);
 	const [nameUpdateIsLoading, setNameUpdateIsLoading] = useState(false);
 
+	// Check if names are different
 	useEffect(() => {
 		setNameIsDifferent(firstName !== userMetadata.firstName || lastName !== userMetadata.lastName);
 	}, [firstName, lastName, userMetadata.firstName, userMetadata.lastName]);
 
+	// Update user name
 	const onSubmitName = async (names: any) => {
 		setNameUpdateIsLoading(true);
 		const { error } = await supabase.auth.updateUser({
@@ -56,7 +57,6 @@ const Settings = ({ userMetadata, id }: Props) => {
 		}
 	};
 
-	// Update user password
 	const {
 		register: registerPassword,
 		handleSubmit: handleSubmitPassword,
@@ -65,10 +65,12 @@ const Settings = ({ userMetadata, id }: Props) => {
 		formState: { errors: passwordErrors },
 	} = useForm({ resolver: yupResolver(ValidatePasswordSchema) });
 
+	// Check if password are not empty and are the same
 	const password = watchPassword("password");
 	const validatePassword = watchPassword("validatePassword");
 	const passwordIsNotEmpty = password !== "" && validatePassword !== "";
 
+	// Update user password
 	const onSubmitPassword = async (passwords: any) => {
 		const { error, data } = await supabase.auth.updateUser({ password: passwords.password });
 
@@ -98,6 +100,7 @@ const Settings = ({ userMetadata, id }: Props) => {
 
 	return (
 		<div className={`relative z-10  md:w-2/3 xl:w-1/2`}>
+			{/* Update user first name and last name */}
 			<Setting
 				name="name"
 				blockTitle="Wijzig je naam"
@@ -133,6 +136,7 @@ const Settings = ({ userMetadata, id }: Props) => {
 					/>
 				</div>
 			</Setting>
+			{/* Update password */}
 			<Setting
 				name="password"
 				blockTitle="Wijzig je paswoord"
@@ -167,6 +171,7 @@ const Settings = ({ userMetadata, id }: Props) => {
 					/>
 				</div>
 			</Setting>
+			{/* Delete account */}
 			<div>
 				<H3 title="Verwijder account" className={`mb-4`} />
 				<p className={`mb-4 not-italic`}>

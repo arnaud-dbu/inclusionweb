@@ -15,7 +15,7 @@ import { useContext, useRef } from "react";
 import useHover from "@/hooks/useHover";
 import { WebContext } from "@/context/WebContext";
 import Image from "next/image";
-import { HeadingSecondary } from "@/components/Typography";
+import { H2 } from "@/components/Typography";
 import { Button } from "@/components/form/Button";
 
 type Props = {
@@ -158,7 +158,7 @@ export const DragContact = ({ id, name, styles, avatar, visible, image }: Props)
 					className={`box absolute -right-[16rem] bottom-0 z-50 flex w-[15rem] flex-col items-start gap-2 rounded-2xl border-2 border-neutral-500 bg-white px-6 py-6 shadow-lg  ${
 						isHover ? "block" : "hidden"
 					}`}>
-					<HeadingSecondary underline title={currentContact?.name} className={`mb-2 text-2xl`} />
+					<H2 underline title={currentContact?.name} className={`mb-2 text-2xl`} />
 					{currentContact?.role && (
 						<DragContactInfo
 							title={currentContact?.role}

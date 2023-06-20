@@ -9,6 +9,7 @@ import NewWebForm from "@/components/pages/new/NewWebForm";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import WebIllustration from "@/components/pages/new/WebIllustration";
+import Header from "@/components/Header";
 
 // validation
 const NameSchema = yup.object().shape({
@@ -71,16 +72,20 @@ const NewWebPage = () => {
 	return (
 		<>
 			<FormProvider {...methods}>
-				<div className={`relative w-screen overflow-hidden lg:h-screen`}>
-					<div className={`layout-wrapper `}>
-						<NewWebForm
-							handleNewWeb={handleNewWeb}
-							avatar={customAvatar}
-							image={imageUrl}
-							thumbnail={thumbnail}
-						/>
-					</div>
-					<WebIllustration className="absolute -bottom-[37.5rem] -right-[37.5rem] z-0 w-[85rem] opacity-60 lg:w-[90rem] lg:opacity-70 2xl:-bottom-[30vw] 2xl:-right-[30vw] 2xl:w-[85vw]" />
+				<Header title="Nieuw web" />
+				<div className={`layout-wrapper flex gap-[10rem] md:items-center`}>
+					<NewWebForm
+						handleNewWeb={handleNewWeb}
+						avatar={customAvatar}
+						image={imageUrl}
+						thumbnail={thumbnail}
+					/>
+					<WebIllustration
+						thumbnail={thumbnail}
+						avatar={customAvatar}
+						image={imageUrl}
+						className="hidden w-[30rem] lg:block lg:opacity-100"
+					/>
 				</div>
 			</FormProvider>
 		</>

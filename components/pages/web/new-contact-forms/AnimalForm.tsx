@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { WebContext } from "@/context/WebContext";
 import { LadyIllustration, OrganizationIllustration } from "@/public/illustrations";
 import SelectImage from "@/components/form/SelectImage";
-import { HeadingSecondary } from "@/components/Typography";
 import ContactDetails from "./ContactDetails";
 import ContactRelation from "./ContactRelation";
 import ContactGivenSupport from "./ContactGivenSupport";

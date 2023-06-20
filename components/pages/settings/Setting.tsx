@@ -33,14 +33,11 @@ export const Setting = ({
 		<div className={`space-y-7 ${className}`}>
 			{blockTitle && (
 				<>
-					<div className={`flex items-center gap-4`}>
+					<div className={`flex flex-col gap-3 md:flex-row md:items-center md:gap-4`}>
 						{blockTitle && <H3 title={blockTitle} />}
 
 						{validationMessage && validationMessage[0] === name && (
 							<ValidationMessage message={validationMessage[1]} />
-						)}
-						{passwordIsUpdated && (
-							<span className={`font-semibold text-primary-800`}>{passwordIsUpdated}</span>
 						)}
 					</div>
 				</>

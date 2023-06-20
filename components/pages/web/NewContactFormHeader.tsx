@@ -7,7 +7,6 @@ import { useFormContext } from "react-hook-form";
 import { WebContext } from "@/context/WebContext";
 import { AnimalIcon, GroupIcon, PersonIcon, PlaceIcon, UserIcon } from "@/public/icons";
 import { UserImage } from "@/public/images";
-import { HeadingPrimary } from "@/components/Typography";
 
 const NewContactFormHeader = () => {
 	const { type, setType, imageUrl, customAvatar, thumbnail, editContact } = useContext(WebContext);

@@ -1,10 +1,10 @@
 "use client";
 
 import DivisionLine from "@/components/DivisionLine";
-import { H1, H2, HeadingPrimary } from "@/components/Typography";
+import { H1, H2 } from "@/components/Typography";
 import { AddUserIcon, ArrowLeftIcon, GridIcon, ListIcon } from "@/public/icons";
 import { WebContext } from "@/context/WebContext";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { CategoryButton } from "@/components/form/CategoryButton";
 import { SearchInput } from "@/components/form/SearchInput";
 import { Button } from "@/components/form/Button";

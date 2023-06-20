@@ -1,6 +1,6 @@
 "use client";
 
-import { HeadingSecondary } from "@/components/Typography";
+import { H2 } from "@/components/Typography";
 import { BlockTitle } from "@/components/form/BlockTitle";
 import { useContext, useState } from "react";
 import { Setting } from "../settings/Setting";
@@ -236,7 +236,7 @@ const WebMenu = (props: Props) => {
 						className={`fixed !top-[0rem] right-0 z-50 flex h-screen w-[90%] flex-col bg-white px-8 py-10 shadow-lg md:w-[35rem] md:px-12 md:py-20 `}>
 						<div
 							className={`mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-center md:gap-0`}>
-							<HeadingSecondary underline title="Menu" />
+							<H2 underline title="Menu" />
 							<div className="flex gap-2">
 								{["Versie", "Mijn Web", "Deel"].map((category) => (
 									<CategoryButton

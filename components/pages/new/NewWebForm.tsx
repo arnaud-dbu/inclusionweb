@@ -4,12 +4,10 @@ import { Input } from "@/components/form/Input";
 import { useContext } from "react";
 import { useFormContext } from "react-hook-form";
 import { WebContext } from "@/context/WebContext";
-import { H1, H3 } from "@/components/Typography";
-import { Card } from "@/components/Card";
+import { H3 } from "@/components/Typography";
 import { SelectAvatar } from "@/components/form/SelectAvatar";
 import { CustomAvatarForm } from "../web/CustomAvatarForm";
 import { Label } from "@/components/form/Label";
-import { useRouter } from "next/navigation";
 import AvatarComponent from "@/components/avatar/AvatarComponent";
 import Image from "next/image";
 import { UserIcon } from "@/public/icons";
@@ -22,7 +20,6 @@ type Props = {
 };
 
 const NewWebForm = ({ handleNewWeb, image, avatar, thumbnail }: Props) => {
-	const router = useRouter();
 	const {
 		register,
 		handleSubmit,
@@ -32,28 +29,24 @@ const NewWebForm = ({ handleNewWeb, image, avatar, thumbnail }: Props) => {
 		useContext(WebContext);
 
 	return (
-		<Card
-			// className={`left-1/2 z-30 my-24 w-full px-10 py-12 sm:absolute sm:left-1/2 sm:w-[80%] sm:-translate-x-1/2 lg:absolute lg:top-[50%] lg:my-0 lg:max-w-[40rem] lg:-translate-y-1/2 lg:px-14`}>
-			className={`lg:-translate-x-1/ relative left-1/2 z-30 mb-24 mt-28 max-w-[40rem] -translate-x-1/2 px-10 py-8 lg:absolute lg:top-1/2 lg:my-0  lg:w-[40rem] lg:-translate-y-1/2 2xl:!left-[35%] `}>
-			<div className={`flex items-center justify-between`}>
-				<H1 underline title="Nieuw web" className="mb-10" />
-				<div className={`h-[9rem] w-[9rem] rounded-full `}>
-					{thumbnail === "default" && (
-						<div className="overflow-hidden rounded-full bg-primary-500">
-							<UserIcon className={`h-full w-full`} />
-						</div>
-					)}
-					{thumbnail === "customImage" && (
-						<Image
-							className="rounded-full shadow-sm"
-							alt="profile picture"
-							src={image || "/"}
-							width={200}
-							height={200}
-						/>
-					)}
-					{thumbnail === "avatar" && <AvatarComponent className="h-full w-full" avatar={avatar} />}
-				</div>
+		<section className={`w-full lg:w-[30rem]`}>
+			{/* Thumbnail on small screens */}
+			<div className={`absolute right-[1.5rem] top-0 h-[8rem] w-[8rem] md:right-24  lg:hidden`}>
+				{thumbnail === "default" && (
+					<div className="overflow-hidden rounded-full bg-primary-500">
+						<UserIcon className={`h-full w-full`} />
+					</div>
+				)}
+				{thumbnail === "customImage" && (
+					<Image
+						className="h-[8rem] w-[8rem] rounded-full object-cover shadow-sm"
+						alt="profile picture"
+						src={image || "/"}
+						width={200}
+						height={200}
+					/>
+				)}
+				{thumbnail === "avatar" && <AvatarComponent className="h-full w-full" avatar={avatar} />}
 			</div>
 
 			<Form
@@ -61,10 +54,11 @@ const NewWebForm = ({ handleNewWeb, image, avatar, thumbnail }: Props) => {
 				handleSubmit={handleSubmit}
 				onSubmit={handleNewWeb}
 				className={`flex flex-col gap-6`}>
+				{/* Add name */}
 				<div>
 					<H3 title="Gegevens" className="mb-5" />
 					<Input
-						style="primary"
+						style="tertiary"
 						register={register}
 						name="name"
 						label="Naam"
@@ -72,6 +66,7 @@ const NewWebForm = ({ handleNewWeb, image, avatar, thumbnail }: Props) => {
 					/>
 				</div>
 
+				{/* Add custom image */}
 				<div>
 					<div className={`mb-5 flex items-center justify-between`}>
 						<H3 title="Afbeelding" />
@@ -93,6 +88,7 @@ const NewWebForm = ({ handleNewWeb, image, avatar, thumbnail }: Props) => {
 						</Label>
 					</div>
 
+					{/* Select avatars */}
 					<div className="mb-4 flex gap-4">
 						<SelectAvatar
 							className={` ${
@@ -109,20 +105,14 @@ const NewWebForm = ({ handleNewWeb, image, avatar, thumbnail }: Props) => {
 							type="woman"
 						/>
 					</div>
+					{/* Create custom avatar */}
 					<CustomAvatarForm />
 				</div>
-				<div className={`mt-6 flex flex-col gap-3`}>
-					<Button label="Open nieuw web" style="primary" loading={isLoading} />
-					<Button
-						type="button"
-						onClick={() => router.back()}
-						label="Ga terug"
-						style="outline"
-						className=""
-					/>
+				<div className={`mt-6 flex gap-3`}>
+					<Button label="Start nieuw web" style="primary" loading={isLoading} />
 				</div>
 			</Form>
-		</Card>
+		</section>
 	);
 };
 

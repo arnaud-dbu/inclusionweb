@@ -19,7 +19,23 @@ const WebIllustration = ({ className, avatar, image = "", thumbnail }: Props) =>
 				<div className="web-inner scale-[.8] opacity-20"></div>
 				<div className="web-inner scale-[.6] opacity-25"></div>
 				<div className="web-inner scale-[.4] opacity-25"></div>
-				<div className="web-inner scale-[.2] opacity-40"></div>
+				<div className={`absolute-center h-[42%] w-[42%]`}>
+					{thumbnail === "default" && (
+						<div className="overflow-hidden rounded-full bg-primary-500">
+							<UserIcon className={`h-full w-full`} />
+						</div>
+					)}
+					{thumbnail === "customImage" && (
+						<Image
+							className="h-[100%] w-[100%] rounded-full object-cover shadow-sm"
+							alt="profile picture"
+							src={image || "/"}
+							width={200}
+							height={200}
+						/>
+					)}
+					{thumbnail === "avatar" && <AvatarComponent className="h-full w-full" avatar={avatar} />}
+				</div>
 			</div>
 		</div>
 	);
