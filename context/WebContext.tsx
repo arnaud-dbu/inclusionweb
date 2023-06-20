@@ -107,7 +107,6 @@ export const WebProvider = ({
 	const [sidebarOpen, setSidebarOpen] = useState(true);
 
 	// Handlers
-
 	const searchFilter = (array) => {
 		return array.filter((el) => el.name.toLowerCase().includes(query));
 	};
@@ -247,6 +246,76 @@ export const WebProvider = ({
 				setMouth(["Default", ...mouthTypes.slice(1)]);
 
 				setActiveAvatarPreset("youngWomanAvatar");
+				setThumbnail("avatar");
+				break;
+			case "middleAgeWomanAvatar":
+				setTopType(["LongHairBigHair", ...topTypes.slice(1)]);
+				setSkinColor(["Light", ...skinColors.slice(1)]);
+				setAccessoriesType(["Prescription02", ...accessoriesTypes.slice(1)]);
+				setHairColor(["Black", ...hairColors.slice(1)]);
+				setFacialHair(["Blank", ...facialHairTypes.slice(1)]);
+				setClothes(["ShirtVNeck", ...clothesTypes.slice(1)]);
+				setEyes(["Default", ...eyeTypes.slice(1)]);
+				setEyebrow(["RaisedExcited", ...eyebrowTypes.slice(1)]);
+				setMouth(["Default", ...mouthTypes.slice(1)]);
+
+				setActiveAvatarPreset("youngWomanAvatar");
+				setThumbnail("avatar");
+				break;
+			case "middleAgeManAvatar":
+				setTopType(["ShortHairDreads01", ...topTypes.slice(1)]);
+				setSkinColor(["Light", ...skinColors.slice(1)]);
+				setAccessoriesType(["Prescription02", ...accessoriesTypes.slice(1)]);
+				setHairColor(["Brown", ...hairColors.slice(1)]);
+				setFacialHair(["BeardMajestic", ...facialHairTypes.slice(1)]);
+				setClothes(["ShirtVNeck", ...clothesTypes.slice(1)]);
+				setEyes(["Default", ...eyeTypes.slice(1)]);
+				setEyebrow(["RaisedExcited", ...eyebrowTypes.slice(1)]);
+				setMouth(["Default", ...mouthTypes.slice(1)]);
+
+				setActiveAvatarPreset("middleAgeManAvatar");
+				setThumbnail("avatar");
+				break;
+			case "middleAgeWomanAvatar":
+				setTopType(["LongHairBigHair", ...topTypes.slice(1)]);
+				setSkinColor(["Light", ...skinColors.slice(1)]);
+				setAccessoriesType(["Prescription02", ...accessoriesTypes.slice(1)]);
+				setHairColor(["Black", ...hairColors.slice(1)]);
+				setFacialHair(["Blank", ...facialHairTypes.slice(1)]);
+				setClothes(["ShirtVNeck", ...clothesTypes.slice(1)]);
+				setEyes(["Default", ...eyeTypes.slice(1)]);
+				setEyebrow(["DefaultNatural", ...eyebrowTypes.slice(1)]);
+				setMouth(["Default", ...mouthTypes.slice(1)]);
+
+				setActiveAvatarPreset("middleAgeWomanAvatar");
+				setThumbnail("avatar");
+				break;
+			case "oldManAvatar":
+				setTopType(["ShortHairSides", ...topTypes.slice(1)]);
+				setSkinColor(["Light", ...skinColors.slice(1)]);
+				setAccessoriesType(["Blank", ...accessoriesTypes.slice(1)]);
+				setHairColor(["Brown", ...hairColors.slice(1)]);
+				setFacialHair(["Brown", ...facialHairTypes.slice(1)]);
+				setClothes(["BlazerSweater", ...clothesTypes.slice(1)]);
+				setEyes(["Default", ...eyeTypes.slice(1)]);
+				setEyebrow(["Default", ...eyebrowTypes.slice(1)]);
+				setMouth(["Default", ...mouthTypes.slice(1)]);
+
+				setActiveAvatarPreset("oldManAvatar");
+				setThumbnail("avatar");
+				break;
+			case "oldWomanAvatar":
+				setTopType(["LongHairCurly", ...topTypes.slice(1)]);
+				setSkinColor(["Light", ...skinColors.slice(1)]);
+				setAccessoriesType(["Blank", ...accessoriesTypes.slice(1)]);
+				setHairColor(["SilverGray", ...hairColors.slice(1)]);
+				setFacialHair(["Brown", ...facialHairTypes.slice(1)]);
+				setClothes(["ShirtScoopNeck", ...clothesTypes.slice(1)]);
+				setEyes(["Default", ...eyeTypes.slice(1)]);
+				setEyebrow(["RaisedExcited", ...eyebrowTypes.slice(1)]);
+				setMouth(["Default", ...mouthTypes.slice(1)]);
+
+				setActiveAvatarPreset("oldManAvatar");
 				setThumbnail("avatar");
 				break;
 		}

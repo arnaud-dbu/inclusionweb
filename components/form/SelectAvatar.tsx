@@ -15,39 +15,99 @@ type EditProps = {
 export const SelectAvatar = ({ type, onClick, className }: Props) => {
 	let avatarStyles;
 
-	if (type === "man") {
-		avatarStyles = {
-			topType: "ShortHairShortFlat",
-			accessoriesType: "Blank",
-			hairColor: "BrownDark",
-			facialHairType: "Blank",
-			clotheType: "ShirtCrewNeck",
-			eyeType: "Default",
-			// clotheColor="Blue03",
-			eyebrowType: "Default",
-			mouthType: "Default",
-			skinColor: "Light",
-		};
-	} else if (type === "woman") {
-		avatarStyles = {
-			topType: "LongHairCurvy",
-			accessoriesType: "Blank",
-			hairColor: "BrownDark",
-			facialHairType: "Blank",
-			clotheType: "BlazerShirt",
-			eyeType: "Default",
-			eyebrowType: "Default",
-			mouthType: "Default",
-			skinColor: "Light",
-		};
+	switch (type) {
+		case "youngManAvatar":
+			avatarStyles = {
+				topType: "ShortHairShortFlat",
+				accessoriesType: "Blank",
+				hairColor: "BrownDark",
+				facialHairType: "Blank",
+				clotheType: "ShirtCrewNeck",
+				eyeType: "Default",
+				eyebrowType: "Default",
+				mouthType: "Default",
+				skinColor: "Light",
+			};
+
+			break;
+		case "youngWomanAvatar":
+			avatarStyles = {
+				topType: "LongHairCurvy",
+				accessoriesType: "Blank",
+				hairColor: "BrownDark",
+				facialHairType: "Blank",
+				clotheType: "BlazerShirt",
+				eyeType: "Default",
+				eyebrowType: "Default",
+				mouthType: "Default",
+				skinColor: "Light",
+			};
+
+			break;
+		case "middleAgeWomanAvatar":
+			avatarStyles = {
+				topType: "LongHairBigHair",
+				accessoriesType: "Prescription02",
+				hairColor: "Black",
+				facialHairType: "Blank",
+				clotheType: "ShirtVNeck",
+				eyeType: "Default",
+				eyebrowType: "RaisedExcited",
+				mouthType: "Default",
+				skinColor: "Light",
+			};
+
+			break;
+		case "middleAgeManAvatar":
+			avatarStyles = {
+				topType: "ShortHairDreads01",
+				accessoriesType: "Prescription02",
+				hairColor: "Brown",
+				facialHairType: "BeardMajestic",
+				clotheType: "ShirtVNeck",
+				eyeType: "Default",
+				eyebrowType: "RaisedExcited",
+				mouthType: "Default",
+				skinColor: "Light",
+			};
+
+			break;
+		case "oldManAvatar":
+			avatarStyles = {
+				topType: "ShortHairSides",
+				accessoriesType: "Blank",
+				hairColor: "Brown",
+				facialHairType: "Brown",
+				clotheType: "BlazerSweater",
+				eyeType: "Default",
+				eyebrowType: "Default",
+				mouthType: "Default",
+				skinColor: "Light",
+			};
+
+			break;
+		case "oldWomanAvatar":
+			avatarStyles = {
+				topType: "LongHairCurly",
+				accessoriesType: "Blank",
+				hairColor: "SilverGray",
+				facialHairType: "Brown",
+				clotheType: "ShirtScoopNeck",
+				eyeType: "Default",
+				eyebrowType: "RaisedExcited",
+				mouthType: "Default",
+				skinColor: "Light",
+			};
+
+			break;
 	}
 
 	return (
 		<button
 			type="button"
 			onClick={onClick}
-			className={`cursor-pointer bg-primary-500 rounded-full ${className}`}>
-			<AvatarComponent className="rounded-full w-10 h-10" avatar={avatarStyles} />
+			className={`cursor-pointer rounded-full bg-primary-500 ${className}`}>
+			<AvatarComponent className="h-10 w-10 rounded-full" avatar={avatarStyles} />
 		</button>
 	);
 };
@@ -57,8 +117,8 @@ export const SelectEditAvatar = ({ className, onClick }: EditProps) => {
 		<button
 			type="button"
 			onClick={onClick}
-			className={`w-10 h-10 cursor-pointer rounded-full border-[1.5px] border-neutral-500 relative ${className}`}>
-			<PencilIcon className="absolute-center fill-neutral-800 w-6 h-6" />
+			className={`relative h-10 w-10 cursor-pointer rounded-full border-[1.5px] border-neutral-500 ${className}`}>
+			<PencilIcon className="absolute-center h-6 w-6 fill-neutral-800" />
 		</button>
 	);
 };
@@ -68,8 +128,8 @@ export const SelectImageThumbnail = ({ className, onClick }: EditProps) => {
 		<button
 			type="button"
 			onClick={onClick}
-			className={`w-10 h-10 cursor-pointer rounded-full border-[1.5px] border-neutral-500 relative ${className}`}>
-			<ImageIcon className="absolute-center fill-neutral-800 w-6 h-6" />
+			className={`relative h-10 w-10 cursor-pointer rounded-full border-[1.5px] border-neutral-500 ${className}`}>
+			<ImageIcon className="absolute-center h-6 w-6 fill-neutral-800" />
 		</button>
 	);
 };

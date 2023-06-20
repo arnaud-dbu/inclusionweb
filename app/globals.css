@@ -62,10 +62,6 @@ p {
 	@apply absolute left-1/2 top-1/2 z-0 h-[105%] w-[105%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary-800;
 }
 
-/* .web {
-  @apply opacity-20 w-[135rem] h-[135rem] bg-primary-800 rounded-full absolute -right-[65rem] -bottom-[60rem];
-} */
-
 .form-input {
 	&.active {
 		& label {
@@ -81,14 +77,6 @@ p {
 		}
 	}
 }
-
-/* .checkbox:checked {
-	border: none;
-}
-
-.checkbox:checked + .check-icon {
-	display: flex;
-} */
 
 .frequency-line {
 	@apply absolute left-1/2 top-[.5rem] z-10 h-[2px] w-[90%] -translate-x-1/2 bg-primary-800 content-[''];

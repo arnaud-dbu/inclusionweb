@@ -50,7 +50,7 @@ const PersonForm = () => {
 									activeAvatarPreset === "youngManAvatar" && "outline outline-2 outline-primary-800"
 								}`}
 								onClick={() => handlePresetAvatarSubmit("youngManAvatar")}
-								type="man"
+								type="youngManAvatar"
 							/>
 							<SelectAvatar
 								className={` ${
@@ -58,7 +58,37 @@ const PersonForm = () => {
 									"outline outline-2 outline-primary-800"
 								}`}
 								onClick={() => handlePresetAvatarSubmit("youngWomanAvatar")}
-								type="woman"
+								type="youngWomanAvatar"
+							/>
+							<SelectAvatar
+								className={` ${
+									activeAvatarPreset === "middleAgeWomanAvatar" &&
+									"outline outline-2 outline-primary-800"
+								}`}
+								onClick={() => handlePresetAvatarSubmit("middleAgeWomanAvatar")}
+								type="middleAgeWomanAvatar"
+							/>
+							<SelectAvatar
+								className={` ${
+									activeAvatarPreset === "middleAgeManAvatar" &&
+									"outline outline-2 outline-primary-800"
+								}`}
+								onClick={() => handlePresetAvatarSubmit("middleAgeManAvatar")}
+								type="middleAgeManAvatar"
+							/>
+							<SelectAvatar
+								className={` ${
+									activeAvatarPreset === "oldManAvatar" && "outline outline-2 outline-primary-800"
+								}`}
+								onClick={() => handlePresetAvatarSubmit("oldManAvatar")}
+								type="oldManAvatar"
+							/>
+							<SelectAvatar
+								className={` ${
+									activeAvatarPreset === "oldWomanAvatar" && "outline outline-2 outline-primary-800"
+								}`}
+								onClick={() => handlePresetAvatarSubmit("oldWomanAvatar")}
+								type="oldWomanAvatar"
 							/>
 						</div>
 						<Button

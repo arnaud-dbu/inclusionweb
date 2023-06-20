@@ -15,7 +15,8 @@ const AvatarStyle = ({ children, name, prevBtn, nextBtn }: Props) => {
 			{children}
 			<span className="whitespace-nowrap text-neutral-800">{name}</span>
 			<DivisionLine className="mx-5" />
-			<div className="flex items-center ml-auto">
+
+			<div className="ml-auto flex items-center">
 				<button type="button">
 					<svg
 						onClick={prevBtn}
