@@ -147,6 +147,7 @@ export const NewContactForm = () => {
 		setThumbnail("avatar");
 		setSelectedGivenSupport([""]);
 		setSelectedReceivedSupport([""]);
+		setEditInfoVisible("Gegevens");
 		setActiveAvatarPreset("youngManAvatar");
 		handlePresetAvatarSubmit("youngManAvatar");
 		setType("person");
@@ -222,8 +223,6 @@ export const NewContactForm = () => {
 		}
 	};
 
-	console.log(setActiveAvatarPreset);
-
 	// Edit existing contact
 	const handleEditContactSubmit = async (data: any) => {
 		console.log(data);
@@ -244,6 +243,7 @@ export const NewContactForm = () => {
 
 			if (thumbnail === "presetImage") {
 				imagePath = imageUrl;
+				imagePath = imagePath.src;
 			}
 
 			const body = {

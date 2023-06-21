@@ -118,7 +118,7 @@ const SideBarContact = ({ contact }) => {
 				)}
 				{(contact.image_type === "customImage" || contact.image_type === "presetImage") && (
 					<Image
-						className={`absolute-center  object-cover  ${
+						className={`absolute-center h-full w-full  object-cover  ${
 							contact.image_type === "presetImage" ? "p-5" : "rounded-full"
 						}`}
 						alt="profile picture"

@@ -96,6 +96,8 @@ export const DragContact = ({ id, name, styles, avatar, visible, image, shareVie
 	const avatarStyle = isDragging && "lifted";
 	const avatarScale = avatarSize === "small" ? "h-[4rem] w-[4rem]" : "h-[5rem] w-[5rem]";
 
+	console.log(image);
+
 	return (
 		<div className={`relative`} style={{ ...style, ...CustomStyle, ...styles }} ref={setNodeRef}>
 			<button {...listeners} {...attributes} style={{ touchAction: "none" }}>
@@ -119,7 +121,6 @@ export const DragContact = ({ id, name, styles, avatar, visible, image, shareVie
 							height={100}
 						/>
 					)}
-
 					{currentContact.image_type === "presetImage" && (
 						<Image
 							className={`rounded-full bg-white object-cover shadow-lg ${avatarStyle} ${avatarScale}`}
