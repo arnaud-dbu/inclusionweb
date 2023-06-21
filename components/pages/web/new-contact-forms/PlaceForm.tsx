@@ -38,9 +38,12 @@ const PlaceForm = () => {
 				<ContactDetails title="Plaats" />
 				<ContactRelation
 					options={[
-						{ value: "Partner", label: "Partner" },
-						{ value: "Familie", label: "Familie" },
-						{ value: "Buur", label: "Buur" },
+						{ value: "Kantoor", label: "Kantoor" },
+						{ value: "School", label: "School" },
+						{ value: "Universiteit", label: "Universiteit" },
+						{ value: "Sportclub", label: "Sportclub" },
+						{ value: "Gemeenschapscentrum", label: "Gemeenschapscentrum" },
+						{ value: "Evenementenlocatie", label: "Evenementenlocatie" },
 					]}
 				/>
 				<ContactGivenSupport />

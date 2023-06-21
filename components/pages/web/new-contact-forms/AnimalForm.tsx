@@ -31,13 +31,13 @@ const AnimalForm = () => {
 		<>
 			<FormBlock className={`${editInfoVisible !== "Gegevens" && "hidden"}`}>
 				<ContactDetails title="Dier" />
-				<ContactRelation
+				{/* <ContactRelation
 					options={[
 						{ value: "Partner", label: "Partner" },
 						{ value: "Familie", label: "Familie" },
 						{ value: "Buur", label: "Buur" },
 					]}
-				/>
+				/> */}
 				<ContactGivenSupport />
 				<ContactReceivedSupport />
 				<ContactFrequency />

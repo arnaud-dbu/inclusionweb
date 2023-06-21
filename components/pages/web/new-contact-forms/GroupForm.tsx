@@ -33,9 +33,12 @@ const GroupForm = () => {
 				<ContactDetails title="Groep" />
 				<ContactRelation
 					options={[
-						{ value: "Partner", label: "Partner" },
-						{ value: "Familie", label: "Familie" },
-						{ value: "Buur", label: "Buur" },
+						{ value: "Team", label: "Team" },
+						{ value: "Club", label: "Club" },
+						{ value: "Vereniging", label: "Vereniging" },
+						{ value: "Groep", label: "Groep" },
+						{ value: "Organisatie", label: "Organisatie" },
+						{ value: "Community", label: "Community" },
 					]}
 				/>
 				<ContactGivenSupport />

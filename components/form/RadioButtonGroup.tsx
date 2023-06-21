@@ -9,7 +9,7 @@ type Props = {
 export const RadioButtons = ({ register, name, options, ...rest }: Props) => {
 	return (
 		<div
-			className="relative mb-16 mt-7 flex w-[95%] justify-between gap-2 px-3 lg:mb-0 lg:w-full"
+			className="relative z-0 mb-16 mt-7 flex w-[95%] justify-between gap-2 px-3 lg:mb-0 lg:w-full"
 			{...rest}>
 			<div className="frequency-line">
 				<div className="block--1 block"></div>

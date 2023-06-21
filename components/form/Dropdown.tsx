@@ -14,12 +14,12 @@ type Props = {
 };
 
 const controlStyles = {
-	base: "border-1 border-neutral-500 rounded-lg h-10 lg:h-12 hover:cursor-pointer",
+	base: "relative z-50 border-1 border-neutral-500 rounded-lg h-10 lg:h-12 hover:cursor-pointer",
 	focus: "border-primary-600 bg-white ring-1 ring-primary-500",
 	nonFocus: "border-gray-300 hover:border-gray-400",
 };
 const placeholderStyles = "text-sm lg:text-base text-neutral-800 pl-1 py-0.5";
-const selectInputStyles = "pl-1 py-0.5";
+const selectInputStyles = "pl-1 py-0.5 relative z-50";
 const valueContainerStyles = "p-1 gap-1";
 const singleValueStyles = "leading-7 ml-1";
 const indicatorsContainerStyles = "p-1 gap-1";

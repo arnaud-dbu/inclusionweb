@@ -29,7 +29,10 @@ const PersonForm = () => {
 					options={[
 						{ value: "Partner", label: "Partner" },
 						{ value: "Familie", label: "Familie" },
-						{ value: "Buur", label: "Buur" },
+						{ value: "Kennis", label: "Kennis" },
+						{ value: "Vriend", label: "Vriend" },
+						{ value: "Collega", label: "Collega" },
+						{ value: "Professional", label: "Professional" },
 					]}
 				/>
 				<ContactGivenSupport />
