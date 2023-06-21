@@ -15,12 +15,15 @@ export const WebSettings = ({ shareView }) => {
 		setEditInfoVisible,
 		avatarSize,
 		setAvatarSize,
-		currentSession,
+		session,
+		sessions,
 		web,
 		getSession,
 		setModalVisible,
 		setThumbnail,
 	} = useContext(WebContext);
+
+	const currentSession = sessions?.filter((x) => x.session == session)[0];
 
 	// Change avatar size to small or large
 	const handleAvatarSize = async (size: string) => {

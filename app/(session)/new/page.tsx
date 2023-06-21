@@ -21,7 +21,16 @@ const NewWebPage = () => {
 	const { supabase } = useSupabase();
 	const router = useRouter();
 	const methods = useForm({ resolver: yupResolver(NameSchema) });
-	const { webs, setWebs, customAvatar, imageUrl, thumbnail, setIsLoading } = useContext(WebContext);
+	const {
+		webs,
+		setWebs,
+		customAvatar,
+		imageUrl,
+		thumbnail,
+		setIsLoading,
+		fetchedSessionsData,
+		setSessions,
+	} = useContext(WebContext);
 
 	// Submit new web form
 	const handleNewWeb = async (data: any) => {
@@ -59,9 +68,11 @@ const NewWebPage = () => {
 			});
 
 			if (response.status === 201) {
+				// Find the new session with the id
 				router.push(`/web/${id}/1`);
 				setWebs([...webs, newWeb]);
 				setIsLoading(false);
+				setSessions(fetchedSessionsData);
 			}
 		} catch (error) {
 			console.log(error);

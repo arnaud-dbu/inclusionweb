@@ -81,8 +81,6 @@ export const NewContactForm = () => {
 		formState: { errors },
 	} = methods;
 
-	console.log(errors);
-
 	const { supabase } = useSupabase();
 
 	// When editContact is set, fill in the form with the data of the contact
@@ -301,7 +299,7 @@ export const NewContactForm = () => {
 				{type === "place" && <PlaceForm />}
 				{type === "animal" && <AnimalForm />}
 
-				<div className="absolute right-5 top-1 flex gap-1 md:right-6 lg:bottom-8 lg:right-24 lg:top-auto lg:gap-3">
+				<div className="absolute right-5 top-1 flex gap-1 md:right-6 lg:bottom-4 lg:right-24 lg:top-auto lg:gap-3">
 					<Button type="button" style="outline" label="Sluit" onClick={handleClosingModal} />
 					{editContact ? (
 						<Button style="primary" label="Wijzigen" />

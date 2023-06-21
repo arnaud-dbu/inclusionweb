@@ -91,14 +91,8 @@ const PersonForm = () => {
 								type="oldWomanAvatar"
 							/>
 						</div>
-						<Button
-							onClick={() => setEditAvatarWindow(!editAvatarWindow)}
-							label="Avatar bewerken"
-							style="link"
-							icon={<ChevronIcon className={`h-5 w-5 fill-primary-800`} />}
-						/>
 					</div>
-					{editAvatarWindow && <CustomAvatarForm />}
+					<CustomAvatarForm />
 				</FormBlockItem>
 			</FormBlock>
 		</>
