@@ -11,10 +11,11 @@ import Image from "next/image";
 import { NeighborIllustration } from "@/public/illustrations";
 import { PlusIcon, TrashIcon } from "@/public/icons";
 import { IconButton } from "@/components/form/IconButton";
+import { set } from "react-hook-form";
 
 const WebCards = () => {
 	const router = useRouter();
-	const { searchFilter, webs, setWebs, sessions } = useContext(WebContext);
+	const { searchFilter, webs, setWebs, sessions, setIsLoading, loading } = useContext(WebContext);
 
 	// Filter webs on search input and sort them by last created
 	const searchFilteredWebs = searchFilter(webs);
@@ -23,12 +24,14 @@ const WebCards = () => {
 	});
 
 	const handleOpenSingleWeb = async (id: string) => {
+		setIsLoading(true);
+
 		// Get all sessions with this web id and redirect to the last used session
 		const sessionsWithId = sessions.filter((session: any) => session.web_id == id);
 		// Order sessions by session number
 		const orderSessions = sessionsWithId.sort((a: any, b: any) => b.session - a.session);
 		// Get last session number
-		const lastUsedSession = orderSessions[0].session;
+		const lastUsedSession = orderSessions[0]?.session;
 
 		try {
 			// Update last used session
@@ -45,6 +48,7 @@ const WebCards = () => {
 			// Redirect to last used session
 			if (response.status == 201) {
 				router.push(`web/${id}/${lastUsedSession}`);
+				setIsLoading(false);
 			}
 
 			const web = webs.find((web: any) => web.id == id);
@@ -94,6 +98,7 @@ const WebCards = () => {
 								web={web}
 								handleOpenSingleWeb={handleOpenSingleWeb}
 								handleDeleteSingleWeb={handleDeleteSingleWeb}
+								loading={loading}
 							/>
 						))
 					)}
@@ -109,7 +114,7 @@ const WebCards = () => {
 	);
 };
 
-const WebCard = ({ web, handleOpenSingleWeb, handleDeleteSingleWeb }) => {
+const WebCard = ({ web, handleOpenSingleWeb, handleDeleteSingleWeb, loading }) => {
 	const hoverRef = useRef(null);
 	const isHover = useHover(hoverRef);
 
@@ -131,6 +136,7 @@ const WebCard = ({ web, handleOpenSingleWeb, handleDeleteSingleWeb }) => {
 						onClick={() => handleOpenSingleWeb(web?.id)}
 						label="Open"
 						style="tertiary"
+						loading={loading}
 						className={`mt-2 md:mt-0`}
 						size="sm"
 					/>
