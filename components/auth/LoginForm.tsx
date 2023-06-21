@@ -10,16 +10,12 @@ import { Button } from "@/components/form/Button";
 import { KeyIcon, MailIcon } from "@/public/icons";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { EmailSchema } from "@/utils/shemas";
 
 type LoginTypes = {
 	email: string;
 	password: string;
 };
-
-const EmailSchema = yup.object().shape({
-	email: yup.string().email("Voer een geldig e-mailadres in").required("Email is verplicht"),
-	password: yup.string().max(32, "Max paswoord lengte is 32").required("Paswoord verplicht"),
-});
 
 const LoginForm = () => {
 	const router = useRouter();

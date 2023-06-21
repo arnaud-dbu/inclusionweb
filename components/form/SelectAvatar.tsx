@@ -106,7 +106,7 @@ export const SelectAvatar = ({ type, onClick, className }: Props) => {
 		<button
 			type="button"
 			onClick={onClick}
-			className={`cursor-pointer rounded-full bg-primary-500 ${className}`}>
+			className={`cursor-pointer rounded-full bg-primary-500 ${className} transition-opacity hover:opacity-80`}>
 			<AvatarComponent className="h-10 w-10 rounded-full" avatar={avatarStyles} />
 		</button>
 	);

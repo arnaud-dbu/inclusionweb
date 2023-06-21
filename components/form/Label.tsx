@@ -33,7 +33,7 @@ export const Label = ({
 			btnVariant = "border-neutral-500 text-neutral-800 border-1";
 			break;
 		case "link":
-			btnVariant = "text-primary-800 underline w-fit";
+			btnVariant = "text-primary-800 underline w-fit hover:text-primary-700 transition";
 			break;
 		default:
 			break;

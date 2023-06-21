@@ -5,7 +5,6 @@ export const youngManAvatar = {
 	facialHairType: "Blank",
 	clotheType: "ShirtCrewNeck",
 	eyeType: "Default",
-	// clotheColor="Blue03",
 	eyebrowType: "Default",
 	mouthType: "Default",
 	skinColor: "Light",
@@ -23,7 +22,7 @@ export const youngWomanAvatar = {
 	skinColor: "Light",
 };
 
-export const skinColors = ["Tanned", "Yellow", "Pale", "Light", "Brown", "DarkBrown", "Black"];
+export const skinColors = ["Tanned", "Pale", "Light", "Brown", "DarkBrown", "Black"];
 
 export const mouthTypes = [
 	"Default",
@@ -110,21 +109,21 @@ export const hairColors = [
 
 export const topTypes = [
 	"NoHair",
-	"Eyepatch",
-	"Hat",
+	// "Eyepatch",
+	// "Hat",
 	"Hijab",
 	"Turban",
-	"WinterHat1",
-	"WinterHat2",
-	"WinterHat3",
-	"WinterHat4",
+	// "WinterHat1",
+	// "WinterHat2",
+	// "WinterHat3",
+	// "WinterHat4",
 	"LongHairBigHair",
 	"LongHairBob",
 	"LongHairBun",
 	"LongHairCurly",
 	"LongHairCurvy",
 	"LongHairDreads",
-	"LongHairFrida",
+	// "LongHairFrida",
 	"LongHairFro",
 	"LongHairFroBand",
 	"LongHairNotTooLong",
@@ -144,11 +143,10 @@ export const topTypes = [
 	"ShortHairSides",
 	"ShortHairTheCaesar",
 	"ShortHairTheCaesarSidePart",
-	"Turban",
-	"WinterHat1",
-	"WinterHat2",
-	"WinterHat3",
-	"WinterHat4",
+	// "WinterHat1",
+	// "WinterHat2",
+	// "WinterHat3",
+	// "WinterHat4",
 ];
 
 export const clotheColors = [

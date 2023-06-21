@@ -15,3 +15,11 @@ export const ValidatePasswordSchema = yup.object().shape({
 		.required("Paswoord is verplicht")
 		.oneOf([yup.ref("password"), null], "Paswoord komt niet overeen"),
 });
+
+export const EmailSchema = yup.object().shape({
+	email: yup.string().email("Voer een geldig e-mailadres in").required("E-mail is verplicht"),
+	password: yup
+		.string()
+		.max(32, "Maximale wachtwoordlengte is 32")
+		.required("Wachtwoord is verplicht"),
+});

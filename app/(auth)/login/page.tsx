@@ -28,7 +28,7 @@ const LoginPage = async () => {
 				/>
 			</div>
 
-			<DivisionLine bg="white" text="Of" className={`my-4 !w-[97%] self-center`} />
+			<DivisionLine text="Of" className={`my-4 !w-[97%] self-center`} />
 
 			<LoginForm />
 

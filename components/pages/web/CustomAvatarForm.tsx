@@ -50,6 +50,12 @@ export const CustomAvatarForm = ({ className }: Props) => {
 					<HairIcon className="mr-5 h-7 w-7 fill-neutral-900" />
 				</AvatarStyle>
 				<AvatarStyle
+					name="Haar Kleur"
+					prevBtn={() => handleSwitchAvatarStyles(hairColor, "<")}
+					nextBtn={() => handleSwitchAvatarStyles(hairColor, ">")}>
+					<HairColorIcon className="mr-5 h-7 w-7 fill-neutral-900" />
+				</AvatarStyle>
+				<AvatarStyle
 					name="Ogen"
 					prevBtn={() => handleSwitchAvatarStyles(eyes, "<")}
 					nextBtn={() => handleSwitchAvatarStyles(eyes, ">")}>
@@ -73,12 +79,7 @@ export const CustomAvatarForm = ({ className }: Props) => {
 					nextBtn={() => handleSwitchAvatarStyles(clothes, ">")}>
 					<ClothesIcon className="mr-5 h-7 w-7 fill-neutral-900" />
 				</AvatarStyle>
-				<AvatarStyle
-					name="Haar Kleur"
-					prevBtn={() => handleSwitchAvatarStyles(hairColor, "<")}
-					nextBtn={() => handleSwitchAvatarStyles(hairColor, ">")}>
-					<HairColorIcon className="mr-5 h-7 w-7 fill-neutral-900" />
-				</AvatarStyle>
+
 				<AvatarStyle
 					name="Bril"
 					prevBtn={() => handleSwitchAvatarStyles(accessoriesType, "<")}

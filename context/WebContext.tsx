@@ -173,6 +173,7 @@ export const WebProvider = ({
 
 	const handleSwitchAvatarStyles = (item, dir) => {
 		setThumbnail("avatar");
+		setActiveAvatarPreset(null);
 
 		const currentIndex = item.indexOf(item.find((type) => type === item[0]));
 		let newItem = [];

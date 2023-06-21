@@ -20,7 +20,7 @@ const AvatarStyle = ({ children, name, prevBtn, nextBtn }: Props) => {
 				<button type="button">
 					<svg
 						onClick={prevBtn}
-						className="opacity-40"
+						className="opacity-30 transition-colors hover:opacity-50 active:fill-primary-800"
 						width="30"
 						height="30"
 						fill="#0c566d"
@@ -32,7 +32,7 @@ const AvatarStyle = ({ children, name, prevBtn, nextBtn }: Props) => {
 				<button type="button">
 					<svg
 						onClick={nextBtn}
-						className="rotate-180 opacity-40"
+						className="rotate-180 opacity-30 transition-colors hover:opacity-50 active:fill-primary-800"
 						width="30"
 						height="30"
 						fill="#0c566d"

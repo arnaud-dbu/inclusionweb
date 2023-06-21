@@ -9,6 +9,7 @@ import { useSupabase } from "@/app/supabase-provider";
 import { KeyIcon, MailIcon } from "@/public/icons";
 import { Button } from "@/components/form/Button";
 import { useRouter } from "next/navigation";
+import { EmailSchema } from "@/utils/shemas";
 
 // interface for form
 type EmailInterface = {
@@ -17,15 +18,6 @@ type EmailInterface = {
 	firstName: string;
 	lastName: string;
 };
-
-// validation
-const EmailSchema = yup.object().shape({
-	email: yup.string().email("Voer een geldig e-mailadres in").required("E-mail is verplicht"),
-	password: yup
-		.string()
-		.max(32, "Maximale wachtwoordlengte is 32")
-		.required("Wachtwoord is verplicht"),
-});
 
 const RegisterForm = () => {
 	const { supabase } = useSupabase();
@@ -90,7 +82,7 @@ const RegisterForm = () => {
 					register={register}
 					error={errors.email?.message}
 					className="mb-4"
-					icon={<MailIcon className={`w-6 h-6 fill-neutral-600`} />}
+					icon={<MailIcon className={`h-6 w-6 fill-neutral-600`} />}
 				/>
 				<Input
 					style="primary"
@@ -99,9 +91,9 @@ const RegisterForm = () => {
 					label="Password"
 					register={register}
 					error={errors.password?.message}
-					icon={<KeyIcon className={`w-6 h-6 fill-neutral-600`} />}
+					icon={<KeyIcon className={`h-6 w-6 fill-neutral-600`} />}
 				/>
-				<Button style="primary" label="Registreer" className="w-full mt-5" />
+				<Button style="primary" label="Registreer" className="mt-5 w-full" />
 			</Form>
 		</>
 	);

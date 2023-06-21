@@ -1,13 +1,12 @@
 type Props = {
 	text?: string;
 	className?: string;
-	bg?: string;
 };
 
-const DivisionLine = ({ text, className, bg }: Props) => {
+const DivisionLine = ({ text, className }: Props) => {
 	return (
 		<div className={`relative h-px w-full bg-neutral-500 ${className}`}>
-			<span className={` absolute-center px-3  text-neutral-800 `}>{text}</span>
+			{text && <span className={` absolute-center bg-white  px-3 text-neutral-800 `}>{text}</span>}
 		</div>
 	);
 };
