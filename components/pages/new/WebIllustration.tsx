@@ -10,12 +10,14 @@ type Props = {
 	image?: string;
 	avatar?: any;
 	thumbnail?: string;
+	loading?: boolean;
 };
 
-const WebIllustration = ({ className, avatar, image = "", thumbnail }: Props) => {
+const WebIllustration = ({ className, avatar, image = "", loading, thumbnail }: Props) => {
 	return (
 		<div className={className}>
-			<div className={`web`}>
+			<div className={`web ${loading ? "opacity-60" : ""}`}>
+				{loading && <LoadingSkeleton className={`h-full w-full rounded-full`} />}
 				<div className="web-inner opacity-20"></div>
 				<div className="web-inner scale-[.8] opacity-20"></div>
 				<div className="web-inner scale-[.6] opacity-25"></div>

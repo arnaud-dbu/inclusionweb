@@ -45,12 +45,12 @@ const ButtonLink = ({
 		<Link
 			href={href}
 			{...rest}
-			className={` flex gap-2 items-center justify-center rounded-full ${btnVariant} ${className} ${
-				!active && "!bg-neutral-600 pointer-events-none"
+			className={` flex items-center justify-center gap-2 rounded-full ${btnVariant} ${className} ${
+				!active && "pointer-events-none !bg-neutral-600"
 			}
-            ${size === "sm" ? "px-6 py-2 text-md" : "px-8 h-12"}
+            ${size === "sm" ? "text-md px-6 py-2" : "h-12 px-8"}
             `}>
-			{image && <Image className={`w-6 h-6`} src={image} alt="" width={50} height={50} />}
+			{image && <Image className={`h-6 w-6`} src={image} alt="" width={50} height={50} />}
 			{children}
 			{label}
 			{icon}
@@ -59,24 +59,3 @@ const ButtonLink = ({
 };
 
 export default ButtonLink;
-
-// type Props = {
-// 	fontWidth?: string;
-// 	color?: string;
-// 	icon?: React.ReactNode;
-// 	label?: string;
-// } & React.ButtonHTMLAttributes<HTMLButtonElement>;
-
-// export const ButtonLink = ({ fontWidth, color, icon, label, ...rest }: Props) => {
-// 	return (
-// 		<button {...rest} className="flex items-center gap-2">
-// 			{icon}
-// 			<span
-// 				className={`${color === "red" && "text-red"} ${
-// 					fontWidth === "semibold" ? "font-semibold" : "font-normal"
-// 				}`}>
-// 				{label}
-// 			</span>
-// 		</button>
-// 	);
-// };
