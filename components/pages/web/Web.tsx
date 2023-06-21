@@ -112,8 +112,7 @@ const Web = ({ shareView }: Props) => {
 						translate: "-50% -50%",
 						marginTop: "1rem",
 						marginBottom: "1rem",
-					}}
-					className={`cursor-cell `}>
+					}}>
 					<div className={`web w-[60rem]`}>
 						<DropZone>
 							{contacts?.map((contact) => (
@@ -136,22 +135,23 @@ const Web = ({ shareView }: Props) => {
 							<div className="web-inner scale-[.75] opacity-20"></div>
 							<div className="web-inner scale-[.55] opacity-20"></div>
 							<div className="web-inner scale-[.35] opacity-25"></div>
-
-							{web.image_path && (
-								<Image
-									className="absolute-center z-40 aspect-square w-[10rem] rounded-full object-cover"
-									alt="test"
-									src={`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${web.image_path}`}
-									width={700}
-									height={700}
-								/>
-							)}
-							{web.avatar && (
-								<AvatarComponent
-									avatar={web.avatar}
-									className="absolute-center z-40 mb-2 h-[10rem] w-[10rem] rounded-full bg-primary-500 object-cover"
-								/>
-							)}
+							<DndContext modifiers={[restrictToParentElement]}>
+								{web.image_path && (
+									<Image
+										className="absolute-center z-10 aspect-square w-[10rem] rounded-full object-cover"
+										alt="test"
+										src={`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${web.image_path}`}
+										width={700}
+										height={700}
+									/>
+								)}
+								{web.avatar && (
+									<AvatarComponent
+										avatar={web.avatar}
+										className="absolute-center z-40 mb-2 h-[10rem] w-[10rem] rounded-full bg-primary-500 object-cover"
+									/>
+								)}
+							</DndContext>
 							<WebSliceContainer />
 						</DropZone>
 					</div>

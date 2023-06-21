@@ -29,7 +29,7 @@ const SideBar = () => {
 					<Button
 						style="primary"
 						label="Nieuw Contact"
-						className=" absolute bottom-8 left-1/2 w-[calc(100%-4rem)]  -translate-x-1/2 md:bottom-8 md:w-[calc(100%-4rem)] lg:bottom-16 lg:w-[calc(100%-8rem)]"
+						className=" absolute bottom-8 left-1/2 w-[calc(100%-4rem)]  -translate-x-1/2 md:bottom-8 md:w-[calc(100%-4rem)] lg:bottom-16 lg:w-[calc(100%-8rem)] xl:bottom-12"
 						icon={<AddUserIcon className="mr-2 h-6 w-6 fill-white" />}
 						onClick={handleOpenNewContactModal}
 					/>

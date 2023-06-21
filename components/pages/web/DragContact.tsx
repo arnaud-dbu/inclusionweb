@@ -31,7 +31,7 @@ const DragContactInfo = ({ title, icon }) => {
 	return (
 		<div className={`flex items-center justify-between gap-3  `}>
 			<div className={`rounded-md bg-primary-300 p-2 shadow-lg`}>{icon}</div>
-			{title && <span className={`text-start text-sm text-neutral-900`}>{title}</span>}
+			{title && <span className={`text-start text-base text-neutral-900`}>{title}</span>}
 		</div>
 	);
 };
@@ -93,6 +93,7 @@ export const DragContact = ({ id, name, styles, avatar, visible, image }: Props)
 		: {};
 
 	const avatarStyle = isDragging && "lifted";
+	const avatarScale = avatarSize === "small" ? "h-[4rem] w-[4rem]" : "h-[5rem] w-[5rem]";
 
 	return (
 		<div className={`relative`} style={{ ...style, ...CustomStyle, ...styles }} ref={setNodeRef}>
@@ -103,18 +104,14 @@ export const DragContact = ({ id, name, styles, avatar, visible, image }: Props)
 					} relative flex flex-col items-center gap-2`}>
 					{currentContact.image_type === "avatar" && (
 						<AvatarComponent
-							className={`rounded-full bg-white object-cover shadow-lg ${avatarStyle} ${
-								avatarSize === "small" ? "h-12 w-12" : "h-16 w-16"
-							}`}
+							className={`rounded-full bg-white object-cover shadow-lg ${avatarStyle} ${avatarScale}`}
 							avatar={avatar}
 						/>
 					)}
 
 					{currentContact.image_type === "customImage" && (
 						<Image
-							className={`rounded-full bg-white object-cover shadow-lg ${avatarStyle} ${
-								avatarSize === "small" ? "h-12 w-12" : "h-16 w-16"
-							}`}
+							className={`rounded-full bg-white object-cover shadow-lg ${avatarStyle} ${avatarScale}`}
 							alt="test"
 							src={`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${image}`}
 							width={100}
@@ -124,9 +121,7 @@ export const DragContact = ({ id, name, styles, avatar, visible, image }: Props)
 
 					{currentContact.image_type === "presetImage" && (
 						<Image
-							className={`rounded-full bg-white object-cover shadow-lg ${avatarStyle} ${
-								avatarSize === "small" ? "h-12 w-12" : "h-16 w-16"
-							}`}
+							className={`rounded-full bg-white object-cover shadow-lg ${avatarStyle} ${avatarScale}`}
 							alt="test"
 							src={image}
 							width={100}
@@ -135,22 +130,32 @@ export const DragContact = ({ id, name, styles, avatar, visible, image }: Props)
 					)}
 
 					{namesVisible && (
-						<span className="text-center font-primary text-sm font-semibold uppercase text-neutral-900 ">
+						<span
+							className={`overflow-hidden text-ellipsis whitespace-nowrap text-center font-primary font-semibold uppercase text-neutral-900 ${
+								avatarSize === "small" ? " text-lg" : " text-xl"
+							}`}
+							style={{ maxWidth: "6rem" }}>
 							{name}
 						</span>
 					)}
 				</div>
 			</button>
 
-			<div className={`icon absolute right-0 top-[2.6rem] z-10 cursor-pointer `} ref={hoverRef}>
+			<div
+				className={`icon absolute right-0  ${
+					avatarSize === "small" ? "top-[2.5rem] " : "top-[3rem]"
+				} z-10 cursor-pointer `}
+				ref={hoverRef}>
 				<div
-					className={`relative flex h-5 w-5 items-center justify-center rounded-full bg-primary-800 fill-white p-[3px] shadow-lg `}>
-					{currentContact.type === "person" && <PersonIcon className={"h-5 w-5 fill-white"} />}
-					{currentContact.type === "group" && <GroupIcon className={"h-5 w-5 fill-white"} />}
-					{currentContact.type === "place" && <PlaceIcon className={"h-5 w-5 fill-white"} />}
-					{currentContact.type === "animal" && <AnimalIcon className={"h-5 w-5 fill-white"} />}
+					className={`relative flex ${
+						avatarSize === "small" ? " h-[1.5rem] w-[1.5rem]" : " h-[1.75rem] w-[1.75rem] p-[2px]"
+					} items-center justify-center rounded-full bg-primary-800 fill-white shadow-lg `}>
+					{currentContact.type === "person" && <PersonIcon className={"h-4 w-4 fill-white"} />}
+					{currentContact.type === "group" && <GroupIcon className={"h-4 w-4 fill-white"} />}
+					{currentContact.type === "place" && <PlaceIcon className={"h-4 w-4 fill-white"} />}
+					{currentContact.type === "animal" && <AnimalIcon className={"h-4 w-4 fill-white"} />}
 					<div
-						className={`absolute -right-[1rem] bottom-0 h-[10rem] w-[1rem] bg-transparent ${
+						className={`absolute -right-[1rem] bottom-0 h-[10rem] w-[2rem] bg-transparent ${
 							isHover ? "block" : "hidden"
 						}`}></div>
 				</div>
@@ -158,7 +163,11 @@ export const DragContact = ({ id, name, styles, avatar, visible, image }: Props)
 					className={`box absolute -right-[16rem] bottom-0 z-50 flex w-[15rem] flex-col items-start gap-2 rounded-2xl border-2 border-neutral-500 bg-white px-6 py-6 shadow-lg  ${
 						isHover ? "block" : "hidden"
 					}`}>
-					<H2 underline title={currentContact?.name} className={`mb-2 text-2xl`} />
+					<H2
+						underline
+						title={currentContact?.name}
+						className={`mb-2 max-w-[13rem] overflow-hidden text-ellipsis whitespace-nowrap !text-3xl`}
+					/>
 					{currentContact?.role && (
 						<DragContactInfo
 							title={currentContact?.role}
@@ -200,7 +209,7 @@ export const DragContact = ({ id, name, styles, avatar, visible, image }: Props)
 						/>
 					)}
 
-					<div className={`mt-4 flex items-center gap-1 self-end`}>
+					<div className={`mt-4 flex items-center gap-2`}>
 						<Button
 							onClick={handleRemoveVisibility}
 							id={id}

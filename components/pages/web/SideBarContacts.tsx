@@ -107,6 +107,7 @@ const SideBarContact = ({ contact }) => {
 					? "w-full gap-0 px-5 py-4 md:gap-3"
 					: "h-[15rem] w-[48%] flex-col justify-center lg:h-[15rem] "
 			}`}>
+			{/* Contact thumbnail */}
 			<ContactThumbnail
 				type={contact.type}
 				size="sm"
@@ -132,25 +133,31 @@ const SideBarContact = ({ contact }) => {
 				)}
 			</ContactThumbnail>
 
+			{/* Contact Name */}
 			<div className={`flex flex-col ${view === "list" ? "ml-3" : "items-center"}`}>
 				<div className={`flex flex-col gap-1 lg:flex-row lg:gap-3`}>
 					<span
-						className={`relative font-bold text-neutral-800 ${
+						className={`relative max-w-[10rem] overflow-hidden text-ellipsis whitespace-nowrap font-bold text-neutral-800 ${
 							view === "list" ? "text-lg" : "text-xl lg:text-lg xl:text-xl"
 						}`}>
 						{contact.name}
 					</span>
+					{/* Contact Settings */}
 					{view === "list" && (
 						<div className={`flex items-center gap-1`}>
 							<IconButton
-								className={`opacity-60`}
+								className={`opacity-60 transition hover:opacity-100`}
 								onClick={() => handleEditContact(contact.id)}
-								icon={<PencilIcon className={`h-6 w-6 fill-neutral-600`} />}
+								icon={<PencilIcon className={`h-4 w-4 fill-neutral-600`} />}
 							/>
 							<IconButton
-								className={`opacity-60`}
+								className={`opacity-60 transition  `}
 								onClick={() => handleDeleteContact(contact.id)}
-								icon={<TrashIcon className={`h-6 w-6 fill-neutral-600`} />}
+								icon={
+									<TrashIcon
+										className={`h-4 w-4 fill-neutral-600 hover:fill-red-900 hover:opacity-100`}
+									/>
+								}
 							/>
 						</div>
 					)}
@@ -158,7 +165,7 @@ const SideBarContact = ({ contact }) => {
 				<span className="font-light text-neutral-800">{contact.role}</span>
 			</div>
 			<div
-				className={`absolute left-12 top-5 flex -translate-x-1/2 items-center  gap-2 transition-opacity ${
+				className={`absolute left-10 top-4 flex -translate-x-1/2 items-center  gap-2 transition-opacity ${
 					isHoverContact ? "opacity-100" : "opacity-0"
 				}`}>
 				{view === "grid" && (
@@ -166,17 +173,18 @@ const SideBarContact = ({ contact }) => {
 						<IconButton
 							className={`opacity-60 transition hover:opacity-100`}
 							onClick={() => handleDeleteContact(contact.id)}
-							icon={<TrashIcon className={`h-6 w-6 fill-neutral-600`} />}
+							icon={<TrashIcon className={`h-5 w-5 fill-neutral-600 hover:fill-red-900`} />}
 						/>
 						<IconButton
 							className={`opacity-60 transition hover:opacity-100`}
 							onClick={() => handleEditContact(contact.id)}
-							icon={<PencilIcon className={`h-6 w-6 fill-neutral-600`} />}
+							icon={<PencilIcon className={`h-5 w-5 fill-neutral-600 `} />}
 						/>
 					</>
 				)}
 			</div>
 
+			{/* Contact add to map button */}
 			<div
 				ref={hoverRef}
 				className={`absolute flex h-12 w-12 items-center justify-center ${

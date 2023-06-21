@@ -53,7 +53,7 @@ const NewContactFormHeader = () => {
 				/>
 			</div>
 
-			{thumbnail === "default" && (
+			{/* {thumbnail === "default" && (
 				<ContactThumbnail type={type}>
 					<Image
 						className={`${thumbnailStyles} aspect-square rounded-full object-cover`}
@@ -63,7 +63,7 @@ const NewContactFormHeader = () => {
 						height={700}
 					/>
 				</ContactThumbnail>
-			)}
+			)} */}
 
 			{thumbnail === "avatar" && (
 				<ContactThumbnail type={type}>

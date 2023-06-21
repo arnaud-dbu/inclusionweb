@@ -101,8 +101,8 @@ export const WebProvider = ({
 	const [imageUrl, setImageUrl] = useState("");
 	const [dragContacts, setDragContacts] = useState(fetchedContactsData);
 	const [editAvatarWindow, setEditAvatarWindow] = useState(false);
-	const [thumbnail, setThumbnail] = useState("default");
-	const [activeAvatarPreset, setActiveAvatarPreset] = useState("default");
+	const [thumbnail, setThumbnail] = useState("avatar");
+	const [activeAvatarPreset, setActiveAvatarPreset] = useState("youngManAvatar");
 	const [selectedReceivedSupport, setSelectedReceivedSupport] = useState<string[]>([]);
 	const [selectedGivenSupport, setSelectedGivenSupport] = useState<string[]>([]);
 	const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -140,12 +140,15 @@ export const WebProvider = ({
 	const handleClosingModal = () => {
 		setModalVisible(null);
 		setEditContact(null);
-		setThumbnail("default");
+		setThumbnail("avatar");
 		setSelectedGivenSupport([""]);
 		setSelectedReceivedSupport([""]);
-		setActiveAvatarPreset("null");
+		setActiveAvatarPreset("youngManAvatar");
+		handlePresetAvatarSubmit("youngManAvatar");
 		setType("person");
 	};
+
+	console.log(activeAvatarPreset);
 
 	// Check if contacts array exists before filtering
 	const searchFilteredContacts = contacts ? searchFilter(contacts) : [];

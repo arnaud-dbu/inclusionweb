@@ -21,3 +21,4 @@ export { default as HouseImage } from "./house.png";
 export { default as BuildingsImage } from "./buildings.png";
 export { default as ParkImage } from "./park.png";
 export { default as MountainImage } from "./mountain.png";
+export { default as FaviconImage } from "./favicon.png";

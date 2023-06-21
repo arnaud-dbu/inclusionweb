@@ -16,7 +16,7 @@ type Props = {
 const WebIllustration = ({ className, avatar, image = "", loading, thumbnail }: Props) => {
 	return (
 		<div className={className}>
-			<div className={`web ${loading ? "opacity-50" : ""}`}>
+			<div className={`web ${loading ? "opacity-60" : ""}`}>
 				{loading && <LoadingSkeleton className={`h-full w-full rounded-full`} />}
 				<div className="web-inner opacity-20"></div>
 				<div className="web-inner scale-[.8] opacity-20"></div>

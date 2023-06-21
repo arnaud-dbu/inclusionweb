@@ -3,7 +3,6 @@ import { H1 } from "@/components/Typography";
 import { OrganizationIllustration } from "@/public/illustrations";
 import { Button } from "@/components/form/Button";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 const NotFoundPage = () => {
 	return (

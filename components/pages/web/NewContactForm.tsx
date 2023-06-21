@@ -45,6 +45,7 @@ export const NewContactForm = () => {
 		setSelectedReceivedSupport,
 		setTopType,
 		setSkinColor,
+		handlePresetAvatarSubmit,
 		setAccessoriesType,
 		setHairColor,
 		setFacialHair,
@@ -86,12 +87,19 @@ export const NewContactForm = () => {
 
 	// When editContact is set, fill in the form with the data of the contact
 	useEffect(() => {
+		if (editContact?.image_type === "presetImage") {
+			setImageUrl(editContact.image_path);
+			setThumbnail("presetImage");
+		}
+		if (editContact?.image_type === "customImage") {
+			setThumbnail("customImage");
+			setImageUrl(`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${editContact.image_path}`);
+		}
 		if (editContact) {
 			setType(editContact.type);
 			setValue("name", editContact.name);
 			setValue("role", editContact.role);
 			setValue("relation", editContact.relation);
-
 			setValue("given_support", editContact.given_support);
 			setValue("received_support", editContact.received_support);
 			setSelectedGivenSupport(editContact.given_support);
@@ -113,14 +121,6 @@ export const NewContactForm = () => {
 				setEyes([avatarStyle.eyeType, ...eyeTypes.slice(1)]);
 				setEyebrow([avatarStyle.eyebrowType, ...eyebrowTypes.slice(1)]);
 				setMouth([avatarStyle.mouthType, ...mouthTypes.slice(1)]);
-			}
-			if (editContact.image_type === "presetImage") {
-				setImageUrl(editContact.image_path);
-				setThumbnail("presetImage");
-			}
-			if (editContact.image_type === "customImage") {
-				setThumbnail("customImage");
-				setImageUrl(`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${editContact.image_path}`);
 			}
 		}
 	}, [
@@ -146,10 +146,11 @@ export const NewContactForm = () => {
 	const handleClosingModal = () => {
 		setModalVisible(null);
 		setEditContact(null);
-		setThumbnail("default");
+		setThumbnail("avatar");
 		setSelectedGivenSupport([""]);
 		setSelectedReceivedSupport([""]);
-		setActiveAvatarPreset("null");
+		setActiveAvatarPreset("youngManAvatar");
+		handlePresetAvatarSubmit("youngManAvatar");
 		setType("person");
 		reset();
 	};
@@ -208,18 +209,22 @@ export const NewContactForm = () => {
 					...body,
 					position: clickPosition !== null ? clickPosition : { x: 0, y: 0 },
 				};
-				setModalVisible(false);
 
 				if (contacts.length === 0) {
 					setContacts([newContact]);
 				} else {
 					setContacts([...contacts, newContact]);
 				}
+
+				handleClosingModal();
+				reset();
 			}
 		} catch (error) {
 			console.log(error);
 		}
 	};
+
+	console.log(setActiveAvatarPreset);
 
 	// Edit existing contact
 	const handleEditContactSubmit = async (data: any) => {
@@ -269,11 +274,12 @@ export const NewContactForm = () => {
 					...editContact,
 					...body,
 				};
-				setModalVisible(false);
-				setEditContact(null);
 				setContacts(
 					contacts.map((contact) => (contact.id === editContact.id ? newContact : contact))
 				);
+
+				handleClosingModal();
+				reset();
 			}
 		} catch (error) {
 			console.log(error);
