@@ -52,7 +52,6 @@ export const WebProvider = ({
 	params,
 }: Props) => {
 	// Data
-
 	const [sessions, setSessions] = useState(fetchedSessionsData);
 	const [web, setWeb] = useState(fetchedWebData);
 	const [webs, setWebs] = useState(fetchedWebsData);
@@ -79,8 +78,8 @@ export const WebProvider = ({
 	// Convert session to string
 	const getSession = (session) => {
 		const sessionString = session.session.toString();
-		const formattedDate = dayjs(currentSession.created_at).format("MM/DD/YYYY");
-		return `Versie ${sessionString} - ${session.name ?? formattedDate}`;
+		const formattedDate = dayjs(session.created_at).format("MM/DD/YYYY");
+		return `Versie ${sessionString} -  ${session.name || formattedDate}`;
 	};
 
 	// States
@@ -147,8 +146,6 @@ export const WebProvider = ({
 		handlePresetAvatarSubmit("youngManAvatar");
 		setType("person");
 	};
-
-	console.log(activeAvatarPreset);
 
 	// Check if contacts array exists before filtering
 	const searchFilteredContacts = contacts ? searchFilter(contacts) : [];
@@ -270,7 +267,7 @@ export const WebProvider = ({
 				setEyebrow(["RaisedExcited", ...eyebrowTypes.slice(1)]);
 				setMouth(["Default", ...mouthTypes.slice(1)]);
 
-				setActiveAvatarPreset("youngWomanAvatar");
+				setActiveAvatarPreset("middleAgeWomanAvatar");
 				setThumbnail("avatar");
 				break;
 			case "middleAgeManAvatar":

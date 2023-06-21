@@ -89,9 +89,7 @@ const Web = ({ shareView }: Props) => {
 		<section
 			ref={containerRef}
 			className={`relative h-full ${
-				shareView
-					? ""
-					: "lg:w-[calc(100%-30rem)] 2xl:w-[calc(100%-35rem)]  3xl:w-[calc(100%-40rem)]"
+				shareView ? "" : "lg:w-[calc(100%-30rem)]  3xl:w-[calc(100%-40rem)]"
 			} `}>
 			<WebSettings shareView={shareView} />
 			<H1
@@ -126,6 +124,7 @@ const Web = ({ shareView }: Props) => {
 									id={contact.id}
 									name={contact.name}
 									avatar={contact.avatar}
+									shareView={shareView}
 									image={contact.image_path}
 									visible={contact.visible ? "block" : "none"}
 								/>

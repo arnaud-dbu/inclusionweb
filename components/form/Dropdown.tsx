@@ -86,7 +86,6 @@ export const Dropdown = ({ options, name, className, placeholder, ...props }: Pr
 				{...props}
 				closeMenuOnSelect={true}
 				hideSelectedOptions={true}
-				// defaultValue={selectedOption}
 				onChange={handleSelectChange}
 				name={name}
 				options={options}

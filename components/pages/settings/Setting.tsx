@@ -26,7 +26,6 @@ export const Setting = ({
 	className,
 	register,
 	validationMessage,
-	passwordIsUpdated,
 	form = true,
 }: Props) => {
 	return (
@@ -54,7 +53,7 @@ export const Setting = ({
 	);
 };
 
-const ValidationMessage = ({ message }) => {
+export const ValidationMessage = ({ message }) => {
 	return (
 		<div className={`flex items-center gap-[5px]`}>
 			<svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">

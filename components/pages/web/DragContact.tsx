@@ -21,6 +21,7 @@ import { Button } from "@/components/form/Button";
 type Props = {
 	id: string;
 	name: string;
+	shareView?: boolean;
 	styles: any;
 	avatar?: any;
 	visible?: string;
@@ -36,7 +37,7 @@ const DragContactInfo = ({ title, icon }) => {
 	);
 };
 
-export const DragContact = ({ id, name, styles, avatar, visible, image }: Props) => {
+export const DragContact = ({ id, name, styles, avatar, visible, image, shareView }: Props) => {
 	const hoverRef = useRef(null);
 	const isHover = useHover(hoverRef);
 
@@ -208,17 +209,18 @@ export const DragContact = ({ id, name, styles, avatar, visible, image }: Props)
 							icon={<ChartIcon className={infoIconStyle} />}
 						/>
 					)}
-
-					<div className={`mt-4 flex items-center gap-2`}>
-						<Button
-							onClick={handleRemoveVisibility}
-							id={id}
-							label="Verwijder"
-							style="outline"
-							size="xs"
-						/>
-						<Button onClick={handleEditContact} label="Bewerken" style="secondary" size="xs" />
-					</div>
+					{!shareView && (
+						<div className={`mt-4 flex items-center gap-2`}>
+							<Button
+								onClick={handleRemoveVisibility}
+								id={id}
+								label="Verwijder"
+								style="outline"
+								size="xs"
+							/>
+							<Button onClick={handleEditContact} label="Bewerken" style="secondary" size="xs" />
+						</div>
+					)}
 				</div>
 			</div>
 		</div>

@@ -38,7 +38,7 @@ const MenuButtons = () => {
 	const lastWebSessions = sessions?.filter((session) => session.web_id === lastWeb?.id);
 	// Get the latest session number
 	const sortedSessions = lastWebSessions?.sort((a, b) => b.session - a.session);
-	const lastSessionNumber = sortedSessions[0].session;
+	const lastSessionNumber = sortedSessions[0]?.session;
 
 	const handleLogout = async () => {
 		await supabase.auth.signOut();

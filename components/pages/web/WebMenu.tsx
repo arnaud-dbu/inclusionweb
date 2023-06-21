@@ -3,20 +3,20 @@
 import { H2 } from "@/components/Typography";
 import { BlockTitle } from "@/components/form/BlockTitle";
 import { useContext, useState } from "react";
-import { Setting } from "../settings/Setting";
+import { Setting, ValidationMessage } from "../settings/Setting";
 import { Input } from "@/components/form/Input";
 import { Button } from "@/components/form/Button";
 import { useForm } from "react-hook-form";
 import { WebContext } from "@/context/WebContext";
 import DropdownVersion from "./VersionDropdown";
 import { useRouter } from "next/navigation";
-import { DuplicateIcon, FilePlusIcon } from "@/public/icons";
+import { CopyIcon, FilePlusIcon, FoldersIcon } from "@/public/icons";
 import { useSupabase } from "@/app/supabase-provider";
 import { CategoryButton } from "@/components/form/CategoryButton";
 import { useCopyToClipboard } from "usehooks-ts";
 import { motion } from "framer-motion";
 import Backdrop from "@/components/Backdrop";
-import HyperLink from "@/components/Hyperlink";
+import { IconButton } from "@/components/form/IconButton";
 
 type Props = {};
 
@@ -29,16 +29,14 @@ const WebMenu = (props: Props) => {
 		currentSession,
 		getSession,
 		modalVisible,
-		imageUrl,
 		setModalVisible,
 		editInfoVisible,
 		setEditInfoVisible,
 		customAvatar,
-		editAvatarWindow,
 		thumbnail,
+		validationMessage,
+		setValidationMessage,
 		setWeb,
-		handleCustomImageChangeUpload,
-		setEditAvatarWindow,
 	} = useContext(WebContext);
 	const [selectedOption, setSelectedOption] = useState(null);
 	const router = useRouter();
@@ -133,7 +131,7 @@ const WebMenu = (props: Props) => {
 
 		setSessions(newSessions);
 
-		await fetch(`/api/sessions/${currentSession.id}`, {
+		const response = await fetch(`/api/sessions/${currentSession.id}`, {
 			method: "PATCH",
 			body: JSON.stringify({
 				name: data.name,
@@ -142,6 +140,10 @@ const WebMenu = (props: Props) => {
 				"Content-Type": "application/json",
 			},
 		});
+
+		if (response.status === 201) {
+			setValidationMessage(["versionName", "Versie naam gewijzigd"]);
+		}
 	};
 
 	const handleSubmitWebName = async (data) => {
@@ -151,42 +153,17 @@ const WebMenu = (props: Props) => {
 		};
 		setWeb(newWebData);
 
-		await fetch(`/api/webs/${web.id}`, {
+		const response = await fetch(`/api/webs/${web.id}`, {
 			method: "PATCH",
 			body: JSON.stringify(newWebData),
 			headers: {
 				"Content-Type": "application/json",
 			},
 		});
-	};
 
-	const handleSubmitImage = async (data) => {
-		const userId = (await supabase.auth.getUser()).data.user.id;
-		let imagePath = null;
-
-		if (thumbnail === "customImage") {
-			// Upload image
-			const { data: image } = await supabase.storage
-				.from("uploads")
-				.upload(userId + "/" + crypto.randomUUID(), data.picture[0]);
-
-			imagePath = image.path;
+		if (response.status === 201) {
+			setValidationMessage(["webName", "Versie naam gewijzigd"]);
 		}
-
-		const newWebData = {
-			...web,
-			avatar: thumbnail === "avatar" ? customAvatar : null,
-			image_path: thumbnail === "customImage" ? imagePath : null,
-		};
-		setWeb(newWebData);
-
-		await fetch(`/api/webs/${web.id}`, {
-			method: "PATCH",
-			body: JSON.stringify(newWebData),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
 	};
 
 	const handleShareSession = async () => {
@@ -211,6 +188,7 @@ const WebMenu = (props: Props) => {
 		resetWebName();
 		resetVersionName();
 		copy(null);
+		setValidationMessage(null);
 	};
 
 	const variants = {
@@ -244,128 +222,115 @@ const WebMenu = (props: Props) => {
 							</div>
 						</div>
 
-						<Setting
-							className={`${editInfoVisible !== "Versie" && "hidden"}`}
-							handleSubmit={handleVersionNameSubmit}
-							onSubmit={handleSubmitVersionName}
-							register={registerVersionName}>
-							<BlockTitle className={`mb-3 md:mb-5`} title="Wijzig je versie naam" />
-							<Input
-								style="secondary"
+						{/* Change session name */}
+						<section className={`${editInfoVisible !== "Versie" && "hidden"}`}>
+							<Setting
+								handleSubmit={handleVersionNameSubmit}
+								onSubmit={handleSubmitVersionName}
 								register={registerVersionName}
-								name="name"
-								label="Naam"
-								error={nameVersionNameErrors.name?.message}
-								defaultValue={currentSession.name}
-								className={`mb-8 w-full`}
-								buttonLabel="Opslaan"
-							/>
-							<BlockTitle className={`mb-3 md:mb-5`} title="Versie overzicht" />
-							<DropdownVersion
-								selectedOption={selectedOption}
-								setSelectedOption={setSelectedOption}
-								handleSessionChange={handleSessionChange}
-								className={`mb-5 w-full`}
-								name="session"
-								placeholder={getSession(currentSession)}
-								options={sessions.map((session) => ({
-									id: session.id,
-									value: session.session,
-									label: getSession(session),
-								}))}
-							/>
+								validationMessage={validationMessage}>
+								<div className={`mb-5 flex items-center justify-between`}>
+									<BlockTitle className={`!mb-0`} title="Wijzig je versie naam" />
+									{validationMessage && validationMessage[0] === "versionName" && (
+										<ValidationMessage message={validationMessage[1]} />
+									)}
+								</div>
+
+								<Input
+									style="secondary"
+									register={registerVersionName}
+									name="name"
+									label="Naam"
+									error={nameVersionNameErrors.name?.message}
+									defaultValue={currentSession.name}
+									className={`mb-8 w-full`}
+									buttonLabel="Opslaan"
+								/>
+
+								{/* Change session view */}
+								<BlockTitle className={`mb-3 md:mb-5`} title="Versie overzicht" />
+								<DropdownVersion
+									selectedOption={selectedOption}
+									setSelectedOption={setSelectedOption}
+									handleSessionChange={handleSessionChange}
+									className={`mb-3 w-full`}
+									name="session"
+									placeholder={getSession(currentSession)}
+									options={sessions.map((session) => ({
+										id: session.id,
+										value: session.session,
+										label: getSession(session),
+									}))}
+								/>
+							</Setting>
+
+							{/* Create new session */}
 							<div className={`flex items-center gap-2`}>
 								<FilePlusIcon className={`h-5 w-5 fill-primary-700`} />
 								<Button
 									onClick={handleNewSession}
-									label="Start een nieuwe sessie"
+									label="Start een nieuwe blanco versie (blanco)"
 									size="xs"
 									style="link"
-									className={`!px-0 `}
+									className={`!px-0 !py-0`}
 								/>
 							</div>
+
+							{/* Duplicate session */}
 							<div className={`flex items-center gap-2`}>
-								<DuplicateIcon className={`h-5 w-5 fill-primary-700`} />
+								<FoldersIcon className={`h-5 w-5 fill-primary-700`} />
 								<Button
 									onClick={handleDuplicateSession}
-									label="Maak een kopie van de huidige sessie"
+									label={`Start een nieuwe versie (werk verder op versie ${currentSession.session})`}
 									size="xs"
 									style="link"
-									className={`!px-0`}
+									className={`!px-0 !py-0`}
 								/>
 							</div>
-						</Setting>
+						</section>
 
-						<Setting
-							className={`${editInfoVisible !== "Mijn Web" && "hidden"}`}
-							handleSubmit={handleWebNameSubmit}
-							onSubmit={handleSubmitWebName}
-							register={registerWebName}>
-							<BlockTitle className={`mb-5`} title="Wijzig de naam van je inclusiewebweb" />
-							<Input
-								register={registerWebName}
-								style="primary"
-								name="name"
-								label="Naam"
-								error={webNameErrors.name?.message}
-								defaultValue={web.name}
-								className={`mb-8 w-full`}
-								buttonLabel="Opslaan"
-							/>
-						</Setting>
-
-						{/* <Setting
-							className={`${editInfoVisible !== "Mijn Web" && "hidden"}`}
-							divisionLine={false}
-							handleSubmit={handleImageSubmit}
-							onSubmit={handleSubmitImage}
-							register={registerImage}>
-							<BlockTitle
-								className={`mb-3 md:mb-5`}
-								title="Wijzig de afbeelding van je inclusieweb"
-							/>
-							<div className={`flex flex-col pt-3`}>
-								{thumbnail === "customImage" && (
-									<Image
-										className="mb-4 aspect-square h-[7rem] w-[7rem] rounded-full object-cover"
-										alt="test"
-										src={imageUrl}
-										width={700}
-										height={700}
-									/>
-								)}
-								{thumbnail === "avatar" && <CustomAvatar className={`mb-4 h-[7rem] w-[7rem]`} />}
-								<Label
-									style="link"
-									icon={<ImageIcon className={`h-5 w-5 fill-neutral-800`} />}
-									size="sm"
-									title={thumbnail === "image" ? "Foto geselecteerd" : "Upload een foto"}
-									className={`file-input-hidden mb-6 w-fit !px-0 ${
-										thumbnail === "customImage" &&
-										"border-primary-800 bg-primary-300 text-primary-900"
-									} `}>
-									<input
-										{...registerImage("picture")}
-										onChange={handleCustomImageChangeUpload}
-										className=""
-										type="file"
-										name="picture"
-										accept="image/*"
-									/>
-								</Label>
-								<CustomAvatarForm className={`w-full`} />
-							</div>
-							<button>Change</button>
-						</Setting> */}
+						{/* Edit web settings */}
+						<section className={`${editInfoVisible !== "Mijn Web" && "hidden"}`}>
+							<Setting
+								className={`${editInfoVisible !== "Mijn Web" && "hidden"}`}
+								handleSubmit={handleWebNameSubmit}
+								onSubmit={handleSubmitWebName}
+								register={registerWebName}>
+								<div className={`mb-5 flex items-center justify-between`}>
+									<BlockTitle className={`!mb-0`} title="Wijzig je web naam" />
+									{validationMessage && validationMessage[0] === "webName" && (
+										<ValidationMessage message={validationMessage[1]} />
+									)}
+								</div>{" "}
+								<Input
+									register={registerWebName}
+									style="primary"
+									name="name"
+									label="Naam"
+									error={webNameErrors.name?.message}
+									defaultValue={web.name}
+									className={`mb-8 w-full`}
+									buttonLabel="Opslaan"
+								/>
+							</Setting>
+						</section>
 
 						<section className={`${editInfoVisible !== "Deel" && "hidden"}`}>
-							<div>
-								<BlockTitle
-									className={`mb-3 md:mb-5`}
-									title="Deel link"
-									description="Kopieer de link om je web te delen"
+							<BlockTitle className={`!mb-0`} title="Deel link" />
+							<div className={`mb-3 flex items-end gap-2 md:mb-5`}>
+								<span className={`text-sm font-light text-neutral-800`}>
+									Kopieer de link om je web te delen
+								</span>
+								<IconButton
+									onClick={() =>
+										copy(`${process.env.NEXT_PUBLIC_HOST}/view/${currentSession.share_id}`)
+									}
+									icon={
+										<CopyIcon
+											className={`h-4 w-4 fill-neutral-600 transition-colors hover:fill-neutral-700 active:fill-primary-800`}
+										/>
+									}
 								/>
-								<span>{value ? "Gekopieerd" : ""}</span>
 							</div>
 							<div className={`flex items-center gap-3`}>
 								<Input
@@ -375,15 +340,10 @@ const WebMenu = (props: Props) => {
 									error={webNameErrors.name?.message}
 									value={`${process.env.NEXT_PUBLIC_HOST}/view/${currentSession.share_id}`}
 									className={`mb-0 w-full`}
-									buttonLabel="Kopieer"
+									buttonLabel="Bekjk pagina"
 									buttonOnClick={() =>
-										copy(`${process.env.NEXT_PUBLIC_HOST}/view/${currentSession.share_id}`)
+										router.push(`${process.env.NEXT_PUBLIC_HOST}/view/${currentSession.share_id}`)
 									}
-								/>
-								<HyperLink
-									target="_blank"
-									href={`${process.env.NEXT_PUBLIC_HOST}/view/${currentSession.share_id}`}
-									label="Bekijk pagina"
 								/>
 							</div>
 						</section>

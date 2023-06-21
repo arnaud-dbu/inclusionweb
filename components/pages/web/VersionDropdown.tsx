@@ -30,7 +30,11 @@ const Option = (props) => {
 					<div className={`flex items-center gap-2`}>
 						<IconButton
 							onClick={(event) => handleDeleteSession(props.data.id, event)}
-							icon={<TrashIcon className={`pointer-events-auto h-4 w-4 fill-neutral-800`} />}
+							icon={
+								<TrashIcon
+									className={`pointer-events-auto h-4 w-4 fill-neutral-800 transition-colors hover:fill-red-900`}
+								/>
+							}
 						/>
 					</div>
 				</div>
@@ -88,6 +92,7 @@ const DropdownVersion = ({
 	const { session } = useContext(WebContext);
 
 	const filteredOptions = options.filter((option) => option.value !== parseFloat(session));
+	const sortedOptions = filteredOptions.sort((a, b) => a.value - b.value);
 
 	return (
 		<div className={` ${className}`}>
@@ -132,11 +137,11 @@ const DropdownVersion = ({
 				}}
 				{...props}
 				closeMenuOnSelect={true}
-				hideSelectedOptions={true}
+				hideSelectedOptions={false}
 				components={{ Option }}
-				defaultValue={selectedOption}
+				// defaultValue={selectedOption}
 				onChange={handleSessionChange}
-				options={filteredOptions}
+				options={sortedOptions}
 				placeholder={placeholder}
 			/>
 		</div>
