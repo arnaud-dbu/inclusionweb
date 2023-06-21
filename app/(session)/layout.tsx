@@ -34,13 +34,13 @@ const SessionLayout = async ({ children }: Props) => {
 	// Get all webs
 	const websRes = await fetch(`${process.env.HOST}/api/webs`, { cache: "no-cache" });
 	const fetchedWebsData = await websRes.json();
-	const userWebs = fetchedWebsData?.filter((web: any) => web.user_id === user?.id);
+	const userWebs = await fetchedWebsData?.filter((web: any) => web.user_id === user?.id);
 
 	return (
 		<WebProvider
+			fetchedWebsData={userWebs}
 			fetchedContactsData={fetchedContactsData}
 			fetchedSessionsData={fetchedSessionsData}
-			fetchedWebsData={userWebs}
 			user={user}>
 			<div className="relative mt-16 h-[calc(100vh-4rem)] xl:relative  xl:left-[6rem] xl:mt-0 xl:h-screen xl:w-[calc(100vw-6rem)]">
 				<NavBar />

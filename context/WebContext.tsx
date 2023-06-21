@@ -52,9 +52,10 @@ export const WebProvider = ({
 	params,
 }: Props) => {
 	// Data
-	const [webs, setWebs] = useState(fetchedWebsData);
+
 	const [sessions, setSessions] = useState(fetchedSessionsData);
 	const [web, setWeb] = useState(fetchedWebData);
+	const [webs, setWebs] = useState(fetchedWebsData);
 
 	const currentSession = sessions?.filter((x) => x.session == session)[0];
 	const currentSessionContacts = fetchedContactsData?.filter((contact) => {
@@ -124,9 +125,16 @@ export const WebProvider = ({
 		setThumbnail("presetImage");
 	};
 
+	// Add custom image
 	const handleCustomImageChangeUpload = (e: any) => {
-		setSelectedImage(e.target.files[0]);
-		setThumbnail("customImage");
+		setThumbnail("loading");
+
+		setTimeout(() => {
+			if (e.target.files[0]) {
+				setSelectedImage(e.target.files[0]);
+				setThumbnail("customImage");
+			}
+		}, 500);
 	};
 
 	const handleClosingModal = () => {
@@ -358,6 +366,7 @@ export const WebProvider = ({
 				isLoading,
 				setIsLoading,
 				fetchedWebData,
+				fetchedWebsData,
 				fetchedContactsData,
 				fetchedSessionsData,
 				sidebarOpen,

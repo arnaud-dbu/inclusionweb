@@ -25,7 +25,10 @@ const WebCards = () => {
 	const handleOpenSingleWeb = async (id: string) => {
 		// Get all sessions with this web id and redirect to the last used session
 		const sessionsWithId = sessions.filter((session: any) => session.web_id == id);
-		const lastUsedSession = sessionsWithId[sessionsWithId.length - 1];
+		// Order sessions by session number
+		const orderSessions = sessionsWithId.sort((a: any, b: any) => b.session - a.session);
+		// Get last session number
+		const lastUsedSession = orderSessions[0].session;
 
 		try {
 			// Update last used session
@@ -41,7 +44,7 @@ const WebCards = () => {
 
 			// Redirect to last used session
 			if (response.status == 201) {
-				router.push(`web/${id}/${lastUsedSession.session}`);
+				router.push(`web/${id}/${lastUsedSession}`);
 			}
 
 			const web = webs.find((web: any) => web.id == id);
@@ -75,14 +78,11 @@ const WebCards = () => {
 				<section className={`pb-16`}>
 					{sortedWebs.length == 0 ? (
 						<div className="flex h-[calc(100vh-25rem)] flex-col items-center justify-center">
-							<div className={`relative`}>
+							<div className={`relative w-[50%] lg:w-[20vw]`}>
 								<Image src={NeighborIllustration} width={500} height={500} alt="buurt afbeelding" />
-								<div className={`absolute right-0 top-0 flex w-[12.5rem] flex-col`}>
-									<span className="mb-3 text-3xl font-semibold text-neutral-800">
+								<div className={`absolute -right-12 top-5 flex w-[10rem] flex-col 2xl:-right-5`}>
+									<span className="mb-3 text-xl font-semibold text-neutral-800 opacity-50 3xl:text-3xl">
 										Geen webben gevonden
-									</span>
-									<span className="text-xl text-neutral-600">
-										Klik op &apos;Nieuw Web&apos; om je eerste inclusieweb te maken.
 									</span>
 								</div>
 							</div>
@@ -148,7 +148,7 @@ const WebCard = ({ web, handleOpenSingleWeb, handleDeleteSingleWeb }) => {
 				</div>
 			</div>
 			{/* WebCard Thumbnail */}
-			<div className={`web -order-1 h-[10rem] w-[10rem] md:order-1`}>
+			<div className={`web -order-1 h-[9rem] w-[9rem] md:order-1 2xl:h-[10rem] 2xl:w-[10rem] `}>
 				<div
 					className={`web-inner opacity-20 ${
 						isHover ? "scale-[1] opacity-0 shadow-lg" : ""
@@ -166,11 +166,14 @@ const WebCard = ({ web, handleOpenSingleWeb, handleDeleteSingleWeb }) => {
 						isHover ? "scale-[1]" : ""
 					}`}></div>
 				<div
-					className={`absolute-center h-[10rem] w-[10rem]  transition ${
+					className={`absolute-center  h-[9rem] w-[9rem] transition 2xl:h-[10rem] 2xl:w-[10rem] ${
 						isHover ? "opacity-1 scale-[1] delay-[.06s]" : "scale-0 opacity-0"
 					}`}>
 					{web?.avatar ? (
-						<AvatarComponent className="h-[10rem] w-[10rem] shadow-lg" avatar={web.avatar} />
+						<AvatarComponent
+							className=" h-[9rem] w-[9rem] shadow-lg 2xl:h-[10rem] 2xl:w-[10rem]"
+							avatar={web.avatar}
+						/>
 					) : (
 						<Image
 							src={`${process.env.NEXT_PUBLIC_SUPABASE_UPLOAD_URL}${web?.image_path}`}

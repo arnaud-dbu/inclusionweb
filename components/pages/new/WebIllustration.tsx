@@ -3,6 +3,7 @@
 import Image from "next/image";
 import AvatarComponent from "@/components/avatar/AvatarComponent";
 import { UserIcon } from "@/public/icons";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 
 type Props = {
 	className?: string;
@@ -20,6 +21,7 @@ const WebIllustration = ({ className, avatar, image = "", thumbnail }: Props) =>
 				<div className="web-inner scale-[.6] opacity-25"></div>
 				<div className="web-inner scale-[.4] opacity-25"></div>
 				<div className={`absolute-center h-[42%] w-[42%]`}>
+					{thumbnail === "loading" && <LoadingSkeleton className="h-full w-full rounded-full" />}
 					{thumbnail === "default" && (
 						<div className="overflow-hidden rounded-full bg-primary-500">
 							<UserIcon className={`h-full w-full`} />

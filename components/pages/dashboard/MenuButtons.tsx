@@ -8,7 +8,6 @@ import { OrganizationIllustration } from "@/public/illustrations";
 import Image from "next/image";
 import { WebContext } from "@/context/WebContext";
 import AvatarComponent from "@/components/avatar/AvatarComponent";
-import { log } from "console";
 
 type Props = {
 	label: string;
@@ -37,6 +36,9 @@ const MenuButtons = () => {
 
 	// Get all sessions from the last opened web
 	const lastWebSessions = sessions?.filter((session) => session.web_id === lastWeb?.id);
+	// Get the latest session number
+	const sortedSessions = lastWebSessions?.sort((a, b) => b.session - a.session);
+	const lastSessionNumber = sortedSessions[0].session;
 
 	const handleLogout = async () => {
 		await supabase.auth.signOut();
@@ -62,7 +64,7 @@ const MenuButtons = () => {
 			{webs.length >= 2 && (
 				<MenuButton
 					filter
-					onClick={() => router.push("/new")}
+					onClick={() => router.push(`web/${lastWeb?.id}/${lastSessionNumber}`)}
 					label="Laatst geopend"
 					avatar={sortWebs?.[0]?.avatar}
 					customImage={sortWebs?.[0]?.image_path}
@@ -100,7 +102,7 @@ const MenuButton = ({
 	...rest
 }: Props) => {
 	const buttonClass = `relative overflow-hidden shadow-lg flex flex-col gap-2 justify-end px-6 py-6 rounded-2xl  outline-none focus ${color} h-full w-full hover:opacity-80 hover:shadow-lg transition-opacity`;
-	const labelClass = `text-start font-primary text-white uppercase text-3xl z-10 font-bold`;
+	const labelClass = `text-start font-primary text-white uppercase text-2xl 2xl:text-3xl z-10 font-bold`;
 	const cover = `absolute left-0 top-0 h-full w-full `;
 
 	return (

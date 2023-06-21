@@ -21,8 +21,7 @@ const NewWebPage = () => {
 	const { supabase } = useSupabase();
 	const router = useRouter();
 	const methods = useForm({ resolver: yupResolver(NameSchema) });
-	const { customAvatar, imageUrl, thumbnail, setWebs, webs, isLoading, setIsLoading } =
-		useContext(WebContext);
+	const { webs, setWebs, customAvatar, imageUrl, thumbnail, setIsLoading } = useContext(WebContext);
 
 	// Submit new web form
 	const handleNewWeb = async (data: any) => {
