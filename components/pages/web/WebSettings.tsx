@@ -15,16 +15,12 @@ export const WebSettings = ({ shareView }) => {
 		setEditInfoVisible,
 		avatarSize,
 		setAvatarSize,
-		session,
+		currentSession,
 		web,
-		sessions,
 		getSession,
 		setModalVisible,
 		setThumbnail,
 	} = useContext(WebContext);
-
-	// Get the current session
-	const currentSession = sessions.filter((x) => x.session == session)[0];
 
 	// Change avatar size to small or large
 	const handleAvatarSize = async (size: string) => {
@@ -82,9 +78,11 @@ export const WebSettings = ({ shareView }) => {
 			{/* Web session name */}
 			<div className={`flex items-center gap-3`}>
 				<WebIllustration className={`h-8 w-8`} />
-				<span className={`text-md whitespace-nowrap font-medium text-neutral-800`}>{`${getSession(
-					currentSession
-				)}`}</span>
+				{currentSession ? (
+					<span className={`text-md whitespace-nowrap font-medium text-neutral-800`}>{`${getSession(
+						currentSession
+					)}`}</span>
+				) : null}
 			</div>
 
 			<DivisionLine className={`hidden 2xl:block 2xl:opacity-100`} />

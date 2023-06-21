@@ -47,9 +47,7 @@ export const WebProvider = ({
 	fetchedWebsData,
 	fetchedContactsData,
 	fetchedSessionsData,
-	user,
 	session,
-	params,
 }: Props) => {
 	// Data
 	const [sessions, setSessions] = useState(fetchedSessionsData);
@@ -60,6 +58,7 @@ export const WebProvider = ({
 	const currentSessionContacts = fetchedContactsData?.filter((contact) => {
 		return contact.session_id === currentSession?.id;
 	});
+
 	const [contacts, setContacts] = useState(currentSessionContacts);
 
 	// Search function
